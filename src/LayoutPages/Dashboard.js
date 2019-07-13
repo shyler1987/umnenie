@@ -66,7 +66,6 @@ const styles = theme => ({
         flexGrow: 1,
         padding: theme.spacing(1) * 3,
         height: '100vh',
-        overflow: 'auto',
         paddingBottom:10
     },
 
