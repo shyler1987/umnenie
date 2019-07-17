@@ -1,19 +1,30 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+//import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import {withRouter} from "react-router-dom";
 import {Link, NavLink} from "react-router-dom";
 import classNames from 'classnames';
 import SearchIcon from '@material-ui/icons/Search';
 
-import Container from '@material-ui/core/Container';
+// import Container from '@material-ui/core/Container';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+//import 'bootstrap/dist/css/bootstrap.css';//
+import {Button, Form, FormControl} from 'react-bootstrap';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav'
+import Image from 'react-bootstrap/Image'
+import NavDropdown from 'react-bootstrap/NavDropdown'
+import Container from 'react-bootstrap/Container'
+import Col from 'react-bootstrap/Col'
+import logo from '../media/logo.png'
 
 const styles = theme => ({
     appBarBottom: {
@@ -26,8 +37,7 @@ const styles = theme => ({
         justifyContent: 'space-between',
     },
     root: {
-        display: 'flex',
-        backgroundColor:'#FAFAFA'
+        backgroundColor: '#FAFAFA'
     },
     toolbar: {
         paddingRight: 24, // keep right padding when drawer closed
@@ -45,9 +55,9 @@ const styles = theme => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        boxShadow:'none',
-        borderBottom:'1px solid',
-        backgroundColor:'#ffffff'
+        boxShadow: 'none',
+        borderBottom: '1px solid',
+        backgroundColor: '#ffffff'
 
     },
     menuButton: {
@@ -65,56 +75,73 @@ const styles = theme => ({
     content: {
         flexGrow: 1,
         padding: theme.spacing(1) * 3,
-        height: '100vh',
-        paddingBottom:10
+        paddingBottom: 10
     },
 
 });
 
 
-
-
 class Dashboard extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
 
-        return (<div className={classes.root}>
+        return (
+            <div className={classes.root}>
+            <Navbar bg="white" expand="lg">
+                <Container>
+                    <Navbar.Brand href="#home">
+                        <img
+                            alt=""
+                            src={logo}
+                            // width="30"
+                            // height="30"
+                            className="d-inline-block align-top"
+                        />
+                    </Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Col xs={8}>
+                        <Form  inline className={"mr-auto"}>
+                            <Form.Group >
 
-            <AppBar
-                position="absolute"
-                className={classNames(classes.appBar, this.props.openBar && classes.appBarShift)}
-            >
-                <Toolbar>
+                                    <FormControl type="text" className={"w-100"} placeholder="Поиск" />
 
-                    <Typography
-                        component="h1"
-                        variant="h6"
-                        color="primary"
-                        noWrap
-                        className={classes.title}
-                    >
-                        UMNENIE
-                    </Typography>
-                    <Button color="primary">Exit</Button>
+                            </Form.Group>
 
-                </Toolbar>
-            </AppBar>
-            <main className={classes.content}>
-                <div className={classes.appBarSpacer} />
+                        </Form>
+                        </Col>
+                        <Nav className="ml-auto">
+                            <NavDropdown title="Ru" id="basic-nav-dropdown">
+                                <NavDropdown.Item href="#action/3.1">Ru</NavDropdown.Item>
+                                <NavDropdown.Item href="#action/3.2">Uz</NavDropdown.Item>
+                            </NavDropdown>
+                            <Nav.Link href="#link">
+                                <Image
+                                    src="https://material-ui.com/static/images/avatar/1.jpg"
+                                    width="30"
+                                    height="30" roundedCircle
+                                />
+                                {" "}
+                                Исидатэ Тайти
+                            </Nav.Link>
 
+                        </Nav>
 
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+            <Container>
                 {
                     this.props.children // onClickAway={this.handleDrawerClose} onTouchStart={this.handleDrawerClose}
                 }
-                <div className={classes.appBarSpacer} />
-
-            </main>
+            </Container>
         </div>);
     }
 
 }
+
 export default (withStyles(styles)(withRouter(Dashboard)))
