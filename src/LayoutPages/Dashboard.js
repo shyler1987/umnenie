@@ -37,7 +37,7 @@ const styles = theme => ({
         justifyContent: 'space-between',
     },
     root: {
-        backgroundColor: '#FAFAFA'
+        //backgroundColor: '#FAFAFA'
     },
     toolbar: {
         paddingRight: 24, // keep right padding when drawer closed
@@ -88,7 +88,7 @@ class Dashboard extends React.Component {
 
     render() {
         const {classes} = this.props;
-
+        console.log(classes);
         return (
             <div className={classes.root}>
             <Navbar bg="white" expand="lg">

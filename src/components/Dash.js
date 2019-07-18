@@ -10,7 +10,8 @@ import Container from '@material-ui/core/Container';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
-
+import Loading from 'react-loading-bar'
+import 'react-loading-bar/dist/index.css'
 
 import StackGrid from "react-stack-grid";
 
@@ -128,22 +129,47 @@ class Dash extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            polls:[],
+            show:false
+        };
     }
 
 
     componentDidMount() {
+        this.setState({
+            show:true
+        })
         axios.get(API_POLLS).then(res => {
-            console.log(res);
+            if(res.status===200){
+                this.setState({
+                    polls:res.data
+
+                })
+            }
+            this.setState({
+                show:false
+            })
+
         }).catch(err => {
+            this.setState({
+                show:false
+            })
             console.log(err);
         })
     }
 
     render() {
         const {classes} = this.props;
+        console.log(this.state.polls)
         return (
             <div>
-                <Typography variant="h4" fontWeight="fontWeightBold" component="h4">
+                <Loading
+                    show={this.state.show}
+                    color="red"
+                />
+                <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{fontWeight: 700,
+                    margin: '25px 5px 8px 10px'}}>
                     Опрос
                 </Typography>
                 <ResponsiveMasonry
@@ -153,16 +179,18 @@ class Dash extends Component {
                         columnsCount={3}
                         gutter={"10px"}
                     >
-                        {initData.map((item, key) => {
+                        {this.state.polls.map((item, key) => {
                             return (
                                 <PollCard
                                     key={key}
-                                    imagePoll={item.imagePoll}
-                                    fullName={item.fullName}
-                                    contentPoll={item.contentPoll}
-                                    datePoll={item.datePoll}
-                                    avatarUrl={item.avatarUrl}
-                                    typePoll={item.typePoll}
+                                    idPoll={item.pollId}
+                                    imagePoll={item.pollImage}
+                                    fullName={item.userName}
+                                    contentPoll={item.pollQuestion}
+                                    datePoll={item.pollEndDate}
+                                    avatarUrl={item.userImage}
+                                    pollType={item.pollType}
+                                    pollItems={item.items}
                                 />
                             );
                         })}

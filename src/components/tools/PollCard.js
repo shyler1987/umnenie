@@ -2,12 +2,14 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import {withStyles} from '@material-ui/styles';
-import clsx from 'clsx';
+import {withRouter} from "react-router-dom";
+
 import {red} from "@material-ui/core/colors";
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Grid from '@material-ui/core/Grid';
 
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -21,55 +23,90 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
 
 
 import DonutLarge from '@material-ui/icons/DonutLarge';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import '../../media/style.css';
+import {CircularProgressbar} from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
 
 const styles = theme => ({
-        card: {
-            maxWidth: "100%",
-        },
-        media: {
-            paddingTop: '56.25%', // 16:9
-            height: 140,
-        },
-        avatar: {
-            backgroundColor: red[900],
-        },
-        dateColor: {
-            color: "#E35B1E"
-        },
         avatars: {
             display: 'inline-flex',
-            flexDirection: 'row-reverse',
-            paddingLeft: 50
+            paddingLeft: '50px'
         },
-        avatarR: {
-            marginLeft: -25,
+        avatar: {
+            marginLeft: '-20px',
             position: 'relative',
             border: '1px solid #fff',
             borderRadius: '50%',
             overflow: 'hidden',
-            width: 50,
-            height: 50
+            width: '30px',
+            height: '30px',
+            '& img': {
+                width: '30px',
+                height: '30px'
+            },
         },
-        imgAvatar: {
-            width: 20,
-            height: 20
+        titleBar: {
+            background:
+                'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, ' +
+                'rgba(0,0,0,0.1) 27%, rgba(0,0,0,0) 100%)',
+
         },
-        root: {
+        GridListTileRoot: {
+            height: 'auto',
+
+        },
+        Gridtile: {
+            cursor: 'pointer',
+            '&:hover': {
+                backgroundColor: '#000 !important',
+            },
+        },
+        cardBar: {
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: 48,
             display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-around',
+            position: 'absolute',
+            alignItems: 'center',
+        },
+        pollBottomCircle: {
+            padding: '0px 10px 0px'
+        },
+        CircularProgressbar: {
+            width: '30px !important'
+        },
+        textRight: {
+            textAlign: 'right'
+        },
+        procentP: {
+            marginBottom: '0em',
+            margin: '5px 5px 0px 5px',
+            color: '#fff',
+            fontSize: '13px'
+        },
+        tint: {
             overflow: 'hidden',
-            backgroundColor: theme.palette.background.paper,
+            margin: '0 20px 20px 0',
+            background: '#dc5b2b',
+            width: '100%',
+            height: 'inherit'
         },
-        gridList: {
-            width: 500,
-            height: 450,
-        },
+        cardTileImg: {
+            width: '100%',
+            height: 'inherit',
+            '&:hover': {
+                opacity: '.2',
+                cursor: 'pointer'
+            },
+        }
+
 
     })
 ;
@@ -78,40 +115,35 @@ class PollCard extends Component {
 
     constructor(props) {
         super(props)
-        const {avatarUrl, fullName, datePoll, imagePoll, contentPoll, typePoll} = this.props;
-
+        const {avatarUrl, fullName, datePoll, imagePoll, contentPoll, pollType, idPoll, pollItems} = this.props;
         this.state = {
             avatarUrl: avatarUrl,
             fullName: fullName,
             datePoll: datePoll,
             contentPoll: contentPoll,
-            typePoll: typePoll,
+            pollType: pollType,
             imagePoll: imagePoll,
+            idPoll: idPoll,
+            pollItems: pollItems,
         }
     }
 
 
     render() {
-        const classes = this.props;
-        console.log(this.state.typePoll)
+        const {classes} = this.props;
         return (<Card className={classes.card}>
                 <CardHeader
                     avatar={
-                        <Avatar aria-label="Recipe" src={this.state.avatarUrl} className={classes.avatar}>
+                        <Avatar aria-label="Recipe" src={this.state.avatarUrl} >
                             R
                         </Avatar>
                     }
-                    action={
-                        <IconButton aria-label="Settings">
-                            <MoreVertIcon/>
-                        </IconButton>
-                    }
+                    action={<div><span style={{padding: 5,color: '#e46027'}}>for profi</span></div>}
                     classes={{title: classes.dateColor}}
                     title={this.state.fullName}
                     subheaderTypographyProps={{color: 'secondary'}}
                     subheader={this.state.datePoll}
                 />
-
                 <CardContent>
                     <Typography variant="body2" color="textSecondary" component="p">
                         {this.state.contentPoll}
@@ -119,72 +151,134 @@ class PollCard extends Component {
                 </CardContent>
                 <CardMedia
                     className={classes.media}
-
                     title={this.state.fullName}
-
                 >
-                    {this.state.typePoll===2 ?
+                    {this.state.pollType === 1 ?
                         <GridList cellHeight={180} className={classes.gridList}>
-                        <GridListTile key="Subheader"  style={{ height: 'auto' }}>
-                            <img style={{width: '100%'}} src={this.state.imagePoll}/>
-                        </GridListTile>
-                        <GridListTile key="Subheader" style={{ height: 'auto' }}>
-                            <img style={{width: '100%'}} src={this.state.imagePoll}/>
-                        </GridListTile>
-                        <GridListTile key="Subheader" style={{ height: 'auto' }}>
-                            <img style={{width: '100%'}} src={this.state.imagePoll}/>
-                        </GridListTile>
-                        <GridListTile key="Subheader"  style={{ height: 'auto' }}>
-                            <img style={{width: '100%'}} src={this.state.imagePoll}/>
-                        </GridListTile>
+                            {
+                                this.state.pollItems !== undefined ? this.state.pollItems.map((item, Key) => {
+                                    return (<GridListTile key="Subheader1"
+                                                          classes={{
+                                                              root: classes.GridListTileRoot,
+                                                              tile: classes.Gridtile
+                                                          }}>
 
-                    </GridList> : <img style={{width: '100%'}} src={this.state.imagePoll}/>}
+                                        <figure className={classes.tint}>
+                                            <img src={item.image} className={classes.cardTileImg}/>
+                                        </figure>
+                                        <GridListTileBar
+                                            title={item.option}
+                                            titlePosition="top"
+                                            actionPosition="left"
+                                            classes={{root: classes.titleBar,}}
+                                        />
+                                        <grid className={classes.cardBar}>
+                                            <Grid container spacing={0}>
+                                                <Grid item xs={3}>
+                                                    <div className={classes.pollBottomCircle}>
+                                                        <CircularProgressbar
+                                                            value={item.percent}
+                                                            text={``}
+                                                            strokeWidth={10}
+                                                            className={classes.CircularProgressbar}
+                                                            styles={
+                                                                {
+                                                                    path: {
+                                                                        stroke: `rgba(255, 255, 255, 100)`,
+                                                                    }
+                                                                }
+                                                            }
+                                                        />
+                                                    </div>
+                                                </Grid>
+                                                <Grid item xs={6} className={classes.textRight}>
+                                                    <div className={classes.avatars}>
+                                                        <span className={classes.avatar}>
+                                                            <img src="https://picsum.photos/70"/>
+                                                        </span>
+                                                        <span className={classes.avatar}>
+                                                            <img src="https://picsum.photos/70"/>
+                                                        </span>
+                                                        <span className={classes.avatar}>
+                                                            <img src="https://picsum.photos/70"/>
+                                                        </span>
+                                                    </div>
+
+                                                </Grid>
+                                                <Grid item xs={3} alignItems={'center'}>
+                                                    <Typography className={classes.procentP}>
+                                                        {item.percent}%
+                                                    </Typography>
+                                                </Grid>
+                                            </Grid>
+                                        </grid>
+                                    </GridListTile>);
+                                }) : ""
+                            }
+
+                        </GridList> : <img style={{width: '100%'}} src={this.state.imagePoll}/>}
 
                 </CardMedia>
+                {this.state.pollType === 2 ?
+                    <CardContent>
+                        <List
+                            component="nav"
+                            aria-label="Main mailbox folders"
+                            subheader={
+                                <ListSubheader component="div" id="nested-list-subheader">
+                                    Ответы
+                                </ListSubheader>
+                            }
+                        >
+                            {this.state.pollItems !== undefined ? this.state.pollItems.map((itemOption, Key) => {
+                                return (<ListItem button>
+                                    <ListItemIcon>
+                                        <CircularProgressbar
+                                            value={itemOption.percent}
+                                            text={``}
+                                            className={classes.CircularProgressbar}
+                                            strokeWidth={10}
+                                            styles={
+                                                {
+                                                    path: {
+                                                        stroke: `rgba(222, 98, 42, 100)`,
+                                                    }
+                                                }
+                                            }
+                                        />
+                                    </ListItemIcon>
+                                    <ListItemText primary={itemOption.option}/>
+                                    <ListItemIcon>
+                                        <div className={classes.avatars}>
+                                            <span className={classes.avatar}>
+                                                <img src="https://picsum.photos/70"/>
+                                            </span>
+                                            <span className={classes.avatar}>
+                                                <img src="https://picsum.photos/70"/>
+                                            </span>
+                                            <span className={classes.avatar}>
+                                                <img src="https://picsum.photos/70"/>
+                                            </span>
+                                        </div>
+                                    </ListItemIcon>
+                                    <ListItemIcon>
+                                        <div style={{textAlign:'center', color:"#dc5b2b"}}>{itemOption.percent}%</div>
+                                    </ListItemIcon>
 
-                <CardContent>
-                    <List
-                        component="nav"
-                        aria-label="Main mailbox folders"
-                        subheader={
-                            <ListSubheader component="div" id="nested-list-subheader">
-                                Ответы
-                            </ListSubheader>
-                        }
-                    >
-                        <ListItem button>
-                            <ListItemIcon>
-                                <DonutLarge/>
-                            </ListItemIcon>
-                            <ListItemText primary="Опросы за деньги"/>
-                            <ListItemIcon>
-                                <div className={"avatars"}>
-                                <span className={"avatar"}>
-                                    <img src="https://picsum.photos/70"/>
-                                </span><span className={"avatar"}>
-                                    <img src="https://picsum.photos/70"/>
-                                </span><span className={"avatar"}>
-                                    <img src="https://picsum.photos/70"/>
-                                </span>
+                                </ListItem>)
+                            }) : ""}
 
-                                </div>
-                            </ListItemIcon>
 
-                        </ListItem>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <DonutLarge/>
-                            </ListItemIcon>
-                            <ListItemText primary="Опросы за деньги"/>
-                        </ListItem>
-                    </List>
-                </CardContent>
+                        </List>
+                    </CardContent> : ""
+
+                }
             </Card>
         );
     }
 }
 
-
+//
 PollCard.propTypes = {
     classes: PropTypes.object.isRequired,
 };
