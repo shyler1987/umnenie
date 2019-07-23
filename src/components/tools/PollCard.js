@@ -32,6 +32,7 @@ import '../../media/style.css';
 import {CircularProgressbar} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
+import {Link, NavLink} from "react-router-dom";
 
 const styles = theme => ({
         avatars: {
@@ -105,6 +106,12 @@ const styles = theme => ({
                 opacity: '.2',
                 cursor: 'pointer'
             },
+        },
+        clickCard: {
+            textDecoration: 'none',
+            '&:hover': {
+                textDecoration: 'none',
+            },
         }
 
 
@@ -131,149 +138,152 @@ class PollCard extends Component {
 
     render() {
         const {classes} = this.props;
-        return (<Card className={classes.card}>
-                <CardHeader
-                    avatar={
-                        <Avatar aria-label="Recipe" src={this.state.avatarUrl} >
-                            R
-                        </Avatar>
-                    }
-                    action={<div><span style={{padding: 5,color: '#e46027'}}>for profi</span></div>}
-                    classes={{title: classes.dateColor}}
-                    title={this.state.fullName}
-                    subheaderTypographyProps={{color: 'secondary'}}
-                    subheader={this.state.datePoll}
-                />
-                <CardContent>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        {this.state.contentPoll}
-                    </Typography>
-                </CardContent>
-                <CardMedia
-                    className={classes.media}
-                    title={this.state.fullName}
-                >
-                    {this.state.pollType === 1 ?
-                        <GridList cellHeight={180} className={classes.gridList}>
-                            {
-                                this.state.pollItems !== undefined ? this.state.pollItems.map((item, Key) => {
-                                    return (<GridListTile key="Subheader1"
-                                                          classes={{
-                                                              root: classes.GridListTileRoot,
-                                                              tile: classes.Gridtile
-                                                          }}>
+        return (<Link to={"/polls/"+this.state.idPoll} className={classes.clickCard}>
+                <Card className={classes.card}>
+                    <CardHeader
+                        avatar={
+                            <Avatar aria-label="Recipe" src={this.state.avatarUrl}>
+                                R
+                            </Avatar>
+                        }
+                        action={<div><span style={{padding: 5, color: '#e46027'}}>for profi</span></div>}
+                        classes={{title: classes.dateColor}}
+                        title={this.state.fullName}
+                        subheaderTypographyProps={{color: 'secondary'}}
+                        subheader={this.state.datePoll}
+                    />
+                    <CardContent>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            {this.state.contentPoll}
+                        </Typography>
+                    </CardContent>
+                    <CardMedia
+                        className={classes.media}
+                        title={this.state.fullName}
+                    >
+                        {this.state.pollType === 1 ?
+                            <GridList cellHeight={180} className={classes.gridList}>
+                                {
+                                    this.state.pollItems !== undefined ? this.state.pollItems.map((item, Key) => {
+                                        return (<GridListTile key="Subheader1"
+                                                              classes={{
+                                                                  root: classes.GridListTileRoot,
+                                                                  tile: classes.Gridtile
+                                                              }}>
 
-                                        <figure className={classes.tint}>
-                                            <img src={item.image} className={classes.cardTileImg}/>
-                                        </figure>
-                                        <GridListTileBar
-                                            title={item.option}
-                                            titlePosition="top"
-                                            actionPosition="left"
-                                            classes={{root: classes.titleBar,}}
-                                        />
-                                        <grid className={classes.cardBar}>
-                                            <Grid container spacing={0}>
-                                                <Grid item xs={3}>
-                                                    <div className={classes.pollBottomCircle}>
-                                                        <CircularProgressbar
-                                                            value={item.percent}
-                                                            text={``}
-                                                            strokeWidth={10}
-                                                            className={classes.CircularProgressbar}
-                                                            styles={
-                                                                {
-                                                                    path: {
-                                                                        stroke: `rgba(255, 255, 255, 100)`,
+                                            <figure className={classes.tint}>
+                                                <img src={item.image} className={classes.cardTileImg}/>
+                                            </figure>
+                                            <GridListTileBar
+                                                title={item.option}
+                                                titlePosition="top"
+                                                actionPosition="left"
+                                                classes={{root: classes.titleBar,}}
+                                            />
+                                            <grid className={classes.cardBar}>
+                                                <Grid container spacing={0}>
+                                                    <Grid item xs={3}>
+                                                        <div className={classes.pollBottomCircle}>
+                                                            <CircularProgressbar
+                                                                value={item.percent}
+                                                                text={``}
+                                                                strokeWidth={10}
+                                                                className={classes.CircularProgressbar}
+                                                                styles={
+                                                                    {
+                                                                        path: {
+                                                                            stroke: `rgba(255, 255, 255, 100)`,
+                                                                        }
                                                                     }
                                                                 }
-                                                            }
-                                                        />
-                                                    </div>
-                                                </Grid>
-                                                <Grid item xs={6} className={classes.textRight}>
-                                                    <div className={classes.avatars}>
-                                                        <span className={classes.avatar}>
-                                                            <img src="https://picsum.photos/70"/>
+                                                            />
+                                                        </div>
+                                                    </Grid>
+                                                    <Grid item xs={6} className={classes.textRight}>
+                                                        <div className={classes.avatars}>
+                                                            {item.avatars.map((avatarItem) => {
+                                                                return (
+                                                                    <span className={classes.avatar}>
+                                                            <img src={avatarItem}/>
                                                         </span>
-                                                        <span className={classes.avatar}>
-                                                            <img src="https://picsum.photos/70"/>
-                                                        </span>
-                                                        <span className={classes.avatar}>
-                                                            <img src="https://picsum.photos/70"/>
-                                                        </span>
-                                                    </div>
+                                                                );
+                                                            })}
+                                                        </div>
 
+                                                    </Grid>
+                                                    <Grid item xs={3} alignItems={'center'}>
+                                                        <Typography className={classes.procentP}>
+                                                            {item.percent}%
+                                                        </Typography>
+                                                    </Grid>
                                                 </Grid>
-                                                <Grid item xs={3} alignItems={'center'}>
-                                                    <Typography className={classes.procentP}>
-                                                        {item.percent}%
-                                                    </Typography>
-                                                </Grid>
-                                            </Grid>
-                                        </grid>
-                                    </GridListTile>);
-                                }) : ""
-                            }
+                                            </grid>
+                                        </GridListTile>);
+                                    }) : ""
+                                }
 
-                        </GridList> : <img style={{width: '100%'}} src={this.state.imagePoll}/>}
+                            </GridList> : <img style={{width: '100%'}} src={this.state.imagePoll}/>}
 
-                </CardMedia>
-                {this.state.pollType === 2 ?
-                    <CardContent>
-                        <List
-                            component="nav"
-                            aria-label="Main mailbox folders"
-                            subheader={
-                                <ListSubheader component="div" id="nested-list-subheader">
-                                    Ответы
-                                </ListSubheader>
-                            }
-                        >
-                            {this.state.pollItems !== undefined ? this.state.pollItems.map((itemOption, Key) => {
-                                return (<ListItem button>
-                                    <ListItemIcon>
-                                        <CircularProgressbar
-                                            value={itemOption.percent}
-                                            text={``}
-                                            className={classes.CircularProgressbar}
-                                            strokeWidth={10}
-                                            styles={
-                                                {
-                                                    path: {
-                                                        stroke: `rgba(222, 98, 42, 100)`,
+                    </CardMedia>
+                    {this.state.pollType === 2 ?
+                        <CardContent>
+                            <List
+                                component="nav"
+                                aria-label="Main mailbox folders"
+                                subheader={
+                                    <ListSubheader component="div" id="nested-list-subheader">
+                                        Ответы
+                                    </ListSubheader>
+                                }
+                            >
+                                {this.state.pollItems !== undefined ? this.state.pollItems.map((itemOption, Key) => {
+                                    return (<ListItem button>
+                                        <ListItemIcon>
+                                            <CircularProgressbar
+                                                value={itemOption.percent}
+                                                text={``}
+                                                className={classes.CircularProgressbar}
+                                                strokeWidth={10}
+                                                styles={
+                                                    {
+                                                        path: {
+                                                            stroke: `rgba(222, 98, 42, 100)`,
+                                                        }
                                                     }
                                                 }
-                                            }
-                                        />
-                                    </ListItemIcon>
-                                    <ListItemText primary={itemOption.option}/>
-                                    <ListItemIcon>
-                                        <div className={classes.avatars}>
-                                            <span className={classes.avatar}>
-                                                <img src="https://picsum.photos/70"/>
-                                            </span>
-                                            <span className={classes.avatar}>
-                                                <img src="https://picsum.photos/70"/>
-                                            </span>
-                                            <span className={classes.avatar}>
-                                                <img src="https://picsum.photos/70"/>
-                                            </span>
-                                        </div>
-                                    </ListItemIcon>
-                                    <ListItemIcon>
-                                        <div style={{textAlign:'center', color:"#dc5b2b"}}>{itemOption.percent}%</div>
-                                    </ListItemIcon>
+                                            />
+                                        </ListItemIcon>
+                                        <ListItemText primary={itemOption.option}/>
+                                        <ListItemIcon>
+                                            <div className={classes.avatars}>
+                                                {itemOption.avatars.map((avatarItem) => {
+                                                    return (
+                                                        <span className={classes.avatar}>
+                                                            <img src={avatarItem}/>
+                                                        </span>
+                                                    );
+                                                })}
+                                            </div>
+                                        </ListItemIcon>
+                                        <ListItemIcon>
+                                            <div style={{
+                                                textAlign: 'center',
+                                                color: "#dc5b2b",
+                                                marginLeft: 5
+                                            }}>{itemOption.percent}%
+                                            </div>
+                                        </ListItemIcon>
 
-                                </ListItem>)
-                            }) : ""}
+                                    </ListItem>)
+                                }) : ""}
 
 
-                        </List>
-                    </CardContent> : ""
+                            </List>
+                        </CardContent> : ""
 
-                }
-            </Card>
+                    }
+                </Card>
+            </Link>
         );
     }
 }

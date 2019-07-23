@@ -77,70 +77,68 @@ const styles = theme => ({
 });
 
 
-class Dashboard extends React.Component {
+class Profile extends React.Component {
     constructor(props) {
         super(props);
     }
 
     render() {
         const {classes} = this.props;
-        console.log(classes);
         return (
             <div className={classes.root}>
-                <AuthDialog dialogBool={false}/>
-            <Navbar bg="white" expand="lg">
-                <Container>
-                    <Navbar.Brand href="#home">
-                        <Link to={"/"}>
-                            <img
-                                alt=""
-                                src={logo}
-                                // width="30"
-                                // height="30"
-                                className="d-inline-block align-top"
-                            />
-                        </Link>
-                    </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-                    <Navbar.Collapse id="basic-navbar-nav">
-                        <Col xs={8}>
-                        <Form  inline className={"mr-auto"}>
-                            <Form.Group >
-
-                                    <FormControl type="text" className={"w-100"} placeholder="Поиск" />
-
-                            </Form.Group>
-
-                        </Form>
-                        </Col>
-                        <Nav className="ml-auto">
-                            <NavDropdown title="Ru" id="basic-nav-dropdown">
-                                <NavDropdown.Item href="#action/3.1">Ru</NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.2">Uz</NavDropdown.Item>
-                            </NavDropdown>
-                            <Nav.Link href="#link">
-                                <Image
-                                    src="https://material-ui.com/static/images/avatar/1.jpg"
-                                    width="30"
-                                    height="30" roundedCircle
+                <Navbar bg="white" expand="lg">
+                    <Container>
+                        <Navbar.Brand href="#home">
+                            <Link to={"/"}>
+                                <img
+                                    alt=""
+                                    src={logo}
+                                    // width="30"
+                                    // height="30"
+                                    className="d-inline-block align-top"
                                 />
-                                {" "}
-                                Исидатэ Тайти
-                            </Nav.Link>
+                            </Link>
+                        </Navbar.Brand>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                        <Navbar.Collapse id="basic-navbar-nav">
+                            <Col xs={8}>
+                                <Form  inline className={"mr-auto"}>
+                                    <Form.Group >
 
-                        </Nav>
+                                        <FormControl type="text" className={"w-100"} placeholder="Поиск" />
 
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-            <Container>
-                {
-                    this.props.children // onClickAway={this.handleDrawerClose} onTouchStart={this.handleDrawerClose}
-                }
-            </Container>
-        </div>);
+                                    </Form.Group>
+
+                                </Form>
+                            </Col>
+                            <Nav className="ml-auto">
+                                <NavDropdown title="Ru" id="basic-nav-dropdown">
+                                    <NavDropdown.Item href="#action/3.1">Ru</NavDropdown.Item>
+                                    <NavDropdown.Item href="#action/3.2">Uz</NavDropdown.Item>
+                                </NavDropdown>
+                                <Nav.Link href="#link">
+                                    <Image
+                                        src="https://material-ui.com/static/images/avatar/1.jpg"
+                                        width="30"
+                                        height="30" roundedCircle
+                                    />
+                                    {" "}
+                                    Исидатэ Тайти
+                                </Nav.Link>
+
+                            </Nav>
+
+                        </Navbar.Collapse>
+                    </Container>
+                </Navbar>
+
+                    {
+                        this.props.children // onClickAway={this.handleDrawerClose} onTouchStart={this.handleDrawerClose}
+                    }
+
+            </div>);
     }
 
 }
 
-export default (withStyles(styles)(withRouter(Dashboard)))
+export default (withStyles(styles)(withRouter(Profile)))
