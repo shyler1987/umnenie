@@ -28,6 +28,9 @@ const styles = theme => ({
         // width: 500,
         // height: 450,
     },
+    arrowButton:{
+        height:"100%", display: 'flex',alignItems: 'center', justifyContent: 'center'
+    }
 });
 
 const dataInit = {
@@ -143,10 +146,13 @@ class PollView extends Component {
                     spacing={2}
                 >
                     <Grid item md={1}>
-                        <Paper style={{height:"100%"}}>
-                            <IconButton>
-                                <KeyboardArrowLeft/>
-                            </IconButton>
+                        <Paper classes={{root:classes.arrowButton}}>
+
+                                    <IconButton>
+                                        <KeyboardArrowLeft/>
+                                    </IconButton>
+
+
                         </Paper>
                     </Grid>
                     <Grid item md={10}>
@@ -163,7 +169,7 @@ class PollView extends Component {
                         />
                     </Grid>
                     <Grid item md={1}>
-                        <Paper style={{height:"100%"}}>
+                        <Paper classes={{root:classes.arrowButton}}>
                             <IconButton>
                                 <KeyboardArrowRight/>
                             </IconButton>
