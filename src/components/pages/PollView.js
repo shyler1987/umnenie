@@ -12,6 +12,11 @@ import Grid from '@material-ui/core/Grid';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import IconButton from '@material-ui/core/IconButton';
+import TextField from '@material-ui/core/TextField';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../media/style.css';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
     root: {
@@ -28,9 +33,16 @@ const styles = theme => ({
         // width: 500,
         // height: 450,
     },
-    arrowButton:{
-        height:"100%", display: 'flex',alignItems: 'center', justifyContent: 'center'
+    arrowButton: {
+        height: "100%", display: 'flex', alignItems: 'center', justifyContent: 'center'
+    },
+    multlineInput: {
+        padding: 10
+    },
+    noPad:{
+        padding:0
     }
+
 });
 
 const dataInit = {
@@ -146,11 +158,11 @@ class PollView extends Component {
                     spacing={2}
                 >
                     <Grid item md={1}>
-                        <Paper classes={{root:classes.arrowButton}}>
+                        <Paper classes={{root: classes.arrowButton}}>
 
-                                    <IconButton>
-                                        <KeyboardArrowLeft/>
-                                    </IconButton>
+                            <IconButton>
+                                <KeyboardArrowLeft/>
+                            </IconButton>
 
 
                         </Paper>
@@ -167,17 +179,152 @@ class PollView extends Component {
                             pollType={dataInit.pollType}
                             pollItems={dataInit.items}
                         />
+
                     </Grid>
                     <Grid item md={1}>
-                        <Paper classes={{root:classes.arrowButton}}>
+                        <Paper classes={{root: classes.arrowButton}}>
                             <IconButton>
                                 <KeyboardArrowRight/>
                             </IconButton>
                         </Paper>
                     </Grid>
                 </Grid>
+                <Grid
+                    direction={"row"}
+                    container
+                    justify={"center"}
+                    alignItems={"stretch"}
+                    spacing={5}
+                >
+
+                    <Grid item md={10}>
+                        <Typography variant="h5" fontWeight="fontWeightBold" component="h5" style={{
+                            fontWeight: 700,
+                            margin: '25px 5px 10px 0px'
+                        }}>
+                            Комментарии(658)
+                        </Typography>
+                        <Paper classes={{root:classes.noPad}}>
+                            <div className="d-flex justify-content-start itemChat">
+                                <div className="img_cont_msg">
+                                    <img
+                                        src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                        className="rounded-circle user_img_msg"/>
+                                </div>
+                                <div className="msg_cotainer">
+                                    Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно чата Всегда
+                                    буду рад ответить Вам.
+                                    <div className="msg_time">8:40</div>
+                                </div>
+                            </div>
+                            <div className="d-flex justify-content-start itemChat">
+                                <div className="img_cont_msg">
+                                    <img
+                                        src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                        className="rounded-circle user_img_msg"/>
+                                </div>
+                                <div className="msg_cotainer">
+                                    Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно чата Всегда
+                                    буду рад ответить Вам.
+                                    <div className="msg_time">8:40</div>
+                                </div>
+                            </div>
 
 
+                            <div className="d-flex justify-content-end itemChat">
+                                <div className="msg_cotainer_send">
+                                    Hi Maryam i am good tnx how about you?
+                                    <div className="msg_time_send">8:55</div>
+                                </div>
+                                <div className="img_cont_msg">
+                                    <img
+                                        src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                        className="rounded-circle user_img_msg"/>
+                                </div>
+                            </div>
+                            <div className="d-flex justify-content-start itemChat">
+                                <div className="img_cont_msg">
+                                    <img
+                                        src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                        className="rounded-circle user_img_msg"/>
+                                </div>
+                                <div className="msg_cotainer">
+                                    Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно чата Всегда
+                                    буду рад ответить Вам.
+                                    <div className="msg_time">8:40</div>
+                                </div>
+                            </div>
+                            <div className="d-flex justify-content-end itemChat">
+                                <div className="msg_cotainer_send">
+                                    Hi Maryam i am good tnx how about you?
+                                    <div className="msg_time_send">8:55</div>
+                                </div>
+                                <div className="img_cont_msg">
+                                    <img
+                                        src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                        className="rounded-circle user_img_msg"/>
+                                </div>
+                            </div>
+                            <div className="d-flex justify-content-end itemChat">
+                                <div className="msg_cotainer_send">
+                                    Hi Maryam i am good tnx how about you?
+                                    <div className="msg_time_send">8:55</div>
+                                </div>
+                                <div className="img_cont_msg">
+                                    <img
+                                        src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                        className="rounded-circle user_img_msg"/>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <Grid
+                                direction={"row"}
+                                container
+                                spacing={2}
+                                style={{padding: 10}}
+                            >
+                                <Grid item md={9}>
+                                    <TextField
+                                        id="standard-multiline-flexible"
+                                        fullWidth
+                                        multiline
+                                        variant="outlined"
+                                        className={classes.textField}
+                                        InputProps={
+                                                {
+                                                    classes : {
+                                                        root:classes.multlineInput
+                                                    }
+                                                }
+                                        }
+                                    />
+                                </Grid>
+                                <Grid item md={3}>
+                                    <Button variant="contained" color="secondary" fullWidth
+                                            className={classes.button}>
+                                        Отправить
+                                    </Button>
+                                </Grid>
+
+
+                            </Grid>
+
+
+                        </Paper>
+
+
+                    </Grid>
+
+                </Grid>
+
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
             </div>
         );
     }

@@ -26,11 +26,15 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 
 
-import DonutLarge from '@material-ui/icons/DonutLarge';
+import Favorite from '@material-ui/icons/Favorite';
+import ChatBubbleOutline from '@material-ui/icons/ChatBubbleOutline';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import '../../media/style.css';
 import {CircularProgressbar} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import SvgIcon from '@material-ui/core/SvgIcon';
+
 
 import {Link, NavLink} from "react-router-dom";
 
@@ -112,6 +116,9 @@ const styles = theme => ({
             '&:hover': {
                 textDecoration: 'none',
             },
+        },
+        grey:{
+            color: '#8f8f8f'
         }
 
 
@@ -282,6 +289,17 @@ class PollCard extends Component {
                         </CardContent> : ""
 
                     }
+                    <Grid container spacing={0} direction={"row"}>
+                        <Grid item md={6}>
+                            <div style={{textAlign:'left', padding:10}}>
+                                <ChatBubbleOutline classes={{root:classes.grey}}/>
+                            </div>
+                        </Grid>
+                        <Grid item md={6} >
+                            <div style={{textAlign:'right', padding:10}}><span style={{    fontSize: 12}}>255</span> <FavoriteBorder classes={{root:classes.grey}}/></div>
+                        </Grid>
+                    </Grid>
+
                 </Card>
             </Link>
         );

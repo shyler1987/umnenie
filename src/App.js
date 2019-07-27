@@ -11,6 +11,8 @@ import Profile from "./components/pages/Profile";
 import ProfileLayoutRoute from "./layouts/ProfileLayout";
 import ProfileFollower from "./components/pages/ProfileFollower";
 import PollView from "./components/pages/PollView";
+import License from "./components/pages/License";
+import ProfileJuridic from "./components/pages/ProfileJuridic";
 
 const outerTheme = createMuiTheme({
     palette: {
@@ -44,7 +46,9 @@ class App extends Component {
                     <Switch>
                         <DashboardLayoutRoute exact path="/" component={Test}/>
                         <DashboardLayoutRoute exact path="/account/recovery" component={RecoveryPassword}/>
+                        <DashboardLayoutRoute exact path="/license" component={License}/>
                         <ProfileLayoutRoute exact path="/account/profile" component={Profile}/>
+                        <ProfileLayoutRoute exact path="/account/profilej" component={ProfileJuridic}/>
                         <ProfileLayoutRoute exact path="/account/followers" component={ProfileFollower}/>
                         <DashboardLayoutRoute exact path="/polls/:id" component={PollView}/>
                     </Switch>

@@ -1,0 +1,67 @@
+.itemChat{
+    padding: 10px;
+}
+.msg_time{
+    text-align: right;
+    bottom: -15px;
+    color: #ffffff;
+    font-size: 10px;
+}
+
+.msg_time_send{
+    text-align: left;
+    bottom: -15px;
+    color: #ffffff;
+    font-size: 10px;
+}
+
+.img_cont{
+    position: relative;
+    height: 70px;
+    width: 70px;
+}
+.user_img{
+    height: 70px;
+    width: 70px;
+    border:1.5px solid #f5f6fa;
+
+}
+
+.user_img_msg{
+    height: 40px;
+    width: 40px;
+    border:1.5px solid #f5f6fa;
+
+}
+
+.msg_cotainer{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+    background-color: #e05023;
+    color: #ffffff;
+    padding: 10px;
+    position: relative;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.msg_cotainer_send{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 10px;
+    background-color: #ef7e1a;
+    padding: 10px;
+    position: relative;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+}
+
+
+
+

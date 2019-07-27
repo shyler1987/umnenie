@@ -16,18 +16,13 @@ import selenaAvatar from '../../media/selenaAvatar.jpg';
 import Hidden from '@material-ui/core/Hidden';
 import Avatar from '@material-ui/core/Avatar';
 import PollCard from '../tools/PollCard'
-
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import IconButton from '@material-ui/core/IconButton';
-import FolderIcon from '@material-ui/icons/Folder';
-import DeleteIcon from '@material-ui/icons/Delete';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+
+
 
 const styles = theme => ({
     root: {
@@ -110,13 +105,26 @@ const styles = theme => ({
         color: 'outline: 5px auto #fff'
     },
 
+    ButtonGroup:{
+        background: '#fff',
+    },
+    buttonGroupActive:{
+        background: '#e35b1e',
+        color: '#fff',
+        border: '1px solid #e35b1e',
+        '&:hover':{
+            background:'rgba(227, 91, 30, 0.08)',
+            color: '#e35b1e',
+        }
+    }
+
 });
 
 
 const API_POLLS = "polls/list";
 
 
-class ProfileFollower extends Component {
+class ProfileJuridic extends Component {
 
     constructor(props) {
         super(props);
@@ -260,6 +268,38 @@ class ProfileFollower extends Component {
 
                         </Grid>
                     </Grid>
+
+                    <Grid container spacing={0} style={{marginTop:20}}>
+                        <Grid md={12}>
+                            <ButtonGroup fullWidth aria-label="full width outlined button group" classes={{root:classes.ButtonGroup}}>
+                                <Button classes={{root:classes.buttonGroupActive}}>Мои опросы</Button>
+                                <Button  color="secondary" >Избранное</Button>
+                                <Button>Реферальный</Button>
+                                <Button>Черновики</Button>
+                            </ButtonGroup>
+                        </Grid>
+                    </Grid>
+                    {/*<Grid container spacing={0} style={{marginTop:20}}>*/}
+                        {/*<Grid md={12}>*/}
+                            {/*<ToggleButtonGroup size="medium" value={"center"} exclusive fullWidth >*/}
+                                {/*<ToggleButton key={1} value="justify" disabled>*/}
+                                    {/*<Button>Избранное</Button>*/}
+                                {/*</ToggleButton>*/}
+                                {/*<ToggleButton key={2} value="justify" disabled>*/}
+                                    {/*<Button>Избранное</Button>*/}
+                                {/*</ToggleButton>*/}
+                                {/*<ToggleButton key={3} value="justify" disabled>*/}
+                                    {/*<Button>Избранное</Button>*/}
+                                {/*</ToggleButton>*/}
+                                {/*<ToggleButton key={4} value="justify" disabled>*/}
+                                    {/*<Button>Избранное</Button>*/}
+                                {/*</ToggleButton>*/}
+
+                            {/*</ToggleButtonGroup>*/}
+                        {/*</Grid>*/}
+                    {/*</Grid>*/}
+
+
                 </Container>
 
                 <Container>
@@ -301,4 +341,4 @@ class ProfileFollower extends Component {
 
 }
 
-export default withStyles(styles)(ProfileFollower);
+export default withStyles(styles)(ProfileJuridic);
