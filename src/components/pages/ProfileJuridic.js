@@ -279,26 +279,6 @@ class ProfileJuridic extends Component {
                             </ButtonGroup>
                         </Grid>
                     </Grid>
-                    {/*<Grid container spacing={0} style={{marginTop:20}}>*/}
-                        {/*<Grid md={12}>*/}
-                            {/*<ToggleButtonGroup size="medium" value={"center"} exclusive fullWidth >*/}
-                                {/*<ToggleButton key={1} value="justify" disabled>*/}
-                                    {/*<Button>Избранное</Button>*/}
-                                {/*</ToggleButton>*/}
-                                {/*<ToggleButton key={2} value="justify" disabled>*/}
-                                    {/*<Button>Избранное</Button>*/}
-                                {/*</ToggleButton>*/}
-                                {/*<ToggleButton key={3} value="justify" disabled>*/}
-                                    {/*<Button>Избранное</Button>*/}
-                                {/*</ToggleButton>*/}
-                                {/*<ToggleButton key={4} value="justify" disabled>*/}
-                                    {/*<Button>Избранное</Button>*/}
-                                {/*</ToggleButton>*/}
-
-                            {/*</ToggleButtonGroup>*/}
-                        {/*</Grid>*/}
-                    {/*</Grid>*/}
-
 
                 </Container>
 

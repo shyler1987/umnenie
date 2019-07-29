@@ -202,7 +202,7 @@ class PollView extends Component {
                             fontWeight: 700,
                             margin: '25px 5px 10px 0px'
                         }}>
-                            Комментарии(658)
+                            Комментарии (658)
                         </Typography>
                         <Paper classes={{root:classes.noPad}}>
                             <div className="d-flex justify-content-start itemChat">

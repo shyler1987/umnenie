@@ -13,6 +13,9 @@ import ProfileFollower from "./components/pages/ProfileFollower";
 import PollView from "./components/pages/PollView";
 import License from "./components/pages/License";
 import ProfileJuridic from "./components/pages/ProfileJuridic";
+import ProfileEdit from "./components/pages/ProfileEdit";
+import PasswordChange from "./components/pages/PasswordChange";
+import PollCreate from "./components/pages/PollCreate";
 
 const outerTheme = createMuiTheme({
     palette: {
@@ -48,6 +51,9 @@ class App extends Component {
                         <DashboardLayoutRoute exact path="/account/recovery" component={RecoveryPassword}/>
                         <DashboardLayoutRoute exact path="/license" component={License}/>
                         <ProfileLayoutRoute exact path="/account/profile" component={Profile}/>
+                        <DashboardLayoutRoute exact path="/account/profile-edit" component={ProfileEdit}/>
+                        <DashboardLayoutRoute exact path="/account/passchange" component={PasswordChange}/>
+                        <DashboardLayoutRoute exact path="/polls/create" component={PollCreate}/>
                         <ProfileLayoutRoute exact path="/account/profilej" component={ProfileJuridic}/>
                         <ProfileLayoutRoute exact path="/account/followers" component={ProfileFollower}/>
                         <DashboardLayoutRoute exact path="/polls/:id" component={PollView}/>
