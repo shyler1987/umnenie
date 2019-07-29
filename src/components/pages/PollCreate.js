@@ -20,6 +20,15 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import LeftMenu from '../tools/LeftMenu';
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+import {FilePond, registerPlugin} from "react-filepond";
+import "filepond/dist/filepond.min.css";
+
+import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+
+registerPlugin(FilePondPluginImagePreview, FilePondPluginImageExifOrientation);
+
 
 const styles = theme => ({
     root: {
@@ -308,140 +317,9 @@ class PollCreate extends Component {
                             <Paper classes={{root: classes.poperContent}}>
 
                                 <Grid container spacing={3} direction={"row"}>
-                                    <Grid item md={12}>
+                                    <Grid item md={8}>
                                         <div className={classes.inlineText}>
-                                            <Typography>Категория</Typography>
-                                            <TextField
-                                                id="standard-select-currency"
-                                                select
-                                                fullWidth
-                                                className={classes.textField}
-                                                SelectProps={{
-                                                    MenuProps: {
-                                                        className: classes.menu,
-                                                    },
-                                                    style: {
-                                                        height: 40,
-                                                    },
-                                                }}
-                                                placeholder={"Выберите категорию"}
-                                                variant="outlined"
-                                                margin="dense"
-                                            >
-                                                <MenuItem key={1} value={1}>
-                                                    Выберите категорию
-                                                </MenuItem>
-                                                <MenuItem key={2} value={2}>
-                                                    Выберите категорию
-                                                </MenuItem>
-
-                                            </TextField>
-                                        </div>
-                                        <div className={classes.inlineText}>
-                                            <Typography>Вапрос</Typography>
-                                            <TextField
-                                                margin="dense"
-                                                id="outlined-name"
-                                                fullWidth
-                                                multiline
-                                                placeholder={"..."}
-                                                className={classes.textField}
-                                                variant="outlined"
-                                                helperText="Введите ваши вопрос, например Какой любимый копозиция"
-                                            />
-                                        </div>
-
-                                    </Grid>
-                                    <Grid item md={12}>
-                                        <Typography>Дополнительное параметр</Typography>
-                                        <div className={classes.inlineText}>
-                                            <Typography>Видимость:</Typography>
-                                            <TextField
-                                                id="standard-select-currency"
-                                                select
-                                                fullWidth
-                                                className={classes.textField}
-                                                SelectProps={{
-                                                    MenuProps: {
-                                                        className: classes.menu,
-                                                    },
-                                                    style: {
-                                                        height: 40,
-                                                    },
-                                                }}
-                                                placeholder={"Выберите категорию"}
-                                                variant="outlined"
-                                                margin="dense"
-                                            >
-                                                <MenuItem key={1} value={1}>
-                                                    Виден всем
-                                                </MenuItem>
-                                                <MenuItem key={2} value={2}>
-                                                    Некто
-                                                </MenuItem>
-
-                                            </TextField>
-                                        </div>
-                                        <div className={classes.inlineText}>
-                                            <Typography>Комментарии:</Typography>
-                                            <TextField
-                                                id="standard-select-currency"
-                                                select
-                                                fullWidth
-                                                className={classes.textField}
-                                                SelectProps={{
-                                                    MenuProps: {
-                                                        className: classes.menu,
-                                                    },
-                                                    style: {
-                                                        height: 40,
-                                                    },
-                                                }}
-                                                placeholder={"Выберите категорию"}
-                                                variant="outlined"
-                                                margin="dense"
-                                            >
-                                                <MenuItem key={1} value={1}>
-                                                    Разрешены
-                                                </MenuItem>
-                                                <MenuItem key={2} value={2}>
-                                                    Некто
-                                                </MenuItem>
-
-                                            </TextField>
-                                        </div>
-                                        <div className={classes.inlineText}>
-                                            <Typography>Срок:</Typography>
-                                            <TextField
-                                                id="standard-select-currency"
-                                                select
-                                                fullWidth
-                                                className={classes.textField}
-                                                SelectProps={{
-                                                    MenuProps: {
-                                                        className: classes.menu,
-                                                    },
-                                                    style: {
-                                                        height: 40,
-                                                    },
-                                                }}
-                                                placeholder={"Выберите категорию"}
-                                                variant="outlined"
-                                                margin="dense"
-                                            >
-                                                <MenuItem key={1} value={1}>
-                                                    1 месяц
-                                                </MenuItem>
-                                                <MenuItem key={2} value={2}>
-                                                    Некто
-                                                </MenuItem>
-
-                                            </TextField>
-                                        </div>
-
-
-                                        <div className={classes.inlineText}>
-                                            <Typography>Хэштэги:</Typography>
+                                            <Typography>Вариант 1:</Typography>
                                             <TextField
                                                 margin="dense"
                                                 id="outlined-name"
@@ -452,12 +330,25 @@ class PollCreate extends Component {
                                                 variant="outlined"
                                             />
                                         </div>
-
                                     </Grid>
-
+                                    <Grid item md={4}>
+                                        <FilePond
+                                            allowImagePreview={true}
+                                            ref={ref => this.pond = ref}
+                                            files={[]}
+                                            server="/api"
+                                            //labelIdle={"Загрузить изображение"}
+                                            labelIdle={'<span class="filepond--label-action"> Загрузить изображение </span>'}
+                                        >
+                                        </FilePond>
+                                    </Grid>
                                 </Grid>
 
-
+                                <Grid container spacing={3} direction={"row"} justify="flex-end" alignItems="flex-end">
+                                    <Grid item md={5}>
+                                        <Button fullWidth variant="contained"  color={"secondary"}>Дабовить варианть +</Button>
+                                    </Grid>
+                                </Grid>
                                 <Grid container spacing={3} direction={"row"} justify="flex-end" alignItems="flex-end">
                                     <Grid item md={5}>
                                         <Button fullWidth variant="contained"  color={"secondary"}>Далее</Button>

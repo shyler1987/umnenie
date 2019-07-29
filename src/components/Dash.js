@@ -66,7 +66,6 @@ class Dash extends Component {
 
     render() {
         const {classes} = this.props;
-        console.log(this.state.polls)
         return (
             <div>
                 <Loading

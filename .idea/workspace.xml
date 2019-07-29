@@ -5,9 +5,13 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Dash.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dash.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/PollCreate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PollCreate.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/pages/PollView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PollView.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/ProfileJuridic.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ProfileJuridic.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tools/PollCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/PollCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/media/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/style.css" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -23,10 +27,34 @@
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/components/pages/ProfileEdit.js">
+            <entry file="file://$PROJECT_DIR$/src/components/pages/PollView.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="615">
-                  <caret line="211" column="52" selection-start-line="187" selection-start-column="40" selection-end-line="211" selection-end-column="52" />
+                <state relative-caret-position="465">
+                  <caret line="196" column="31" selection-start-line="196" selection-start-column="31" selection-end-line="196" selection-end-column="31" />
+                  <folding>
+                    <element signature="e#0#39#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/components/Dash.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="141">
+                  <caret line="69" column="17" selection-start-line="69" selection-start-column="17" selection-end-line="69" selection-end-column="17" />
+                  <folding>
+                    <element signature="e#0#39#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/components/tools/PollCard.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="15">
+                  <caret line="64" column="26" selection-start-line="64" selection-start-column="26" selection-end-line="64" selection-end-column="26" />
                   <folding>
                     <element signature="e#0#39#0" expanded="true" />
                   </folding>
@@ -37,20 +65,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/App.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="366">
-                  <caret line="55" column="58" selection-start-line="55" selection-start-column="58" selection-end-line="55" selection-end-column="71" />
-                  <folding>
-                    <element signature="e#0#39#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/components/tools/LeftMenu.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="495">
-                  <caret line="114" column="79" selection-start-line="114" selection-start-column="79" selection-end-line="114" selection-end-column="79" />
+                <state relative-caret-position="201">
+                  <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
                   <folding>
                     <element signature="e#0#39#0" expanded="true" />
                   </folding>
@@ -61,64 +77,10 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/components/pages/PollCreate.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="440">
-                  <caret line="304" column="32" selection-start-line="304" selection-start-column="32" selection-end-line="304" selection-end-column="32" />
+                <state relative-caret-position="335">
+                  <caret line="340" column="56" selection-start-line="340" selection-start-column="56" selection-end-line="340" selection-end-column="56" />
                   <folding>
                     <element signature="e#0#39#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/components/pages/ProfileFollower.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="210">
-                  <caret line="14" column="56" selection-start-line="14" selection-end-line="14" selection-end-column="56" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/components/pages/Profile.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="390">
-                  <caret line="26" column="42" selection-start-line="26" selection-start-column="37" selection-end-line="26" selection-end-column="42" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/components/pages/ProfileJuridic.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="3885">
-                  <caret line="281" selection-start-line="281" selection-end-line="281" />
-                  <folding>
-                    <element signature="e#0#39#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/LayoutPages/Dashboard.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="330">
-                  <caret line="28" column="16" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="26" />
-                  <folding>
-                    <element signature="e#0#26#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/LayoutPages/Profile.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="75">
-                  <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-                  <folding>
-                    <element signature="e#0#26#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -127,12 +89,12 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+        <leaf>
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/components/pages/ProfileEdit.js">
+            <entry file="file://$PROJECT_DIR$/src/components/pages/PollCreate.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1866">
-                  <caret line="413" column="53" selection-start-line="413" selection-start-column="44" selection-end-line="413" selection-end-column="53" />
+                <state relative-caret-position="435">
+                  <caret line="29" column="77" selection-start-line="29" selection-start-column="77" selection-end-line="29" selection-end-column="77" />
                   <folding>
                     <element signature="e#0#39#0" expanded="true" />
                   </folding>
@@ -179,29 +141,30 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/layouts/DashboardLayout.js" />
-        <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/src/components/Test.js" />
         <option value="$PROJECT_DIR$/src/index.css" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/src/components/pages/AuthDialog.js" />
         <option value="$PROJECT_DIR$/src/layouts/ProfileLayout.js" />
-        <option value="$PROJECT_DIR$/src/components/Dash.js" />
         <option value="$PROJECT_DIR$/src/components/pages/ProfileFollower.js" />
-        <option value="$PROJECT_DIR$/src/media/style.css" />
         <option value="$PROJECT_DIR$/src/components/pages/Profile.js" />
         <option value="$PROJECT_DIR$/src/components/pages/License.js" />
         <option value="$PROJECT_DIR$/src/LayoutPages/Menu.js" />
         <option value="$PROJECT_DIR$/src/LayoutPages/Dashboard.js" />
         <option value="$PROJECT_DIR$/src/LayoutPages/Profile.js" />
-        <option value="$PROJECT_DIR$/src/components/tools/PollCard.js" />
-        <option value="$PROJECT_DIR$/src/components/pages/PollView.js" />
         <option value="$PROJECT_DIR$/src/components/pages/ProfileJuridic.js" />
         <option value="$PROJECT_DIR$/src/components/pages/RecoveryPassword.js" />
         <option value="$PROJECT_DIR$/src/components/pages/ProfileEdit.js" />
         <option value="$PROJECT_DIR$/src/components/pages/PasswordChange.js" />
-        <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/components/tools/LeftMenu.js" />
+        <option value="$PROJECT_DIR$/src/media/css/fonts.css" />
+        <option value="$PROJECT_DIR$/public/index.html" />
+        <option value="$PROJECT_DIR$/src/App.js" />
+        <option value="$PROJECT_DIR$/src/components/Dash.js" />
+        <option value="$PROJECT_DIR$/src/components/tools/PollCard.js" />
+        <option value="$PROJECT_DIR$/src/media/style.css" />
+        <option value="$PROJECT_DIR$/src/components/pages/PollView.js" />
         <option value="$PROJECT_DIR$/src/components/pages/PollCreate.js" />
       </list>
     </option>
@@ -219,7 +182,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -230,6 +192,11 @@
             <path>
               <item name="novastory" type="b2602c69:ProjectViewProjectNode" />
               <item name="novastory" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="novastory" type="b2602c69:ProjectViewProjectNode" />
+              <item name="novastory" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -237,43 +204,12 @@
               <item name="novastory" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="novastory" type="b2602c69:ProjectViewProjectNode" />
-              <item name="novastory" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="novastory" type="b2602c69:ProjectViewProjectNode" />
-              <item name="novastory" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="tools" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="novastory" type="b2602c69:ProjectViewProjectNode" />
-              <item name="novastory" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="LayoutPages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="novastory" type="b2602c69:ProjectViewProjectNode" />
-              <item name="novastory" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="layouts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="novastory" type="b2602c69:ProjectViewProjectNode" />
-              <item name="novastory" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="media" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -322,18 +258,19 @@
       <workItem from="1563769503267" duration="28265000" />
       <workItem from="1564117181000" duration="10524000" />
       <workItem from="1564139785081" duration="30012000" />
-      <workItem from="1564317202778" duration="7563000" />
+      <workItem from="1564317202778" duration="16727000" />
+      <workItem from="1564407403585" duration="4113000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="163295000" />
+    <option name="totallyTimeSpent" value="176572000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13185655" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19198312" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -348,7 +285,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32894737" />
       <window_info anchor="bottom" id="TypeScript" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50052744" side_tool="true" weight="0.32894737" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4994726" visible="true" weight="0.15679824" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.4994726" visible="true" weight="0.15679824" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -383,13 +320,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" column="15" lean-forward="true" selection-start-line="17" selection-start-column="15" selection-end-line="17" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -451,27 +381,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/media/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/pages/License.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
           <caret line="74" column="54" lean-forward="true" selection-start-line="74" selection-start-column="54" selection-end-line="74" selection-end-column="54" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Dash.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="6" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -508,30 +421,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/tools/PollCard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="290" column="21" lean-forward="true" selection-start-line="290" selection-start-column="21" selection-end-line="290" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/pages/RecoveryPassword.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="487">
           <caret line="94" column="62" lean-forward="true" selection-start-line="94" selection-start-column="62" selection-end-line="95" selection-end-column="70" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/pages/PollView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3030">
-          <caret line="220" column="62" selection-start-line="220" selection-start-column="62" selection-end-line="220" selection-end-column="62" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -582,16 +475,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="55" column="58" selection-start-line="55" selection-start-column="58" selection-end-line="55" selection-end-column="71" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/tools/LeftMenu.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
@@ -612,10 +495,78 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Dash.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="69" column="17" selection-start-line="69" selection-start-column="17" selection-end-line="69" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/pages/PollView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="196" column="31" selection-start-line="196" selection-start-column="31" selection-end-line="196" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/media/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="40" column="47" selection-start-line="40" selection-start-column="47" selection-end-line="40" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/media/css/fonts.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/media/fonts/sourcesanspro/sourcesanspro.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="63" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/pages/ProfileEdit.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="211" column="52" selection-start-line="187" selection-start-column="40" selection-end-line="211" selection-end-column="52" />
+        <state relative-caret-position="680">
+          <caret line="181" column="43" selection-start-line="181" selection-start-column="33" selection-end-line="181" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/tools/PollCard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="64" column="26" selection-start-line="64" selection-start-column="26" selection-end-line="64" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -624,8 +575,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/pages/PollCreate.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="304" column="32" selection-start-line="304" selection-start-column="32" selection-end-line="304" selection-end-column="32" />
+        <state relative-caret-position="335">
+          <caret line="340" column="56" selection-start-line="340" selection-start-column="56" selection-end-line="340" selection-end-column="56" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

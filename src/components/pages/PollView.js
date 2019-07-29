@@ -167,7 +167,7 @@ class PollView extends Component {
 
                         </Paper>
                     </Grid>
-                    <Grid item md={10}>
+                    <Grid item md={8}>
                         <PollCard
 
                             idPoll={dataInit.pollId}
@@ -197,7 +197,7 @@ class PollView extends Component {
                     spacing={5}
                 >
 
-                    <Grid item md={10}>
+                    <Grid item md={8}>
                         <Typography variant="h5" fontWeight="fontWeightBold" component="h5" style={{
                             fontWeight: 700,
                             margin: '25px 5px 10px 0px'

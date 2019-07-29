@@ -16,8 +16,12 @@ import ProfileJuridic from "./components/pages/ProfileJuridic";
 import ProfileEdit from "./components/pages/ProfileEdit";
 import PasswordChange from "./components/pages/PasswordChange";
 import PollCreate from "./components/pages/PollCreate";
-
+//import './media/fonts/sourcesanspro/sourcesanspro.css'
 const outerTheme = createMuiTheme({
+    typography: {
+        useNextVariants: true,
+        fontFamily: '"Source Sans Pro", sans-serif',
+    },
     palette: {
         primary: {
             main: '#000',

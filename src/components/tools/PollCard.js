@@ -117,8 +117,19 @@ const styles = theme => ({
                 textDecoration: 'none',
             },
         },
-        grey:{
+        grey: {
             color: '#8f8f8f'
+        },
+        rootItem: {
+
+            '&:hover': {
+                paddingTop: 7,
+                paddingBottom: 7,
+                paddingLeft: 15,
+                paddingRight: 15,
+                border: "1px solid #eee",
+                borderRadius: 5
+            }
         }
 
 
@@ -145,7 +156,8 @@ class PollCard extends Component {
 
     render() {
         const {classes} = this.props;
-        return (<Link to={"/polls/"+this.state.idPoll} className={classes.clickCard}>
+        console.log(this.state.pollItems.length-1)
+        return (<Link to={"/polls/" + this.state.idPoll} className={classes.clickCard}>
                 <Card className={classes.card}>
                     <CardHeader
                         avatar={
@@ -168,15 +180,20 @@ class PollCard extends Component {
                         className={classes.media}
                         title={this.state.fullName}
                     >
+
                         {this.state.pollType === 1 ?
                             <GridList cellHeight={180} className={classes.gridList}>
                                 {
                                     this.state.pollItems !== undefined ? this.state.pollItems.map((item, Key) => {
-                                        return (<GridListTile key="Subheader1"
-                                                              classes={{
-                                                                  root: classes.GridListTileRoot,
-                                                                  tile: classes.Gridtile
-                                                              }}>
+                                        return (
+                                            <GridListTile
+                                                key="Subheader1"
+                                                classes={{
+                                                    root: classes.GridListTileRoot,
+                                                    tile: classes.Gridtile
+                                                }}
+                                                cols={this.state.pollItems.length%2 && (this.state.pollItems.length-1)===Key ? 2 : 1}
+                                            >
 
                                             <figure className={classes.tint}>
                                                 <img src={item.image} className={classes.cardTileImg}/>
@@ -186,46 +203,47 @@ class PollCard extends Component {
                                                 titlePosition="top"
                                                 actionPosition="left"
                                                 classes={{root: classes.titleBar,}}
+
                                             />
-                                            <grid className={classes.cardBar}>
-                                                <Grid container spacing={0}>
-                                                    <Grid item xs={3}>
-                                                        <div className={classes.pollBottomCircle}>
-                                                            <CircularProgressbar
-                                                                value={item.percent}
-                                                                text={``}
-                                                                strokeWidth={10}
-                                                                className={classes.CircularProgressbar}
-                                                                styles={
-                                                                    {
-                                                                        path: {
-                                                                            stroke: `rgba(255, 255, 255, 100)`,
+                                                <grid className={classes.cardBar}>
+                                                    <Grid container spacing={0}>
+                                                        <Grid item xs={3}>
+                                                            <div className={classes.pollBottomCircle}>
+                                                                <CircularProgressbar
+                                                                    value={item.percent}
+                                                                    text={``}
+                                                                    strokeWidth={10}
+                                                                    className={classes.CircularProgressbar}
+                                                                    styles={
+                                                                        {
+                                                                            path: {
+                                                                                stroke: `rgba(255, 255, 255, 100)`,
+                                                                            }
                                                                         }
                                                                     }
-                                                                }
-                                                            />
-                                                        </div>
-                                                    </Grid>
-                                                    <Grid item xs={6} className={classes.textRight}>
-                                                        <div className={classes.avatars}>
-                                                            {item.avatars.map((avatarItem) => {
-                                                                return (
-                                                                    <span className={classes.avatar}>
-                                                            <img src={avatarItem}/>
-                                                        </span>
-                                                                );
-                                                            })}
-                                                        </div>
+                                                                />
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item xs={6} className={classes.textRight}>
+                                                            <div className={classes.avatars}>
+                                                                {item.avatars.map((avatarItem) => {
+                                                                    return (
+                                                                        <span className={classes.avatar}>
+                                                                <img src={avatarItem}/>
+                                                            </span>
+                                                                    );
+                                                                })}
+                                                            </div>
 
+                                                        </Grid>
+                                                        <Grid item xs={3} alignItems={'center'}>
+                                                            <Typography className={classes.procentP}>
+                                                                {item.percent}%
+                                                            </Typography>
+                                                        </Grid>
                                                     </Grid>
-                                                    <Grid item xs={3} alignItems={'center'}>
-                                                        <Typography className={classes.procentP}>
-                                                            {item.percent}%
-                                                        </Typography>
-                                                    </Grid>
-                                                </Grid>
-                                            </grid>
-                                        </GridListTile>);
+                                                </grid>
+                                            </GridListTile>);
                                     }) : ""
                                 }
 
@@ -239,12 +257,12 @@ class PollCard extends Component {
                                 aria-label="Main mailbox folders"
                                 subheader={
                                     <ListSubheader component="div" id="nested-list-subheader">
-                                        Ответы
+                                        Ответы (258)
                                     </ListSubheader>
                                 }
                             >
                                 {this.state.pollItems !== undefined ? this.state.pollItems.map((itemOption, Key) => {
-                                    return (<ListItem button>
+                                    return (<ListItem classes={{root: classes.rootItem}}>
                                         <ListItemIcon>
                                             <CircularProgressbar
                                                 value={itemOption.percent}
@@ -291,12 +309,13 @@ class PollCard extends Component {
                     }
                     <Grid container spacing={0} direction={"row"}>
                         <Grid item md={6}>
-                            <div style={{textAlign:'left', padding:10}}>
-                                <ChatBubbleOutline classes={{root:classes.grey}}/>
+                            <div style={{textAlign: 'left', padding: 10}}>
+                                <ChatBubbleOutline classes={{root: classes.grey}}/>
                             </div>
                         </Grid>
-                        <Grid item md={6} >
-                            <div style={{textAlign:'right', padding:10}}><span style={{    fontSize: 12}}>255</span> <FavoriteBorder classes={{root:classes.grey}}/></div>
+                        <Grid item md={6}>
+                            <div style={{textAlign: 'right', padding: 10}}><span style={{fontSize: 12}}>255</span>
+                                <FavoriteBorder classes={{root: classes.grey}}/></div>
                         </Grid>
                     </Grid>
 
