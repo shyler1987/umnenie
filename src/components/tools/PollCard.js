@@ -35,6 +35,13 @@ import {CircularProgressbar} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import SvgIcon from '@material-ui/core/SvgIcon';
 
+import LaveSvg from '../../media/icons/lave.svg'
+import ChatSvg from '../../media/icons/chat.svg'
+import StatisSvg from '../../media/icons/statis.svg';
+import ShareSvg from '../../media/icons/share.svg';
+import AnouncedSvg from '../../media/icons/anounced.svg';
+import EditSvg from '../../media/icons/edit.svg';
+
 
 import {Link, NavLink} from "react-router-dom";
 
@@ -128,7 +135,33 @@ const styles = theme => ({
                 paddingLeft: 15,
                 paddingRight: 15,
                 border: "1px solid #eee",
-                borderRadius: 5
+                borderRadius: 5,
+                "& dot": {
+                    borderRadius: '50%',
+                    width: 5,
+                    height: 5,
+                    background: "#e67043",
+                    right: 9,
+                    top: 19,
+                    position: 'absolute',
+                }
+            }
+        },
+        dot: {
+            borderRadius: '50%',
+            width: 5,
+            height: 5,
+            background: "#e67043",
+            right: 10,
+            top: 20,
+            position: 'absolute',
+
+
+        },
+        imgIcons:{
+            margin:10,
+            "& img":{
+                padding:5
             }
         }
 
@@ -140,7 +173,11 @@ class PollCard extends Component {
 
     constructor(props) {
         super(props)
-        const {avatarUrl, fullName, datePoll, imagePoll, contentPoll, pollType, idPoll, pollItems} = this.props;
+        const {
+            avatarUrl, fullName,datePoll,imagePoll,contentPoll,pollType,idPoll,pollItems,
+            iconStatis, iconFovrite, iconShare, iconComment, iconAnonced, iconEdit
+        } = this.props;
+
         this.state = {
             avatarUrl: avatarUrl,
             fullName: fullName,
@@ -150,13 +187,18 @@ class PollCard extends Component {
             imagePoll: imagePoll,
             idPoll: idPoll,
             pollItems: pollItems,
+            iconStatis: iconStatis===null ? false : iconStatis,
+            iconFovrite: iconFovrite===null ? false : iconFovrite,
+            iconShare: iconShare===null ? false : iconShare,
+            iconComment: iconComment===null ? false : iconComment,
+            iconAnonced: iconAnonced===null ? false : iconAnonced,
+            iconEdit: iconEdit===null ? false : iconEdit,
         }
     }
 
 
     render() {
         const {classes} = this.props;
-        console.log(this.state.pollItems.length-1)
         return (<Link to={"/polls/" + this.state.idPoll} className={classes.clickCard}>
                 <Card className={classes.card}>
                     <CardHeader
@@ -165,7 +207,7 @@ class PollCard extends Component {
                                 R
                             </Avatar>
                         }
-                        action={<div><span style={{padding: 5, color: '#e46027'}}>for profi</span></div>}
+                        action={<div><span style={{padding: 5, color: '#e46027'}}> {this.state.iconStatis ? <img src={StatisSvg}/> : ""} {this.state.iconEdit ? <img src={EditSvg}/> : ""}</span></div>}
                         classes={{title: classes.dateColor}}
                         title={this.state.fullName}
                         subheaderTypographyProps={{color: 'secondary'}}
@@ -192,19 +234,19 @@ class PollCard extends Component {
                                                     root: classes.GridListTileRoot,
                                                     tile: classes.Gridtile
                                                 }}
-                                                cols={this.state.pollItems.length%2 && (this.state.pollItems.length-1)===Key ? 2 : 1}
+                                                cols={this.state.pollItems.length % 2 && (this.state.pollItems.length - 1) === Key ? 2 : 1}
                                             >
 
-                                            <figure className={classes.tint}>
-                                                <img src={item.image} className={classes.cardTileImg}/>
-                                            </figure>
-                                            <GridListTileBar
-                                                title={item.option}
-                                                titlePosition="top"
-                                                actionPosition="left"
-                                                classes={{root: classes.titleBar,}}
+                                                <figure className={classes.tint}>
+                                                    <img src={item.image} className={classes.cardTileImg}/>
+                                                </figure>
+                                                <GridListTileBar
+                                                    title={item.option}
+                                                    titlePosition="top"
+                                                    actionPosition="left"
+                                                    classes={{root: classes.titleBar,}}
 
-                                            />
+                                                />
                                                 <grid className={classes.cardBar}>
                                                     <Grid container spacing={0}>
                                                         <Grid item xs={3}>
@@ -240,6 +282,7 @@ class PollCard extends Component {
                                                             <Typography className={classes.procentP}>
                                                                 {item.percent}%
                                                             </Typography>
+
                                                         </Grid>
                                                     </Grid>
                                                 </grid>
@@ -297,6 +340,7 @@ class PollCard extends Component {
                                                 marginLeft: 5
                                             }}>{itemOption.percent}%
                                             </div>
+                                            <dot className={classes.dot}></dot>
                                         </ListItemIcon>
 
                                     </ListItem>)
@@ -309,13 +353,17 @@ class PollCard extends Component {
                     }
                     <Grid container spacing={0} direction={"row"}>
                         <Grid item md={6}>
-                            <div style={{textAlign: 'left', padding: 10}}>
-                                <ChatBubbleOutline classes={{root: classes.grey}}/>
+                            <div className={classes.imgIcons} >
+                                {this.state.iconComment ? <img  src={ChatSvg}/> : ""}
+                                {this.state.iconShare ? <img  src={ShareSvg}/> : ""}
+                                {this.state.iconAnonced ? <img  src={AnouncedSvg}/> : ""}
                             </div>
                         </Grid>
                         <Grid item md={6}>
-                            <div style={{textAlign: 'right', padding: 10}}><span style={{fontSize: 12}}>255</span>
-                                <FavoriteBorder classes={{root: classes.grey}}/></div>
+                            <div style={{textAlign: 'right', padding: 10}}><span style={{fontSize: 12}}>255 </span>
+                                {this.state.iconFovrite ? <img  src={LaveSvg}/> : ""}
+
+                            </div>
                         </Grid>
                     </Grid>
 
@@ -328,5 +376,10 @@ class PollCard extends Component {
 //
 PollCard.propTypes = {
     classes: PropTypes.object.isRequired,
+    iconFovrite: PropTypes.bool.isRequired,
+    iconComment: PropTypes.bool.isRequired,
+    iconShare: PropTypes.bool.isRequired,
+    iconAnonced: PropTypes.bool.isRequired,
+    iconStatis: PropTypes.bool.isRequired,
 };
 export default withStyles(styles)(PollCard);

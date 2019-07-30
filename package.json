@@ -21,6 +21,7 @@
     "react-filepond": "^7.0.1",
     "react-loading-bar": "0.0.7",
     "react-material-ui-form": "^1.1.4",
+    "react-qr-svg": "^2.2.1",
     "react-responsive-masonry": "^2.0.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",

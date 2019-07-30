@@ -16,6 +16,7 @@ import ProfileJuridic from "./components/pages/ProfileJuridic";
 import ProfileEdit from "./components/pages/ProfileEdit";
 import PasswordChange from "./components/pages/PasswordChange";
 import PollCreate from "./components/pages/PollCreate";
+import ChatPage from "./components/pages/ChatPage";
 //import './media/fonts/sourcesanspro/sourcesanspro.css'
 const outerTheme = createMuiTheme({
     typography: {
@@ -55,12 +56,18 @@ class App extends Component {
                         <DashboardLayoutRoute exact path="/account/recovery" component={RecoveryPassword}/>
                         <DashboardLayoutRoute exact path="/license" component={License}/>
                         <ProfileLayoutRoute exact path="/account/profile" component={Profile}/>
+
+                        <ProfileLayoutRoute exact path="/account/profilej" component={ProfileJuridic}/>
+                        <ProfileLayoutRoute exact path="/account/followers" component={ProfileFollower}/>
+
                         <DashboardLayoutRoute exact path="/account/profile-edit" component={ProfileEdit}/>
                         <DashboardLayoutRoute exact path="/account/passchange" component={PasswordChange}/>
                         <DashboardLayoutRoute exact path="/polls/create" component={PollCreate}/>
-                        <ProfileLayoutRoute exact path="/account/profilej" component={ProfileJuridic}/>
-                        <ProfileLayoutRoute exact path="/account/followers" component={ProfileFollower}/>
+                        <DashboardLayoutRoute exact path="/chat" component={ChatPage}/>
                         <DashboardLayoutRoute exact path="/polls/:id" component={PollView}/>
+
+
+
                     </Switch>
                 </Router>
             </ThemeProvider>

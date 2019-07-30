@@ -1,15 +1,11 @@
 import React, {Component} from 'react';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import {Link} from "react-router-dom";
-import Divider from '@material-ui/core/Divider';
 import Container from 'react-bootstrap/Container'
 import CoverImage from '../../media/back.jpg';
 import selenaAvatar from '../../media/selenaAvatar.jpg';
@@ -17,15 +13,10 @@ import Hidden from '@material-ui/core/Hidden';
 import Avatar from '@material-ui/core/Avatar';
 import PollCard from '../tools/PollCard'
 
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import IconButton from '@material-ui/core/IconButton';
-import FolderIcon from '@material-ui/icons/Folder';
-import DeleteIcon from '@material-ui/icons/Delete';
+import FaceSvg from '../../media/icons/facebook.svg';
+import TelegramSvg from '../../media/icons/telegram.svg';
+import InstagramSvg from '../../media/icons/instagram.svg';
+import WebSvg from '../../media/icons/web.svg';
 
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 
@@ -89,7 +80,7 @@ const styles = theme => ({
     },
     ListButtonInActive: {
         textTransform: 'none',
-        color:"#000"
+        color: "#000"
     },
 
     buttonFollow: {
@@ -110,6 +101,16 @@ const styles = theme => ({
         color: 'outline: 5px auto #fff'
     },
 
+    socialIcons: {
+        display: 'inline',
+        margin: '0px 15px 0px',
+        "& img": {
+            margin: '0px 10px 0px',
+            width: 20,
+            height: 20
+        }
+    }
+
 });
 
 
@@ -121,29 +122,30 @@ class ProfileFollower extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            polls:[],
-            show:false
+            polls: [],
+            show: false
         };
     }
+
     componentDidMount() {
         this.setState({
-            show:true
+            show: true
         })
         axios.get(API_POLLS).then(res => {
-            if(res.status===200 && res.data.count>0){
+            if (res.status === 200 && res.data.count > 0) {
 
                 this.setState({
-                    polls:res.data.result
+                    polls: res.data.result
 
                 })
             }
             this.setState({
-                show:false
+                show: false
             })
 
         }).catch(err => {
             this.setState({
-                show:false
+                show: false
             })
             console.log(err);
         })
@@ -222,10 +224,17 @@ class ProfileFollower extends Component {
                             container
                             alignItems="flex-end"
                         >
-                            <Grid item md={6}>
+                            <Grid item md={4}>
 
                             </Grid>
-                            <Grid item md={6} style={{textAlign: 'right'}}>
+                            <Grid item md={8} style={{textAlign: 'right'}}>
+                                <div className={classes.socialIcons}>
+                                    <a href={"#"}><img src={WebSvg}/></a>
+                                    <a href={"#"}><img src={TelegramSvg}/></a>
+                                    <a href={"#"}><img src={FaceSvg}/></a>
+                                    <a href={"#"}><img src={InstagramSvg}/></a>
+
+                                </div>
 
                                 <Button variant="contained" size="meduim" color="secondary" className={classes.button}>
                                     Заблокировать
@@ -256,7 +265,11 @@ class ProfileFollower extends Component {
                     </Typography>
                     <Grid container spacing={0}>
                         <Grid md={12}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
                         </Grid>
                     </Grid>

@@ -7,7 +7,7 @@ import axios from 'axios';
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
 import {Link} from "react-router-dom";
-import Container from 'react-bootstrap/Container'
+
 import selenaAvatar from '../../media/selenaAvatar.jpg';
 import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
@@ -20,10 +20,14 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import LeftMenu from '../tools/LeftMenu';
+import Divider from '@material-ui/core/Divider';
+
+import {QRCode} from "react-qr-svg";
+
+
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import {FilePond, registerPlugin} from "react-filepond";
 import "filepond/dist/filepond.min.css";
-
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 
@@ -55,7 +59,8 @@ const styles = theme => ({
     },
 
     poperContent: {
-        padding: 10
+        padding: 10,
+        minHeight:850
     },
     inputHeight: {
         height: 100
@@ -79,13 +84,28 @@ const styles = theme => ({
         alignItems: 'baseline',
         '& p': {
             fontWeight: 700,
-            paddingRight:10,
+            paddingRight: 10,
             minWidth: '25%',
             textAlign: 'right'
         }
 
 
     },
+    pHeader: {
+        color: '#e35b1e',
+        fontWeight: 700,
+        textAlign: 'center',
+        marginBottom: 5
+    },
+    greyP: {
+        padding: 5, color: 'grey', fontSize: 12
+    },
+    blackP: {
+        padding: 5,
+        color: '#000',
+        fontSize: 14
+    },
+
 
 
 });
@@ -140,12 +160,11 @@ class PollCreate extends Component {
                     show={this.state.show}
                     color="red"
                 />
-                <Container>
                     <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{
                         fontWeight: 700,
                         margin: '25px 5px 10px 0px'
                     }}>
-                        Сменить пароль
+                        Создать опрос
                     </Typography>
                     <Grid container spacing={2} direction={"row"}>
                         <Grid item md={3}>
@@ -199,8 +218,30 @@ class PollCreate extends Component {
                                         </div>
 
                                     </Grid>
+                                </Grid>
+                                <Grid container spacing={3} direction={"row"}>
+                                    <Grid item md={8}>
+                                        <Typography classes={{root: classes.blackP}}>Вы можете загрузить основное
+                                            фото к вопросу или добавить фото к вариантов ответов</Typography>
+
+                                    </Grid>
+                                    <Grid item md={4}>
+                                        <FilePond
+                                            allowImagePreview={true}
+                                            ref={ref => this.pond = ref}
+                                            files={[]}
+                                            server="/api"
+                                            //labelIdle={"Загрузить изображение"}
+                                            labelIdle={'<span class="filepond--label-action"> Загрузить изображение </span>'}
+                                        >
+                                        </FilePond>
+                                    </Grid>
+                                </Grid>
+                                <Grid container spacing={3} direction={"row"}>
+
                                     <Grid item md={12}>
-                                        <Typography>Дополнительное параметр</Typography>
+                                        <Typography classes={{root: classes.pHeader}}>Дополнительное
+                                            параметр</Typography>
                                         <div className={classes.inlineText}>
                                             <Typography>Видимость:</Typography>
                                             <TextField
@@ -257,7 +298,7 @@ class PollCreate extends Component {
 
                                             </TextField>
                                         </div>
-<div className={classes.inlineText}>
+                                        <div className={classes.inlineText}>
                                             <Typography>Срок:</Typography>
                                             <TextField
                                                 id="standard-select-currency"
@@ -307,7 +348,7 @@ class PollCreate extends Component {
 
                                 <Grid container spacing={3} direction={"row"} justify="flex-end" alignItems="flex-end">
                                     <Grid item md={5}>
-                                        <Button fullWidth variant="contained"  color={"secondary"}>Далее</Button>
+                                        <Button fullWidth variant="contained" color={"secondary"}>Далее</Button>
                                     </Grid>
                                 </Grid>
                             </Paper>
@@ -343,21 +384,100 @@ class PollCreate extends Component {
                                         </FilePond>
                                     </Grid>
                                 </Grid>
-
-                                <Grid container spacing={3} direction={"row"} justify="flex-end" alignItems="flex-end">
-                                    <Grid item md={5}>
-                                        <Button fullWidth variant="contained"  color={"secondary"}>Дабовить варианть +</Button>
+                                <Grid container spacing={3} direction={"row"}>
+                                    <Grid item md={8}>
+                                        <div className={classes.inlineText}>
+                                            <Typography>Вариант 2:</Typography>
+                                            <TextField
+                                                margin="dense"
+                                                id="outlined-name"
+                                                fullWidth
+                                                multiline
+                                                placeholder={"..."}
+                                                className={classes.textField}
+                                                variant="outlined"
+                                            />
+                                        </div>
+                                    </Grid>
+                                    <Grid item md={4}>
+                                        <FilePond
+                                            allowImagePreview={true}
+                                            ref={ref => this.pond = ref}
+                                            files={[]}
+                                            server="/api"
+                                            //labelIdle={"Загрузить изображение"}
+                                            labelIdle={'<span class="filepond--label-action"> Загрузить изображение </span>'}
+                                        >
+                                        </FilePond>
                                     </Grid>
                                 </Grid>
+
                                 <Grid container spacing={3} direction={"row"} justify="flex-end" alignItems="flex-end">
+
                                     <Grid item md={5}>
-                                        <Button fullWidth variant="contained"  color={"secondary"}>Далее</Button>
+                                        <div className={classes.inlineText}>
+                                            <Typography classes={{root: classes.greyP}}>До 6 вариантов</Typography>
+                                        </div>
+
+                                    </Grid>
+                                    <Grid item md={4}>
+
+                                        <Button fullWidth variant="contained" color={"secondary"}>Дабовить варианть
+                                            +</Button>
+
+
+                                    </Grid>
+
+                                </Grid>
+                                <Divider style={{margin: '15px 0px 15px'}}/>
+
+
+                                <Grid container spacing={3} direction={"row"} justify="flex-end" alignItems="flex-end">
+                                    <Grid item md={10}>
+                                        <TextField
+                                            margin="dense"
+                                            id="outlined-name"
+                                            fullWidth
+                                            multiline
+                                            placeholder={"..."}
+                                            className={classes.textField}
+                                            variant="outlined"
+                                        />
+                                        <Button fullWidth variant="contained" color={"secondary"}>Создать код (ctrl +
+                                            enter)</Button>
+                                    </Grid>
+                                    <Grid item md={2}>
+                                        <QRCode
+                                            bgColor="#FFFFFF"
+                                            fgColor="#000000"
+                                            level="Q"
+                                            style={{width: '75%'}}
+                                            value="some text"
+                                        />
+                                    </Grid>
+
+                                </Grid>
+
+
+                                <Grid container spacing={3} direction={"row"}>
+                                    <Grid item md={5}>
+                                        <Button color="primary" fullWidth className={classes.button}>
+                                            Сохранить как черновик
+                                        </Button>
+                                    </Grid>
+                                    <Grid item md={3}>
+                                        <Button fullWidth variant="outlined" className={classes.button}>
+                                            Назад
+                                        </Button>
+                                    </Grid>
+
+                                    <Grid item md={4}>
+                                        <Button fullWidth variant="contained" color={"secondary"}>Создать</Button>
                                     </Grid>
                                 </Grid>
                             </Paper>
                         </Grid>
                     </Grid>
-                </Container>
 
 
             </div>

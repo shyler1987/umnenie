@@ -85,8 +85,7 @@ class Menu extends React.Component {
                             <img
                                 alt=""
                                 src={logo}
-                                // width="30"
-                                // height="30"
+                                style={{maxWidth: 200}}
                                 className="d-inline-block align-top"
                             />
 

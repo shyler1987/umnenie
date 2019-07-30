@@ -34,7 +34,13 @@ const styles = theme => ({
         // height: 450,
     },
     arrowButton: {
-        height: "100%", display: 'flex', alignItems: 'center', justifyContent: 'center'
+        height: "100%",
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        // position: 'fixed',
+        // paddingRight: 15,
+        // paddingLeft: 15
     },
     multlineInput: {
         padding: 10
@@ -178,6 +184,12 @@ class PollView extends Component {
                             avatarUrl={dataInit.userImage}
                             pollType={dataInit.pollType}
                             pollItems={dataInit.items}
+                            iconFovrite={true}
+                            iconComment={true}
+                            iconShare={true}
+                            iconAnonced={true}
+                            iconStatis={true}
+                            iconEdit={true}
                         />
 
                     </Grid>

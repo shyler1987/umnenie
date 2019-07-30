@@ -7,8 +7,6 @@ import axios from 'axios';
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
 import {Link} from "react-router-dom";
-import Container from 'react-bootstrap/Container'
-
 import InputAdornment from '@material-ui/core/InputAdornment';
 import EditIcon from '@material-ui/icons/Edit'
 import Button from '@material-ui/core/Button';
@@ -81,7 +79,8 @@ const styles = theme => ({
         },
     },
     poperContent: {
-        padding: 10
+        padding: 10,
+        minHeight:850
     },
     inputHeight: {
         height: 100
@@ -166,7 +165,7 @@ class ProfileEdit extends Component {
                     show={this.state.show}
                     color="red"
                 />
-                <Container>
+
                     <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{
                         fontWeight: 700,
                         margin: '25px 5px 10px 0px'
@@ -179,7 +178,7 @@ class ProfileEdit extends Component {
                         </Grid>
                         <Grid item md={9}>
                             <Paper classes={{root: classes.poperContent}}>
-                                <Typography>Личная информация</Typography>
+                                <Typography variant={"h6"}>Личная информация</Typography>
                                 <Grid container spacing={3} direction={"row"}>
                                     <Grid item md={3} classes={{root: classes.inlineText}}>
                                         <Typography>Категория</Typography>
@@ -429,7 +428,7 @@ class ProfileEdit extends Component {
                             </Paper>
                         </Grid>
                     </Grid>
-                </Container>
+
 
 
             </div>

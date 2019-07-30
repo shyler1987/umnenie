@@ -95,6 +95,7 @@ class Dash extends Component {
                                     avatarUrl={item.userImage}
                                     pollType={item.pollType}
                                     pollItems={item.items}
+                                    iconFovrite={true}
                                 />
                             );
                         })}

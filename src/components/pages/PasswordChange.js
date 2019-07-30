@@ -7,7 +7,7 @@ import axios from 'axios';
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
 import {Link} from "react-router-dom";
-import Container from 'react-bootstrap/Container'
+
 import selenaAvatar from '../../media/selenaAvatar.jpg';
 import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
@@ -87,7 +87,8 @@ const styles = theme => ({
         },
     },
     poperContent: {
-        padding: 10
+        padding: 10,
+        minHeight:850
     },
     inputHeight: {
         height: 100
@@ -172,7 +173,6 @@ class PasswordChange extends Component {
                     show={this.state.show}
                     color="red"
                 />
-                <Container>
                     <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{
                         fontWeight: 700,
                         margin: '25px 5px 10px 0px'
@@ -221,7 +221,6 @@ class PasswordChange extends Component {
                             </Paper>
                         </Grid>
                     </Grid>
-                </Container>
 
 
             </div>
