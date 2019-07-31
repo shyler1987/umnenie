@@ -116,10 +116,10 @@ class ChatPage extends Component {
                 />
 
                     <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{
-                        fontWeight: 700,
+
                         margin: '25px 5px 10px 0px'
                     }}>
-                        Редактировать профиль
+                        Чат
                     </Typography>
                     <Grid container spacing={2} direction={"row"}>
                         <Grid item md={3}>

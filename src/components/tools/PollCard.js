@@ -41,6 +41,7 @@ import StatisSvg from '../../media/icons/statis.svg';
 import ShareSvg from '../../media/icons/share.svg';
 import AnouncedSvg from '../../media/icons/anounced.svg';
 import EditSvg from '../../media/icons/edit.svg';
+import CrownSvg from '../../media/icons/crown.svg';
 
 
 import {Link, NavLink} from "react-router-dom";
@@ -175,7 +176,7 @@ class PollCard extends Component {
         super(props)
         const {
             avatarUrl, fullName,datePoll,imagePoll,contentPoll,pollType,idPoll,pollItems,
-            iconStatis, iconFovrite, iconShare, iconComment, iconAnonced, iconEdit
+            iconStatis, iconFovrite, iconShare, iconComment, iconAnonced, iconEdit, CrownSvg
         } = this.props;
 
         this.state = {
@@ -193,6 +194,7 @@ class PollCard extends Component {
             iconComment: iconComment===null ? false : iconComment,
             iconAnonced: iconAnonced===null ? false : iconAnonced,
             iconEdit: iconEdit===null ? false : iconEdit,
+            CrownSvg: CrownSvg===null ? false : CrownSvg,
         }
     }
 
@@ -207,7 +209,7 @@ class PollCard extends Component {
                                 R
                             </Avatar>
                         }
-                        action={<div><span style={{padding: 5, color: '#e46027'}}> {this.state.iconStatis ? <img src={StatisSvg}/> : ""} {this.state.iconEdit ? <img src={EditSvg}/> : ""}</span></div>}
+                        action={<div><span style={{padding: 5, color: '#e46027'}}> {this.state.iconStatis ? <img src={StatisSvg}/> : ""} {this.state.CrownSvg ? <img src={CrownSvg}/> : ""} {this.state.iconEdit ? <img src={EditSvg}/> : ""}</span></div>}
                         classes={{title: classes.dateColor}}
                         title={this.state.fullName}
                         subheaderTypographyProps={{color: 'secondary'}}

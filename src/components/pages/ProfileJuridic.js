@@ -22,7 +22,8 @@ import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
-
+import ProfileHeadCover from "../tools/ProfileHeadCover";
+import ProfileHeadLine from "../tools/ProfileHeadLine";
 
 const styles = theme => ({
     root: {
@@ -105,18 +106,7 @@ const styles = theme => ({
         color: 'outline: 5px auto #fff'
     },
 
-    ButtonGroup:{
-        background: '#fff',
-    },
-    buttonGroupActive:{
-        background: '#e35b1e',
-        color: '#fff',
-        border: '1px solid #e35b1e',
-        '&:hover':{
-            background:'rgba(227, 91, 30, 0.08)',
-            color: '#e35b1e',
-        }
-    }
+
 
 });
 
@@ -161,95 +151,10 @@ class ProfileJuridic extends Component {
         const {classes} = this.props;
         return (
             <div>
-                <div className={classes.timelineCover}>
-                    <Container>
-                        <Grid
-                            direction={"row"}
-                            container
-                            alignItems="flex-end"
-                        >
-                            <Grid item md={6}>
-
-                                <div className={classes.cover}>
-
-                                    <Avatar alt="Remy Sharp" src={selenaAvatar} className={classes.bigAvatar}/>
-                                    <div style={{
-                                        bottom: 55,
-                                        left: 210,
-                                        width: '100%',
-                                        position: "absolute"
-                                    }}>
-                                        <Typography variant="caption" display="block" style={{
-                                            fontWeight: 700,
-                                            color: "#fff",
-                                        }}>
-                                            22.06.19
-                                        </Typography>
-                                        <Typography variant="h5" fontWeight="fontWeightBold" component="h5" style={{
-                                            fontWeight: 700,
-                                            color: "#fff",
-                                        }}>
-                                            Исидатэ Тайти Тайти
-                                        </Typography>
-                                    </div>
 
 
-                                </div>
-                            </Grid>
-                            <Hidden mdDown>
-                                <Grid item md={6} style={{textAlign: "right"}} xsDown>
-
-                                    <div style={{
-
-                                        top: 210,
-                                        // width: '100%',
-                                        position: "relative"
-                                    }}>
-                                        <Button variant="outlined" className={classes.button}
-                                                classes={{root: classes.buttonFollow}} color="secondary1" size="large">
-                                            Подписчиков <span style={{marginLeft: 20, color: '#e35b1e'}}>255</span>
-                                        </Button>
-                                        <Button variant="outlined" className={classes.button}
-                                                classes={{root: classes.buttonFollow}} color="secondary1" size="large">
-                                            Подписки <span style={{marginLeft: 20, color: '#e35b1e'}}>255</span>
-                                        </Button>
-
-
-                                    </div>
-                                </Grid>
-                            </Hidden>
-
-                        </Grid>
-                    </Container>
-                </div>
-
-                <div className={classes.timelineSocial}>
-                    <Container>
-                        <Grid
-                            direction={"row"}
-                            container
-                            alignItems="flex-end"
-                        >
-                            <Grid item md={6}>
-
-                            </Grid>
-                            <Grid item md={6} style={{textAlign: 'right'}}>
-
-                                <Button variant="contained" size="meduim" color="secondary" className={classes.button}>
-                                    Заблокировать
-                                </Button>
-                                <Button variant="contained" size="meduim" color="secondary" className={classes.button}>
-                                    Написать
-                                </Button>
-                                <Button variant="contained" size="meduim" color="secondary" className={classes.button}>
-                                    Подписаться
-                                </Button>
-
-                            </Grid>
-
-                        </Grid>
-                    </Container>
-                </div>
+                <ProfileHeadCover/>
+                <ProfileHeadLine/>
 
                 <Loading
                     show={this.state.show}
@@ -257,7 +162,7 @@ class ProfileJuridic extends Component {
                 />
                 <Container>
                     <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{
-                        fontWeight: 700,
+
                         margin: '25px 5px 10px 0px'
                     }}>
                         О себе
@@ -284,7 +189,6 @@ class ProfileJuridic extends Component {
 
                 <Container>
                     <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{
-                        fontWeight: 700,
                         margin: '25px 5px 10px 0px'
                     }}>
                         Опросы пользователя

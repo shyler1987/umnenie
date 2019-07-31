@@ -40,7 +40,20 @@ const styles = theme => ({
     },
     copyright:{
         textAlign: 'left',
+    },
+    ButtonGroup:{
+        background: '#fff',
+    },
+    buttonGroupActive:{
+        background: '#e35b1e',
+        color: '#fff',
+        border: '1px solid #e35b1e',
+        '&:hover':{
+            background:'rgba(227, 91, 30, 0.08)',
+            color: '#e35b1e',
+        }
     }
+
 
 
 
@@ -67,13 +80,14 @@ class RecoveryPassword extends Component {
                     show={this.state.show}
                     color="red"
                 />
-                <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{fontWeight: 700,
+                <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{
                     margin: '25px 5px 10px 0px'}}>
                     Восстановит пароль
                 </Typography>
                 <Grid container spacing={0}>
                     <Grid md={12}>
                         <Paper className={classes.paper}>
+
                             <Grid
                                 container
                                 direction="row"

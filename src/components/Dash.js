@@ -7,6 +7,7 @@ import axios from 'axios';
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
+import CrownSvg from "../media/icons/crown.svg";
 
 
 const styles = theme => ({
@@ -72,7 +73,7 @@ class Dash extends Component {
                     show={this.state.show}
                     color="red"
                 />
-                <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{fontWeight: 700,
+                <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{fontWeight: 400,
                     margin: '25px 5px 8px 10px'}}>
                     Опрос
                 </Typography>
@@ -96,6 +97,7 @@ class Dash extends Component {
                                     pollType={item.pollType}
                                     pollItems={item.items}
                                     iconFovrite={true}
+                                    CrownSvg={true}
                                 />
                             );
                         })}

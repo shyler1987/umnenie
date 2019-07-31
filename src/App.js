@@ -17,11 +17,13 @@ import ProfileEdit from "./components/pages/ProfileEdit";
 import PasswordChange from "./components/pages/PasswordChange";
 import PollCreate from "./components/pages/PollCreate";
 import ChatPage from "./components/pages/ChatPage";
+import Registration from "./components/pages/Registration";
 //import './media/fonts/sourcesanspro/sourcesanspro.css'
 const outerTheme = createMuiTheme({
     typography: {
         useNextVariants: true,
         fontFamily: '"Source Sans Pro", sans-serif',
+        fontWeight: 400
     },
     palette: {
         primary: {
@@ -60,6 +62,7 @@ class App extends Component {
                         <ProfileLayoutRoute exact path="/account/profilej" component={ProfileJuridic}/>
                         <ProfileLayoutRoute exact path="/account/followers" component={ProfileFollower}/>
 
+                        <DashboardLayoutRoute exact path="/account/registration" component={Registration}/>
                         <DashboardLayoutRoute exact path="/account/profile-edit" component={ProfileEdit}/>
                         <DashboardLayoutRoute exact path="/account/passchange" component={PasswordChange}/>
                         <DashboardLayoutRoute exact path="/polls/create" component={PollCreate}/>

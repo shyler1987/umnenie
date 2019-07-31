@@ -5,20 +5,11 @@ import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
-import Button from '@material-ui/core/Button';
 import Container from 'react-bootstrap/Container'
-import CoverImage from '../../media/back.jpg';
-import selenaAvatar from '../../media/selenaAvatar.jpg';
-import Hidden from '@material-ui/core/Hidden';
-import Avatar from '@material-ui/core/Avatar';
 import PollCard from '../tools/PollCard'
-
-import FaceSvg from '../../media/icons/facebook.svg';
-import TelegramSvg from '../../media/icons/telegram.svg';
-import InstagramSvg from '../../media/icons/instagram.svg';
-import WebSvg from '../../media/icons/web.svg';
-
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
+import ProfileHeadCover from "../tools/ProfileHeadCover";
+import ProfileHeadLine from "../tools/ProfileHeadLine";
 
 const styles = theme => ({
     root: {
@@ -60,21 +51,8 @@ const styles = theme => ({
         bottom: -30,
         zIndex: 1000
     },
-    timelineCover: {
-        background: `url(${CoverImage})`,
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        minHeight: 300,
-        borderRadius: '0 0 4px 4px',
-        position: 'relative',
-    },
-    timelineSocial: {
-        background: "#fff",
-        position: 'relative',
-    },
-    button: {
-        margin: '15px 5px 15px'
-    },
+
+
     ListButton: {
         textTransform: 'none'
     },
@@ -101,15 +79,6 @@ const styles = theme => ({
         color: 'outline: 5px auto #fff'
     },
 
-    socialIcons: {
-        display: 'inline',
-        margin: '0px 15px 0px',
-        "& img": {
-            margin: '0px 10px 0px',
-            width: 20,
-            height: 20
-        }
-    }
 
 });
 
@@ -155,102 +124,8 @@ class ProfileFollower extends Component {
         const {classes} = this.props;
         return (
             <div>
-                <div className={classes.timelineCover}>
-                    <Container>
-                        <Grid
-                            direction={"row"}
-                            container
-                            alignItems="flex-end"
-                        >
-                            <Grid item md={6}>
-
-                                <div className={classes.cover}>
-
-                                    <Avatar alt="Remy Sharp" src={selenaAvatar} className={classes.bigAvatar}/>
-                                    <div style={{
-                                        bottom: 55,
-                                        left: 210,
-                                        width: '100%',
-                                        position: "absolute"
-                                    }}>
-                                        <Typography variant="caption" display="block" style={{
-                                            fontWeight: 700,
-                                            color: "#fff",
-                                        }}>
-                                            22.06.19
-                                        </Typography>
-                                        <Typography variant="h5" fontWeight="fontWeightBold" component="h5" style={{
-                                            fontWeight: 700,
-                                            color: "#fff",
-                                        }}>
-                                            Исидатэ Тайти Тайти
-                                        </Typography>
-                                    </div>
-
-
-                                </div>
-                            </Grid>
-                            <Hidden mdDown>
-                                <Grid item md={6} style={{textAlign: "right"}} xsDown>
-
-                                    <div style={{
-
-                                        top: 210,
-                                        // width: '100%',
-                                        position: "relative"
-                                    }}>
-                                        <Button variant="outlined" className={classes.button}
-                                                classes={{root: classes.buttonFollow}} color="secondary1" size="large">
-                                            Подписчиков <span style={{marginLeft: 20, color: '#e35b1e'}}>255</span>
-                                        </Button>
-                                        <Button variant="outlined" className={classes.button}
-                                                classes={{root: classes.buttonFollow}} color="secondary1" size="large">
-                                            Подписки <span style={{marginLeft: 20, color: '#e35b1e'}}>255</span>
-                                        </Button>
-
-
-                                    </div>
-                                </Grid>
-                            </Hidden>
-
-                        </Grid>
-                    </Container>
-                </div>
-
-                <div className={classes.timelineSocial}>
-                    <Container>
-                        <Grid
-                            direction={"row"}
-                            container
-                            alignItems="flex-end"
-                        >
-                            <Grid item md={4}>
-
-                            </Grid>
-                            <Grid item md={8} style={{textAlign: 'right'}}>
-                                <div className={classes.socialIcons}>
-                                    <a href={"#"}><img src={WebSvg}/></a>
-                                    <a href={"#"}><img src={TelegramSvg}/></a>
-                                    <a href={"#"}><img src={FaceSvg}/></a>
-                                    <a href={"#"}><img src={InstagramSvg}/></a>
-
-                                </div>
-
-                                <Button variant="contained" size="meduim" color="secondary" className={classes.button}>
-                                    Заблокировать
-                                </Button>
-                                <Button variant="contained" size="meduim" color="secondary" className={classes.button}>
-                                    Написать
-                                </Button>
-                                <Button variant="contained" size="meduim" color="secondary" className={classes.button}>
-                                    Подписаться
-                                </Button>
-
-                            </Grid>
-
-                        </Grid>
-                    </Container>
-                </div>
+                <ProfileHeadCover/>
+                <ProfileHeadLine/>
 
                 <Loading
                     show={this.state.show}
@@ -258,26 +133,25 @@ class ProfileFollower extends Component {
                 />
                 <Container>
                     <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{
-                        fontWeight: 700,
                         margin: '25px 5px 10px 0px'
                     }}>
                         О себе
                     </Typography>
                     <Grid container spacing={0}>
                         <Grid md={12}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+                            <Typography>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </Typography>
                         </Grid>
                     </Grid>
                 </Container>
 
                 <Container>
                     <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{
-                        fontWeight: 700,
                         margin: '25px 5px 10px 0px'
                     }}>
                         Опросы пользователя

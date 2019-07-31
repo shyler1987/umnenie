@@ -174,7 +174,6 @@ class PasswordChange extends Component {
                     color="red"
                 />
                     <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{
-                        fontWeight: 700,
                         margin: '25px 5px 10px 0px'
                     }}>
                         Сменить пароль

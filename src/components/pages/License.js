@@ -67,7 +67,7 @@ class License extends Component {
                     show={this.state.show}
                     color="red"
                 />
-                <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{fontWeight: 700,
+                <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{
                     margin: '25px 5px 10px 0px'}}>
                     Пользовательского соглашения
                 </Typography>
