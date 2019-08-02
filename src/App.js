@@ -19,11 +19,109 @@ import PollCreate from "./components/pages/PollCreate";
 import ChatPage from "./components/pages/ChatPage";
 import Registration from "./components/pages/Registration";
 //import './media/fonts/sourcesanspro/sourcesanspro.css'
+import './media/font.css'
+import {withStyles} from '@material-ui/styles';
+
+const raleway = {
+
+};
+
+
+const styles = theme => ({
+
+    cssOutlinedInput: {
+        '&$cssFocused $notchedOutline': {
+            //borderColor: `#e35b1e !important`,
+            borderWidth:1,
+            borderStyle:'solid',
+            borderColor: 'rgba(0, 0, 0, 0.23)'
+        },
+        "&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline": {
+            borderColor: 'rgba(0, 0, 0, 0.23)'
+        },
+    },
+
+    cssFocused: {
+        borderColor: `#e35b1e !important`,
+    },
+
+    notchedOutline: {
+        borderWidth:1,
+        borderStyle:'solid',
+        borderColor: 'rgba(0, 0, 0, 0.23)',
+        "&:hover":{
+            borderWidth:1,
+            borderStyle:'solid',
+            borderColor: 'rgba(0, 0, 0, 0.23)',
+        }
+
+    },
+
+
+
+});
+
 const outerTheme = createMuiTheme({
     typography: {
         useNextVariants: true,
-        fontFamily: '"Source Sans Pro", sans-serif',
+        fontFamily: 'SourceSansProRegular, sans-serif',
         fontWeight: 400
+    },
+    overrides: {
+        MuiInputBase:{
+            root:{
+                fontFamily: 'SourceSansProRegular, sans-serif',
+            }
+        },
+        MuiButton:{
+            label:{
+                fontFamily: 'SourceSansProRegular, sans-serif',
+            }
+        },
+        MuiOutlinedInput: {
+            root:{
+                "&:hover:not($disabled):not($focused):not($error) $notchedOutline": {
+                    borderColor: 'rgba(0, 0, 0, 0.23)'
+                },
+                '&$focused $notchedOutline': {
+                    borderWidth:1,
+                    borderStyle:'solid',
+                    borderColor: 'rgba(0, 0, 0, 0.23)'
+                },
+            },
+
+            notchedOutline:{
+                borderWidth:1,
+                borderStyle:'solid',
+                borderColor: 'rgba(0, 0, 0, 0.23)',
+                '&$focused $notchedOutline': {
+                    borderColor: "#fff",
+                    borderWidth: 2,
+                },
+                '&::placeholder': {
+                    textOverflow: 'ellipsis !important',
+                    color: 'blue'
+                }
+                // "&:hover":{
+                //     borderWidth:1,
+                //     borderStyle:'solid',
+                //     borderColor: 'rgba(0, 0, 0, 0.23)',
+                // }
+            }
+        },
+        // MuiInputBase:{
+        //     '&$focused $notchedOutline': {
+        //         borderColor: "#fff",
+        //         borderWidth: 2,
+        //     },
+        // },
+        // MuiInput:{
+        //     '&$focused $notchedOutline': {
+        //         borderColor: "#fff",
+        //         borderWidth: 2,
+        //     },
+        // }
+
     },
     palette: {
         primary: {
@@ -36,6 +134,21 @@ const outerTheme = createMuiTheme({
             main:"#4fe329"
         }
     },
+    // cssFocused: {
+    //
+    // },
+
+    // notchedOutline: {
+    //     borderWidth:1,
+    //     borderStyle:'solid',
+    //     borderColor: 'rgba(0, 0, 0, 0.23)',
+    //     "&:hover":{
+    //         borderWidth:1,
+    //         borderStyle:'solid',
+    //         borderColor: 'rgba(0, 0, 0, 0.23)',
+    //     }
+    //
+    // },
 });
 
 
@@ -50,6 +163,7 @@ class App extends Component {
 
     }
     render() {
+
         return (
             <ThemeProvider theme={outerTheme}>
                 <Router>

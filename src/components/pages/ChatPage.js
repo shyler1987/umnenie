@@ -134,8 +134,8 @@ class ChatPage extends Component {
 
                                             <ListItem alignItems="flex-start" classes={{root: classes.listItem}}>
                                                 <ListItemAvatar>
-                                                    <Avatar alt="Никита Макаренко"
-                                                            src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"/>
+                                                   <Link to={"/"}> <Avatar alt="Никита Макаренко"
+                                                                           src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"/> </Link>
                                                 </ListItemAvatar>
                                                 <ListItemText
                                                     primary="Никита Макаренко"
@@ -144,8 +144,8 @@ class ChatPage extends Component {
                                             <Divider component="li" classes={{root:classes.dividerCustom}}/>
                                             <ListItem alignItems="flex-start" classes={{root: classes.listItem}}>
                                                 <ListItemAvatar>
-                                                    <Avatar alt="Никита Макаренко"
-                                                            src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"/>
+                                                    <Link to={"/"}> <Avatar alt="Никита Макаренко"
+                                                                            src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"/> </Link>
                                                 </ListItemAvatar>
                                                 <ListItemText
                                                     primary="Никита Макаренко"
@@ -154,8 +154,8 @@ class ChatPage extends Component {
                                             <Divider component="li" classes={{root:classes.dividerCustom}}/>
                                             <ListItem alignItems="flex-start" classes={{root: classes.listItem}}>
                                                 <ListItemAvatar>
-                                                    <Avatar alt="Никита Макаренко"
-                                                            src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"/>
+                                                    <Link to={"/"}> <Avatar alt="Никита Макаренко"
+                                                                            src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"/> </Link>
                                                 </ListItemAvatar>
                                                 <ListItemText
                                                     primary="Никита Макаренко"
@@ -164,8 +164,8 @@ class ChatPage extends Component {
                                             <Divider component="li" classes={{root:classes.dividerCustom}}/>
                                             <ListItem alignItems="flex-start" classes={{root: classes.listItem}}>
                                                 <ListItemAvatar>
-                                                    <Avatar alt="Никита Макаренко"
-                                                            src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"/>
+                                                    <Link to={"/"}> <Avatar alt="Никита Макаренко"
+                                                                            src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"/> </Link>
                                                 </ListItemAvatar>
                                                 <ListItemText
                                                     primary="Никита Макаренко"

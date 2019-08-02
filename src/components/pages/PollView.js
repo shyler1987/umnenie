@@ -17,6 +17,10 @@ import TextField from '@material-ui/core/TextField';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../media/style.css';
 import Button from '@material-ui/core/Button';
+import {Link} from "react-router-dom";
+import AddIcon from '@material-ui/icons/Add';
+import { green } from '@material-ui/core/colors';
+import Fab from '@material-ui/core/Fab';
 
 const styles = theme => ({
     root: {
@@ -47,7 +51,8 @@ const styles = theme => ({
     },
     noPad:{
         padding:0
-    }
+    },
+
 
 });
 
@@ -149,6 +154,7 @@ class PollView extends Component {
         const {classes} = this.props;
         return (
             <div>
+                <Fab className={classes.fab}><AddIcon/></Fab>
                 <Loading
                     show={this.state.show}
                     color="red"
@@ -164,14 +170,16 @@ class PollView extends Component {
                     spacing={2}
                 >
                     <Grid item md={1}>
-                        <Paper classes={{root: classes.arrowButton}}>
-
-                            <IconButton>
-                                <KeyboardArrowLeft/>
-                            </IconButton>
+                        <Link to={""}>
+                            <Paper classes={{root: classes.arrowButton}}>
 
 
-                        </Paper>
+                                    <KeyboardArrowLeft/>
+
+
+
+                            </Paper>
+                        </Link>
                     </Grid>
                     <Grid item md={8}>
                         <PollCard
@@ -194,11 +202,11 @@ class PollView extends Component {
 
                     </Grid>
                     <Grid item md={1}>
-                        <Paper classes={{root: classes.arrowButton}}>
-                            <IconButton>
-                                <KeyboardArrowRight/>
-                            </IconButton>
-                        </Paper>
+                        <Link to={""}>
+                            <Paper classes={{root: classes.arrowButton}}>
+                                    <KeyboardArrowRight/>
+                            </Paper>
+                        </Link>
                     </Grid>
                 </Grid>
                 <Grid

@@ -12,7 +12,49 @@ import EditIcon from '@material-ui/icons/Edit'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
 import LeftMenu from '../tools/LeftMenu';
+import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
+import InputBase from '@material-ui/core/InputBase';
+
+const BootstrapInput = withStyles(theme => ({
+    root: {
+        'label + &': {
+            marginTop: theme.spacing(3),
+        },
+    },
+    input: {
+        borderRadius: 4,
+        position: 'relative',
+        backgroundColor: theme.palette.background.paper,
+        border: '1px solid #ced4da',
+        fontSize: 16,
+        padding: '10px 26px 10px 12px',
+        transition: theme.transitions.create(['border-color', 'box-shadow']),
+        // Use the system font instead of the default Roboto font.
+        fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+        ].join(','),
+        '&:focus': {
+            borderRadius: 4,
+            boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+        },
+    },
+}))(InputBase);
+
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -114,6 +156,28 @@ const styles = theme => ({
 
 
 });
+const names = [
+    'Oliver Hansen',
+    'Van Henry',
+    'April Tucker',
+    'Ralph Hubbard',
+    'Omar Alexander',
+    'Carlos Abbott',
+    'Miriam Wagner',
+    'Bradley Wilkerson',
+    'Virginia Andrews',
+    'Kelly Snyder',
+];
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+};
 
 
 const API_POLLS = "polls/list";
@@ -121,16 +185,25 @@ const API_POLLS = "polls/list";
 
 class ProfileEdit extends Component {
 
+
     constructor(props) {
         super(props);
         this.state = {
             polls: [],
-            show: false
+            show: false,
+            selected:[]
         };
+
+
     }
 
     submit = (values, pristineValues) => {
         // get all values and pristineValues on form submission
+    }
+
+    handleChange = (event) =>{
+        this.setState({ selected: event.target.value});
+
     }
 
     componentDidMount() {
@@ -184,54 +257,38 @@ class ProfileEdit extends Component {
                                         <Typography>Категория</Typography>
                                     </Grid>
                                     <Grid item md={9}>
-                                        <TextField
-                                            id="standard-select-currency"
-                                            select
-                                            fullWidth
-                                            className={classes.textField}
-                                            SelectProps={{
-                                                MenuProps: {
-                                                    className: classes.menu,
-                                                },
-                                                style: {
-                                                    height: 40,
-                                                },
-                                            }}
-                                            placeholder={"Выберите категорию"}
-                                            variant="outlined"
-                                            margin="dense"
-                                        >
-                                            <MenuItem key={1} value={1}>
-                                                Выберите категорию
-                                            </MenuItem>
-                                            <MenuItem key={2} value={2}>
-                                                Выберите категорию
-                                            </MenuItem>
+                                        <FormControl className={classes.formControl}  fullWidth variant="outlined">
+                                            <Select
+                                                placeholder={"Выберите категорию"}
+                                                multiple
+                                                value={this.state.selected}
+                                                onChange={this.handleChange}
+                                                MenuProps={MenuProps}
+                                                input={<BootstrapInput name="age" id="age-customized-select" />}
+                                                // input={<Input id="select-multiple" />}
+                                                renderValue={selected=>{
+                                                    if (selected.length === 0) {
+                                                        return <em>Placeholder</em>;
+                                                    }
 
-                                        </TextField>
+                                                    return selected.join(', ');
+                                                }}
+                                                value={this.state.selected}
+
+
+                                            >
+                                                {names.map(name => (
+                                                    <MenuItem key={name} value={name}>
+                                                        <ListItemText primary={name} />
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
                                     </Grid>
 
                                 </Grid>
                                 <Grid container spacing={3} direction={"row"}>
                                     <Grid item md={12}>
-                                        <TextField
-                                            margin="dense"
-                                            id="outlined-name"
-                                            fullWidth
-                                            placeholder={"Выберите категорию"}
-                                            className={classes.textField}
-                                            variant="outlined"
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <p className={classes.editP}>
-                                                            <EditIcon style={{fontSize: 20}}/> Редактировать
-                                                        </p>
-
-                                                    </InputAdornment>
-                                                ),
-                                            }}
-                                        />
                                         <TextField
                                             margin="dense"
                                             id="outlined-name"
@@ -319,31 +376,33 @@ class ProfileEdit extends Component {
                                         />
                                     </Grid>
                                     <Grid item md={6}>
-                                        <TextField
-                                            id="standard-select-currency"
-                                            select
-                                            fullWidth
-                                            className={classes.textField}
-                                            SelectProps={{
-                                                MenuProps: {
-                                                    className: classes.menu,
-                                                },
-                                                style: {
-                                                    height: 40,
-                                                },
-                                            }}
-                                            placeholder={"Выберите категорию"}
-                                            variant="outlined"
-                                            margin="dense"
-                                        >
-                                            <MenuItem key={1} value={1}>
-                                                Выберите категорию
-                                            </MenuItem>
-                                            <MenuItem key={2} value={2}>
-                                                Выберите категорию
-                                            </MenuItem>
+                                        <FormControl className={classes.formControl}  fullWidth variant="outlined">
+                                            <Select
+                                                placeholder={"Выберите категорию"}
+                                                multiple
+                                                value={this.state.selected}
+                                                onChange={this.handleChange}
+                                                MenuProps={MenuProps}
+                                                input={<BootstrapInput name="age" id="age-customized-select" />}
+                                                // input={<Input id="select-multiple" />}
+                                                renderValue={selected=>{
+                                                    if (selected.length === 0) {
+                                                        return <em>Placeholder</em>;
+                                                    }
 
-                                        </TextField>
+                                                    return selected.join(', ');
+                                                }}
+                                                value={this.state.selected}
+
+
+                                            >
+                                                {names.map(name => (
+                                                    <MenuItem key={name} value={name}>
+                                                        <ListItemText primary={name} />
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
                                         <TextField
                                             margin="dense"
                                             id="outlined-name"

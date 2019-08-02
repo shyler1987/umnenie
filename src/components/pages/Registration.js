@@ -25,7 +25,29 @@ const styles = theme => ({
         color: theme.palette.text.secondary,
         //minHeight:500
     },
-    textField: {},
+    textField: {
+
+
+        "&:hover": {
+            paddingTop: 25,
+            outline: '4px',
+            paddingBottom: 25,
+        },
+
+    },
+
+    textFieldRoot: {
+        paddingTop: 25,
+        "&:focus": {
+            paddingTop: 25,
+            outline: '4px',
+            paddingBottom: 25,
+        },
+
+    },
+    textFieldInput: {
+
+    },
     inputHeight: {
         height: 100
     },
@@ -43,6 +65,9 @@ const styles = theme => ({
     ButtonGroup: {
         background: '#fff',
     },
+    buttonGroup: {
+        color: "#2B2A29"
+    },
     buttonGroupActive: {
         background: '#e35b1e',
         color: '#fff',
@@ -51,7 +76,35 @@ const styles = theme => ({
             background: 'rgba(227, 91, 30, 0.08)',
             color: '#e35b1e',
         }
-    }
+    },
+    cssOutlinedInput: {
+        '&$cssFocused $notchedOutline': {
+            //borderColor: `#e35b1e !important`,
+            borderWidth:1,
+            borderStyle:'solid',
+            borderColor: 'rgba(0, 0, 0, 0.23)'
+        },
+        "&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline": {
+            borderColor: 'rgba(0, 0, 0, 0.23)'
+        },
+    },
+
+    cssFocused: {
+        borderColor: `#e35b1e !important`,
+    },
+
+    notchedOutline: {
+        borderWidth:1,
+        borderStyle:'solid',
+        borderColor: 'rgba(0, 0, 0, 0.23)',
+        "&:hover":{
+            borderWidth:1,
+            borderStyle:'solid',
+            borderColor: 'rgba(0, 0, 0, 0.23)',
+        }
+
+    },
+
 
 
 });
@@ -74,6 +127,7 @@ class Registration extends Component {
             personToggle: !this.state.personToggle
         })
     }
+
     render() {
         const {classes} = this.props;
         return (
@@ -104,8 +158,12 @@ class Registration extends Component {
                                     <form fullWidth>
                                         <ButtonGroup fullWidth aria-label="full width outlined button group"
                                                      classes={{root: classes.ButtonGroup}}>
-                                            <Button onClick={this.personToggle} classes={{root: this.state.personToggle ? classes.buttonGroupActive : ""}}>Физическое лицо</Button>
-                                            <Button onClick={this.personToggle} classes={{root: !this.state.personToggle ? classes.buttonGroupActive : ""}} color="secondary">Юридическое лицо</Button>
+                                            <Button onClick={this.personToggle}
+                                                    classes={{root: this.state.personToggle ? classes.buttonGroupActive : ""}}>Физическое
+                                                лицо</Button>
+                                            <Button onClick={this.personToggle}
+                                                    classes={{root: !this.state.personToggle ? classes.buttonGroupActive : ""}}
+                                                    color="secondary">Юридическое лицо</Button>
 
                                         </ButtonGroup>
                                         {this.state.personToggle ?
@@ -114,7 +172,8 @@ class Registration extends Component {
                                                     fullWidth
                                                     id="outlined-bare"
                                                     placeholder={"Ф.И.О"}
-                                                    className={classes.textField}
+                                                    //className={classes.textField}
+
                                                     margin="dense"
                                                     variant="outlined"
                                                 />
@@ -122,7 +181,6 @@ class Registration extends Component {
                                                     fullWidth
                                                     id="outlined-bare"
                                                     placeholder={"Номер телефона"}
-                                                    className={classes.textField}
                                                     margin="dense"
                                                     variant="outlined"
                                                 />
@@ -133,7 +191,6 @@ class Registration extends Component {
                                                     fullWidth
                                                     id="outlined-bare"
                                                     placeholder={"Название организация"}
-                                                    className={classes.textField}
                                                     margin="dense"
                                                     variant="outlined"
                                                 />
@@ -141,7 +198,6 @@ class Registration extends Component {
                                                     fullWidth
                                                     id="outlined-bare"
                                                     placeholder={"E-mail"}
-                                                    className={classes.textField}
                                                     margin="dense"
                                                     variant="outlined"
                                                 />
@@ -152,7 +208,6 @@ class Registration extends Component {
                                             fullWidth
                                             id="outlined-bare"
                                             placeholder={"Придумайте логин/имя пользователя"}
-                                            className={classes.textField}
                                             variant="outlined"
                                             margin="dense"
                                         />
@@ -160,7 +215,6 @@ class Registration extends Component {
                                             fullWidth
                                             id="outlined-bare"
                                             placeholder={"Пароль"}
-                                            className={classes.textField}
                                             variant="outlined"
                                             margin="dense"
 
@@ -169,7 +223,6 @@ class Registration extends Component {
                                             fullWidth
                                             id="outlined-bare"
                                             placeholder={"Павтаритие пароль"}
-                                            className={classes.textField}
 
                                             variant="outlined"
                                             margin="dense"

@@ -13,6 +13,7 @@ import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Search from '@material-ui/icons/Search';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
     appBarBottom: {
@@ -119,7 +120,7 @@ class Menu extends React.Component {
                             {/*<NavDropdown.Item href="#action/3.1">Ru</NavDropdown.Item>*/}
                             {/*<NavDropdown.Item href="#action/3.2">Uz</NavDropdown.Item>*/}
                             {/*</NavDropdown>*/}
-                            <Link to={"/account/profile/"} className={"nav-link"}>
+                            <Link to={"/account/profile/"} className={"nav-link"} style={{fontFamily:'SourceSansProRegular, sans-serif'}}>
 
                                 <Image
                                     src="https://material-ui.com/static/images/avatar/1.jpg"

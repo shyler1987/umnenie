@@ -27,6 +27,7 @@
     "react-scripts": "3.0.1",
     "react-stack-grid": "^0.7.1",
     "reactstrap": "^8.0.1",
+    "source-sans-pro": "^2.45.0",
     "yarn": "^1.17.3"
   },
   "scripts": {

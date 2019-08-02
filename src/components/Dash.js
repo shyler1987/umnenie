@@ -7,7 +7,7 @@ import axios from 'axios';
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
-import CrownSvg from "../media/icons/crown.svg";
+import FloatActionButtun from "./tools/FloatActionButtun";
 
 
 const styles = theme => ({
@@ -69,6 +69,7 @@ class Dash extends Component {
         const {classes} = this.props;
         return (
             <div>
+                <FloatActionButtun/>
                 <Loading
                     show={this.state.show}
                     color="red"

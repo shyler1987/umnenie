@@ -164,6 +164,12 @@ const styles = theme => ({
             "& img":{
                 padding:5
             }
+        },
+        ListItemTextRoot:{
+            color:"#2B2A29"
+        },
+        cardContent:{
+            color:"#2B2A29"
         }
 
 
@@ -216,7 +222,7 @@ class PollCard extends Component {
                         subheader={this.state.datePoll}
                     />
                     <CardContent>
-                        <Typography variant="body2" color="textSecondary" component="p">
+                        <Typography variant="body2" color="textSecondary" component="p" classes={{root:classes.cardContent}}>
                             {this.state.contentPoll}
                         </Typography>
                     </CardContent>
@@ -323,7 +329,7 @@ class PollCard extends Component {
                                                 }
                                             />
                                         </ListItemIcon>
-                                        <ListItemText primary={itemOption.option}/>
+                                        <ListItemText classes={{root:classes.ListItemTextRoot}} primary={itemOption.option}/>
                                         <ListItemIcon>
                                             <div className={classes.avatars}>
                                                 {itemOption.avatars.map((avatarItem) => {

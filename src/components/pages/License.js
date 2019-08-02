@@ -6,10 +6,10 @@ import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import {Link} from "react-router-dom";
-import Divider from '@material-ui/core/Divider';
+import AddIcon from '@material-ui/icons/Add';
+import { green } from '@material-ui/core/colors';
+import Fab from '@material-ui/core/Fab';
+import FloatActionButtun from "../tools/FloatActionButtun";
 
 const styles = theme => ({
     root: {
@@ -40,10 +40,7 @@ const styles = theme => ({
     },
     copyright:{
         textAlign: 'left',
-    }
-
-
-
+    },
 });
 
 const API_POLLS = "polls/list";
@@ -63,6 +60,7 @@ class License extends Component {
         const {classes} = this.props;
         return (
             <div>
+                <FloatActionButtun/>
                 <Loading
                     show={this.state.show}
                     color="red"
@@ -72,6 +70,7 @@ class License extends Component {
                     Пользовательского соглашения
                 </Typography>
                 <Grid container spacing={0}>
+
                     <p style={{textAlign: 'justify'}}>
                         Настоящий документ «Пользовательское соглашение» представляет собой предложение ООО «_____» (далее — «Администрация»), заключить договор на изложенных ниже условиях Соглашения.
 

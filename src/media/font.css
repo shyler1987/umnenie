@@ -1,0 +1,35 @@
+/* Код для подключения шрифта в /css/stylename.css */
+
+@font-face {
+    font-family: "SourceSansProRegular";
+    src: url("../media/fonts/SourceSansPro/SourceSansProRegular/SourceSansProRegular.eot");
+    src: url("../media/fonts/SourceSansPro/SourceSansProRegular/SourceSansProRegular.eot?#iefix")format("embedded-opentype"),
+    url("../media/fonts/SourceSansPro/SourceSansProRegular/SourceSansProRegular.woff") format("woff"),
+    url("../media/fonts/SourceSansPro/SourceSansProRegular/SourceSansProRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "SourceSansProLight";
+    src: url("../media/fonts/SourceSansPro/SourceSansProLight/SourceSansProLight.eot");
+    src: url("../media/fonts/SourceSansPro/SourceSansProLight/SourceSansProLight.eot?#iefix")format("embedded-opentype"),
+    url("../media/fonts/SourceSansPro/SourceSansProLight/SourceSansProLight.woff") format("woff"),
+    url("../media/fonts/SourceSansPro/SourceSansProLight/SourceSansProLight.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "SourceSansProBold";
+    src: url("../media/fonts/SourceSansPro/SourceSansProBold/SourceSansProBold.eot");
+    src: url("../media/fonts/SourceSansPro/SourceSansProBold/SourceSansProBold.eot?#iefix")format("embedded-opentype"),
+    url("../media/fonts/SourceSansPro/SourceSansProBold/SourceSansProBold.woff") format("woff"),
+    url("../media/fonts/SourceSansPro/SourceSansProBold/SourceSansProBold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+body{
+    font-family: 'Source Sans Pro', sans-serif;
+}
