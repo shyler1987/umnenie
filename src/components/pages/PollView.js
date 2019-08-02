@@ -18,9 +18,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../media/style.css';
 import Button from '@material-ui/core/Button';
 import {Link} from "react-router-dom";
-import AddIcon from '@material-ui/icons/Add';
-import { green } from '@material-ui/core/colors';
-import Fab from '@material-ui/core/Fab';
+
+import FloatActionButtun from "../tools/FloatActionButtun";
 
 const styles = theme => ({
     root: {
@@ -154,7 +153,7 @@ class PollView extends Component {
         const {classes} = this.props;
         return (
             <div>
-                <Fab className={classes.fab}><AddIcon/></Fab>
+                <FloatActionButtun/>
                 <Loading
                     show={this.state.show}
                     color="red"
