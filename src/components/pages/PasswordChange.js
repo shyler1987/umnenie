@@ -119,6 +119,11 @@ const styles = theme => ({
 
 
     },
+    titleHead:{
+        fontWeight: 600,
+        fontSize:30,
+        margin: '25px 5px 10px 0px'
+    }
 
 
 });
@@ -173,9 +178,7 @@ class PasswordChange extends Component {
                     show={this.state.show}
                     color="red"
                 />
-                    <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{
-                        margin: '25px 5px 10px 0px'
-                    }}>
+                <Typography classes={{root:classes.titleHead}} >
                         Сменить пароль
                     </Typography>
                     <Grid container spacing={2} direction={"row"}>

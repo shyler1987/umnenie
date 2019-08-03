@@ -105,6 +105,16 @@ const styles = theme => ({
         boxShadow: '0 0 0 0.0rem rgba(255,255,255,.5)',
         color: 'outline: 5px auto #fff'
     },
+    about:{
+        fontSize:18,
+        color:theme.palette.mainBlackColor
+    },
+    titleHead:{
+        fontWeight: 600,
+        fontSize:30,
+        margin: '25px 5px 10px 0px'
+    }
+
 
 
 
@@ -161,15 +171,14 @@ class ProfileJuridic extends Component {
                     color="red"
                 />
                 <Container>
-                    <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{
-
-                        margin: '25px 5px 10px 0px'
-                    }}>
+                    <Typography classes={{root:classes.titleHead}} >
                         О себе
                     </Typography>
                     <Grid container spacing={0}>
                         <Grid md={12}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            <Typography classes={{root:classes.about}}>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </Typography>
 
                         </Grid>
                     </Grid>
@@ -188,9 +197,7 @@ class ProfileJuridic extends Component {
                 </Container>
 
                 <Container>
-                    <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{
-                        margin: '25px 5px 10px 0px'
-                    }}>
+                    <Typography classes={{root:classes.titleHead}} >
                         Опросы пользователя
                     </Typography>
                     <ResponsiveMasonry

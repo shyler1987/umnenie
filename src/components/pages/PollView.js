@@ -51,13 +51,16 @@ const styles = theme => ({
     noPad:{
         padding:0
     },
-
-
+    titleHead:{
+        fontWeight: 600,
+        fontSize:30,
+        margin: '25px 5px 10px 0px'
+    }
 });
 
 const dataInit = {
     userId: 1,
-    userName: "Иванов Иван Иванович",
+    userName: "Исидатэ Тайти",
     userImage: "http://umnenie.foundrising.uz/uploads/user/foto/1.jpg",
     pollId: 4,
     pollUrl: "http://umnenie.foundrising.uz/api/polls/poll?pollId=4",
@@ -69,42 +72,44 @@ const dataInit = {
     pollViewComment: "Разрешены",
     pollHashtags: "fone image",
     pollPublications: "",
-    pollEndDate: "15.11.2019",
-    pollQuestion: "Sizn qaysi rasmni fon qilib ishlatar edingiz",
+    pollEndDate: "15.11.19",
+    pollQuestion: `dribbble A hand-made music player?!
+@kellianderson making us at the Hang
+Time stage `,
     pollImage: null,
     items: [{
         id: 13,
-        option: "Birinchi",
+        option: "Опросы за деньги",
         percent: 0,
         image: "http://umnenie.foundrising.uz/uploads/pollitem/1.jpg",
         avatars: ["http://umnenie.foundrising.uz/uploads/user/foto/1.jpg", "http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"]
     }, {
         id: 14,
-        option: "Ikkinchi",
+        option: "Опросы за деньги",
         percent: 0,
         image: "http://umnenie.foundrising.uz/uploads/pollitem/3556468-Beautiful-big-white-clouds-in-front-of-blue-sky-background-Stock-Photo.jpg",
         avatars: ["http://umnenie.foundrising.uz/uploads/user/foto/1.jpg", "http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"]
     }, {
         id: 15,
-        option: "Uchinchi",
+        option: "Опросы за деньги",
         percent: 0,
         image: "http://umnenie.foundrising.uz/uploads/pollitem/background2056509340 — копия.jpg",
         avatars: ["http://umnenie.foundrising.uz/uploads/user/foto/1.jpg", "http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"]
     }, {
         id: 16,
-        option: "To'rtinchi",
+        option: "Опросы за деньги",
         percent: 50,
         image: "http://umnenie.foundrising.uz/uploads/pollitem/Teaching-Awards-Background.jpg",
         avatars: ["http://umnenie.foundrising.uz/uploads/user/foto/1.jpg", "http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"]
     }, {
         id: 17,
-        option: "Beshinchi",
+        option: "Опросы за деньги",
         percent: 50,
         image: "http://umnenie.foundrising.uz/uploads/pollitem/Sun-Rays-Blue-Sky-Clouds-Beauty.jpg",
         avatars: ["http://umnenie.foundrising.uz/uploads/user/foto/1.jpg", "http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"]
     }, {
         id: 18,
-        option: "Oltinchi",
+        option: "Опросы за деньги",
         percent: 0,
         image: "http://umnenie.foundrising.uz/uploads/pollitem/software_update.png",
         avatars: ["http://umnenie.foundrising.uz/uploads/user/foto/1.jpg", "http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"]
@@ -180,7 +185,7 @@ class PollView extends Component {
                             </Paper>
                         </Link>
                     </Grid>
-                    <Grid item md={8}>
+                    <Grid item md={7}>
                         <PollCard
 
                             idPoll={dataInit.pollId}
@@ -197,6 +202,7 @@ class PollView extends Component {
                             iconAnonced={true}
                             iconStatis={true}
                             iconEdit={true}
+                            cellHeight={200}
                         />
 
                     </Grid>
@@ -217,10 +223,7 @@ class PollView extends Component {
                 >
 
                     <Grid item md={8}>
-                        <Typography variant="h5" fontWeight="fontWeightBold" component="h5" style={{
-                            fontWeight: 700,
-                            margin: '25px 5px 10px 0px'
-                        }}>
+                        <Typography classes={{root:classes.titleHead}} >
                             Комментарии (658)
                         </Typography>
                         <Paper classes={{root:classes.noPad}}>
@@ -231,8 +234,8 @@ class PollView extends Component {
                                         className="rounded-circle user_img_msg"/>
                                 </div>
                                 <div className="msg_cotainer">
-                                    Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно чата Всегда
-                                    буду рад ответить Вам.
+                                    Здравствуйте! Я могу Вам чем-то помочь? Если помощь не нужна,
+                                    то закройте окно чата. Всегда буду рад ответить Вам.
                                     <div className="msg_time">8:40</div>
                                 </div>
                             </div>
@@ -243,8 +246,8 @@ class PollView extends Component {
                                         className="rounded-circle user_img_msg"/>
                                 </div>
                                 <div className="msg_cotainer">
-                                    Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно чата Всегда
-                                    буду рад ответить Вам.
+                                    Вы не добавлены в участники раздачи Скинов, так как у вас нет
+                                    ссылки на steam трейд. Указать.
                                     <div className="msg_time">8:40</div>
                                 </div>
                             </div>
@@ -252,7 +255,7 @@ class PollView extends Component {
 
                             <div className="d-flex justify-content-end itemChat">
                                 <div className="msg_cotainer_send">
-                                    Hi Maryam i am good tnx how about you?
+                                    Здравствуйте
                                     <div className="msg_time_send">8:55</div>
                                 </div>
                                 <div className="img_cont_msg">
@@ -268,33 +271,13 @@ class PollView extends Component {
                                         className="rounded-circle user_img_msg"/>
                                 </div>
                                 <div className="msg_cotainer">
-                                    Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно чата Всегда
-                                    буду рад ответить Вам.
+                                    Вы не добавлены в участники раздачи Скинов, так как у вас нет
+                                    ссылки на steam трейд. Указать.
                                     <div className="msg_time">8:40</div>
                                 </div>
                             </div>
-                            <div className="d-flex justify-content-end itemChat">
-                                <div className="msg_cotainer_send">
-                                    Hi Maryam i am good tnx how about you?
-                                    <div className="msg_time_send">8:55</div>
-                                </div>
-                                <div className="img_cont_msg">
-                                    <img
-                                        src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
-                                        className="rounded-circle user_img_msg"/>
-                                </div>
-                            </div>
-                            <div className="d-flex justify-content-end itemChat">
-                                <div className="msg_cotainer_send">
-                                    Hi Maryam i am good tnx how about you?
-                                    <div className="msg_time_send">8:55</div>
-                                </div>
-                                <div className="img_cont_msg">
-                                    <img
-                                        src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
-                                        className="rounded-circle user_img_msg"/>
-                                </div>
-                            </div>
+
+
                             <br/>
                             <br/>
                             <br/>

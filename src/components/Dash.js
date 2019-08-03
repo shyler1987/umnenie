@@ -25,6 +25,11 @@ const styles = theme => ({
         // width: 500,
         // height: 450,
     },
+    titleHead:{
+    fontWeight: 600,
+    fontSize:30,
+    margin: '25px 5px 10px 0px'
+}
 });
 
 const API_POLLS = "polls/list";
@@ -74,8 +79,7 @@ class Dash extends Component {
                     show={this.state.show}
                     color="red"
                 />
-                <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{fontWeight: 400,
-                    margin: '25px 5px 8px 10px'}}>
+                <Typography classes={{root:classes.titleHead} }>
                     Опрос
                 </Typography>
                 <ResponsiveMasonry
@@ -84,6 +88,7 @@ class Dash extends Component {
                     <Masonry
                         columnsCount={3}
                         gutter={"10px"}
+                        gutterTop={"0px"}
                     >
                         {this.state.polls.map((item, key) => {
                             return (

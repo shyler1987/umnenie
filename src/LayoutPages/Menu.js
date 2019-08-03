@@ -66,7 +66,19 @@ const styles = theme => ({
         padding: theme.spacing(1) * 3,
         paddingBottom: 10
     },
+    TitleRoot:{
+        fontFamily: "'Source Sans Pro', sans-serif",
+        fontSize:14,
+        fontWeight: 600,
+        color:theme.palette.mainBlackColor,
+        display: 'block',
+        padding: '.5rem 1rem',
+        paddingRight: '.5rem',
+        paddingLeft: '.5rem',
 
+        "&:hover":{textDecoration:'none',color:theme.palette.mainBlackColor,},
+        "& img":{marginRight:'5px',}
+    }
 });
 
 
@@ -77,6 +89,7 @@ class Menu extends React.Component {
 
 
     render(){
+        const {classes} = this.props;
         return (
             <Navbar bg="white" expand="lg">
                 <Container>
@@ -120,7 +133,7 @@ class Menu extends React.Component {
                             {/*<NavDropdown.Item href="#action/3.1">Ru</NavDropdown.Item>*/}
                             {/*<NavDropdown.Item href="#action/3.2">Uz</NavDropdown.Item>*/}
                             {/*</NavDropdown>*/}
-                            <Link to={"/account/profile/"} className={"nav-link"} style={{fontFamily:'SourceSansProRegular, sans-serif'}}>
+                            <Link to={"/account/profile/"} className={classes.TitleRoot}>
 
                                 <Image
                                     src="https://material-ui.com/static/images/avatar/1.jpg"

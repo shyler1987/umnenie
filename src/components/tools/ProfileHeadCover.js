@@ -63,21 +63,25 @@ const styles = theme => ({
     buttonFollow: {
         color: "#ffffff",
         fontWeight: 600,
-        borderColor: '#ffffff',
+        borderColor: theme.palette.BorderColor,
         margin: '0px 5px 0px 5px',
-        background: 'rgba(43, 42, 41, 0.45)'
+        background: 'rgba(43, 42, 41, 0.45)',
+        '&:hover': {
+            borderColor: '#ffffff',
+            background: 'rgba(43, 42, 41, 0.45)'
+        },
+        '&:active': {
+            boxShadow: 'none',
+            borderColor: '#ffffff',
+            background: 'rgba(43, 42, 41, 0.45)'
+        },
+        '&:focus': {
+            boxShadow: '0 0 0 0.0rem rgba(255,255,255,.5)',
+            color: 'outline: 5px auto #fff',
+            background: 'rgba(43, 42, 41, 0.45)'
+        },
     },
-    '&:hover': {
-        borderColor: '#ffffff',
-    },
-    '&:active': {
-        boxShadow: 'none',
-        borderColor: '#ffffff',
-    },
-    '&:focus': {
-        boxShadow: '0 0 0 0.0rem rgba(255,255,255,.5)',
-        color: 'outline: 5px auto #fff'
-    },
+
     profileTitleBar:{
         bottom: 55,
         left: 210,
@@ -85,7 +89,9 @@ const styles = theme => ({
         position: "absolute"
     },
     profileTitle:{
-        fontWeight: 400,
+        fontFamily: "'Source Sans Pro', sans-serif",
+        fontSize:30,
+        fontWeight: 600,
         color: "#fff",
     }
     ,
@@ -156,7 +162,7 @@ class ProfileHeadCover extends Component {
                                         <Typography variant="caption" display="block" classes={{root:classes.profileTitleDate}}>
                                             22.06.19
                                         </Typography>
-                                        <Typography variant="h4" fontWeight="fontWeightBold" component="h4" classes={{root:classes.profileTitle}}>
+                                        <Typography   classes={{root:classes.profileTitle}}>
                                             Исидатэ Тайти
                                         </Typography>
                                     </div>

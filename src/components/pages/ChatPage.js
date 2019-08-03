@@ -23,46 +23,62 @@ import Avatar from '@material-ui/core/Avatar';
 
 
 const styles = theme => ({
-    multlineInput: {
-        padding: 10
-    },
-    root: {
-        width: '100%',
-        maxWidth: 360,
-        backgroundColor: theme.palette.background.paper,
-    },
-    inline: {
-        display: 'inline',
-    },
-    listItem: {
-        alignItems: 'center',
-        "&:hover": {
-            cursor: 'pointer',
-            color: '#e05023',
-            "&img":{
-                border: '2px solid #e05023',
-                borderRadius: 30
-            }
+        multlineInput: {
+            padding: 10
         },
+        root: {
+            width: '100%',
+            maxWidth: 360,
+            backgroundColor: theme.palette.background.paper,
+        },
+        inline: {
+            display: 'inline',
+        },
+        listItem: {
+            alignItems: 'center',
+            "&:hover": {
+                cursor: 'pointer',
+                color: '#e05023',
+                "& img": {
+                    border: 2,
+                    borderStyle: 'solid',
+                    borderColor: theme.palette.YellowColor,
+                    borderRadius:50
+                }
+            },
 
 
-    },
-    chatHeaderTitle:{
-        padding: '5px 10px 5px',
-        fontWeight: 600
-    },
-    dvider: {
-        marginLeft: 12
-    },
-    dividerCustom:{
-        marginRight:0,
-        marginLeft: 16
-    },
-    poperContent: {
-        padding: 10,
-        minHeight:850
-    },
-});
+        },
+        chatHeaderTitle: {
+            padding: '5px 10px 5px',
+            fontWeight: 600
+        },
+        dvider: {
+            marginLeft: 12
+        },
+        dividerCustom: {
+            marginRight: 0,
+            marginLeft: 16
+        },
+        poperContent: {
+            padding: 10,
+            minHeight: 850
+        },
+        titleHead: {
+            fontWeight: 600,
+            fontSize: 30,
+            margin: '25px 5px 10px 0px'
+        },
+        titleFieldesetHead: {
+            fontWeight: 600,
+            fontSize: 15,
+
+        },
+        avatarChat: {
+
+        }
+    })
+;
 
 
 const API_POLLS = "polls/list";
@@ -115,185 +131,194 @@ class ChatPage extends Component {
                     color="red"
                 />
 
-                    <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{
+                <Typography classes={{root: classes.titleHead}}>
+                    Чат
+                </Typography>
+                <Grid container spacing={2} direction={"row"}>
+                    <Grid item md={3}>
+                        <LeftMenu/>
+                    </Grid>
+                    <Grid item md={9}>
+                        <Paper classes={{root: classes.poperContent}}>
+                            <Grid container spacing={3} direction={"row"}>
+                                <Grid item md={4} style={{borderRight: '1px solid #eee'}}>
+                                    <Typography variant="h5" component={"h4"}
+                                                classes={{root: classes.chatHeaderTitle}}> Старый пароль</Typography>
+                                    <List className={classes.root}>
 
-                        margin: '25px 5px 10px 0px'
-                    }}>
-                        Чат
-                    </Typography>
-                    <Grid container spacing={2} direction={"row"}>
-                        <Grid item md={3}>
-                            <LeftMenu/>
-                        </Grid>
-                        <Grid item md={9}>
-                            <Paper classes={{root: classes.poperContent}}>
-                                <Grid container spacing={3} direction={"row"}>
-                                    <Grid item md={4} style={{borderRight: '1px solid #eee'}}>
-                                        <Typography variant="h5" component={"h4"} classes={{root:classes.chatHeaderTitle}}> Старый пароль</Typography>
-                                        <List className={classes.root}>
-
-                                            <ListItem alignItems="flex-start" classes={{root: classes.listItem}}>
-                                                <ListItemAvatar>
-                                                   <Link to={"/"}> <Avatar alt="Никита Макаренко"
-                                                                           src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"/> </Link>
-                                                </ListItemAvatar>
-                                                <ListItemText
-                                                    primary="Никита Макаренко"
-                                                />
-                                            </ListItem>
-                                            <Divider component="li" classes={{root:classes.dividerCustom}}/>
-                                            <ListItem alignItems="flex-start" classes={{root: classes.listItem}}>
-                                                <ListItemAvatar>
-                                                    <Link to={"/"}> <Avatar alt="Никита Макаренко"
-                                                                            src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"/> </Link>
-                                                </ListItemAvatar>
-                                                <ListItemText
-                                                    primary="Никита Макаренко"
-                                                />
-                                            </ListItem>
-                                            <Divider component="li" classes={{root:classes.dividerCustom}}/>
-                                            <ListItem alignItems="flex-start" classes={{root: classes.listItem}}>
-                                                <ListItemAvatar>
-                                                    <Link to={"/"}> <Avatar alt="Никита Макаренко"
-                                                                            src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"/> </Link>
-                                                </ListItemAvatar>
-                                                <ListItemText
-                                                    primary="Никита Макаренко"
-                                                />
-                                            </ListItem>
-                                            <Divider component="li" classes={{root:classes.dividerCustom}}/>
-                                            <ListItem alignItems="flex-start" classes={{root: classes.listItem}}>
-                                                <ListItemAvatar>
-                                                    <Link to={"/"}> <Avatar alt="Никита Макаренко"
-                                                                            src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"/> </Link>
-                                                </ListItemAvatar>
-                                                <ListItemText
-                                                    primary="Никита Макаренко"
-                                                />
-                                            </ListItem>
-                                            <Divider component="li" classes={{root:classes.dividerCustom}}/>
-
-
-                                        </List>
-
-                                    </Grid>
-                                    <Grid item md={8}>
-                                        <div className="d-flex justify-content-start itemChat">
-                                            <div className="img_cont_msg">
-                                                <img
-                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
-                                                    className="rounded-circle user_img_msg"/>
-                                            </div>
-                                            <div className="msg_cotainer">
-                                                Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно
-                                                чата Всегда
-                                                буду рад ответить Вам.
-                                                <div className="msg_time">8:40</div>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex justify-content-start itemChat">
-                                            <div className="img_cont_msg">
-                                                <img
-                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
-                                                    className="rounded-circle user_img_msg"/>
-                                            </div>
-                                            <div className="msg_cotainer">
-                                                Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно
-                                                чата Всегда
-                                                буду рад ответить Вам.
-                                                <div className="msg_time">8:40</div>
-                                            </div>
-                                        </div>
+                                        <ListItem alignItems="flex-start" classes={{root: classes.listItem}}>
+                                            <ListItemAvatar>
+                                                <Link to={"/"}> <Avatar alt="Никита Макаренко"
+                                                                        src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"/>
+                                                </Link>
+                                            </ListItemAvatar>
+                                            <ListItemText
+                                                primary="Никита Макаренко"
+                                                classes={{primary: classes.titleFieldesetHead}}
+                                            />
+                                        </ListItem>
+                                        <Divider component="li" classes={{root: classes.dividerCustom}}/>
+                                        <ListItem alignItems="flex-start" classes={{root: classes.listItem}}>
+                                            <ListItemAvatar>
+                                                <Link to={"/"}>
+                                                    <Avatar
+                                                        alt="Никита Макаренко"
+                                                        classes={{root: classes.avatarChat}}
+                                                        src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                                    />
+                                                </Link>
+                                            </ListItemAvatar>
+                                            <ListItemText
+                                                primary="Никита Макаренко"
+                                                classes={{primary: classes.titleFieldesetHead}}
+                                            />
+                                        </ListItem>
+                                        <Divider component="li" classes={{root: classes.dividerCustom}}/>
+                                        <ListItem alignItems="flex-start" classes={{root: classes.listItem}}>
+                                            <ListItemAvatar>
+                                                <Link to={"/"}> <Avatar alt="Никита Макаренко"
+                                                                        src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"/>
+                                                </Link>
+                                            </ListItemAvatar>
+                                            <ListItemText
+                                                primary="Никита Макаренко"
+                                                classes={{primary: classes.titleFieldesetHead}}
+                                            />
+                                        </ListItem>
+                                        <Divider component="li" classes={{root: classes.dividerCustom}}/>
+                                        <ListItem alignItems="flex-start" classes={{root: classes.listItem}}>
+                                            <ListItemAvatar>
+                                                <Link to={"/"}> <Avatar alt="Никита Макаренко"
+                                                                        src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"/>
+                                                </Link>
+                                            </ListItemAvatar>
+                                            <ListItemText
+                                                primary="Никита Макаренко"
+                                                classes={{primary: classes.titleFieldesetHead}}
+                                            />
+                                        </ListItem>
+                                        <Divider component="li" classes={{root: classes.dividerCustom}}/>
 
 
-                                        <div className="d-flex justify-content-end itemChat">
-                                            <div className="msg_cotainer_send">
-                                                Hi Maryam i am good tnx how about you?
-                                                <div className="msg_time_send">8:55</div>
-                                            </div>
-                                            <div className="img_cont_msg">
-                                                <img
-                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
-                                                    className="rounded-circle user_img_msg"/>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex justify-content-start itemChat">
-                                            <div className="img_cont_msg">
-                                                <img
-                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
-                                                    className="rounded-circle user_img_msg"/>
-                                            </div>
-                                            <div className="msg_cotainer">
-                                                Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно
-                                                чата Всегда
-                                                буду рад ответить Вам.
-                                                <div className="msg_time">8:40</div>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex justify-content-end itemChat">
-                                            <div className="msg_cotainer_send">
-                                                Hi Maryam i am good tnx how about you?
-                                                <div className="msg_time_send">8:55</div>
-                                            </div>
-                                            <div className="img_cont_msg">
-                                                <img
-                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
-                                                    className="rounded-circle user_img_msg"/>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex justify-content-end itemChat">
-                                            <div className="msg_cotainer_send">
-                                                Hi Maryam i am good tnx how about you?
-                                                <div className="msg_time_send">8:55</div>
-                                            </div>
-                                            <div className="img_cont_msg">
-                                                <img
-                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
-                                                    className="rounded-circle user_img_msg"/>
-                                            </div>
-                                        </div>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <Grid
-                                            direction={"row"}
-                                            container
-                                            spacing={2}
-                                            style={{padding: 10}}
-                                        >
-                                            <Grid item md={9}>
-                                                <TextField
-                                                    id="standard-multiline-flexible"
-                                                    fullWidth
-                                                    multiline
-                                                    variant="outlined"
-                                                    className={classes.textField}
-                                                    InputProps={
-                                                        {
-                                                            classes: {
-                                                                root: classes.multlineInput
-                                                            }
-                                                        }
-                                                    }
-                                                />
-                                            </Grid>
-                                            <Grid item md={3}>
-                                                <Button variant="contained" color="secondary" fullWidth
-                                                        className={classes.button}>
-                                                    Отправить
-                                                </Button>
-                                            </Grid>
-
-
-                                        </Grid>
-                                    </Grid>
+                                    </List>
 
                                 </Grid>
+                                <Grid item md={8}>
+                                    <div className="d-flex justify-content-start itemChat">
+                                        <div className="img_cont_msg">
+                                            <Link to={"/"}> <img
+                                                src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                                className="rounded-circle user_img_msg"/></Link>
+                                        </div>
+                                        <div className="msg_cotainer">
+                                            Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно
+                                            чата Всегда
+                                            буду рад ответить Вам.
+                                            <div className="msg_time">8:40</div>
+                                        </div>
+                                    </div>
+                                    <div className="d-flex justify-content-start itemChat">
+                                        <div className="img_cont_msg">
+                                            <img
+                                                src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                                className="rounded-circle user_img_msg"/>
+                                        </div>
+                                        <div className="msg_cotainer">
+                                            Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно
+                                            чата Всегда
+                                            буду рад ответить Вам.
+                                            <div className="msg_time">8:40</div>
+                                        </div>
+                                    </div>
 
-                            </Paper>
-                        </Grid>
+
+                                    <div className="d-flex justify-content-end itemChat">
+                                        <div className="msg_cotainer_send">
+                                            Hi Maryam i am good tnx how about you?
+                                            <div className="msg_time_send">8:55</div>
+                                        </div>
+                                        <div className="img_cont_msg">
+                                            <img
+                                                src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                                className="rounded-circle user_img_msg"/>
+                                        </div>
+                                    </div>
+                                    <div className="d-flex justify-content-start itemChat">
+                                        <div className="img_cont_msg">
+                                            <img
+                                                src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                                className="rounded-circle user_img_msg"/>
+                                        </div>
+                                        <div className="msg_cotainer">
+                                            Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно
+                                            чата Всегда
+                                            буду рад ответить Вам.
+                                            <div className="msg_time">8:40</div>
+                                        </div>
+                                    </div>
+                                    <div className="d-flex justify-content-end itemChat">
+                                        <div className="msg_cotainer_send">
+                                            Hi Maryam i am good tnx how about you?
+                                            <div className="msg_time_send">8:55</div>
+                                        </div>
+                                        <div className="img_cont_msg">
+                                            <img
+                                                src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                                className="rounded-circle user_img_msg"/>
+                                        </div>
+                                    </div>
+                                    <div className="d-flex justify-content-end itemChat">
+                                        <div className="msg_cotainer_send">
+                                            Hi Maryam i am good tnx how about you?
+                                            <div className="msg_time_send">8:55</div>
+                                        </div>
+                                        <div className="img_cont_msg">
+                                            <img
+                                                src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                                className="rounded-circle user_img_msg"/>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <Grid
+                                        direction={"row"}
+                                        container
+                                        spacing={2}
+                                        style={{padding: 10}}
+                                    >
+                                        <Grid item md={9}>
+                                            <TextField
+                                                id="standard-multiline-flexible"
+                                                fullWidth
+                                                multiline
+                                                variant="outlined"
+                                                className={classes.textField}
+                                                InputProps={
+                                                    {
+                                                        classes: {
+                                                            root: classes.multlineInput
+                                                        }
+                                                    }
+                                                }
+                                            />
+                                        </Grid>
+                                        <Grid item md={3}>
+                                            <Button variant="contained" color="secondary" fullWidth
+                                                    className={classes.button}>
+                                                Отправить
+                                            </Button>
+                                        </Grid>
+
+
+                                    </Grid>
+                                </Grid>
+
+                            </Grid>
+
+                        </Paper>
                     </Grid>
-
+                </Grid>
 
 
             </div>

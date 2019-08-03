@@ -105,7 +105,11 @@ const styles = theme => ({
         color: '#000',
         fontSize: 14
     },
-
+    titleHead:{
+    fontWeight: 600,
+    fontSize:30,
+    margin: '25px 5px 10px 0px'
+}
 
 
 });
@@ -160,9 +164,7 @@ class PollCreate extends Component {
                     show={this.state.show}
                     color="red"
                 />
-                    <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{
-                        margin: '25px 5px 10px 0px'
-                    }}>
+                <Typography classes={{root:classes.titleHead}} >
                         Создать опрос
                     </Typography>
                     <Grid container spacing={2} direction={"row"}>

@@ -41,6 +41,12 @@ const styles = theme => ({
     copyright:{
         textAlign: 'left',
     },
+    titleHead:{
+        fontWeight: 600,
+        fontSize:30,
+        margin: '25px 5px 10px 0px'
+    }
+
 });
 
 const API_POLLS = "polls/list";
@@ -65,8 +71,7 @@ class License extends Component {
                     show={this.state.show}
                     color="red"
                 />
-                <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{
-                    margin: '25px 5px 10px 0px'}}>
+                <Typography classes={{root:classes.titleHead}} >
                     Пользовательского соглашения
                 </Typography>
                 <Grid container spacing={0}>

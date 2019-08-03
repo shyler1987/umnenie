@@ -21,6 +21,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import InputBase from '@material-ui/core/InputBase';
 
+
 const BootstrapInput = withStyles(theme => ({
     root: {
         'label + &': {
@@ -52,6 +53,11 @@ const BootstrapInput = withStyles(theme => ({
             borderRadius: 4,
             boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
         },
+        titleHead:{
+            fontWeight: 600,
+            fontSize:30,
+            margin: '25px 5px 10px 0px'
+        }
     },
 }))(InputBase);
 
@@ -150,14 +156,22 @@ const styles = theme => ({
             minWidth: '25%',
             textAlign: 'right'
         }
-
-
     },
+    titleHead:{
+        fontWeight: 600,
+        fontSize:30,
+        margin: '25px 5px 10px 0px'
+    },
+    titleFieldesetHead:{
+        fontWeight: 600,
+        fontSize:14,
+    }
+
 
 
 });
 const names = [
-    'Oliver Hansen',
+    'Все',
     'Van Henry',
     'April Tucker',
     'Ralph Hubbard',
@@ -239,10 +253,7 @@ class ProfileEdit extends Component {
                     color="red"
                 />
 
-                    <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{
-
-                        margin: '25px 5px 10px 0px'
-                    }}>
+                <Typography classes={{root:classes.titleHead}} >
                         Редактировать профиль
                     </Typography>
                     <Grid container spacing={2} direction={"row"}>
@@ -251,10 +262,10 @@ class ProfileEdit extends Component {
                         </Grid>
                         <Grid item md={9}>
                             <Paper classes={{root: classes.poperContent}}>
-                                <Typography variant={"h6"}>Личная информация</Typography>
+                                <Typography classes={{root:classes.titleFieldesetHead}}>Личная информация</Typography>
                                 <Grid container spacing={3} direction={"row"}>
                                     <Grid item md={3} classes={{root: classes.inlineText}}>
-                                        <Typography>Категория</Typography>
+                                        <Typography classes={{root:classes.titleFieldesetHead}}>Категория</Typography>
                                     </Grid>
                                     <Grid item md={9}>
                                         <FormControl className={classes.formControl}  fullWidth variant="outlined">

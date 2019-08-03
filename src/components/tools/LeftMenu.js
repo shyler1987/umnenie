@@ -10,11 +10,24 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';                                                                                                                                                                        
 const styles = theme => ({
     rootHead: {
+        fontFamily: "'Source Sans Pro', sans-serif",
         display: 'flex',
         flexWrap: 'wrap',
-        justifyContent: 'space-around',
+        justifyContent: 'flex-start',
         overflow: 'hidden',
+        fontWeight: 600,
+        fontSize:18,
+
         // backgroundColor: theme.palette.background.paper,
+    },
+    rootLink:{
+        fontFamily: "'Source Sans Pro', sans-serif",
+        fontWeight: 400,
+        fontSize:15,
+        color: "#e0512a",
+        "&:hover":{
+            color: "#e0512a",
+        }
     },
     title:{
       marginBottom:0
@@ -38,6 +51,7 @@ const styles = theme => ({
         paddingTop: 5,
         paddingBottom: 5,
         borderRadius: 4,
+
         '&:hover': {
             background: '#e0512a',
             color: "#fff",
@@ -77,7 +91,13 @@ const styles = theme => ({
         },
     },
     itemTitle:{
-        fontFamily:'"Source Sans Pro", sans-serif'
+        fontFamily: "'Source Sans Pro', sans-serif",
+        fontWeight: 600,
+        fontSize:15,
+    },
+    avatarTitle:{
+
+
     }
 });
 
@@ -97,7 +117,7 @@ class LeftMenu extends Component {
                     <Avatar alt="Remy Sharp" src={selenaAvatar} className={classes.bigAvatar}/>
                     <div style={{paddingLeft: 10}}>
                         <Typography classes={{root:classes.rootHead}} variant={"h5"}>Исидатэ Тайти</Typography>
-                        <Link to={"/"} style={{color: "#e0512a"}}>
+                        <Link to={"/"} className={classes.rootLink}>
                             <Typography> Сменить фото профиля</Typography>
                         </Link>
                     </div>
@@ -107,7 +127,7 @@ class LeftMenu extends Component {
                     <Paper className={classes.papeRoot}>
                         <ListItem button classes={{root: classes.ListItemRoot}} to={"/account/profile-edit"}   component={NavLink} activeClassName={classes.ListItemRootActive}>
                             <ListItemText
-                                classes={{root:classes.itemTitle}}
+                                classes={{primary:classes.itemTitle}}
                                 primary="Редактировать профиль"
                             />
                         </ListItem>
@@ -115,7 +135,7 @@ class LeftMenu extends Component {
                     <Paper className={classes.papeRoot}>
                         <ListItem button component={NavLink} to={"/account/passchange"}  classes={{root: classes.ListItemRoot}} activeClassName={classes.ListItemRootActive}>
                             <ListItemText
-                                classes={{root:classes.itemTitle}}
+                                classes={{primary:classes.itemTitle}}
                                 primary="Сменить пароль"
                             />
                         </ListItem>
@@ -123,7 +143,7 @@ class LeftMenu extends Component {
                     <Paper className={classes.papeRoot}>
                         <ListItem button component={NavLink} to={"/polls/create"}  classes={{root: classes.ListItemRoot}} activeClassName={classes.ListItemRootActive}>
                             <ListItemText
-                                classes={{root:classes.itemTitle}}
+                                classes={{primary:classes.itemTitle}}
                                 primary="Создать опрос"
                             />
                         </ListItem>
@@ -131,7 +151,7 @@ class LeftMenu extends Component {
                     <Paper className={classes.papeRoot}>
                         <ListItem button component={NavLink} to={"/chat"} classes={{root: classes.ListItemRoot}} activeClassName={classes.ListItemRootActive}>
                             <ListItemText
-                                classes={{root:classes.itemTitle}}
+                                classes={{primary:classes.itemTitle}}
                                 primary="Чат"
                             />
                         </ListItem>

@@ -5,7 +5,6 @@ import {createMuiTheme} from '@material-ui/core/styles';
 import {ThemeProvider} from '@material-ui/styles';
 import Test from './components/Dash'
 import RecoveryPassword from './components/pages/RecoveryPassword'
-import {green, orange, grey} from '@material-ui/core/colors';
 import axios from "axios"
 import Profile from "./components/pages/Profile";
 import ProfileLayoutRoute from "./layouts/ProfileLayout";
@@ -18,10 +17,7 @@ import PasswordChange from "./components/pages/PasswordChange";
 import PollCreate from "./components/pages/PollCreate";
 import ChatPage from "./components/pages/ChatPage";
 import Registration from "./components/pages/Registration";
-//import './media/fonts/sourcesanspro/sourcesanspro.css'
-import './media/font.css'
-import {withStyles} from '@material-ui/styles';
-
+import StatisPage from "./components/pages/StatisPage";
 const raleway = {
 
 };
@@ -64,18 +60,24 @@ const styles = theme => ({
 const outerTheme = createMuiTheme({
     typography: {
         useNextVariants: true,
-        fontFamily: 'SourceSansProRegular, sans-serif',
-        fontWeight: 400
+        fontFamily: "'Source Sans Pro', sans-serif",
+        fontWeight: 400,
+        color:"#2B2A29"
     },
     overrides: {
         MuiInputBase:{
             root:{
-                fontFamily: 'SourceSansProRegular, sans-serif',
+                fontFamily: "'Source Sans Pro', sans-serif",
+                fontSize:15,
+                fontWeight: 400
             }
         },
         MuiButton:{
             label:{
-                fontFamily: 'SourceSansProRegular, sans-serif',
+                fontFamily: "'Source Sans Pro', sans-serif",
+                fontSize:15,
+                textTransform: 'capitalize',
+                fontWeight: 600,
             }
         },
         MuiOutlinedInput: {
@@ -102,53 +104,23 @@ const outerTheme = createMuiTheme({
                     textOverflow: 'ellipsis !important',
                     color: 'blue'
                 }
-                // "&:hover":{
-                //     borderWidth:1,
-                //     borderStyle:'solid',
-                //     borderColor: 'rgba(0, 0, 0, 0.23)',
-                // }
             }
         },
-        // MuiInputBase:{
-        //     '&$focused $notchedOutline': {
-        //         borderColor: "#fff",
-        //         borderWidth: 2,
-        //     },
-        // },
-        // MuiInput:{
-        //     '&$focused $notchedOutline': {
-        //         borderColor: "#fff",
-        //         borderWidth: 2,
-        //     },
-        // }
-
     },
     palette: {
         primary: {
             main: '#000',
         },
         secondary:{
-            main:"#e35b1e"
+            main:"#E05022"
         },
         secondary1:{
             main:"#4fe329"
-        }
+        },
+        mainBlackColor:"#2B2A29",
+        BorderColor:"#E6E6E6",
+        YellowColor:"#E05022",
     },
-    // cssFocused: {
-    //
-    // },
-
-    // notchedOutline: {
-    //     borderWidth:1,
-    //     borderStyle:'solid',
-    //     borderColor: 'rgba(0, 0, 0, 0.23)',
-    //     "&:hover":{
-    //         borderWidth:1,
-    //         borderStyle:'solid',
-    //         borderColor: 'rgba(0, 0, 0, 0.23)',
-    //     }
-    //
-    // },
 });
 
 
@@ -182,6 +154,7 @@ class App extends Component {
                         <DashboardLayoutRoute exact path="/polls/create" component={PollCreate}/>
                         <DashboardLayoutRoute exact path="/chat" component={ChatPage}/>
                         <DashboardLayoutRoute exact path="/polls/:id" component={PollView}/>
+                        <DashboardLayoutRoute exact path="/statis/" component={StatisPage}/>
 
 
 

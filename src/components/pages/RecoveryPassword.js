@@ -52,6 +52,11 @@ const styles = theme => ({
             background:'rgba(227, 91, 30, 0.08)',
             color: '#e35b1e',
         }
+    },
+    titleHead:{
+        fontWeight: 600,
+        fontSize:30,
+        margin: '25px 5px 10px 0px'
     }
 
 
@@ -80,8 +85,7 @@ class RecoveryPassword extends Component {
                     show={this.state.show}
                     color="red"
                 />
-                <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{
-                    margin: '25px 5px 10px 0px'}}>
+                <Typography classes={{root:classes.titleHead}} >
                     Восстановит пароль
                 </Typography>
                 <Grid container spacing={0}>

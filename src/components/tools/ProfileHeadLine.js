@@ -4,6 +4,7 @@ import {withStyles} from '@material-ui/styles';
 import 'react-loading-bar/dist/index.css'
 import Button from '@material-ui/core/Button';
 import Container from 'react-bootstrap/Container'
+import { withRouter } from 'react-router';
 
 import FaceSvg from '../../media/icons/facebook.svg';
 import TelegramSvg from '../../media/icons/telegram.svg';
@@ -48,10 +49,8 @@ class ProfileHeadLine extends Component {
                             container
                             alignItems="flex-end"
                         >
-                            <Grid item md={4}>
 
-                            </Grid>
-                            <Grid item md={8} style={{textAlign: 'right'}}>
+                            <Grid item md={12} style={{textAlign: 'right'}}>
                                 <div className={classes.socialIcons}>
                                     <a href={"#"}><img src={WebSvg}/></a>
                                     <a href={"#"}><img src={TelegramSvg}/></a>
@@ -60,9 +59,13 @@ class ProfileHeadLine extends Component {
 
                                 </div>
 
+                                <Button variant="contained" size="meduim" color="secondary" className={classes.button} onClick={()=>{this.props.history.push('/account/profile-edit/')}}>
+                                    Редактировать профиль
+                                </Button>
                                 <Button variant="contained" size="meduim" color="secondary" className={classes.button}>
                                     Заблокировать
                                 </Button>
+
                                 <Button variant="contained" size="meduim" color="secondary" className={classes.button}>
                                     Написать
                                 </Button>
@@ -80,4 +83,4 @@ class ProfileHeadLine extends Component {
 
 }
 
-export default withStyles(styles)(ProfileHeadLine);
+export default withStyles(styles)(withRouter(ProfileHeadLine));

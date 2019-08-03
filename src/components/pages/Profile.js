@@ -78,7 +78,11 @@ const styles = theme => ({
         boxShadow: '0 0 0 0.0rem rgba(255,255,255,.5)',
         color: 'outline: 5px auto #fff'
     },
-
+    titleHead:{
+        fontWeight: 600,
+        fontSize:30,
+        margin: '25px 5px 10px 0px'
+    }
 
 });
 
@@ -132,9 +136,7 @@ class ProfileFollower extends Component {
                     color="red"
                 />
                 <Container>
-                    <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{
-                        margin: '25px 5px 10px 0px'
-                    }}>
+                    <Typography classes={{root:classes.titleHead}} >
                         О себе
                     </Typography>
                     <Grid container spacing={0}>
@@ -151,9 +153,7 @@ class ProfileFollower extends Component {
                 </Container>
 
                 <Container>
-                    <Typography variant="h4" fontWeight="fontWeightBold" component="h4" style={{
-                        margin: '25px 5px 10px 0px'
-                    }}>
+                    <Typography classes={{root:classes.titleHead}} >
                         Опросы пользователя
                     </Typography>
                     <ResponsiveMasonry

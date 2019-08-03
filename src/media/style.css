@@ -38,9 +38,11 @@
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 10px;
+    font-size: 15px;
     font-family: 'Source Sans Pro', sans-serif;
     background-color: #e05023;
     color: #ffffff;
+    font-weight: 400;
     padding: 10px;
     position: relative;
     border-top-left-radius: 0px;
@@ -51,10 +53,13 @@
 
 .msg_cotainer_send{
     margin-top: auto;
+    font-size: 15px;
     font-family: 'Source Sans Pro', sans-serif;
     margin-bottom: auto;
     margin-right: 10px;
     background-color: #ef7e1a;
+    color: #ffffff;
+    font-weight: 400;
     padding: 10px;
     position: relative;
     border-top-left-radius: 5px;

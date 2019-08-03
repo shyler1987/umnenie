@@ -54,7 +54,7 @@ const styles = theme => ({
         avatar: {
             marginLeft: '-20px',
             position: 'relative',
-            border: '1px solid #fff',
+            border: '2px solid #fff',
             borderRadius: '50%',
             overflow: 'hidden',
             width: '30px',
@@ -135,7 +135,7 @@ const styles = theme => ({
                 paddingBottom: 7,
                 paddingLeft: 15,
                 paddingRight: 15,
-                border: "1px solid #eee",
+                border: "1px solid #E6E6E6",
                 borderRadius: 5,
                 "& dot": {
                     borderRadius: '50%',
@@ -170,6 +170,30 @@ const styles = theme => ({
         },
         cardContent:{
             color:"#2B2A29"
+        },
+        cardTitle:{
+            fontFamily: "'Source Sans Pro', sans-serif",
+            fontWeight: 600,
+            fontSize: 14,
+            color:'rgba(43, 42, 41)'
+        },
+        cardDateTitle:{
+            fontFamily: "'Source Sans Pro', sans-serif",
+            fontSize: 12,
+            color:'rgba(224, 80, 34)',
+            "& img":{
+                padding:"5px 5px 5px"
+            }
+        },
+        cardContentText:{
+            fontFamily: "'Source Sans Pro', sans-serif",
+            fontSize: 15,
+            color:theme.palette.mainBlackColor
+        },
+        tileText:{
+            fontSize: 13,
+            fontFamily: "'Source Sans Pro', sans-serif",
+            fontWeight: 600
         }
 
 
@@ -182,7 +206,8 @@ class PollCard extends Component {
         super(props)
         const {
             avatarUrl, fullName,datePoll,imagePoll,contentPoll,pollType,idPoll,pollItems,
-            iconStatis, iconFovrite, iconShare, iconComment, iconAnonced, iconEdit, CrownSvg
+            iconStatis, iconFovrite, iconShare, iconComment, iconAnonced, iconEdit, CrownSvg,
+            cellHeight
         } = this.props;
 
         this.state = {
@@ -201,6 +226,7 @@ class PollCard extends Component {
             iconAnonced: iconAnonced===null ? false : iconAnonced,
             iconEdit: iconEdit===null ? false : iconEdit,
             CrownSvg: CrownSvg===null ? false : CrownSvg,
+            cellHeight: cellHeight===null ? 180 : cellHeight,
         }
     }
 
@@ -215,14 +241,15 @@ class PollCard extends Component {
                                 R
                             </Avatar>
                         }
-                        action={<div><span style={{padding: 5, color: '#e46027'}}> {this.state.iconStatis ? <img src={StatisSvg}/> : ""} {this.state.CrownSvg ? <img src={CrownSvg}/> : ""} {this.state.iconEdit ? <img src={EditSvg}/> : ""}</span></div>}
-                        classes={{title: classes.dateColor}}
+                        action={<div><span className={classes.cardDateTitle}> {this.state.iconStatis ? <img src={StatisSvg}/> : ""} {this.state.CrownSvg ? <img src={CrownSvg}/> : ""} {this.state.iconEdit ? <img src={EditSvg}/> : ""}</span></div>}
+                        classes={{title: classes.cardTitle}}
                         title={this.state.fullName}
+
                         subheaderTypographyProps={{color: 'secondary'}}
                         subheader={this.state.datePoll}
                     />
                     <CardContent>
-                        <Typography variant="body2" color="textSecondary" component="p" classes={{root:classes.cardContent}}>
+                        <Typography component="p" classes={{root:classes.cardContentText}}>
                             {this.state.contentPoll}
                         </Typography>
                     </CardContent>
@@ -232,7 +259,7 @@ class PollCard extends Component {
                     >
 
                         {this.state.pollType === 1 ?
-                            <GridList cellHeight={180} className={classes.gridList}>
+                            <GridList cellHeight={this.state.cellHeight} className={classes.gridList}>
                                 {
                                     this.state.pollItems !== undefined ? this.state.pollItems.map((item, Key) => {
                                         return (
@@ -252,7 +279,9 @@ class PollCard extends Component {
                                                     title={item.option}
                                                     titlePosition="top"
                                                     actionPosition="left"
-                                                    classes={{root: classes.titleBar,}}
+                                                    classes={{
+                                                        root: classes.titleBar,title:classes.tileText
+                                                    }}
 
                                                 />
                                                 <grid className={classes.cardBar}>
