@@ -5,7 +5,6 @@ import PollCard from '../tools/PollCard'
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 
-import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
 import Grid from '@material-ui/core/Grid';
@@ -18,6 +17,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../media/style.css';
 import Button from '@material-ui/core/Button';
 import {Link} from "react-router-dom";
+import Hidden from '@material-ui/core/Hidden';
 
 import FloatActionButtun from "../tools/FloatActionButtun";
 
@@ -98,7 +98,7 @@ Time stage `,
     }, {
         id: 16,
         option: "Опросы за деньги",
-        percent: 50,
+        percent: 100,
         image: "http://umnenie.foundrising.uz/uploads/pollitem/Teaching-Awards-Background.jpg",
         avatars: ["http://umnenie.foundrising.uz/uploads/user/foto/1.jpg", "http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"]
     }, {
@@ -110,7 +110,7 @@ Time stage `,
     }, {
         id: 18,
         option: "Опросы за деньги",
-        percent: 0,
+        percent: 100,
         image: "http://umnenie.foundrising.uz/uploads/pollitem/software_update.png",
         avatars: ["http://umnenie.foundrising.uz/uploads/user/foto/1.jpg", "http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"]
     }]
@@ -171,8 +171,49 @@ class PollView extends Component {
                     container
                     justify={"center"}
                     alignItems={"stretch"}
+
+                >
+                    <Hidden mdUp>
+                        <Grid item xs={6} sm={6} >
+                            <Link to={""}>
+                                <Paper classes={{root: classes.arrowButton}}>
+
+
+                                    <KeyboardArrowLeft/>
+
+
+
+                                </Paper>
+                            </Link>
+                        </Grid>
+
+                    </Hidden>
+                    <Hidden mdUp>
+                        <Grid item xs={6} sm={6} >
+                            <Link to={""}>
+                                <Paper classes={{root: classes.arrowButton}}>
+
+
+                                    <KeyboardArrowRight/>
+
+
+
+                                </Paper>
+                            </Link>
+                        </Grid>
+
+                    </Hidden>
+
+                </Grid>
+                <br/>
+                <Grid
+                    direction={"row"}
+                    container
+                    justify={"center"}
+                    alignItems={"stretch"}
                     spacing={2}
                 >
+                    <Hidden smDown>
                     <Grid item md={1}>
                         <Link to={""}>
                             <Paper classes={{root: classes.arrowButton}}>
@@ -185,7 +226,8 @@ class PollView extends Component {
                             </Paper>
                         </Link>
                     </Grid>
-                    <Grid item md={7}>
+                    </Hidden>
+                    <Grid item md={7} sm={12} xs={12}>
                         <PollCard
 
                             idPoll={dataInit.pollId}
@@ -202,10 +244,13 @@ class PollView extends Component {
                             iconAnonced={true}
                             iconStatis={true}
                             iconEdit={true}
+                            QrCode={true}
+                            answerText={true}
                             cellHeight={200}
                         />
 
                     </Grid>
+                    <Hidden smDown>
                     <Grid item md={1}>
                         <Link to={""}>
                             <Paper classes={{root: classes.arrowButton}}>
@@ -213,16 +258,19 @@ class PollView extends Component {
                             </Paper>
                         </Link>
                     </Grid>
+                    </Hidden>
                 </Grid>
+
+
                 <Grid
                     direction={"row"}
                     container
                     justify={"center"}
                     alignItems={"stretch"}
-                    spacing={5}
+                    spacing={2}
                 >
 
-                    <Grid item md={8}>
+                    <Grid item md={7} xs={12} sm={12}>
                         <Typography classes={{root:classes.titleHead}} >
                             Комментарии (658)
                         </Typography>
@@ -287,7 +335,7 @@ class PollView extends Component {
                                 spacing={2}
                                 style={{padding: 10}}
                             >
-                                <Grid item md={9}>
+                                <Grid item md={9} xs={9} sm={9}>
                                     <TextField
                                         id="standard-multiline-flexible"
                                         fullWidth
@@ -303,7 +351,7 @@ class PollView extends Component {
                                         }
                                     />
                                 </Grid>
-                                <Grid item md={3}>
+                                <Grid item md={3}  xs={3} sm={3}>
                                     <Button variant="contained" color="secondary" fullWidth
                                             className={classes.button}>
                                         Отправить
@@ -321,12 +369,7 @@ class PollView extends Component {
 
                 </Grid>
 
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
+
             </div>
         );
     }

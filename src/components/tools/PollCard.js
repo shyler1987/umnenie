@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import {withStyles} from '@material-ui/styles';
 import {withRouter} from "react-router-dom";
-
 import {red} from "@material-ui/core/colors";
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
@@ -36,13 +35,16 @@ import 'react-circular-progressbar/dist/styles.css';
 import SvgIcon from '@material-ui/core/SvgIcon';
 
 import LaveSvg from '../../media/icons/lave.svg'
+import check from '../../media/icons/check.svg'
 import ChatSvg from '../../media/icons/chat.svg'
 import StatisSvg from '../../media/icons/statis.svg';
 import ShareSvg from '../../media/icons/share.svg';
 import AnouncedSvg from '../../media/icons/anounced.svg';
 import EditSvg from '../../media/icons/edit.svg';
 import CrownSvg from '../../media/icons/crown.svg';
-
+import QrCode from '../../media/icons/qrcode.svg';
+import { Progress } from 'react-sweet-progress';
+import "react-sweet-progress/lib/style.css";
 
 import {Link, NavLink} from "react-router-dom";
 
@@ -102,7 +104,13 @@ const styles = theme => ({
             marginBottom: '0em',
             margin: '5px 5px 0px 5px',
             color: '#fff',
-            fontSize: '13px'
+            fontSize: '13px',
+            fontWeight: 600
+        },
+        percentPcontainer:{
+            justifyContent: 'center',
+            /* align-items: center; */
+            display: 'flex'
         },
         tint: {
             overflow: 'hidden',
@@ -188,7 +196,16 @@ const styles = theme => ({
         cardContentText:{
             fontFamily: "'Source Sans Pro', sans-serif",
             fontSize: 15,
-            color:theme.palette.mainBlackColor
+            color:theme.palette.mainBlackColor,
+            fontWeight: 600
+
+        },
+        cardContentAnswers:{
+            fontFamily: "'Source Sans Pro', sans-serif",
+            fontSize: 12,
+            color:"#D2D2D2",
+            fontWeight: 400
+
         },
         tileText:{
             fontSize: 13,
@@ -206,8 +223,9 @@ class PollCard extends Component {
         super(props)
         const {
             avatarUrl, fullName,datePoll,imagePoll,contentPoll,pollType,idPoll,pollItems,
-            iconStatis, iconFovrite, iconShare, iconComment, iconAnonced, iconEdit, CrownSvg,
-            cellHeight
+            iconStatis, iconFovrite, iconShare, iconComment, iconAnonced, iconEdit, CrownSvg,QrCode,
+            cellHeight,
+            answerText
         } = this.props;
 
         this.state = {
@@ -226,6 +244,8 @@ class PollCard extends Component {
             iconAnonced: iconAnonced===null ? false : iconAnonced,
             iconEdit: iconEdit===null ? false : iconEdit,
             CrownSvg: CrownSvg===null ? false : CrownSvg,
+            QrCode: QrCode===null ? false : QrCode,
+            answerText: answerText===null ? false : answerText,
             cellHeight: cellHeight===null ? 180 : cellHeight,
         }
     }
@@ -241,7 +261,7 @@ class PollCard extends Component {
                                 R
                             </Avatar>
                         }
-                        action={<div><span className={classes.cardDateTitle}> {this.state.iconStatis ? <img src={StatisSvg}/> : ""} {this.state.CrownSvg ? <img src={CrownSvg}/> : ""} {this.state.iconEdit ? <img src={EditSvg}/> : ""}</span></div>}
+                        action={<div><span className={classes.cardDateTitle}> {this.state.iconStatis ? <Link to={'/statis'}> <img src={StatisSvg}/> </Link> : ""} {this.state.CrownSvg ? <img src={CrownSvg}/> : ""} {this.state.iconEdit ? <img src={EditSvg}/> : ""}</span></div>}
                         classes={{title: classes.cardTitle}}
                         title={this.state.fullName}
 
@@ -252,6 +272,11 @@ class PollCard extends Component {
                         <Typography component="p" classes={{root:classes.cardContentText}}>
                             {this.state.contentPoll}
                         </Typography>
+                        {this.state.pollType === 1 && this.state.answerText?
+                        <Typography component="p" classes={{root:classes.cardContentAnswers}}>
+                            Ответы (258)
+                        </Typography> : "" }
+
                     </CardContent>
                     <CardMedia
                         className={classes.media}
@@ -288,18 +313,25 @@ class PollCard extends Component {
                                                     <Grid container spacing={0}>
                                                         <Grid item xs={3}>
                                                             <div className={classes.pollBottomCircle}>
-                                                                <CircularProgressbar
-                                                                    value={item.percent}
-                                                                    text={``}
+                                                                <Progress
+                                                                    type="circle"
+                                                                    percent={item.percent}
+                                                                    width={30}
                                                                     strokeWidth={10}
-                                                                    className={classes.CircularProgressbar}
-                                                                    styles={
-                                                                        {
-                                                                            path: {
-                                                                                stroke: `rgba(255, 255, 255, 100)`,
-                                                                            }
-                                                                        }
-                                                                    }
+                                                                    theme={{
+                                                                        default: {
+                                                                            symbol: ' ',
+                                                                            trailColor: '#d6d6d6',
+                                                                            color: '#fff'
+                                                                        },
+
+                                                                        full: {
+                                                                            symbol: <img src={check} width={8} height={6.13}/>,
+                                                                            trailColor: '#d6d6d6',
+                                                                            color: '#fff'
+                                                                        },
+                                                                    }}
+                                                                    status={item.percent===100 ? "full" : "default"}
                                                                 />
                                                             </div>
                                                         </Grid>
@@ -315,7 +347,7 @@ class PollCard extends Component {
                                                             </div>
 
                                                         </Grid>
-                                                        <Grid item xs={3} alignItems={'center'}>
+                                                        <Grid item xs={3} classes={{root:classes.percentPcontainer}}>
                                                             <Typography className={classes.procentP}>
                                                                 {item.percent}%
                                                             </Typography>
@@ -389,14 +421,15 @@ class PollCard extends Component {
 
                     }
                     <Grid container spacing={0} direction={"row"}>
-                        <Grid item md={6}>
+                        <Grid item md={6} sm={6} xs={6}>
                             <div className={classes.imgIcons} >
                                 {this.state.iconComment ? <img  src={ChatSvg}/> : ""}
+                                {this.state.QrCode ? <img  src={QrCode}/> : ""}
                                 {this.state.iconShare ? <img  src={ShareSvg}/> : ""}
                                 {this.state.iconAnonced ? <img  src={AnouncedSvg}/> : ""}
                             </div>
                         </Grid>
-                        <Grid item md={6}>
+                        <Grid item md={6} sm={6} xs={6}>
                             <div style={{textAlign: 'right', padding: 10}}><span style={{fontSize: 12}}>255 </span>
                                 {this.state.iconFovrite ? <img  src={LaveSvg}/> : ""}
 
