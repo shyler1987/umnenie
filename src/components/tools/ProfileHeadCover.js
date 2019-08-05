@@ -4,13 +4,17 @@ import {withStyles} from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 import 'react-loading-bar/dist/index.css'
 import Button from '@material-ui/core/Button';
-import Container from 'react-bootstrap/Container'
+import Container from '@material-ui/core/Container';
+
 import CoverImage from '../../media/back.jpg';
 import selenaAvatar from '../../media/selenaAvatar.jpg';
 import Hidden from '@material-ui/core/Hidden';
 import Avatar from '@material-ui/core/Avatar';
 import photoSvg from  '../../media/icons/photo.svg';
-
+import FaceSvg from '../../media/icons/facebook.svg';
+import TelegramSvg from '../../media/icons/telegram.svg';
+import InstagramSvg from '../../media/icons/instagram.svg';
+import WebSvg from '../../media/icons/web.svg';
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -38,6 +42,12 @@ const styles = theme => ({
         width: 180,
         height: 180,
         border: '3px solid #fff',
+        [theme.breakpoints.down('md')]: {
+            margin: 5,
+            width: 90,
+            height: 90,
+            border: '3px solid #fff',
+        },
     },
     cover: {
         position: 'absolute',
@@ -51,10 +61,21 @@ const styles = theme => ({
         minHeight: 300,
         borderRadius: '0 0 4px 4px',
         position: 'relative',
+        [theme.breakpoints.down('md')]: {
+            minHeight: 202,
+        }
+
     },
 
     button: {
         margin: '15px 0px 15px'
+    },
+    buttonLine: {
+        margin: '0px 5px 0px',
+        [theme.breakpoints.down('md')]: {
+            width:'100%',
+            margin: '5px 0px',
+        }
     },
     buttonOblojka: {
 
@@ -81,18 +102,60 @@ const styles = theme => ({
             background: 'rgba(43, 42, 41, 0.45)'
         },
     },
+    buttonFollowMobile: {
+        color: "#000",
+        fontWeight: 600,
+        width:'100%',
+        borderColor: theme.palette.BorderColor,
+        margin: '4px 0px',
+        //background: 'rgba(43, 42, 41, 0.45)',
+        '&:hover': {
+            borderColor: '#ffffff',
+            //background: 'rgba(43, 42, 41, 0.45)'
+        },
+        '&:active': {
+            boxShadow: 'none',
+            borderColor: '#ffffff',
+            //background: 'rgba(43, 42, 41, 0.45)'
+        },
+        '&:focus': {
+            boxShadow: '0 0 0 0.0rem rgba(255,255,255,.5)',
+            color: 'outline: 5px auto #fff',
+            //background: 'rgba(43, 42, 41, 0.45)'
+        },
+    },
+    buttonFollowMobileLabel:{
+        justifyContent: 'normal',
+        display: 'flow-root',
+        textAlign: 'left'
+
+
+    },
 
     profileTitleBar:{
         bottom: 55,
         left: 210,
         width: '150%',
-        position: "absolute"
+        position: "absolute",
+        [theme.breakpoints.down('md')]: {
+            left: 110,
+            width: '163%',
+            right: 0,
+            bottom: 40,
+            position: 'absolute',
+            display: 'inline-block'
+        }
     },
     profileTitle:{
         fontFamily: "'Source Sans Pro', sans-serif",
         fontSize:30,
         fontWeight: 600,
         color: "#fff",
+        [theme.breakpoints.down('md')]: {
+            fontSize:22,
+            fontWeight: 600,
+            lineHeight: 'normal'
+        }
     }
     ,
     profileTitleDate:{
@@ -123,8 +186,34 @@ const styles = theme => ({
     buttonLeftPhoto:{
         width: 25,
         marginRight: 10
-    }
+    },
 
+    socialIcons: {
+        display: 'inline',
+        margin: '0px 15px 0px',
+        "& img": {
+            margin: '0px 10px 0px',
+            width: 20,
+            height: 20
+        },
+        [theme.breakpoints.down('md')]: {
+            display: 'block',
+            margin: '10px 0px 10px',
+            "& img": {
+                margin: '0px 10px 0px',
+                width: 20,
+                height: 20
+            },
+        }
+    },
+    timelineSocial: {
+        background: "#fff",
+        position: 'relative',
+    },
+    lineGrid:{
+        textAlign: 'right',
+        margin: '10px 0px'
+    }
 
 
 });
@@ -193,6 +282,67 @@ class ProfileHeadCover extends Component {
                                     </div>
                                 </Grid>
                             </Hidden>
+                        </Grid>
+                    </Container>
+                </div>
+
+                <div className={classes.timelineSocial}>
+
+                    <Container>
+
+                        <Grid
+                            direction={"row"}
+                            container
+                        >
+                            <Hidden only={['md', 'xl', 'lg']}>
+                                <Grid item md={12} sm={12} xs={12} style={{textAlign: 'center'}}>
+                                    <div className={classes.socialIcons}>
+                                        <a href={"#"}><img src={WebSvg}/></a>
+                                        <a href={"#"}><img src={TelegramSvg}/></a>
+                                        <a href={"#"}><img src={FaceSvg}/></a>
+                                        <a href={"#"}><img src={InstagramSvg}/></a>
+
+                                    </div>
+                                </Grid>
+                            </Hidden>
+                            <Grid item md={12} sm={12} xs={12} classes={{root:classes.lineGrid}}>
+                                <Hidden mdDown>
+                                    <div className={classes.socialIcons}>
+                                        <a href={"#"}><img src={WebSvg}/></a>
+                                        <a href={"#"}><img src={TelegramSvg}/></a>
+                                        <a href={"#"}><img src={FaceSvg}/></a>
+                                        <a href={"#"}><img src={InstagramSvg}/></a>
+
+                                    </div>
+                                </Hidden>
+
+                                <Hidden only={['md', 'xl', 'lg']}>
+                                    <Button variant="outlined" className={classes.button}
+                                            classes={{root: classes.buttonFollowMobile, label:classes.buttonFollowMobileLabel}} color="secondary1" size="large">
+                                        Подписчиков <span style={{marginLeft: 20, color: '#e35b1e', float:"right"}}>255</span> <dot className={classes.dot}></dot>
+                                    </Button>
+                                    <Button variant="outlined" className={classes.button}
+                                            classes={{root: classes.buttonFollowMobile, label:classes.buttonFollowMobileLabel}} color="secondary1" size="large">
+                                        Подписки <span style={{marginLeft: 20, color: '#e35b1e', float:"right"}}>255</span> <dot className={classes.dot}></dot>
+                                    </Button>
+
+                                </Hidden>
+
+                                <Button variant="contained" size="meduim"  color="secondary" classes={{root:classes.buttonLine}} onClick={()=>{this.props.history.push('/account/profile-edit/')}}>
+                                    Редактировать профиль
+                                </Button>
+                                <Button variant="contained" size="meduim"  color="secondary" classes={{root:classes.buttonLine}}>
+                                    Заблокировать
+                                </Button>
+
+                                <Button variant="contained" size="meduim" color="secondary" classes={{root:classes.buttonLine}}>
+                                    Написать
+                                </Button>
+                                <Button variant="contained" size="meduim" color="secondary" classes={{root:classes.buttonLine}}>
+                                    Подписаться
+                                </Button>
+                            </Grid>
+
                         </Grid>
                     </Container>
                 </div>

@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import PollCard from '../tools/PollCard'
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
+import { withRouter } from 'react-router-dom';
 
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
@@ -375,4 +376,4 @@ class PollView extends Component {
 
 }
 
-export default withStyles(styles)(PollView);
+export default withStyles(styles)(withRouter(PollView));

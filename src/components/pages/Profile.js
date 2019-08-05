@@ -5,7 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
-import Container from 'react-bootstrap/Container'
+import Container from '@material-ui/core/Container';
+
 import PollCard from '../tools/PollCard'
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import ProfileHeadCover from "../tools/ProfileHeadCover";
@@ -82,7 +83,12 @@ const styles = theme => ({
         fontWeight: 600,
         fontSize:30,
         margin: '25px 5px 10px 0px'
+    },
+    textAbout:{
+        fontSize:18,
+        fontWeight:400
     }
+
 
 });
 
@@ -129,19 +135,18 @@ class ProfileFollower extends Component {
         return (
             <div>
                 <ProfileHeadCover/>
-                <ProfileHeadLine/>
-
                 <Loading
                     show={this.state.show}
                     color="red"
                 />
                 <Container>
+
                     <Typography classes={{root:classes.titleHead}} >
                         О себе
                     </Typography>
-                    <Grid container spacing={0}>
+                    <Grid container spacing={0} >
                         <Grid md={12}>
-                            <Typography>
+                            <Typography classes={{root:classes.textAbout}}>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                                 labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
                                 laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in

@@ -145,7 +145,7 @@ class Registration extends Component {
                     Регистрация
                 </Typography>
                 <Grid container spacing={0}>
-                    <Grid md={12}>
+                    <Grid md={12} sm={12} xs={12}>
                         <Paper className={classes.paper}>
                             <br/>
 
@@ -157,7 +157,7 @@ class Registration extends Component {
                                 style={{minHeight: 500}}
                             >
 
-                                <Grid item md={4}>
+                                <Grid item md={4} xs={12} sm={12}>
                                     <form fullWidth>
                                         <ButtonGroup fullWidth aria-label="full width outlined button group"
                                                      classes={{root: classes.ButtonGroup}}>

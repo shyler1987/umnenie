@@ -182,10 +182,10 @@ class PasswordChange extends Component {
                         Сменить пароль
                     </Typography>
                     <Grid container spacing={2} direction={"row"}>
-                        <Grid item md={3}>
+                        <Grid item md={3} sm={12} xs={12}>
                             <LeftMenu/>
                         </Grid>
-                        <Grid item md={9}>
+                        <Grid item md={9} sm={12} xs={12}>
                             <Paper classes={{root: classes.poperContent}}>
                                 <Grid container spacing={3} direction={"row"}>
                                     <Grid item md={12}>
@@ -216,7 +216,7 @@ class PasswordChange extends Component {
                                     </Grid>
                                 </Grid>
                                 <Grid container spacing={3} direction={"row"} justify="flex-end" alignItems="flex-end">
-                                    <Grid item md={5}>
+                                    <Grid item md={5} sm={12} xs={12}>
                                         <Button fullWidth variant="contained"  color={"secondary"}>Сохранить изменения</Button>
                                     </Grid>
                                 </Grid>

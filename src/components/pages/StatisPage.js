@@ -7,10 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
 import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
 import InputBase from '@material-ui/core/InputBase';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
@@ -24,10 +21,8 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import ProgressBar from 'react-bootstrap/ProgressBar'
 const BorderLinearProgress = withStyles({
     root: {
         height: 10,

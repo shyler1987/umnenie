@@ -135,7 +135,7 @@ class ChatPage extends Component {
                     Чат
                 </Typography>
                 <Grid container spacing={2} direction={"row"}>
-                    <Grid item md={3}>
+                    <Grid item md={3} sm={12} xs={12}>
                         <LeftMenu/>
                     </Grid>
                     <Grid item md={9}>

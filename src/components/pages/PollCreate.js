@@ -168,10 +168,10 @@ class PollCreate extends Component {
                         Создать опрос
                     </Typography>
                     <Grid container spacing={2} direction={"row"}>
-                        <Grid item md={3}>
+                        <Grid item md={3} sm={12} xs={12}>
                             <LeftMenu/>
                         </Grid>
-                        <Grid item md={9}>
+                        <Grid item md={9} sm={12} xs={12}>
                             <Paper classes={{root: classes.poperContent}}>
 
                                 <Grid container spacing={3} direction={"row"}>

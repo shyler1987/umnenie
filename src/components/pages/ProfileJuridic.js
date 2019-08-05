@@ -1,29 +1,22 @@
 import React, {Component} from 'react';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import {Link} from "react-router-dom";
-import Divider from '@material-ui/core/Divider';
-import Container from 'react-bootstrap/Container'
+
+import Container from '@material-ui/core/Container';
+
 import CoverImage from '../../media/back.jpg';
-import selenaAvatar from '../../media/selenaAvatar.jpg';
-import Hidden from '@material-ui/core/Hidden';
-import Avatar from '@material-ui/core/Avatar';
 import PollCard from '../tools/PollCard'
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
 import ProfileHeadCover from "../tools/ProfileHeadCover";
-import ProfileHeadLine from "../tools/ProfileHeadLine";
+
 
 const styles = theme => ({
     root: {
@@ -164,7 +157,6 @@ class ProfileJuridic extends Component {
 
 
                 <ProfileHeadCover/>
-                <ProfileHeadLine/>
 
                 <Loading
                     show={this.state.show}

@@ -45,6 +45,13 @@ const styles = theme => ({
         fontWeight: 600,
         fontSize:30,
         margin: '25px 5px 10px 0px'
+    },
+    TextP:{
+        fontFamily: "'Source Sans Pro', sans-serif",
+        fontSize:18,
+        fontWeight: 400,
+        color:theme.palette.mainBlackColor,
+        textAlign: 'justify'
     }
 
 });
@@ -76,7 +83,7 @@ class License extends Component {
                 </Typography>
                 <Grid container spacing={0}>
 
-                    <p style={{textAlign: 'justify'}}>
+                    <Typography className={classes.TextP}>
                         Настоящий документ «Пользовательское соглашение» представляет собой предложение ООО «_____» (далее — «Администрация»), заключить договор на изложенных ниже условиях Соглашения.
 
                         1. Общие положения Пользовательского соглашения
@@ -131,7 +138,7 @@ class License extends Component {
                         Данное положение Соглашения направлено на соблюдение требований о недопущении СПАМа.
                         8. Условия использования аналога собственноручной подписи
                         Раздел включает порядок использования логина и пароля или адреса электронной почты в качестве ключа простой электронной подписи. Данное условие необходимо для придания юридической силы всем действиям сторон и упрощения возможного документооборота.
-                    </p>
+                    </Typography>
                 </Grid>
 
             </div>

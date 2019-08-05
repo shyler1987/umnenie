@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import {withStyles} from '@material-ui/styles';
-import {withRouter} from "react-router-dom";
 
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
@@ -40,7 +39,8 @@ import QrCode from '../../media/icons/qrcode.svg';
 import {Progress} from 'react-sweet-progress';
 import "react-sweet-progress/lib/style.css";
 
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, withRouter} from "react-router-dom";
+
 
 const styles = theme => ({
         avatars: {
@@ -247,12 +247,16 @@ class PollCard extends Component {
             answerText: answerText === null ? false : answerText,
             cellHeight: cellHeight === null ? 180 : cellHeight,
         }
+        this.changeRoute=this.changeRoute.bind(this);
     }
 
-    changeRoute = (link) =>() =>{
-
-        this.props.history.push(link)
+    changeRoute(e){
+        e.preventDefault();
+        const { history } = this.props;
+        history.push('/statis')
     }
+
+
 
 
     render() {
@@ -273,7 +277,7 @@ class PollCard extends Component {
                                             aria-haspopup="true"
                                             color="inherit"
                                             classes={{root: classes.imgIconsPTOP}}
-                                            onClick={this.changeRoute('/statis')}
+                                            onClick={this.changeRoute}
                                         >
                                             <img src={StatisSvg}/>
                                         </IconButton> : ""}

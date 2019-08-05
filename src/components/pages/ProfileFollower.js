@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
 import Button from '@material-ui/core/Button';
-import Container from 'react-bootstrap/Container'
+import Container from '@material-ui/core/Container';
 import CoverImage from '../../media/back.jpg';
 import selenaAvatar from '../../media/selenaAvatar.jpg';
 import Hidden from '@material-ui/core/Hidden';
@@ -79,8 +79,20 @@ const styles = theme => ({
         fontWeight: 600,
         fontSize:30,
         margin: '25px 5px 10px 0px'
-    }
+    },
+    textListItem: {
+        fontFamily: "'Source Sans Pro', sans-serif",
+        fontSize:14,
+        fontWeight: 600,
+        color:theme.palette.mainBlackColor
 
+    },
+    textListItemSecondary: {
+        fontFamily: "'Source Sans Pro', sans-serif",
+        fontSize:12,
+        fontWeight: 400,
+        color:theme.palette.YellowColor
+    }
 
 
 });
@@ -103,7 +115,6 @@ class ProfileFollower extends Component {
         return (
             <div>
                 <ProfileHeadCover profilePhoto={false}/>
-                <ProfileHeadLine/>
 
                 <Loading
                     show={this.state.show}
@@ -123,8 +134,9 @@ class ProfileFollower extends Component {
                                             <Avatar src={selenaAvatar} />
                                         </ListItemAvatar>
                                         <ListItemText
+                                            classes={{primary:classes.textListItem, secondary:classes.textListItemSecondary}}
                                             primary="Исидатэ Тайти"
-                                            secondary={'Бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла '}
+                                            secondary={'Бла '}
                                         />
                                         <ListItemSecondaryAction>
                                             <Button variant="contained" color="secondary"
@@ -138,6 +150,7 @@ class ProfileFollower extends Component {
                                             <Avatar src={selenaAvatar} />
                                         </ListItemAvatar>
                                         <ListItemText
+                                            classes={{primary:classes.textListItem, secondary:classes.textListItemSecondary}}
                                             primary="Исидатэ Тайти"
                                             secondary={'Бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла '}
                                         />
@@ -149,23 +162,7 @@ class ProfileFollower extends Component {
                                         </ListItemSecondaryAction>
                                     </ListItem>
                                 </Paper>
-                                <Paper className={classes.paper}>
-                                    <ListItem>
-                                        <ListItemAvatar>
-                                            <Avatar src={selenaAvatar} />
-                                        </ListItemAvatar>
-                                        <ListItemText
-                                            primary="Исидатэ Тайти"
-                                            secondary={'Бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла '}
-                                        />
-                                        <ListItemSecondaryAction>
-                                            <Button color="secondary" variant={"outlined"}
-                                                    className={classes.ListButtonInActive}>
-                                                Подписки
-                                            </Button>
-                                        </ListItemSecondaryAction>
-                                    </ListItem>
-                                </Paper>
+
                             </List>
                         </Grid>
                     </Grid>

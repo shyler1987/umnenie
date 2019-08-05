@@ -257,17 +257,17 @@ class ProfileEdit extends Component {
                         Редактировать профиль
                     </Typography>
                     <Grid container spacing={2} direction={"row"}>
-                        <Grid item md={3}>
+                        <Grid item md={3} sm={12} xs={12}>
                             <LeftMenu/>
                         </Grid>
                         <Grid item md={9}>
                             <Paper classes={{root: classes.poperContent}}>
                                 <Typography classes={{root:classes.titleFieldesetHead}}>Личная информация</Typography>
                                 <Grid container spacing={3} direction={"row"}>
-                                    <Grid item md={3} classes={{root: classes.inlineText}}>
+                                    <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
                                         <Typography classes={{root:classes.titleFieldesetHead}}>Категория</Typography>
                                     </Grid>
-                                    <Grid item md={9}>
+                                    <Grid item md={9} sm={9} xs={9}>
                                         <FormControl className={classes.formControl}  fullWidth variant="outlined">
                                             <Select
                                                 placeholder={"Выберите категорию"}
@@ -386,7 +386,7 @@ class ProfileEdit extends Component {
                                             variant="outlined"
                                         />
                                     </Grid>
-                                    <Grid item md={6}>
+                                    <Grid item md={6} sm={12} xs={12}>
                                         <FormControl className={classes.formControl}  fullWidth variant="outlined">
                                             <Select
                                                 placeholder={"Выберите категорию"}
@@ -478,7 +478,7 @@ class ProfileEdit extends Component {
 
                                 </Grid>
                                 <Grid container spacing={3} direction={"row"}>
-                                    <Grid item md={12}>
+                                    <Grid item md={12} xs={12} sm={12}>
                                         <TextField
                                             multiline
                                             fullWidth
@@ -491,7 +491,7 @@ class ProfileEdit extends Component {
                                     </Grid>
                                 </Grid>
                                 <Grid container spacing={3} direction={"row"} justify="flex-end" alignItems="flex-end">
-                                    <Grid item md={5}>
+                                    <Grid item md={5} sm={12} xs={12}>
                                         <Button fullWidth variant="contained"  color={"secondary"}>Сохранить изменения</Button>
                                     </Grid>
                                 </Grid>
