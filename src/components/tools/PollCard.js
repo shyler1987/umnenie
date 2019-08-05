@@ -311,7 +311,7 @@ class PollCard extends Component {
                                                 />
                                                 <grid className={classes.cardBar}>
                                                     <Grid container spacing={0}>
-                                                        <Grid item xs={3}>
+                                                        <Grid item xs={3} sm={3} xs={3}>
                                                             <div className={classes.pollBottomCircle}>
                                                                 <Progress
                                                                     type="circle"
@@ -335,7 +335,7 @@ class PollCard extends Component {
                                                                 />
                                                             </div>
                                                         </Grid>
-                                                        <Grid item xs={6} className={classes.textRight}>
+                                                        <Grid item xs={6} sm={6} xs={6} className={classes.textRight}>
                                                             <div className={classes.avatars}>
                                                                 {item.avatars.map((avatarItem) => {
                                                                     return (
@@ -347,7 +347,7 @@ class PollCard extends Component {
                                                             </div>
 
                                                         </Grid>
-                                                        <Grid item xs={3} classes={{root:classes.percentPcontainer}}>
+                                                        <Grid item xs={3} sm={3} xs={3} classes={{root:classes.percentPcontainer}}>
                                                             <Typography className={classes.procentP}>
                                                                 {item.percent}%
                                                             </Typography>
