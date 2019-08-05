@@ -24,7 +24,6 @@ class Dashboard extends React.Component {
 
     render() {
         const {classes} = this.props;
-        console.log(classes);
         return (
             <div className={classes.root}>
                 <AuthDialog dialogBool={false}/>

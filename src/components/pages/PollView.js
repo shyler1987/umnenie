@@ -18,8 +18,11 @@ import '../../media/style.css';
 import Button from '@material-ui/core/Button';
 import {Link} from "react-router-dom";
 import Hidden from '@material-ui/core/Hidden';
-
+// import ReactSwipeEvents from 'react-swipe-events'
 import FloatActionButtun from "../tools/FloatActionButtun";
+
+
+import { useSwipeable, Swipeable } from 'react-swipeable'
 
 const styles = theme => ({
     root: {
@@ -48,13 +51,19 @@ const styles = theme => ({
     multlineInput: {
         padding: 10
     },
-    noPad:{
-        padding:0
+    noPad: {
+        padding: 0
     },
-    titleHead:{
+    titleHead: {
         fontWeight: 600,
-        fontSize:30,
+        fontSize: 30,
         margin: '25px 5px 10px 0px'
+    },
+    fixedFormSend:{
+        position: 'fixed',
+        /* top: 0; */
+        bottom: 0,
+        left: 0,
     }
 });
 
@@ -154,6 +163,15 @@ class PollView extends Component {
         })
     }
 
+    nextPollGet = () => {
+        alert('Next Poll')
+    }
+
+    prevPollGet = (q) => {
+        alert('Prev Poll')
+    }
+
+
     render() {
         const {classes} = this.props;
         return (
@@ -166,46 +184,7 @@ class PollView extends Component {
                 <div style={{marginTop: 20}}>
 
                 </div>
-                <Grid
-                    direction={"row"}
-                    container
-                    justify={"center"}
-                    alignItems={"stretch"}
 
-                >
-                    <Hidden mdUp>
-                        <Grid item xs={6} sm={6} >
-                            <Link to={""}>
-                                <Paper classes={{root: classes.arrowButton}}>
-
-
-                                    <KeyboardArrowLeft/>
-
-
-
-                                </Paper>
-                            </Link>
-                        </Grid>
-
-                    </Hidden>
-                    <Hidden mdUp>
-                        <Grid item xs={6} sm={6} >
-                            <Link to={""}>
-                                <Paper classes={{root: classes.arrowButton}}>
-
-
-                                    <KeyboardArrowRight/>
-
-
-
-                                </Paper>
-                            </Link>
-                        </Grid>
-
-                    </Hidden>
-
-                </Grid>
-                <br/>
                 <Grid
                     direction={"row"}
                     container
@@ -214,50 +193,52 @@ class PollView extends Component {
                     spacing={2}
                 >
                     <Hidden smDown>
-                    <Grid item md={1}>
-                        <Link to={""}>
-                            <Paper classes={{root: classes.arrowButton}}>
+                        <Grid item md={1}>
+                            <Link to={""}>
+                                <Paper classes={{root: classes.arrowButton}}>
 
 
                                     <KeyboardArrowLeft/>
 
 
-
-                            </Paper>
-                        </Link>
-                    </Grid>
+                                </Paper>
+                            </Link>
+                        </Grid>
                     </Hidden>
                     <Grid item md={7} sm={12} xs={12}>
-                        <PollCard
 
-                            idPoll={dataInit.pollId}
-                            imagePoll={dataInit.pollImage}
-                            fullName={dataInit.userName}
-                            contentPoll={dataInit.pollQuestion}
-                            datePoll={dataInit.pollEndDate}
-                            avatarUrl={dataInit.userImage}
-                            pollType={dataInit.pollType}
-                            pollItems={dataInit.items}
-                            iconFovrite={true}
-                            iconComment={true}
-                            iconShare={true}
-                            iconAnonced={true}
-                            iconStatis={true}
-                            iconEdit={true}
-                            QrCode={true}
-                            answerText={true}
-                            cellHeight={200}
-                        />
+                        <Swipeable onSwipedRight={this.nextPollGet} onSwipedLeft={this.prevPollGet}>
 
+                            <PollCard
+
+                                idPoll={dataInit.pollId}
+                                imagePoll={dataInit.pollImage}
+                                fullName={dataInit.userName}
+                                contentPoll={dataInit.pollQuestion}
+                                datePoll={dataInit.pollEndDate}
+                                avatarUrl={dataInit.userImage}
+                                pollType={dataInit.pollType}
+                                pollItems={dataInit.items}
+                                iconFovrite={true}
+                                iconComment={true}
+                                iconShare={true}
+                                iconAnonced={true}
+                                iconStatis={true}
+                                iconEdit={true}
+                                QrCode={true}
+                                answerText={true}
+                                cellHeight={200}
+                            />
+                        </Swipeable>
                     </Grid>
                     <Hidden smDown>
-                    <Grid item md={1}>
-                        <Link to={""}>
-                            <Paper classes={{root: classes.arrowButton}}>
+                        <Grid item md={1}>
+                            <Link to={""}>
+                                <Paper classes={{root: classes.arrowButton}}>
                                     <KeyboardArrowRight/>
-                            </Paper>
-                        </Link>
-                    </Grid>
+                                </Paper>
+                            </Link>
+                        </Grid>
                     </Hidden>
                 </Grid>
 
@@ -271,15 +252,15 @@ class PollView extends Component {
                 >
 
                     <Grid item md={7} xs={12} sm={12}>
-                        <Typography classes={{root:classes.titleHead}} >
+                        <Typography classes={{root: classes.titleHead}}>
                             Комментарии (658)
                         </Typography>
-                        <Paper classes={{root:classes.noPad}}>
+                        <Paper classes={{root: classes.noPad}}>
                             <div className="d-flex justify-content-start itemChat">
                                 <div className="img_cont_msg">
-                                    <img
+                                    <Link to={""}><img
                                         src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
-                                        className="rounded-circle user_img_msg"/>
+                                        className="rounded-circle user_img_msg"/></Link>
                                 </div>
                                 <div className="msg_cotainer">
                                     Здравствуйте! Я могу Вам чем-то помочь? Если помощь не нужна,
@@ -289,9 +270,9 @@ class PollView extends Component {
                             </div>
                             <div className="d-flex justify-content-start itemChat">
                                 <div className="img_cont_msg">
-                                    <img
+                                    <Link to={""}><img
                                         src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
-                                        className="rounded-circle user_img_msg"/>
+                                        className="rounded-circle user_img_msg"/></Link>
                                 </div>
                                 <div className="msg_cotainer">
                                     Вы не добавлены в участники раздачи Скинов, так как у вас нет
@@ -307,16 +288,16 @@ class PollView extends Component {
                                     <div className="msg_time_send">8:55</div>
                                 </div>
                                 <div className="img_cont_msg">
-                                    <img
+                                    <Link to={""}><img
                                         src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
-                                        className="rounded-circle user_img_msg"/>
+                                        className="rounded-circle user_img_msg"/></Link>
                                 </div>
                             </div>
                             <div className="d-flex justify-content-start itemChat">
                                 <div className="img_cont_msg">
-                                    <img
+                                    <Link to={""}><img
                                         src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
-                                        className="rounded-circle user_img_msg"/>
+                                        className="rounded-circle user_img_msg"/></Link>
                                 </div>
                                 <div className="msg_cotainer">
                                     Вы не добавлены в участники раздачи Скинов, так как у вас нет
@@ -329,45 +310,63 @@ class PollView extends Component {
                             <br/>
                             <br/>
                             <br/>
-                            <Grid
-                                direction={"row"}
-                                container
-                                spacing={2}
-                                style={{padding: 10}}
-                            >
-                                <Grid item md={9} xs={9} sm={9}>
-                                    <TextField
-                                        id="standard-multiline-flexible"
-                                        fullWidth
-                                        multiline
-                                        variant="outlined"
-                                        className={classes.textField}
-                                        InputProps={
-                                                {
-                                                    classes : {
-                                                        root:classes.multlineInput
-                                                    }
-                                                }
-                                        }
-                                    />
-                                </Grid>
-                                <Grid item md={3}  xs={3} sm={3}>
-                                    <Button variant="contained" color="secondary" fullWidth
-                                            className={classes.button}>
-                                        Отправить
-                                    </Button>
-                                </Grid>
+                            <div>
 
-
-                            </Grid>
+                            </div>
 
 
                         </Paper>
 
 
                     </Grid>
+                    <Grid
+                        container
+                        justify={"center"}
+                        alignItems={"stretch"}
+                        spacing={2}
+                        classes={{root:classes.fixedFormSend}}
+                    >
+
+                        <Grid item md={5} xs={12} sm={12}>
+                            <Paper>
+                                <Grid
+                                    direction={"row"}
+                                    container
+                                    spacing={2}
+                                    style={{padding: 10}}
+                                >
+                                    <Grid item md={9} xs={9} sm={9}>
+                                        <TextField
+                                            id="standard-multiline-flexible"
+                                            fullWidth
+                                            multiline
+                                            variant="outlined"
+                                            className={classes.textField}
+                                            InputProps={
+                                                {
+                                                    classes: {
+                                                        root: classes.multlineInput
+                                                    }
+                                                }
+                                            }
+                                        />
+                                    </Grid>
+                                    <Grid item md={3} xs={3} sm={3}>
+                                        <Button variant="contained" color="secondary" fullWidth
+                                                className={classes.button}>
+                                            Отправить
+                                        </Button>
+                                    </Grid>
+
+
+                                </Grid>
+                            </Paper>
+                        </Grid>
+
+                    </Grid>
 
                 </Grid>
+
 
 
             </div>

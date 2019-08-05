@@ -5,7 +5,8 @@ import {Link, NavLink} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import  AuthDialog from '../components/pages/AuthDialog'
-import MenuBar from "./Menu";
+import TopMenu from '../components/tools/TopMenu'
+
 
 const styles = theme => ({
     root: {
@@ -23,7 +24,7 @@ class Profile extends React.Component {
         const {classes} = this.props;
         return (
             <div className={classes.root}>
-                <MenuBar/>
+                <TopMenu/>
 
                     {
                         this.props.children // onClickAway={this.handleDrawerClose} onTouchStart={this.handleDrawerClose}

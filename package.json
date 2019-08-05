@@ -26,8 +26,8 @@
     "react-responsive-masonry": "^2.0.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
-    "react-stack-grid": "^0.7.1",
     "react-sweet-progress": "^1.1.2",
+    "react-swipeable": "^5.4.0",
     "reactstrap": "^8.0.1",
     "source-sans-pro": "^2.45.0",
     "yarn": "^1.17.3"

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import {withStyles} from '@material-ui/styles';
 import {withRouter} from "react-router-dom";
-import {red} from "@material-ui/core/colors";
+
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+
 import Grid from '@material-ui/core/Grid';
 
 import Card from '@material-ui/core/Card';
@@ -23,16 +23,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-
-
-import Favorite from '@material-ui/icons/Favorite';
-import ChatBubbleOutline from '@material-ui/icons/ChatBubbleOutline';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import '../../media/style.css';
 import {CircularProgressbar} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import SvgIcon from '@material-ui/core/SvgIcon';
 
 import LaveSvg from '../../media/icons/lave.svg'
 import check from '../../media/icons/check.svg'
@@ -43,7 +37,7 @@ import AnouncedSvg from '../../media/icons/anounced.svg';
 import EditSvg from '../../media/icons/edit.svg';
 import CrownSvg from '../../media/icons/crown.svg';
 import QrCode from '../../media/icons/qrcode.svg';
-import { Progress } from 'react-sweet-progress';
+import {Progress} from 'react-sweet-progress';
 import "react-sweet-progress/lib/style.css";
 
 import {Link, NavLink} from "react-router-dom";
@@ -107,7 +101,7 @@ const styles = theme => ({
             fontSize: '13px',
             fontWeight: 600
         },
-        percentPcontainer:{
+        percentPcontainer: {
             justifyContent: 'center',
             /* align-items: center; */
             display: 'flex'
@@ -167,47 +161,52 @@ const styles = theme => ({
 
 
         },
-        imgIcons:{
-            margin:10,
-            "& img":{
-                padding:5
-            }
+        imgIcons: {
+            margin: 10,
+
         },
-        ListItemTextRoot:{
-            color:"#2B2A29"
+        imgIconsP: {
+            padding: 10,
+
+        }, imgIconsPTOP: {
+            padding: 5,
+
         },
-        cardContent:{
-            color:"#2B2A29"
+        ListItemTextRoot: {
+            color: "#2B2A29"
         },
-        cardTitle:{
+        cardContent: {
+            color: "#2B2A29"
+        },
+        cardTitle: {
             fontFamily: "'Source Sans Pro', sans-serif",
             fontWeight: 600,
             fontSize: 14,
-            color:'rgba(43, 42, 41)'
+            color: 'rgba(43, 42, 41)'
         },
-        cardDateTitle:{
+        cardDateTitle: {
             fontFamily: "'Source Sans Pro', sans-serif",
             fontSize: 12,
-            color:'rgba(224, 80, 34)',
-            "& img":{
-                padding:"5px 5px 5px"
+            color: 'rgba(224, 80, 34)',
+            "& img": {
+                padding: "5px 5px 5px"
             }
         },
-        cardContentText:{
+        cardContentText: {
             fontFamily: "'Source Sans Pro', sans-serif",
             fontSize: 15,
-            color:theme.palette.mainBlackColor,
+            color: theme.palette.mainBlackColor,
             fontWeight: 600
 
         },
-        cardContentAnswers:{
+        cardContentAnswers: {
             fontFamily: "'Source Sans Pro', sans-serif",
             fontSize: 12,
-            color:"#D2D2D2",
+            color: "#D2D2D2",
             fontWeight: 400
 
         },
-        tileText:{
+        tileText: {
             fontSize: 13,
             fontFamily: "'Source Sans Pro', sans-serif",
             fontWeight: 600
@@ -222,8 +221,8 @@ class PollCard extends Component {
     constructor(props) {
         super(props)
         const {
-            avatarUrl, fullName,datePoll,imagePoll,contentPoll,pollType,idPoll,pollItems,
-            iconStatis, iconFovrite, iconShare, iconComment, iconAnonced, iconEdit, CrownSvg,QrCode,
+            avatarUrl, fullName, datePoll, imagePoll, contentPoll, pollType, idPoll, pollItems,
+            iconStatis, iconFovrite, iconShare, iconComment, iconAnonced, iconEdit, CrownSvg, QrCode,
             cellHeight,
             answerText
         } = this.props;
@@ -237,17 +236,22 @@ class PollCard extends Component {
             imagePoll: imagePoll,
             idPoll: idPoll,
             pollItems: pollItems,
-            iconStatis: iconStatis===null ? false : iconStatis,
-            iconFovrite: iconFovrite===null ? false : iconFovrite,
-            iconShare: iconShare===null ? false : iconShare,
-            iconComment: iconComment===null ? false : iconComment,
-            iconAnonced: iconAnonced===null ? false : iconAnonced,
-            iconEdit: iconEdit===null ? false : iconEdit,
-            CrownSvg: CrownSvg===null ? false : CrownSvg,
-            QrCode: QrCode===null ? false : QrCode,
-            answerText: answerText===null ? false : answerText,
-            cellHeight: cellHeight===null ? 180 : cellHeight,
+            iconStatis: iconStatis === null ? false : iconStatis,
+            iconFovrite: iconFovrite === null ? false : iconFovrite,
+            iconShare: iconShare === null ? false : iconShare,
+            iconComment: iconComment === null ? false : iconComment,
+            iconAnonced: iconAnonced === null ? false : iconAnonced,
+            iconEdit: iconEdit === null ? false : iconEdit,
+            CrownSvg: CrownSvg === null ? false : CrownSvg,
+            QrCode: QrCode === null ? false : QrCode,
+            answerText: answerText === null ? false : answerText,
+            cellHeight: cellHeight === null ? 180 : cellHeight,
         }
+    }
+
+    changeRoute = (link) =>() =>{
+
+        this.props.history.push(link)
     }
 
 
@@ -261,7 +265,36 @@ class PollCard extends Component {
                                 R
                             </Avatar>
                         }
-                        action={<div><span className={classes.cardDateTitle}> {this.state.iconStatis ? <Link to={'/statis'}> <img src={StatisSvg}/> </Link> : ""} {this.state.CrownSvg ? <img src={CrownSvg}/> : ""} {this.state.iconEdit ? <img src={EditSvg}/> : ""}</span></div>}
+                        action={
+                            <div>
+                                <span className={classes.cardDateTitle}>
+                                    {this.state.iconStatis ?
+                                        <IconButton
+                                            aria-haspopup="true"
+                                            color="inherit"
+                                            classes={{root: classes.imgIconsPTOP}}
+                                            onClick={this.changeRoute('/statis')}
+                                        >
+                                            <img src={StatisSvg}/>
+                                        </IconButton> : ""}
+                                    {this.state.CrownSvg ?
+                                        <IconButton
+                                            aria-haspopup="true"
+                                            color="inherit"
+                                            classes={{root: classes.imgIconsPTOP}}
+                                        >
+                                            <img src={CrownSvg}/>
+                                        </IconButton> : ""}
+                                    {this.state.iconEdit ?
+                                        <IconButton
+                                            aria-haspopup="true"
+                                            color="inherit"
+                                            classes={{root: classes.imgIconsPTOP}}
+                                        >
+                                            <img src={EditSvg}/>
+                                        </IconButton> : ""}
+                                </span>
+                            </div>}
                         classes={{title: classes.cardTitle}}
                         title={this.state.fullName}
 
@@ -269,27 +302,28 @@ class PollCard extends Component {
                         subheader={this.state.datePoll}
                     />
                     <CardContent>
-                        <Typography component="p" classes={{root:classes.cardContentText}}>
+                        <Typography component="p" classes={{root: classes.cardContentText}}>
                             {this.state.contentPoll}
                         </Typography>
-                        {this.state.pollType === 1 && this.state.answerText?
-                        <Typography component="p" classes={{root:classes.cardContentAnswers}}>
-                            Ответы (258)
-                        </Typography> : "" }
+                        {this.state.pollType === 1 && this.state.answerText ?
+                            <Typography component="p" classes={{root: classes.cardContentAnswers}}>
+                                Ответы (258)
+                            </Typography> : ""}
 
                     </CardContent>
                     <CardMedia
                         className={classes.media}
                         title={this.state.fullName}
+                        key={"pollcard"+this.state.pollId}
                     >
 
                         {this.state.pollType === 1 ?
-                            <GridList cellHeight={this.state.cellHeight} className={classes.gridList}>
+                            <GridList key={"grid"+this.state.pollId} cellHeight={this.state.cellHeight} className={classes.gridList}>
                                 {
                                     this.state.pollItems !== undefined ? this.state.pollItems.map((item, Key) => {
                                         return (
                                             <GridListTile
-                                                key="Subheader1"
+                                                key={"SubItem"+Key}
                                                 classes={{
                                                     root: classes.GridListTileRoot,
                                                     tile: classes.Gridtile
@@ -305,7 +339,7 @@ class PollCard extends Component {
                                                     titlePosition="top"
                                                     actionPosition="left"
                                                     classes={{
-                                                        root: classes.titleBar,title:classes.tileText
+                                                        root: classes.titleBar, title: classes.tileText
                                                     }}
 
                                                 />
@@ -326,12 +360,13 @@ class PollCard extends Component {
                                                                         },
 
                                                                         full: {
-                                                                            symbol: <img src={check} width={8} height={6.13}/>,
+                                                                            symbol: <img src={check} width={8}
+                                                                                         height={6.13}/>,
                                                                             trailColor: '#d6d6d6',
                                                                             color: '#fff'
                                                                         },
                                                                     }}
-                                                                    status={item.percent===100 ? "full" : "default"}
+                                                                    status={item.percent === 100 ? "full" : "default"}
                                                                 />
                                                             </div>
                                                         </Grid>
@@ -347,7 +382,8 @@ class PollCard extends Component {
                                                             </div>
 
                                                         </Grid>
-                                                        <Grid item xs={3} sm={3} xs={3} classes={{root:classes.percentPcontainer}}>
+                                                        <Grid item xs={3} sm={3} xs={3}
+                                                              classes={{root: classes.percentPcontainer}}>
                                                             <Typography className={classes.procentP}>
                                                                 {item.percent}%
                                                             </Typography>
@@ -390,7 +426,8 @@ class PollCard extends Component {
                                                 }
                                             />
                                         </ListItemIcon>
-                                        <ListItemText classes={{root:classes.ListItemTextRoot}} primary={itemOption.option}/>
+                                        <ListItemText classes={{root: classes.ListItemTextRoot}}
+                                                      primary={itemOption.option}/>
                                         <ListItemIcon>
                                             <div className={classes.avatars}>
                                                 {itemOption.avatars.map((avatarItem) => {
@@ -422,16 +459,36 @@ class PollCard extends Component {
                     }
                     <Grid container spacing={0} direction={"row"}>
                         <Grid item md={6} sm={6} xs={6}>
-                            <div className={classes.imgIcons} >
-                                {this.state.iconComment ? <img  src={ChatSvg}/> : ""}
-                                {this.state.QrCode ? <img  src={QrCode}/> : ""}
-                                {this.state.iconShare ? <img  src={ShareSvg}/> : ""}
-                                {this.state.iconAnonced ? <img  src={AnouncedSvg}/> : ""}
+                            <div className={classes.imgIcons}>
+                                {this.state.iconComment ? <IconButton
+                                    aria-haspopup="true"
+                                    color="inherit"
+                                    classes={{root: classes.imgIconsP}}
+                                ><img src={ChatSvg}/> </IconButton> : ""}
+                                {this.state.QrCode ? <IconButton
+                                    aria-haspopup="true"
+                                    color="inherit"
+                                    classes={{root: classes.imgIconsP}}
+                                ><img src={QrCode}/></IconButton> : ""}
+                                {this.state.iconShare ? <IconButton
+                                    aria-haspopup="true"
+                                    color="inherit"
+                                    classes={{root: classes.imgIconsP}}
+                                ><img src={ShareSvg}/> </IconButton> : ""}
+                                {this.state.iconAnonced ? <IconButton
+                                    aria-haspopup="true"
+                                    color="inherit"
+                                    classes={{root: classes.imgIconsP}}
+                                ><img src={AnouncedSvg}/> </IconButton> : ""}
                             </div>
                         </Grid>
                         <Grid item md={6} sm={6} xs={6}>
                             <div style={{textAlign: 'right', padding: 10}}><span style={{fontSize: 12}}>255 </span>
-                                {this.state.iconFovrite ? <img  src={LaveSvg}/> : ""}
+                                {this.state.iconFovrite ? <IconButton
+                                    aria-haspopup="true"
+                                    color="inherit"
+                                    classes={{root: classes.imgIconsP}}
+                                ><img src={LaveSvg}/> </IconButton> : ""}
 
                             </div>
                         </Grid>
@@ -452,4 +509,4 @@ PollCard.propTypes = {
     iconAnonced: PropTypes.bool.isRequired,
     iconStatis: PropTypes.bool.isRequired,
 };
-export default withStyles(styles)(PollCard);
+export default (withStyles(styles)(withRouter(PollCard)));
