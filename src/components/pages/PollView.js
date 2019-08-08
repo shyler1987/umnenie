@@ -61,7 +61,7 @@ const styles = theme => ({
         margin: '25px 5px 10px 0px'
     },
     fixedFormSend:{
-        position: 'fixed',
+        position: 'sticky',
         /* top: 0; */
         bottom: 0,
         left: 0,
@@ -311,60 +311,58 @@ class PollView extends Component {
                             <br/>
                             <br/>
                             <br/>
-                            <div>
+                            <Grid
+                                container
+                                justify={"center"}
+                                alignItems={"stretch"}
+                                spacing={2}
+                                classes={{root:classes.fixedFormSend}}
+                            >
 
-                            </div>
+                                <Grid item md={12} >
+                                    <Paper style={{margin: '0px 18px 0px'}}>
+                                        <Grid
+                                            direction={"row"}
+                                            container
+                                            spacing={2}
+                                            style={{padding: 10}}
+                                        >
+                                            <Grid item md={9} xs={9} sm={9}>
+                                                <TextField
+                                                    id="standard-multiline-flexible"
+                                                    fullWidth
+                                                    multiline
+                                                    variant="outlined"
+                                                    className={classes.textField}
+                                                    InputProps={
+                                                        {
+                                                            classes: {
+                                                                root: classes.multlineInput
+                                                            }
+                                                        }
+                                                    }
+                                                />
+                                            </Grid>
+                                            <Grid item md={3} xs={3} sm={3}>
+                                                <Button variant="contained" color="secondary" fullWidth
+                                                        className={classes.button}>
+                                                    Отправить
+                                                </Button>
+                                            </Grid>
+
+
+                                        </Grid>
+                                    </Paper>
+                                </Grid>
+
+                            </Grid>
 
 
                         </Paper>
 
 
                     </Grid>
-                    <Grid
-                        container
-                        justify={"center"}
-                        alignItems={"stretch"}
-                        spacing={2}
-                        classes={{root:classes.fixedFormSend}}
-                    >
 
-                        <Grid item md={5} xs={12} sm={12}>
-                            <Paper>
-                                <Grid
-                                    direction={"row"}
-                                    container
-                                    spacing={2}
-                                    style={{padding: 10}}
-                                >
-                                    <Grid item md={9} xs={9} sm={9}>
-                                        <TextField
-                                            id="standard-multiline-flexible"
-                                            fullWidth
-                                            multiline
-                                            variant="outlined"
-                                            className={classes.textField}
-                                            InputProps={
-                                                {
-                                                    classes: {
-                                                        root: classes.multlineInput
-                                                    }
-                                                }
-                                            }
-                                        />
-                                    </Grid>
-                                    <Grid item md={3} xs={3} sm={3}>
-                                        <Button variant="contained" color="secondary" fullWidth
-                                                className={classes.button}>
-                                            Отправить
-                                        </Button>
-                                    </Grid>
-
-
-                                </Grid>
-                            </Paper>
-                        </Grid>
-
-                    </Grid>
 
                 </Grid>
 

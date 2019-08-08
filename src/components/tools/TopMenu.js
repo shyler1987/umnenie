@@ -21,6 +21,9 @@ import logo from "../../media/logo.png"
 import {Link, NavLink} from "react-router-dom";
 import { withRouter } from "react-router";
 import Avatar from '@material-ui/core/Avatar';
+import {bindActionCreators} from "redux";
+import setIsAuth from '../../redux/actions/setIsAuth'
+import {connect} from "react-redux";
 
 const styles = theme => ({
     toolbar: {
@@ -135,6 +138,13 @@ const styles = theme => ({
         backgroundColor: '#ffffff',
         color:"#000"
 
+    },
+    loginIn:{
+        color:theme.palette.mainBlackColor,
+        "&:hover":{
+            cursor:"pointer",
+            textDecoration:'none'
+        }
     }
 });
 
@@ -150,6 +160,10 @@ const styles = theme => ({
         this.setState({
             isSerachOpen:!this.state.isSerachOpen
         })
+     }
+
+     setAuthClick=()=>{
+         this.props.setIsAuth(true);
      }
 
      render(){
@@ -196,11 +210,16 @@ const styles = theme => ({
                         </div>
 
                         <div className={classes.grow}/>
+                    {this.props.isAuthenticated ? <React.Fragment>
+                        <Link to={"/account/profile"} className={classes.sectionDesktop}>
+                            <Avatar aria-label="Recipe" src={"http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"}/>
+                            <Typography>Исидатэ Тайти</Typography>
+                        </Link>
+                    </React.Fragment>:
+                        <React.Fragment>
+                            <Typography><a className={classes.loginIn} onClick={this.setAuthClick}>Войти</a> / <Link className={classes.loginIn} to={"/account/registration"}>Регистрация</Link></Typography>
+                        </React.Fragment>}
 
-                            <Link to={"/account/profile"} className={classes.sectionDesktop}>
-                                <Avatar aria-label="Recipe" src={"http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"}/>
-                                <Typography>Исидатэ Тайти</Typography>
-                            </Link>
                         <div className={classes.sectionMobile}>
                             {!this.state.isSerachOpen ?
                                 <IconButton
@@ -221,10 +240,10 @@ const styles = theme => ({
                                     <ClearIcon/>
                                 </IconButton>
                             }
-                            {!this.state.isSerachOpen ?
-                            <Link to={"/account/profile"} className={classes.sectionMobileAvatar}>
+                            {!this.state.isSerachOpen ? this.props.isAuthenticated ?
+                                    <Link to={"/account/profile"} className={classes.sectionMobileAvatar}>
                                 <Avatar aria-label="Recipe" src={"http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"}/>
-                            </Link> : ""}
+                            </Link> : "" : ""}
 
                         </div>
 
@@ -235,4 +254,15 @@ const styles = theme => ({
     );}
 }
 
-export default (withStyles(styles)(withRouter(TopMenu)));
+function mapStateToProps(state){
+     return {
+         isAuthenticated:state.mainData.isAuthenticated
+     }
+}
+
+function mapDispatchToProps(dispatch){
+     return bindActionCreators({setIsAuth}, dispatch);
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(withRouter(TopMenu)));

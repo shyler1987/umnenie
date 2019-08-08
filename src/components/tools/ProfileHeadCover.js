@@ -94,7 +94,7 @@ const styles = theme => ({
         background: 'rgba(43, 42, 41, 0.45)',
         '&:hover': {
             borderColor: '#ffffff',
-            background: 'rgba(43, 42, 41, 0.45)'
+            background: 'rgba(255, 255, 255, 0.2)'
         },
         '&:active': {
             boxShadow: 'none',
@@ -156,14 +156,17 @@ const styles = theme => ({
         fontSize:30,
         fontWeight: 600,
         color: "#fff",
+        textShadow: '0 0 20px #000000',
         [theme.breakpoints.down('md')]: {
             fontSize:22,
             fontWeight: 600,
-            lineHeight: 'normal'
+            lineHeight: 'normal',
+            textShadow: '0 0 20px #000000',
         }
     }
     ,
     profileTitleDate:{
+        textShadow: '0 0 20px #000000',
         fontWeight: 400,
         color: "#fff",
     },

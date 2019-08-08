@@ -180,6 +180,7 @@ class ProfileFollower extends Component {
                                         avatarUrl={item.userImage}
                                         pollType={item.pollType}
                                         pollItems={item.items}
+                                        iconFovrite={true}
                                     />
                                 );
                             })}

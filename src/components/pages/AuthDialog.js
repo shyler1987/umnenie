@@ -29,6 +29,7 @@ import twitterLogo from '../../media/icons/twitter (1).svg'
 import gplusLogo from '../../media/icons/gplus.svg'
 import wkLogo from '../../media/icons/wk.svg'
 import setIsAuth from '../../redux/actions/setIsAuth'
+import seTisAuthenticated from '../../redux/actions/seTisAuthenticated'
 import SvgIcon from '@material-ui/core/SvgIcon';
 
 
@@ -101,6 +102,8 @@ const DialogTitle = withStyles(styles)((props: DialogTitleProps) => {
     );
 });
 
+const API_URL = "account/login";
+
 class AuthDialog extends Component {
 
     constructor(props) {
@@ -109,12 +112,46 @@ class AuthDialog extends Component {
         this.state = {
             show: false,
             dialogBool: this.props.isAuth,
+            password:'',
+            username:'',
         }
+        this.checkAuth=this.checkAuth.bind(this);
     }
 
 
     handleClose = () => {
        this.props.setIsAuth(false);
+    }
+
+    handleChange = (e) =>{
+        this.setState({
+          [e.target.name]:e.target.value
+        });
+    }
+
+    setPropsSt = () =>{
+        this.props.setIsAuth(false);
+        this.props.seTisAuthenticated(true);
+    }
+
+    checkAuth (e){
+        axios.post(API_URL, {
+                username:this.state.username,
+                password:this.state.password,
+        })
+            .then(response => {
+                if(response.data.status===200){
+                    localStorage.setItem('token', response.data.access_token);
+                    this.props.setIsAuth(false);
+                    this.props.seTisAuthenticated(true);
+
+                }
+            })
+            .catch(error=> {
+                console.log(error);
+            });
+        e.preventDefault();
+
     }
 
     render() {
@@ -142,10 +179,12 @@ class AuthDialog extends Component {
                             alignItems="flex-start"
                         >
                             <Grid item md={12}>
-                                <form fullWidth>
+                                <form fullWidth onSubmit={this.checkAuth}>
                                     <TextField
                                         fullWidth
                                         id="outlined-bare"
+                                        name={"username"}
+                                        onChange={this.handleChange}
                                         placeholder={"Номер телефона или почты"}
                                         className={classes.textField}
                                         margin="normal"
@@ -161,6 +200,9 @@ class AuthDialog extends Component {
                                         fullWidth
                                         id="outlined-bare"
                                         placeholder={"Пароль"}
+                                        name={"password"}
+                                        type={"password"}
+                                        onChange={this.handleChange}
                                         className={classes.textField}
                                         margin="normal"
                                         variant="outlined"
@@ -172,7 +214,7 @@ class AuthDialog extends Component {
                                         }}
                                     />
 
-                                    <Button variant="contained" color="secondary" fullWidth className={classes.button}>
+                                    <Button variant="contained" color="secondary" fullWidth className={classes.button} type={"submit"}>
                                         Войти
                                     </Button>
 
@@ -232,7 +274,7 @@ class AuthDialog extends Component {
 }
 
 function mapDispatch(dispatch) {
-    return bindActionCreators({setIsAuth}, dispatch);
+    return bindActionCreators({setIsAuth, seTisAuthenticated}, dispatch);
 }
 
 function mapStateToProps(state) {

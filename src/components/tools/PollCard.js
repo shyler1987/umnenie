@@ -495,14 +495,15 @@ class PollCard extends Component {
                             </div>
                         </Grid>
                         <Grid item md={6} sm={6} xs={6}>
-                            <div style={{textAlign: 'right', padding: 10}}><span style={{fontSize: 12}}>255 </span>
-                                {this.state.iconFovrite ? <IconButton
+
+                                {this.state.iconFovrite ? <React.Fragment>
+                                        <div style={{textAlign: 'right', padding: 10}}><span style={{fontSize: 12}}>255 </span> <IconButton
                                     aria-haspopup="true"
                                     color="inherit"
                                     classes={{root: classes.imgIconsP}}
-                                ><img src={LaveSvg}/> </IconButton> : ""}
+                                    ><img src={LaveSvg}/> </IconButton></div></React.Fragment> : ""}
 
-                            </div>
+
                         </Grid>
                     </Grid>
 
