@@ -79,6 +79,22 @@ const outerTheme = createMuiTheme({
                 textTransform: 'capitalize',
                 fontWeight: 600,
             }
+
+            //outline: none
+        },
+        MuiButtonBase:{
+            root:{
+                "&:focus":{
+                    outline: 'none'
+                }
+            }
+        },
+        MuiIconButton:{
+            root:{
+                "&:focus":{
+                    outline: 'none'
+                }
+            }
         },
         MuiOutlinedInput: {
             root:{

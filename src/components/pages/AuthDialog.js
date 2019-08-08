@@ -24,6 +24,18 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import faceLogo from '../../media/icons/facebook-logo.svg'
+import twitterLogo from '../../media/icons/twitter (1).svg'
+import gplusLogo from '../../media/icons/gplus.svg'
+import wkLogo from '../../media/icons/wk.svg'
+import setIsAuth from '../../redux/actions/setIsAuth'
+import SvgIcon from '@material-ui/core/SvgIcon';
+
+
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+
+
 
 const styles = theme => ({
     root: {
@@ -34,7 +46,7 @@ const styles = theme => ({
         // backgroundColor: theme.palette.background.paper,
     },
     fab: {
-        margin: theme.spacing(1),
+        //margin: theme.spacing(1),
     },
     closeButton: {
         position: 'absolute',
@@ -96,15 +108,13 @@ class AuthDialog extends Component {
         const {dialogBool} = this.props;
         this.state = {
             show: false,
-            dialogBool: dialogBool,
+            dialogBool: this.props.isAuth,
         }
     }
 
 
     handleClose = () => {
-        this.setState({
-            dialogBool: false
-        })
+       this.props.setIsAuth(false);
     }
 
     render() {
@@ -116,7 +126,7 @@ class AuthDialog extends Component {
                     color="red"
                 />
                 <Dialog
-                    open={this.state.dialogBool}
+                    open={this.props.isAuth}
                     onClose={this.handleClose}
                     fullWidth={"xs"}
                     maxWidth={"xs"}
@@ -174,12 +184,12 @@ class AuthDialog extends Component {
 
                                     >
                                         <Grid item md={6} style={{marginTop: 10, textAlign: 'left'}}>
-                                            <Link to={"/"} color="secondary" style={{color:"#e35b1e"}}>
+                                            <Link to={"/account/recovery"} onClick={this.handleClose} color="secondary" style={{color:"#e35b1e"}}>
                                                 Забыли пароль?
                                             </Link>
                                         </Grid>
                                         <Grid item md={6} style={{marginTop: 10, textAlign: 'right'}}>
-                                            <Link to={"/"} style={{color:"#e35b1e"}}>
+                                            <Link to={"/account/registration"} onClick={this.handleClose} style={{color:"#e35b1e"}}>
                                                 Регистрация
                                             </Link>
                                         </Grid>
@@ -188,18 +198,20 @@ class AuthDialog extends Component {
                                                 Быстрый доступ с
                                             </Typography>
                                             <div style={{textAlign:'center'}}>
-                                                <Fab size="medium"  color="primary" aria-label="Add" className={classes.fab}>
-                                                    <AddIcon/>
-                                                </Fab>
-                                                <Fab size="medium"  color="primary" aria-label="Add" className={classes.fab}>
-                                                    <AddIcon/>
-                                                </Fab>
-                                                <Fab size="medium"  color="primary" aria-label="Add" className={classes.fab}>
-                                                    <AddIcon/>
-                                                </Fab>
-                                                <Fab size="medium"  color="primary" aria-label="Add" className={classes.fab}>
-                                                    <AddIcon/>
-                                                </Fab>
+                                                <IconButton>
+                                                    <img src={faceLogo}/>
+                                                </IconButton>
+                                                <IconButton>
+                                                    <img src={twitterLogo}/>
+                                                </IconButton>
+                                                <IconButton>
+                                                    <img src={wkLogo}/>
+                                                </IconButton>
+                                                <IconButton>
+                                                    <img src={gplusLogo}/>
+                                                </IconButton>
+
+
 
                                             </div>
                                         </Grid>
@@ -219,4 +231,15 @@ class AuthDialog extends Component {
 
 }
 
-export default withStyles(styles)(AuthDialog);
+function mapDispatch(dispatch) {
+    return bindActionCreators({setIsAuth}, dispatch);
+}
+
+function mapStateToProps(state) {
+
+    return {isAuth:state.mainData.isAuth};
+
+}
+
+
+export default connect(mapStateToProps, mapDispatch)(withStyles(styles)(AuthDialog));

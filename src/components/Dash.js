@@ -8,6 +8,7 @@ import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
 import FloatActionButtun from "./tools/FloatActionButtun";
+import AuthDialog from "./pages/AuthDialog";
 
 
 const styles = theme => ({
@@ -75,6 +76,7 @@ class Dash extends Component {
         return (
             <div>
                 <FloatActionButtun/>
+                <AuthDialog/>
                 <Loading
                     show={this.state.show}
                     color="red"

@@ -15,6 +15,11 @@ import FaceSvg from '../../media/icons/facebook.svg';
 import TelegramSvg from '../../media/icons/telegram.svg';
 import InstagramSvg from '../../media/icons/instagram.svg';
 import WebSvg from '../../media/icons/web.svg';
+
+import { Provider } from 'react-redux'
+
+
+
 const styles = theme => ({
     root: {
         display: 'flex',

@@ -40,6 +40,10 @@ import {Progress} from 'react-sweet-progress';
 import "react-sweet-progress/lib/style.css";
 
 import {Link, NavLink, withRouter} from "react-router-dom";
+import {connect} from 'react-redux';
+import {bindActionCreators} from "redux";
+import setIsAuth from '../../redux/actions/setIsAuth'
+
 
 
 const styles = theme => ({
@@ -294,6 +298,10 @@ class PollCard extends Component {
                                             aria-haspopup="true"
                                             color="inherit"
                                             classes={{root: classes.imgIconsPTOP}}
+                                            onClick={()=>{
+                                                this.props.setIsAuth(true);
+                                                }
+                                            }
                                         >
                                             <img src={EditSvg}/>
                                         </IconButton> : ""}
@@ -513,4 +521,15 @@ PollCard.propTypes = {
     iconAnonced: PropTypes.bool.isRequired,
     iconStatis: PropTypes.bool.isRequired,
 };
-export default (withStyles(styles)(withRouter(PollCard)));
+function mapStateToProps(state) {
+    console.log(state.mainData.isAuth);
+
+}
+
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({setIsAuth}, dispatch)
+}
+
+
+
+export default connect(mapStateToProps, matchDispatchToProps)(withStyles(styles)(withRouter(PollCard)));
