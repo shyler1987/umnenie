@@ -126,7 +126,7 @@ Time stage `,
     }]
 };
 
-const API_POLLS = "polls/poll/";
+const API_POLLS = "polls/view/";
 
 
 class PollView extends Component {
@@ -320,7 +320,7 @@ class PollView extends Component {
                             >
 
                                 <Grid item md={12} >
-                                    <Paper style={{margin: '0px 18px 0px'}}>
+                                    <Paper >
                                         <Grid
                                             direction={"row"}
                                             container

@@ -18,9 +18,8 @@ import PollCreate from "./components/pages/PollCreate";
 import ChatPage from "./components/pages/ChatPage";
 import Registration from "./components/pages/Registration";
 import StatisPage from "./components/pages/StatisPage";
-const raleway = {
 
-};
+const raleway = {};
 
 
 const styles = theme => ({
@@ -28,8 +27,8 @@ const styles = theme => ({
     cssOutlinedInput: {
         '&$cssFocused $notchedOutline': {
             //borderColor: `#e35b1e !important`,
-            borderWidth:1,
-            borderStyle:'solid',
+            borderWidth: 1,
+            borderStyle: 'solid',
             borderColor: 'rgba(0, 0, 0, 0.23)'
         },
         "&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline": {
@@ -42,17 +41,16 @@ const styles = theme => ({
     },
 
     notchedOutline: {
-        borderWidth:1,
-        borderStyle:'solid',
+        borderWidth: 1,
+        borderStyle: 'solid',
         borderColor: 'rgba(0, 0, 0, 0.23)',
-        "&:hover":{
-            borderWidth:1,
-            borderStyle:'solid',
+        "&:hover": {
+            borderWidth: 1,
+            borderStyle: 'solid',
             borderColor: 'rgba(0, 0, 0, 0.23)',
         }
 
     },
-
 
 
 });
@@ -62,55 +60,55 @@ const outerTheme = createMuiTheme({
         useNextVariants: true,
         fontFamily: "'Source Sans Pro', sans-serif",
         fontWeight: 400,
-        color:"#2B2A29"
+        color: "#2B2A29"
     },
     overrides: {
-        MuiInputBase:{
-            root:{
+        MuiInputBase: {
+            root: {
                 fontFamily: "'Source Sans Pro', sans-serif",
-                fontSize:15,
+                fontSize: 15,
                 fontWeight: 400
             }
         },
-        MuiButton:{
-            label:{
+        MuiButton: {
+            label: {
                 fontFamily: "'Source Sans Pro', sans-serif",
-                fontSize:15,
+                fontSize: 15,
                 textTransform: 'capitalize',
                 fontWeight: 600,
             }
 
             //outline: none
         },
-        MuiButtonBase:{
-            root:{
-                "&:focus":{
+        MuiButtonBase: {
+            root: {
+                "&:focus": {
                     outline: 'none'
                 }
             }
         },
-        MuiIconButton:{
-            root:{
-                "&:focus":{
+        MuiIconButton: {
+            root: {
+                "&:focus": {
                     outline: 'none'
                 }
             }
         },
         MuiOutlinedInput: {
-            root:{
+            root: {
                 "&:hover:not($disabled):not($focused):not($error) $notchedOutline": {
                     borderColor: 'rgba(0, 0, 0, 0.23)'
                 },
                 '&$focused $notchedOutline': {
-                    borderWidth:1,
-                    borderStyle:'solid',
+                    borderWidth: 1,
+                    borderStyle: 'solid',
                     borderColor: 'rgba(0, 0, 0, 0.23)'
                 },
             },
 
-            notchedOutline:{
-                borderWidth:1,
-                borderStyle:'solid',
+            notchedOutline: {
+                borderWidth: 1,
+                borderStyle: 'solid',
                 borderColor: 'rgba(0, 0, 0, 0.23)',
                 '&$focused $notchedOutline': {
                     borderColor: "#fff",
@@ -127,15 +125,15 @@ const outerTheme = createMuiTheme({
         primary: {
             main: '#000',
         },
-        secondary:{
-            main:"#E05022"
+        secondary: {
+            main: "#E05022"
         },
-        secondary1:{
-            main:"#4fe329"
+        secondary1: {
+            main: "#4fe329"
         },
-        mainBlackColor:"#2B2A29",
-        BorderColor:"#E6E6E6",
-        YellowColor:"#E05022",
+        mainBlackColor: "#2B2A29",
+        BorderColor: "#E6E6E6",
+        YellowColor: "#E05022",
     },
 });
 
@@ -146,10 +144,33 @@ class App extends Component {
 
 
     }
-    componentWillMount(){
-        axios.defaults.baseURL ="http://umnenie.foundrising.uz/api/";
+
+    componentWillMount() {
+        axios.defaults.baseURL = "http://api.foundrising.uz/v1/";
+        axios.interceptors.request.use(function (config) {
+
+
+            return config;
+        }, function (error) {
+            // Do something with request error
+            return Promise.reject(error);
+        });
+
+        axios.interceptors.response.use(function (response) {
+            // Do something with response data
+            return response;
+        }, function (error) {
+            if (error.response.status === undefined)
+                return Promise.reject(error);
+            if (error.response.status === 401) {
+
+               // window.location.replace('/auth/login');
+            }
+            return Promise.reject(error);
+        });
 
     }
+
     render() {
 
         return (
@@ -171,7 +192,6 @@ class App extends Component {
                         <DashboardLayoutRoute exact path="/chat" component={ChatPage}/>
                         <DashboardLayoutRoute exact path="/polls/:id" component={PollView}/>
                         <DashboardLayoutRoute exact path="/statis/" component={StatisPage}/>
-
 
 
                     </Switch>

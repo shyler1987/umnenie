@@ -141,7 +141,7 @@ class AuthDialog extends Component {
         })
             .then(response => {
                 if(response.data.status===200){
-                    localStorage.setItem('token', response.data.access_token);
+                    localStorage.setItem('token', response.data.data.access_token);
                     this.props.setIsAuth(false);
                     this.props.seTisAuthenticated(true);
 
