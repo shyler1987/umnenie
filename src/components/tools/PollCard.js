@@ -454,6 +454,9 @@ class PollCard extends Component {
                                                             </span>
                                                                     );
                                                                 })}
+                                                                <span className={classes.avatarMore}>
+                                                            <img src={moreAvatars}/>
+                                                </span>
                                                             </div>
 
                                                         </Grid>
