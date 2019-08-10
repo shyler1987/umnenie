@@ -19,6 +19,7 @@
     "react-circular-progressbar": "^2.0.1",
     "react-dom": "^16.8.6",
     "react-filepond": "^7.0.1",
+    "react-infinite-scroll-component": "^4.5.3",
     "react-loading-bar": "0.0.7",
     "react-material-ui-form": "^1.1.4",
     "react-minimal-pie-chart": "^5.0.0",

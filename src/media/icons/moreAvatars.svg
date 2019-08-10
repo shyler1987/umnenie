@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20">
+  <defs>
+    <clipPath id="clip-pathh">
+      <rect width="20" height="20" fill="none"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#e05022"/>
+      <stop offset="1" stop-color="#ef7f1a"/>
+    </linearGradient>
+  </defs>
+  <g id="Component_14_1" data-name="Component 14 – 1" clip-path="url(#clip-pathh)">
+    <g id="brooke-cagle-609873-unsplash" stroke="#fff" stroke-width="1" fill="url(#linear-gradient)">
+      <circle cx="10" cy="10" r="10" stroke="none"/>
+      <circle cx="10" cy="10" r="9.5" fill="none"/>
+    </g>
+    <g id="brooke-cagle-609873-unsplash-2" data-name="brooke-cagle-609873-unsplash" transform="translate(9 9)" fill="#e05022" stroke="#fff" stroke-width="1">
+      <circle cx="1" cy="1" r="1" stroke="none"/>
+      <circle cx="1" cy="1" r="0.5" fill="none"/>
+    </g>
+    <g id="brooke-cagle-609873-unsplash-3" data-name="brooke-cagle-609873-unsplash" transform="translate(6 9)" fill="#e05022" stroke="#fff" stroke-width="1">
+      <circle cx="1" cy="1" r="1" stroke="none"/>
+      <circle cx="1" cy="1" r="0.5" fill="none"/>
+    </g>
+    <g id="brooke-cagle-609873-unsplash-4" data-name="brooke-cagle-609873-unsplash" transform="translate(12 9)" fill="#e05022" stroke="#fff" stroke-width="1">
+      <circle cx="1" cy="1" r="1" stroke="none"/>
+      <circle cx="1" cy="1" r="0.5" fill="none"/>
+    </g>
+  </g>
+</svg>

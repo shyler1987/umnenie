@@ -9,6 +9,7 @@ import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
 import FloatActionButtun from "./tools/FloatActionButtun";
 import AuthDialog from "./pages/AuthDialog";
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 
 const styles = theme => ({
@@ -42,21 +43,26 @@ class Dash extends Component {
         super(props);
         this.state = {
             polls:[],
-            show:false
+            show:false,
+            previous:null,
+            next:null,
+            count:0,
+            hasMore:true
         };
     }
 
-
-    componentDidMount() {
+    fetchDataPollsScroll = (url) =>{
         this.setState({
             show:true
         })
-        axios.get(API_POLLS).then(res => {
+        axios.get(url).then(res => {
             if(res.status===200 && res.data.count>0){
-
+                let polls = this.state.polls;
+                polls.push(...res.data.result);
                 this.setState({
-                    polls:res.data.result
-
+                    polls:polls,
+                    next:res.data.next,
+                    hasMore:res.data.next!==null? true : false
                 })
             }
             this.setState({
@@ -67,8 +73,20 @@ class Dash extends Component {
             this.setState({
                 show:false
             })
-            console.log(err);
         })
+    }
+
+
+    componentDidMount() {
+        this.fetchDataPollsScroll(API_POLLS);
+    }
+
+    fetchData = ()=>{
+        this.fetchDataPollsScroll(this.state.next);
+    }
+
+    refresh = ()=>{
+        this.fetchDataPollsScroll(API_POLLS);
     }
 
     render() {
@@ -76,7 +94,7 @@ class Dash extends Component {
         return (
             <div>
                 <FloatActionButtun/>
-                <AuthDialog/>
+
                 <Loading
                     show={this.state.show}
                     color="red"
@@ -84,33 +102,58 @@ class Dash extends Component {
                 <Typography classes={{root:classes.titleHead} }>
                     Опрос
                 </Typography>
-                <ResponsiveMasonry
-                    columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
-                >
-                    <Masonry
-                        columnsCount={3}
-                        gutter={"10px"}
-                        gutterTop={"0px"}
+
+                <InfiniteScroll
+                    dataLength={this.state.polls.length}
+                    next={this.fetchData}
+                    hasMore={this.state.hasMore}
+                    loader={<h4>Загрузка...</h4>}
+                    endMessage={
+                        <p style={{textAlign: 'center'}}>
+                            <b>Ура! Вы видели все это</b>
+                        </p>
+                    }
+                    // below props only if you need pull down functionality
+                    refreshFunction={this.refresh}
+                    pullDownToRefresh
+                    pullDownToRefreshContent={
+                        <h3 style={{textAlign: 'center'}}>&#8595; Потяните вниз, чтобы обновить</h3>
+                    }
+                    releaseToRefreshContent={
+                        <h3 style={{textAlign: 'center'}}>&#8593; Отпустите, чтобы обновить</h3>
+                    }>
+                    <ResponsiveMasonry
+                        columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
                     >
-                        {this.state.polls.map((item, key) => {
-                            return (
-                                <PollCard
-                                    key={key}
-                                    idPoll={item.pollId}
-                                    imagePoll={item.pollImage}
-                                    fullName={item.userName}
-                                    contentPoll={item.pollQuestion}
-                                    datePoll={item.pollEndDate}
-                                    avatarUrl={item.userImage}
-                                    pollType={item.pollType}
-                                    pollItems={item.items}
-                                    iconFovrite={true}
-                                    CrownSvg={true}
-                                />
-                            );
-                        })}
-                    </Masonry>
-                </ResponsiveMasonry>
+                        <Masonry
+                            columnsCount={3}
+                            gutter={"10px"}
+                            gutterTop={"0px"}
+                        >
+                            {this.state.polls.map((item, key) => {
+                                return (
+                                    <PollCard
+                                        key={key}
+                                        idPoll={item.pollId}
+                                        imagePoll={item.pollImage}
+                                        fullName={item.userName}
+                                        contentPoll={item.pollQuestion}
+                                        datePoll={item.pollEndDate}
+                                        avatarUrl={item.userImage}
+                                        pollType={item.pollType}
+                                        pollItems={item.items}
+                                        CrownSvg={item.pollCrown}
+                                        iconFovrite={true}
+                                    />
+                                );
+                            })}
+                        </Masonry>
+                    </ResponsiveMasonry>
+                </InfiniteScroll>
+
+
+
+
             </div>
         );
     }

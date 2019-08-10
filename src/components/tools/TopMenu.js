@@ -5,25 +5,18 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import logo from "../../media/logo.png"
-import {Link, NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 import { withRouter } from "react-router";
 import Avatar from '@material-ui/core/Avatar';
 import {bindActionCreators} from "redux";
 import setIsAuth from '../../redux/actions/setIsAuth'
 import {connect} from "react-redux";
+import Button from '@material-ui/core/Button';
+import AuthDialog from "../pages/AuthDialog";
 
 const styles = theme => ({
     toolbar: {
@@ -171,6 +164,7 @@ const styles = theme => ({
 
          return (
         <div className={classes.grow}>
+            <AuthDialog dialogBool={false}/>
             <AppBar position="relative" classes={{root:classes.appBar}}>
                 <Container maxWidth="lg">
 
@@ -216,9 +210,8 @@ const styles = theme => ({
                             <Typography>Исидатэ Тайти</Typography>
                         </Link>
                     </React.Fragment>:
-                        <React.Fragment>
-                            <Typography><a className={classes.loginIn} onClick={this.setAuthClick}>Войти</a> / <Link className={classes.loginIn} to={"/account/registration"}>Регистрация</Link></Typography>
-                        </React.Fragment>}
+                            <Button className={classes.button} onClick={this.setAuthClick}>Войти</Button>
+                        }
 
                         <div className={classes.sectionMobile}>
                             {!this.state.isSerachOpen ?

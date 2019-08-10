@@ -67,66 +67,7 @@ const styles = theme => ({
         left: 0,
     }
 });
-
-const dataInit = {
-    userId: 1,
-    userName: "Исидатэ Тайти",
-    userImage: "http://umnenie.foundrising.uz/uploads/user/foto/1.jpg",
-    pollId: 4,
-    pollUrl: "http://umnenie.foundrising.uz/api/polls/poll?pollId=4",
-    pollType: 1,
-    pollTypeText: "Вид с выбором фоновой картинки",
-    pollCategory: "kategoriya2",
-    pollVisibility: "Виден только по ссылке",
-    pollTerm: "Неделя",
-    pollViewComment: "Разрешены",
-    pollHashtags: "fone image",
-    pollPublications: "",
-    pollEndDate: "15.11.19",
-    pollQuestion: `dribbble A hand-made music player?!
-@kellianderson making us at the Hang
-Time stage `,
-    pollImage: null,
-    items: [{
-        id: 13,
-        option: "Опросы за деньги",
-        percent: 0,
-        image: "http://umnenie.foundrising.uz/uploads/pollitem/1.jpg",
-        avatars: ["http://umnenie.foundrising.uz/uploads/user/foto/1.jpg", "http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"]
-    }, {
-        id: 14,
-        option: "Опросы за деньги",
-        percent: 0,
-        image: "http://umnenie.foundrising.uz/uploads/pollitem/3556468-Beautiful-big-white-clouds-in-front-of-blue-sky-background-Stock-Photo.jpg",
-        avatars: ["http://umnenie.foundrising.uz/uploads/user/foto/1.jpg", "http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"]
-    }, {
-        id: 15,
-        option: "Опросы за деньги",
-        percent: 0,
-        image: "http://umnenie.foundrising.uz/uploads/pollitem/background2056509340 — копия.jpg",
-        avatars: ["http://umnenie.foundrising.uz/uploads/user/foto/1.jpg", "http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"]
-    }, {
-        id: 16,
-        option: "Опросы за деньги",
-        percent: 100,
-        image: "http://umnenie.foundrising.uz/uploads/pollitem/Teaching-Awards-Background.jpg",
-        avatars: ["http://umnenie.foundrising.uz/uploads/user/foto/1.jpg", "http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"]
-    }, {
-        id: 17,
-        option: "Опросы за деньги",
-        percent: 50,
-        image: "http://umnenie.foundrising.uz/uploads/pollitem/Sun-Rays-Blue-Sky-Clouds-Beauty.jpg",
-        avatars: ["http://umnenie.foundrising.uz/uploads/user/foto/1.jpg", "http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"]
-    }, {
-        id: 18,
-        option: "Опросы за деньги",
-        percent: 100,
-        image: "http://umnenie.foundrising.uz/uploads/pollitem/software_update.png",
-        avatars: ["http://umnenie.foundrising.uz/uploads/user/foto/1.jpg", "http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"]
-    }]
-};
-
-const API_POLLS = "polls/view/";
+const API_POLLS = "polls/item/?id=";
 
 
 class PollView extends Component {
@@ -134,24 +75,32 @@ class PollView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            polls: [],
+            polls: {},
             show: false,
             idPoll: this.props.match.params.id
         };
+        this.PollNavigate =this.PollNavigate.bind(this);
+        this.fetchPoll =this.fetchPoll.bind(this);
     }
 
+    PollNavigate = (url) =>{
+        if(url!==null){
+            this.props.history.push("/polls/"+url);
 
-    componentDidMount() {
+            this.fetchPoll(url);
+        }
+    }
+
+    fetchPoll = (id) =>{
         this.setState({
             show: true
         })
-        axios.get(API_POLLS + this.state.idPoll).then(res => {
-            if (res.status === 200 && res.data.count > 0) {
-
+        axios.get(API_POLLS + id).then(res => {
+            if (res.status === 200 ) {
                 this.setState({
-                    polls: res.data.result
-
+                    polls: res.data
                 })
+                this.forceUpdate();
             }
             this.setState({
                 show: false
@@ -164,17 +113,27 @@ class PollView extends Component {
         })
     }
 
-    nextPollGet = () => {
-        alert('Next Poll')
+
+    componentDidMount() {
+
+        this.fetchPoll(this.state.idPoll);
     }
 
-    prevPollGet = (q) => {
-        alert('Prev Poll')
+    nextPollGet = () => {
+
+        this.PollNavigate(this.state.polls.nextPoll);
+
+    }
+
+    prevPollGet = () => {
+
+        this.PollNavigate(this.state.polls.prevPoll);
     }
 
 
     render() {
         const {classes} = this.props;
+
         return (
             <div>
                 <FloatActionButtun/>
@@ -185,8 +144,9 @@ class PollView extends Component {
                 <div style={{marginTop: 20}}>
 
                 </div>
-
-                <Grid
+                {Object.keys(this.state.polls).length!==0 ?
+                <div>
+                    <Grid
                     direction={"row"}
                     container
                     justify={"center"}
@@ -195,13 +155,9 @@ class PollView extends Component {
                 >
                     <Hidden smDown>
                         <Grid item md={1}>
-                            <Link to={""}>
+                            <Link onClick={()=>{this.PollNavigate(this.state.polls.prevPoll)}} >
                                 <Paper classes={{root: classes.arrowButton}}>
-
-
                                     <KeyboardArrowLeft/>
-
-
                                 </Paper>
                             </Link>
                         </Grid>
@@ -212,14 +168,14 @@ class PollView extends Component {
 
                             <PollCard
 
-                                idPoll={dataInit.pollId}
-                                imagePoll={dataInit.pollImage}
-                                fullName={dataInit.userName}
-                                contentPoll={dataInit.pollQuestion}
-                                datePoll={dataInit.pollEndDate}
-                                avatarUrl={dataInit.userImage}
-                                pollType={dataInit.pollType}
-                                pollItems={dataInit.items}
+                                idPoll={this.state.polls.pollId}
+                                imagePoll={this.state.polls.pollImage}
+                                fullName={this.state.polls.userName}
+                                contentPoll={this.state.polls.pollQuestion}
+                                datePoll={this.state.polls.pollEndDate}
+                                avatarUrl={this.state.polls.userImage}
+                                pollType={this.state.polls.pollType}
+                                pollItems={this.state.polls.items}
                                 iconFovrite={true}
                                 iconComment={true}
                                 iconShare={true}
@@ -234,7 +190,7 @@ class PollView extends Component {
                     </Grid>
                     <Hidden smDown>
                         <Grid item md={1}>
-                            <Link to={""}>
+                            <Link  onClick={()=>{this.PollNavigate(this.state.polls.nextPoll)}} >
                                 <Paper classes={{root: classes.arrowButton}}>
                                     <KeyboardArrowRight/>
                                 </Paper>
@@ -260,7 +216,7 @@ class PollView extends Component {
                             <div className="d-flex justify-content-start itemChat">
                                 <div className="img_cont_msg">
                                     <Link to={""}><img
-                                        src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                        src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
                                         className="rounded-circle user_img_msg"/></Link>
                                 </div>
                                 <div className="msg_cotainer">
@@ -272,7 +228,7 @@ class PollView extends Component {
                             <div className="d-flex justify-content-start itemChat">
                                 <div className="img_cont_msg">
                                     <Link to={""}><img
-                                        src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                        src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
                                         className="rounded-circle user_img_msg"/></Link>
                                 </div>
                                 <div className="msg_cotainer">
@@ -290,14 +246,14 @@ class PollView extends Component {
                                 </div>
                                 <div className="img_cont_msg">
                                     <Link to={""}><img
-                                        src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                        src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
                                         className="rounded-circle user_img_msg"/></Link>
                                 </div>
                             </div>
                             <div className="d-flex justify-content-start itemChat">
                                 <div className="img_cont_msg">
                                     <Link to={""}><img
-                                        src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                        src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
                                         className="rounded-circle user_img_msg"/></Link>
                                 </div>
                                 <div className="msg_cotainer">
@@ -365,6 +321,8 @@ class PollView extends Component {
 
 
                 </Grid>
+                </div>  : "" }
+
 
 
 

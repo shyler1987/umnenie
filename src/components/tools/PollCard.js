@@ -6,8 +6,11 @@ import {withStyles} from '@material-ui/styles';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import SvgIcon from '@material-ui/core/SvgIcon';
 
 import Grid from '@material-ui/core/Grid';
+import FovriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FovriteIcon from '@material-ui/icons/Favorite';
 
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -35,6 +38,7 @@ import ShareSvg from '../../media/icons/share.svg';
 import AnouncedSvg from '../../media/icons/anounced.svg';
 import EditSvg from '../../media/icons/edit.svg';
 import CrownSvg from '../../media/icons/crown.svg';
+import moreAvatars from '../../media/icons/moreAvatars.svg';
 import QrCode from '../../media/icons/qrcode.svg';
 import {Progress} from 'react-sweet-progress';
 import "react-sweet-progress/lib/style.css";
@@ -49,10 +53,10 @@ import setIsAuth from '../../redux/actions/setIsAuth'
 const styles = theme => ({
         avatars: {
             display: 'inline-flex',
-            paddingLeft: '50px'
+            // paddingLeft: '50px'
         },
         avatar: {
-            marginLeft: '-20px',
+            marginLeft: '-15px',
             position: 'relative',
             border: '2px solid #fff',
             borderRadius: '50%',
@@ -64,6 +68,22 @@ const styles = theme => ({
                 height: '30px'
             },
         },
+        avatarMore: {
+            marginLeft: '-15px',
+            position: 'relative',
+            border: 'none',
+            borderRadius: '50%',
+            overflow: 'hidden',
+            width: '30px',
+            height: '30px',
+            '& img': {
+                width: '30px',
+                height: '30px'
+            },
+        },
+    fovriteRed:{
+            color:'#ec4956'
+    },
         titleBar: {
             background:
                 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, ' +
@@ -135,12 +155,13 @@ const styles = theme => ({
             color: '#8f8f8f'
         },
         rootItem: {
-
+            paddingLeft: 10,
+            paddingRight: 10,
             '&:hover': {
                 paddingTop: 7,
                 paddingBottom: 7,
-                paddingLeft: 15,
-                paddingRight: 15,
+                paddingLeft: 9,
+                paddingRight: 9,
                 border: "1px solid #E6E6E6",
                 borderRadius: 5,
                 "& dot": {
@@ -162,7 +183,7 @@ const styles = theme => ({
             right: 10,
             top: 20,
             position: 'absolute',
-
+            opacity: 0.7
 
         },
         imgIcons: {
@@ -177,7 +198,12 @@ const styles = theme => ({
 
         },
         ListItemTextRoot: {
-            color: "#2B2A29"
+            color: "#2B2A29",
+            fontSize: 15,
+            fontWeight: 600
+        },
+        ListItemIconRoot:{
+            minWidth:40
         },
         cardContent: {
             color: "#2B2A29"
@@ -250,8 +276,40 @@ class PollCard extends Component {
             QrCode: QrCode === null ? false : QrCode,
             answerText: answerText === null ? false : answerText,
             cellHeight: cellHeight === null ? 180 : cellHeight,
+            liked:false
         }
         this.changeRoute=this.changeRoute.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        const {
+            avatarUrl, fullName, datePoll, imagePoll, contentPoll, pollType, idPoll, pollItems,
+            iconStatis, iconFovrite, iconShare, iconComment, iconAnonced, iconEdit, CrownSvg, QrCode,
+            cellHeight,
+            answerText
+        } = nextProps;
+
+        this.setState({
+            avatarUrl: avatarUrl,
+            fullName: fullName,
+            datePoll: datePoll,
+            contentPoll: contentPoll,
+            pollType: pollType,
+            imagePoll: imagePoll,
+            idPoll: idPoll,
+            pollItems: pollItems,
+            iconStatis: iconStatis === null ? false : iconStatis,
+            iconFovrite: iconFovrite === null ? false : iconFovrite,
+            iconShare: iconShare === null ? false : iconShare,
+            iconComment: iconComment === null ? false : iconComment,
+            iconAnonced: iconAnonced === null ? false : iconAnonced,
+            iconEdit: iconEdit === null ? false : iconEdit,
+            CrownSvg: CrownSvg === null ? false : CrownSvg,
+            QrCode: QrCode === null ? false : QrCode,
+            answerText: answerText === null ? false : answerText,
+            cellHeight: cellHeight === null ? 180 : cellHeight,
+            liked:false
+        });
     }
 
     changeRoute(e){
@@ -260,7 +318,12 @@ class PollCard extends Component {
         history.push('/statis')
     }
 
-
+    likedClick =(e)=>{
+        this.setState({
+            liked:!this.state.liked
+        });
+        e.preventDefault();
+    }
 
 
     render() {
@@ -299,7 +362,7 @@ class PollCard extends Component {
                                             color="inherit"
                                             classes={{root: classes.imgIconsPTOP}}
                                             onClick={()=>{
-                                                this.props.setIsAuth(true);
+
                                                 }
                                             }
                                         >
@@ -423,7 +486,7 @@ class PollCard extends Component {
                             >
                                 {this.state.pollItems !== undefined ? this.state.pollItems.map((itemOption, Key) => {
                                     return (<ListItem classes={{root: classes.rootItem}}>
-                                        <ListItemIcon>
+                                        <ListItemIcon classes={{root:classes.ListItemIconRoot}}>
                                             <CircularProgressbar
                                                 value={itemOption.percent}
                                                 text={``}
@@ -438,7 +501,7 @@ class PollCard extends Component {
                                                 }
                                             />
                                         </ListItemIcon>
-                                        <ListItemText classes={{root: classes.ListItemTextRoot}}
+                                        <ListItemText classes={{primary: classes.ListItemTextRoot}}
                                                       primary={itemOption.option}/>
                                         <ListItemIcon>
                                             <div className={classes.avatars}>
@@ -449,6 +512,9 @@ class PollCard extends Component {
                                                         </span>
                                                     );
                                                 })}
+                                                <span className={classes.avatarMore}>
+                                                            <img src={moreAvatars}/>
+                                                </span>
                                             </div>
                                         </ListItemIcon>
                                         <ListItemIcon>
@@ -497,11 +563,13 @@ class PollCard extends Component {
                         <Grid item md={6} sm={6} xs={6}>
 
                                 {this.state.iconFovrite ? <React.Fragment>
-                                        <div style={{textAlign: 'right', padding: 10}}><span style={{fontSize: 12}}>255 </span> <IconButton
+                                        <div style={{textAlign: 'right', padding: 10}}><span style={{fontSize: 12}}>255 </span>
+                                            <IconButton
+                                                onClick={this.likedClick}
                                     aria-haspopup="true"
                                     color="inherit"
                                     classes={{root: classes.imgIconsP}}
-                                    ><img src={LaveSvg}/> </IconButton></div></React.Fragment> : ""}
+                                        > {this.state.liked ? <FovriteIcon classes={{root:classes.fovriteRed}}/> : <FovriteBorderIcon />}</IconButton></div></React.Fragment> : ""}
 
 
                         </Grid>
@@ -523,7 +591,6 @@ PollCard.propTypes = {
     iconStatis: PropTypes.bool.isRequired,
 };
 function mapStateToProps(state) {
-    console.log(state.mainData.isAuth);
 
 }
 

@@ -26,7 +26,7 @@ class Dashboard extends React.Component {
         const {classes} = this.props;
         return (
             <div className={classes.root}>
-                <AuthDialog dialogBool={false}/>
+
                 <TopMenu/>
             <Container maxWidth="lg">
                 {
