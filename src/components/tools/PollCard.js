@@ -55,6 +55,9 @@ const styles = theme => ({
             display: 'inline-flex',
             // paddingLeft: '50px'
         },
+        avatarsContainer:{
+            justifyContent: 'flex-end'
+        },
         avatar: {
             marginLeft: '-15px',
             position: 'relative',
@@ -506,7 +509,7 @@ class PollCard extends Component {
                                         </ListItemIcon>
                                         <ListItemText classes={{primary: classes.ListItemTextRoot}}
                                                       primary={itemOption.option}/>
-                                        <ListItemIcon>
+                                        <ListItemIcon classes={{root:classes.avatarsContainer}}>
                                             <div className={classes.avatars}>
                                                 {itemOption.avatars.map((avatarItem) => {
                                                     return (
@@ -520,7 +523,7 @@ class PollCard extends Component {
                                                 </span>
                                             </div>
                                         </ListItemIcon>
-                                        <ListItemIcon>
+                                        <ListItemIcon >
                                             <div style={{
                                                 textAlign: 'center',
                                                 color: "#dc5b2b",
