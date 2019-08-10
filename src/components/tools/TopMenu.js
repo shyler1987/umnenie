@@ -206,7 +206,7 @@ const styles = theme => ({
                         <div className={classes.grow}/>
                     {this.props.isAuthenticated ? <React.Fragment>
                         <Link to={"/account/profile"} className={classes.sectionDesktop}>
-                            <Avatar aria-label="Recipe" src={"http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"}/>
+                            <Avatar aria-label="Recipe" src={"http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"}/>
                             <Typography>Исидатэ Тайти</Typography>
                         </Link>
                     </React.Fragment>:
