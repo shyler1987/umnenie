@@ -11,7 +11,6 @@ import InputBase from '@material-ui/core/InputBase';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
-import QrCode from '../../media/icons/qrcode.svg';
 import Divider from '@material-ui/core/Divider';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import PieChart from 'react-minimal-pie-chart';

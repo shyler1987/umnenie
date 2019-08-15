@@ -84,15 +84,15 @@ const styles = theme => ({
     buttonFollow: {
         color: "#ffffff",
         fontWeight: 600,
-        borderColor: '#ffffff',
+        borderColor: '#E6E6E6',
         margin: '0px 5px 0px 5px'
     },
     '&:hover': {
-        borderColor: '#ffffff',
+        borderColor: '#E6E6E6',
     },
     '&:active': {
         boxShadow: 'none',
-        borderColor: '#ffffff',
+        borderColor: '#E6E6E6',
     },
     '&:focus': {
         boxShadow: '0 0 0 0.0rem rgba(255,255,255,.5)',
@@ -106,6 +106,30 @@ const styles = theme => ({
         fontWeight: 600,
         fontSize:30,
         margin: '25px 5px 10px 0px'
+    },
+    buttonGroupActive:{
+        background:theme.palette.YellowColor,
+        color:"#ffffff",
+        "&:hover": {
+            //you want this to be the same as the backgroundColor above
+            backgroundColor: "#322c25",
+            color:"#ffffff",
+        }
+    },
+    buttonGroup:{
+        "&:hover": {
+            //you want this to be the same as the backgroundColor above
+            backgroundColor: "rgba(43, 42, 41, 0.5)",
+            color:"#ffffff",
+        },
+        '&:active': {
+            backgroundColor: "rgba(43, 42, 41, 0.5)",
+            color:"#ffffff",
+        },
+        '&:focus': {
+            backgroundColor: "rgba(43, 42, 41, 0.5)",
+            color:"#ffffff",
+        },
     }
 
 
@@ -123,7 +147,8 @@ class ProfileJuridic extends Component {
         super(props);
         this.state = {
             polls:[],
-            show:false
+            show:false,
+            activeButton:0
         };
     }
     componentDidMount() {
@@ -149,13 +174,27 @@ class ProfileJuridic extends Component {
             console.log(err);
         })
     }
+    setActive = (index) =>{
+        console.log("sss")
+        this.setState({
+            activeButton:index
+        })
+    }
+
+     getClass = (index) =>{
+         let activeButton = this.state.activeButton;
+         if(index===activeButton)
+            return 'buttonGroupActive'
+         return 'buttonGroup'
+    }
 
     render() {
         const {classes} = this.props;
+
+
+
         return (
             <div>
-
-
                 <ProfileHeadCover/>
 
                 <Loading
@@ -178,10 +217,10 @@ class ProfileJuridic extends Component {
                     <Grid container spacing={0} style={{marginTop:20}}>
                         <Grid md={12}>
                             <ButtonGroup fullWidth aria-label="full width outlined button group" classes={{root:classes.ButtonGroup}}>
-                                <Button classes={{root:classes.buttonGroupActive}}>Мои опросы</Button>
-                                <Button  color="secondary" >Избранное</Button>
-                                <Button>Реферальный</Button>
-                                <Button>Черновики</Button>
+                                <Button onClick={()=>{this.setActive(0)}} classes={{root:classes[this.getClass(0)]}}>Мои опросы</Button>
+                                <Button onClick={()=>{this.setActive(1)}}  classes={{root:classes[this.getClass(1)]}}>Избранное</Button>
+                                <Button onClick={()=>{this.setActive(2)}}  classes={{root:classes[this.getClass(2)]}}>Реферальный</Button>
+                                <Button onClick={()=>{this.setActive(3)}}  classes={{root:classes[this.getClass(3)]}}>Черновики</Button>
                             </ButtonGroup>
                         </Grid>
                     </Grid>

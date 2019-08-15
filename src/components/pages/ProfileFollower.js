@@ -21,7 +21,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import FolderIcon from '@material-ui/icons/Folder';
 
 import ProfileHeadCover from '../tools/ProfileHeadCover'
-import ProfileHeadLine from '../tools/ProfileHeadLine'
 const styles = theme => ({
     root: {
         display: 'flex',

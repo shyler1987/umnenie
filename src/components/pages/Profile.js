@@ -10,7 +10,6 @@ import Container from '@material-ui/core/Container';
 import PollCard from '../tools/PollCard'
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import ProfileHeadCover from "../tools/ProfileHeadCover";
-import ProfileHeadLine from "../tools/ProfileHeadLine";
 
 const styles = theme => ({
     root: {
@@ -134,7 +133,7 @@ class ProfileFollower extends Component {
         const {classes} = this.props;
         return (
             <div>
-                <ProfileHeadCover/>
+                <ProfileHeadCover profilePhoto={true}/>
                 <Loading
                     show={this.state.show}
                     color="red"
