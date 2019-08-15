@@ -208,11 +208,11 @@ class AuthDialog extends Component {
                     aria-describedby="alert-dialog-description"
                 >
                     <div>
-                        <IconButton aria-label="Close" className={classes.closeButton}  classes={{root:classes.iconBtn}} >
+                        <IconButton aria-label="Close"  onClick={this.handleClose} className={classes.closeButton}  classes={{root:classes.iconBtn}} >
                             <CloseIcon className={classes.white}/>
                         </IconButton>
                     </div>
-                    <DialogTitle id="alert-dialog-title" onClose={this.handleClose}>Авторизоваться</DialogTitle>
+                    <DialogTitle id="alert-dialog-title">Авторизоваться</DialogTitle>
                     <DialogContent>
                         <Grid
                             container
@@ -288,7 +288,7 @@ class AuthDialog extends Component {
                                             <Typography classes={{root:classes.fastAc}}>
                                                 Быстрый доступ с
                                             </Typography>
-                                            <div style={{textAlign:'center',     paddingBottom: 20}}>
+                                            <div style={{textAlign:'center', paddingBottom: 20}}>
                                                 <IconButton classes={{root:classes.iconBtn}}>
                                                     <SvgIcon viewBox="0 0 40.196 40.196"  classes={{root: classes.svgRootIcon}}>
                                                         <g id="facebook_2_" data-name="facebook (2)" transform="translate(0)">
