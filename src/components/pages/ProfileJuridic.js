@@ -175,7 +175,6 @@ class ProfileJuridic extends Component {
         })
     }
     setActive = (index) =>{
-        console.log("sss")
         this.setState({
             activeButton:index
         })
@@ -215,7 +214,7 @@ class ProfileJuridic extends Component {
                     </Grid>
 
                     <Grid container spacing={0} style={{marginTop:20}}>
-                        <Grid md={12}>
+                        <Grid md={12} xs={12} sm={12}>
                             <ButtonGroup fullWidth aria-label="full width outlined button group" classes={{root:classes.ButtonGroup}}>
                                 <Button onClick={()=>{this.setActive(0)}} classes={{root:classes[this.getClass(0)]}}>Мои опросы</Button>
                                 <Button onClick={()=>{this.setActive(1)}}  classes={{root:classes[this.getClass(1)]}}>Избранное</Button>

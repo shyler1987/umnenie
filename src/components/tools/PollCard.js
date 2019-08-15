@@ -41,13 +41,12 @@ import {bindActionCreators} from "redux";
 import setIsAuth from '../../redux/actions/setIsAuth'
 
 
-
 const styles = theme => ({
         avatars: {
             display: 'inline-flex',
             // paddingLeft: '50px'
         },
-        avatarsContainer:{
+        avatarsContainer: {
             justifyContent: 'flex-end'
         },
         avatar: {
@@ -75,17 +74,17 @@ const styles = theme => ({
                 height: '30px'
             },
         },
-        svgRoot:{
+        svgRoot: {
             width: '30px',
             height: '30px'
         },
-        svgRootIcon:{
+        svgRootIcon: {
             width: '14px',
             height: '14px'
         },
-    fovriteRed:{
-            color:'#ec4956'
-    },
+        fovriteRed: {
+            color: '#ec4956'
+        },
         titleBar: {
             background:
                 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, ' +
@@ -204,8 +203,8 @@ const styles = theme => ({
             fontSize: 15,
             fontWeight: 600
         },
-        ListItemIconRoot:{
-            minWidth:40
+        ListItemIconRoot: {
+            minWidth: 40
         },
         cardContent: {
             color: "#2B2A29"
@@ -278,9 +277,9 @@ class PollCard extends Component {
             QrCode: QrCode === null ? false : QrCode,
             answerText: answerText === null ? false : answerText,
             cellHeight: cellHeight === null ? 180 : cellHeight,
-            liked:false
+            liked: false
         }
-        this.changeRoute=this.changeRoute.bind(this);
+        this.changeRoute = this.changeRoute.bind(this);
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
@@ -310,19 +309,19 @@ class PollCard extends Component {
             QrCode: QrCode === null ? false : QrCode,
             answerText: answerText === null ? false : answerText,
             cellHeight: cellHeight === null ? 180 : cellHeight,
-            liked:false
+            liked: false
         });
     }
 
-    changeRoute(e){
+    changeRoute(e) {
         e.preventDefault();
-        const { history } = this.props;
+        const {history} = this.props;
         history.push('/statis')
     }
 
-    likedClick =(e)=>{
+    likedClick = (e) => {
         this.setState({
-            liked:!this.state.liked
+            liked: !this.state.liked
         });
         e.preventDefault();
     }
@@ -348,8 +347,10 @@ class PollCard extends Component {
                                             classes={{root: classes.imgIconsPTOP}}
                                             onClick={this.changeRoute}
                                         >
-                                            <SvgIcon viewBox="0 0 15 15"  classes={{root: classes.svgRootIcon}}>
-                                                <path id="Path_1223" data-name="Path 1223" d="M13.975,13.828V4.453H10.459v9.375H9.287V0H5.771V13.828H4.6V6.8H1.084v7.031H0V15H15V13.828Zm-10.547,0H2.256V10.313H3.428Zm0-4.687H2.256V7.969H3.428Zm4.688,4.688H6.943V10.313H8.115Zm0-4.687H6.943V1.172H8.115ZM12.8,13.828H11.631V10.313H12.8Zm0-4.687H11.631V5.625H12.8Z" fill="#2b2a29"/>
+                                            <SvgIcon viewBox="0 0 15 15" classes={{root: classes.svgRootIcon}}>
+                                                <path id="Path_1223" data-name="Path 1223"
+                                                      d="M13.975,13.828V4.453H10.459v9.375H9.287V0H5.771V13.828H4.6V6.8H1.084v7.031H0V15H15V13.828Zm-10.547,0H2.256V10.313H3.428Zm0-4.687H2.256V7.969H3.428Zm4.688,4.688H6.943V10.313H8.115Zm0-4.687H6.943V1.172H8.115ZM12.8,13.828H11.631V10.313H12.8Zm0-4.687H11.631V5.625H12.8Z"
+                                                      fill="#2b2a29"/>
                                             </SvgIcon>
                                         </IconButton> : ""}
                                     {this.state.CrownSvg ?
@@ -358,22 +359,41 @@ class PollCard extends Component {
                                             color="inherit"
                                             classes={{root: classes.imgIconsPTOP}}
                                         >
-                                            <SvgIcon viewBox="0 0 15 15"  classes={{root: classes.svgRootIcon}}>
+                                            <SvgIcon viewBox="0 0 15 15" classes={{root: classes.svgRootIcon}}>
                                                 <defs>
                                                     <clipPath id="clip-path-crown">
-                                                        <rect id="Rectangle_100" data-name="Rectangle 100" width="15" height="15" transform="translate(440 1002)" fill="#fff" stroke="#707070" stroke-width="1"/>
+                                                        <rect id="Rectangle_100" data-name="Rectangle 100" width="15"
+                                                              height="15" transform="translate(440 1002)" fill="#fff"
+                                                              stroke="#707070" stroke-width="1"/>
                                                     </clipPath>
                                                 </defs>
-                                                <g id="Mask_Group_29" data-name="Mask Group 29" transform="translate(-440 -1002)" clip-path="url(#clip-path-crown)">
+                                                <g id="Mask_Group_29" data-name="Mask Group 29"
+                                                   transform="translate(-440 -1002)" clip-path="url(#clip-path-crown)">
                                                     <g id="crown" transform="translate(440 1004)">
-                                                        <path id="Path_1261" data-name="Path 1261" d="M12.283,9.144H2.717a.442.442,0,0,1-.365-.193C1.09,7.1.993,2.54.986,2.012c0-.021,0-.042,0-.062a.442.442,0,0,1,.441-.442h0a.442.442,0,0,1,.442.44s0,.029,0,.075a2.341,2.341,0,0,0,4.681-.074.442.442,0,0,1,.442-.442H8.007a.442.442,0,0,1,.442.442,2.341,2.341,0,0,0,4.681.07c0-.044,0-.069,0-.072a.442.442,0,0,1,.442-.44h0a.442.442,0,0,1,.441.442c0,.021,0,.042,0,.063-.007.528-.1,5.089-1.366,6.939a.442.442,0,0,1-.365.193Zm0,0" fill="#ef7f1a"/>
-                                                        <path id="Path_1262" data-name="Path 1262" d="M13.574,1.507h0a.442.442,0,0,0-.442.44s0,.028,0,.072a2.341,2.341,0,0,1-4.681-.07.442.442,0,0,0-.442-.442H7.5V9.144h4.783a.442.442,0,0,0,.365-.193C13.91,7.1,14.007,2.54,14.014,2.012c0-.021,0-.042,0-.062a.442.442,0,0,0-.441-.442Zm0,0" fill="#e05022"/>
-                                                        <path id="Path_1263" data-name="Path 1263" d="M7.5,0A1.427,1.427,0,1,0,8.927,1.427,1.429,1.429,0,0,0,7.5,0Zm0,0" fill="#e05022"/>
-                                                        <path id="Path_1264" data-name="Path 1264" d="M7.5,0V2.855A1.427,1.427,0,0,0,7.5,0Zm0,0" fill="#ef7f1a"/>
-                                                        <path id="Path_1265" data-name="Path 1265" d="M1.427,1.1A1.427,1.427,0,1,0,2.855,2.529,1.429,1.429,0,0,0,1.427,1.1Zm0,0" fill="#e05022"/>
-                                                        <path id="Path_1266" data-name="Path 1266" d="M13.573,1.1A1.427,1.427,0,1,0,15,2.529,1.429,1.429,0,0,0,13.573,1.1Zm0,0" fill="#ef7f1a"/>
-                                                        <path id="Path_1267" data-name="Path 1267" d="M12.283,9.593H2.717a.442.442,0,0,1-.442-.442V7.834H12.724V9.151a.442.442,0,0,1-.442.442Zm0,0" transform="translate(0 1)" fill="#e05022"/>
-                                                        <path id="Path_1268" data-name="Path 1268" d="M7.5,9.593h4.783a.442.442,0,0,0,.442-.442V7.834H7.5Zm0,0" transform="translate(0 1)" fill="#ef7f1a"/>
+                                                        <path id="Path_1261" data-name="Path 1261"
+                                                              d="M12.283,9.144H2.717a.442.442,0,0,1-.365-.193C1.09,7.1.993,2.54.986,2.012c0-.021,0-.042,0-.062a.442.442,0,0,1,.441-.442h0a.442.442,0,0,1,.442.44s0,.029,0,.075a2.341,2.341,0,0,0,4.681-.074.442.442,0,0,1,.442-.442H8.007a.442.442,0,0,1,.442.442,2.341,2.341,0,0,0,4.681.07c0-.044,0-.069,0-.072a.442.442,0,0,1,.442-.44h0a.442.442,0,0,1,.441.442c0,.021,0,.042,0,.063-.007.528-.1,5.089-1.366,6.939a.442.442,0,0,1-.365.193Zm0,0"
+                                                              fill="#ef7f1a"/>
+                                                        <path id="Path_1262" data-name="Path 1262"
+                                                              d="M13.574,1.507h0a.442.442,0,0,0-.442.44s0,.028,0,.072a2.341,2.341,0,0,1-4.681-.07.442.442,0,0,0-.442-.442H7.5V9.144h4.783a.442.442,0,0,0,.365-.193C13.91,7.1,14.007,2.54,14.014,2.012c0-.021,0-.042,0-.062a.442.442,0,0,0-.441-.442Zm0,0"
+                                                              fill="#e05022"/>
+                                                        <path id="Path_1263" data-name="Path 1263"
+                                                              d="M7.5,0A1.427,1.427,0,1,0,8.927,1.427,1.429,1.429,0,0,0,7.5,0Zm0,0"
+                                                              fill="#e05022"/>
+                                                        <path id="Path_1264" data-name="Path 1264"
+                                                              d="M7.5,0V2.855A1.427,1.427,0,0,0,7.5,0Zm0,0"
+                                                              fill="#ef7f1a"/>
+                                                        <path id="Path_1265" data-name="Path 1265"
+                                                              d="M1.427,1.1A1.427,1.427,0,1,0,2.855,2.529,1.429,1.429,0,0,0,1.427,1.1Zm0,0"
+                                                              fill="#e05022"/>
+                                                        <path id="Path_1266" data-name="Path 1266"
+                                                              d="M13.573,1.1A1.427,1.427,0,1,0,15,2.529,1.429,1.429,0,0,0,13.573,1.1Zm0,0"
+                                                              fill="#ef7f1a"/>
+                                                        <path id="Path_1267" data-name="Path 1267"
+                                                              d="M12.283,9.593H2.717a.442.442,0,0,1-.442-.442V7.834H12.724V9.151a.442.442,0,0,1-.442.442Zm0,0"
+                                                              transform="translate(0 1)" fill="#e05022"/>
+                                                        <path id="Path_1268" data-name="Path 1268"
+                                                              d="M7.5,9.593h4.783a.442.442,0,0,0,.442-.442V7.834H7.5Zm0,0"
+                                                              transform="translate(0 1)" fill="#ef7f1a"/>
                                                     </g>
                                                 </g>
                                             </SvgIcon>
@@ -383,13 +403,15 @@ class PollCard extends Component {
                                             aria-haspopup="true"
                                             color="inherit"
                                             classes={{root: classes.imgIconsPTOP}}
-                                            onClick={()=>{
+                                            onClick={() => {
 
-                                                }
+                                            }
                                             }
                                         >
-                                            <SvgIcon viewBox="0 0 15 15"  classes={{root: classes.svgRootIcon}}>
-                                                <path id="Path_1222" data-name="Path 1222" d="M9.328,3.792l3.051,3.066L4.656,14.62l-3.05-3.066Zm5.367-.74L13.334,1.685a1.346,1.346,0,0,0-1.908,0l-1.3,1.31,3.051,3.066,1.52-1.528A1.049,1.049,0,0,0,14.695,3.053ZM.009,15.864a.348.348,0,0,0,.42.415l3.4-.828L.78,12.384Z" transform="translate(-0.001 -1.289)" fill="#2b2a29"/>
+                                            <SvgIcon viewBox="0 0 15 15" classes={{root: classes.svgRootIcon}}>
+                                                <path id="Path_1222" data-name="Path 1222"
+                                                      d="M9.328,3.792l3.051,3.066L4.656,14.62l-3.05-3.066Zm5.367-.74L13.334,1.685a1.346,1.346,0,0,0-1.908,0l-1.3,1.31,3.051,3.066,1.52-1.528A1.049,1.049,0,0,0,14.695,3.053ZM.009,15.864a.348.348,0,0,0,.42.415l3.4-.828L.78,12.384Z"
+                                                      transform="translate(-0.001 -1.289)" fill="#2b2a29"/>
                                             </SvgIcon>
                                         </IconButton> : ""}
                                 </span>
@@ -413,16 +435,17 @@ class PollCard extends Component {
                     <CardMedia
                         className={classes.media}
                         title={this.state.fullName}
-                        key={"pollcard"+this.state.pollId}
+                        key={"pollcard" + this.state.pollId}
                     >
 
                         {this.state.pollType === 1 ?
-                            <GridList key={"grid"+this.state.pollId} cellHeight={this.state.cellHeight} className={classes.gridList}>
+                            <GridList key={"grid" + this.state.pollId} cellHeight={this.state.cellHeight}
+                                      className={classes.gridList}>
                                 {
                                     this.state.pollItems !== undefined ? this.state.pollItems.map((item, Key) => {
                                         return (
                                             <GridListTile
-                                                key={"SubItem"+Key}
+                                                key={"SubItem" + Key}
                                                 classes={{
                                                     root: classes.GridListTileRoot,
                                                     tile: classes.Gridtile
@@ -479,35 +502,60 @@ class PollCard extends Component {
                                                                     );
                                                                 })}
                                                                 <span className={classes.avatarMore}>
-                                                            <SvgIcon viewBox="0 0 20 20"  classes={{root: classes.svgRoot}}>
-                                                              <defs>
-                                                                <clipPath id="clip-pathh">
-                                                                  <rect width="20" height="20" fill="none"/>
-                                                                </clipPath>
-                                                                <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
-                                                                  <stop offset="0" stop-color="#e05022"/>
-                                                                  <stop offset="1" stop-color="#ef7f1a"/>
-                                                                </linearGradient>
-                                                              </defs>
-                                                              <g id="Component_14_1" data-name="Component 14 – 1" clip-path="url(#clip-pathh)">
-                                                                <g id="brooke-cagle-609873-unsplash" stroke="#fff" stroke-width="1" fill="url(#linear-gradient)">
-                                                                  <circle cx="10" cy="10" r="10" stroke="none"/>
-                                                                  <circle cx="10" cy="10" r="9.5" fill="none"/>
-                                                                </g>
-                                                                <g id="brooke-cagle-609873-unsplash-2" data-name="brooke-cagle-609873-unsplash" transform="translate(9 9)" fill="#e05022" stroke="#fff" stroke-width="1">
-                                                                  <circle cx="1" cy="1" r="1" stroke="none"/>
-                                                                  <circle cx="1" cy="1" r="0.5" fill="none"/>
-                                                                </g>
-                                                                <g id="brooke-cagle-609873-unsplash-3" data-name="brooke-cagle-609873-unsplash" transform="translate(6 9)" fill="#e05022" stroke="#fff" stroke-width="1">
-                                                                  <circle cx="1" cy="1" r="1" stroke="none"/>
-                                                                  <circle cx="1" cy="1" r="0.5" fill="none"/>
-                                                                </g>
-                                                                <g id="brooke-cagle-609873-unsplash-4" data-name="brooke-cagle-609873-unsplash" transform="translate(12 9)" fill="#e05022" stroke="#fff" stroke-width="1">
-                                                                  <circle cx="1" cy="1" r="1" stroke="none"/>
-                                                                  <circle cx="1" cy="1" r="0.5" fill="none"/>
-                                                                </g>
-                                                              </g>
-                                                            </SvgIcon>
+                                                                    <SvgIcon viewBox="0 0 20 20"
+                                                                             classes={{root: classes.svgRoot}}>
+                                                                      <defs>
+                                                                            <clipPath id="clip-path-more">
+                                                                              <rect width="20" height="20" fill="none"/>
+                                                                            </clipPath>
+                                                                            <linearGradient id="linear-gradient"
+                                                                                            x1="0.5" x2="0.5" y2="1"
+                                                                                            gradientUnits="objectBoundingBox">
+                                                                              <stop offset="0" stop-color="#e05022"/>
+                                                                              <stop offset="1" stop-color="#ef7f1a"/>
+                                                                            </linearGradient>
+                                                                          </defs>
+                                                                          <g id="Component_20_1"
+                                                                             data-name="Component 20 – 1"
+                                                                             clip-path-more="url(#clip-path-more)">
+                                                                            <circle id="brooke-cagle-609873-unsplash"
+                                                                                    cx="9.5" cy="9.5" r="9.5"
+                                                                                    transform="translate(0.5 0.5)"
+                                                                                    stroke="#fff"
+                                                                                    stroke-linejoin="bevel"
+                                                                                    stroke-width="1"
+                                                                                    fill="url(#linear-gradient)"/>
+                                                                            <g id="brooke-cagle-609873-unsplash-2"
+                                                                               data-name="brooke-cagle-609873-unsplash"
+                                                                               transform="translate(9 9)" fill="#e05022"
+                                                                               stroke="#fff" stroke-width="1">
+                                                                              <circle cx="1" cy="1" r="1"
+                                                                                      stroke="none"/>
+                                                                              <circle cx="1" cy="1" r="0.5"
+                                                                                      fill="none"/>
+                                                                            </g>
+                                                                            <g id="brooke-cagle-609873-unsplash-3"
+                                                                               data-name="brooke-cagle-609873-unsplash"
+                                                                               transform="translate(6.158 9)"
+                                                                               fill="#e05022" stroke="#fff"
+                                                                               stroke-width="1">
+                                                                              <circle cx="1" cy="1" r="1"
+                                                                                      stroke="none"/>
+                                                                              <circle cx="1" cy="1" r="0.5"
+                                                                                      fill="none"/>
+                                                                            </g>
+                                                                            <g id="brooke-cagle-609873-unsplash-4"
+                                                                               data-name="brooke-cagle-609873-unsplash"
+                                                                               transform="translate(11.842 9)"
+                                                                               fill="#e05022" stroke="#fff"
+                                                                               stroke-width="1">
+                                                                              <circle cx="1" cy="1" r="1"
+                                                                                      stroke="none"/>
+                                                                              <circle cx="1" cy="1" r="0.5"
+                                                                                      fill="none"/>
+                                                                            </g>
+                                                                          </g>
+                                                                    </SvgIcon>
                                                 </span>
                                                             </div>
 
@@ -541,7 +589,7 @@ class PollCard extends Component {
                             >
                                 {this.state.pollItems !== undefined ? this.state.pollItems.map((itemOption, Key) => {
                                     return (<ListItem classes={{root: classes.rootItem}}>
-                                        <ListItemIcon classes={{root:classes.ListItemIconRoot}}>
+                                        <ListItemIcon classes={{root: classes.ListItemIconRoot}}>
                                             <CircularProgressbar
                                                 value={itemOption.percent}
                                                 text={``}
@@ -558,7 +606,7 @@ class PollCard extends Component {
                                         </ListItemIcon>
                                         <ListItemText classes={{primary: classes.ListItemTextRoot}}
                                                       primary={itemOption.option}/>
-                                        <ListItemIcon classes={{root:classes.avatarsContainer}}>
+                                        <ListItemIcon classes={{root: classes.avatarsContainer}}>
                                             <div className={classes.avatars}>
                                                 {itemOption.avatars.map((avatarItem) => {
                                                     return (
@@ -568,27 +616,44 @@ class PollCard extends Component {
                                                     );
                                                 })}
                                                 <span className={classes.avatarMore}>
-                                                            <SvgIcon viewBox="0 0 20 20"  classes={{root: classes.svgRoot}}>
+                                                            <SvgIcon viewBox="0 0 20 20"
+                                                                     classes={{root: classes.svgRoot}}>
                                                               <defs>
                                                                     <clipPath id="clip-path-more">
                                                                       <rect width="20" height="20" fill="none"/>
                                                                     </clipPath>
-                                                                    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+                                                                    <linearGradient id="linear-gradient" x1="0.5"
+                                                                                    x2="0.5" y2="1"
+                                                                                    gradientUnits="objectBoundingBox">
                                                                       <stop offset="0" stop-color="#e05022"/>
                                                                       <stop offset="1" stop-color="#ef7f1a"/>
                                                                     </linearGradient>
                                                                   </defs>
-                                                                  <g id="Component_20_1" data-name="Component 20 – 1" clip-path-more="url(#clip-path-more)">
-                                                                    <circle id="brooke-cagle-609873-unsplash" cx="9.5" cy="9.5" r="9.5" transform="translate(0.5 0.5)" stroke="#fff" stroke-linejoin="bevel" stroke-width="1" fill="url(#linear-gradient)"/>
-                                                                    <g id="brooke-cagle-609873-unsplash-2" data-name="brooke-cagle-609873-unsplash" transform="translate(9 9)" fill="#e05022" stroke="#fff" stroke-width="1">
+                                                                  <g id="Component_20_1" data-name="Component 20 – 1"
+                                                                     clip-path-more="url(#clip-path-more)">
+                                                                    <circle id="brooke-cagle-609873-unsplash" cx="9.5"
+                                                                            cy="9.5" r="9.5"
+                                                                            transform="translate(0.5 0.5)" stroke="#fff"
+                                                                            stroke-linejoin="bevel" stroke-width="1"
+                                                                            fill="url(#linear-gradient)"/>
+                                                                    <g id="brooke-cagle-609873-unsplash-2"
+                                                                       data-name="brooke-cagle-609873-unsplash"
+                                                                       transform="translate(9 9)" fill="#e05022"
+                                                                       stroke="#fff" stroke-width="1">
                                                                       <circle cx="1" cy="1" r="1" stroke="none"/>
                                                                       <circle cx="1" cy="1" r="0.5" fill="none"/>
                                                                     </g>
-                                                                    <g id="brooke-cagle-609873-unsplash-3" data-name="brooke-cagle-609873-unsplash" transform="translate(6.158 9)" fill="#e05022" stroke="#fff" stroke-width="1">
+                                                                    <g id="brooke-cagle-609873-unsplash-3"
+                                                                       data-name="brooke-cagle-609873-unsplash"
+                                                                       transform="translate(6.158 9)" fill="#e05022"
+                                                                       stroke="#fff" stroke-width="1">
                                                                       <circle cx="1" cy="1" r="1" stroke="none"/>
                                                                       <circle cx="1" cy="1" r="0.5" fill="none"/>
                                                                     </g>
-                                                                    <g id="brooke-cagle-609873-unsplash-4" data-name="brooke-cagle-609873-unsplash" transform="translate(11.842 9)" fill="#e05022" stroke="#fff" stroke-width="1">
+                                                                    <g id="brooke-cagle-609873-unsplash-4"
+                                                                       data-name="brooke-cagle-609873-unsplash"
+                                                                       transform="translate(11.842 9)" fill="#e05022"
+                                                                       stroke="#fff" stroke-width="1">
                                                                       <circle cx="1" cy="1" r="1" stroke="none"/>
                                                                       <circle cx="1" cy="1" r="0.5" fill="none"/>
                                                                     </g>
@@ -597,7 +662,7 @@ class PollCard extends Component {
                                                 </span>
                                             </div>
                                         </ListItemIcon>
-                                        <ListItemIcon >
+                                        <ListItemIcon>
                                             <div style={{
                                                 textAlign: 'center',
                                                 color: "#dc5b2b",
@@ -623,16 +688,21 @@ class PollCard extends Component {
                                     color="inherit"
                                     classes={{root: classes.imgIconsP}}
                                 >
-                                    <SvgIcon viewBox="0 0 14 14"  classes={{root: classes.svgRootIcon}}>
+                                    <SvgIcon viewBox="0 0 14 14" classes={{root: classes.svgRootIcon}}>
                                         <defs>
                                             <clipPath id="clip-path-chat">
-                                                <rect id="Rectangle_46" data-name="Rectangle 46" width="14" height="14" transform="translate(190 1409)" fill="#fff" stroke="#707070" stroke-width="1"/>
+                                                <rect id="Rectangle_46" data-name="Rectangle 46" width="14" height="14"
+                                                      transform="translate(190 1409)" fill="#fff" stroke="#707070"
+                                                      stroke-width="1"/>
                                             </clipPath>
                                         </defs>
-                                        <g id="Mask_Group_2" data-name="Mask Group 2" transform="translate(-190 -1409)" clip-path="url(#clip-path-chat)">
+                                        <g id="Mask_Group_2" data-name="Mask Group 2" transform="translate(-190 -1409)"
+                                           clip-path="url(#clip-path-chat)">
                                             <g id="chat" transform="translate(190.003 1409)">
                                                 <g id="Group_1045" data-name="Group 1045" transform="translate(0)">
-                                                    <path id="Path_1219" data-name="Path 1219" d="M11.947,2.052A7,7,0,0,0,1.588,11.438a2.626,2.626,0,0,1-1.1,1.275.653.653,0,0,0,.188,1.231,3.33,3.33,0,0,0,.5.038h0a4.526,4.526,0,0,0,2.515-.815A7,7,0,0,0,11.947,2.052Zm-.56,9.336a6.21,6.21,0,0,1-7.531.964.394.394,0,0,0-.443.026,3.769,3.769,0,0,1-2.2.806,3.983,3.983,0,0,0,1.2-1.656.4.4,0,0,0-.067-.422,6.207,6.207,0,1,1,9.037.281Z" transform="translate(-0.003)"/>
+                                                    <path id="Path_1219" data-name="Path 1219"
+                                                          d="M11.947,2.052A7,7,0,0,0,1.588,11.438a2.626,2.626,0,0,1-1.1,1.275.653.653,0,0,0,.188,1.231,3.33,3.33,0,0,0,.5.038h0a4.526,4.526,0,0,0,2.515-.815A7,7,0,0,0,11.947,2.052Zm-.56,9.336a6.21,6.21,0,0,1-7.531.964.394.394,0,0,0-.443.026,3.769,3.769,0,0,1-2.2.806,3.983,3.983,0,0,0,1.2-1.656.4.4,0,0,0-.067-.422,6.207,6.207,0,1,1,9.037.281Z"
+                                                          transform="translate(-0.003)"/>
                                                 </g>
                                             </g>
                                         </g>
@@ -640,66 +710,80 @@ class PollCard extends Component {
                                 </IconButton> : ""}
                                 {this.state.QrCode ?
                                     <IconButton
-                                    aria-haspopup="true"
-                                    color="inherit"
-                                    classes={{root: classes.imgIconsP}}
-                                >
-                                        <SvgIcon viewBox="0 0 14 14"  classes={{root: classes.svgRootIcon}}>
+                                        aria-haspopup="true"
+                                        color="inherit"
+                                        classes={{root: classes.imgIconsP}}
+                                    >
+                                        <SvgIcon viewBox="0 0 14 14" classes={{root: classes.svgRootIcon}}>
                                             <defs>
                                                 <clipPath id="clip-path-qrcode">
-                                                    <rect id="Rectangle_72" data-name="Rectangle 72" width="14" height="14" transform="translate(234 1407)" fill="#fff" stroke="#707070" stroke-width="1"/>
+                                                    <rect id="Rectangle_72" data-name="Rectangle 72" width="14"
+                                                          height="14" transform="translate(234 1407)" fill="#fff"
+                                                          stroke="#707070" stroke-width="1"/>
                                                 </clipPath>
                                             </defs>
-                                            <g id="Mask_Group_22" data-name="Mask Group 22" transform="translate(-234 -1407)" clip-path="url(#clip-path-qrcode)">
-                                                <g id="qr-code_4_" data-name="qr-code (4)" transform="translate(234 1407)">
+                                            <g id="Mask_Group_22" data-name="Mask Group 22"
+                                               transform="translate(-234 -1407)" clip-path="url(#clip-path-qrcode)">
+                                                <g id="qr-code_4_" data-name="qr-code (4)"
+                                                   transform="translate(234 1407)">
                                                     <g id="Group_1538" data-name="Group 1538">
                                                         <g id="Group_1537" data-name="Group 1537">
-                                                            <path id="Path_1237" data-name="Path 1237" d="M5.879,0H.41A.41.41,0,0,0,0,.41V5.879a.41.41,0,0,0,.41.41H5.879a.41.41,0,0,0,.41-.41V.41A.41.41,0,0,0,5.879,0Zm-.41,5.469H.82V.82H5.469Z"/>
+                                                            <path id="Path_1237" data-name="Path 1237"
+                                                                  d="M5.879,0H.41A.41.41,0,0,0,0,.41V5.879a.41.41,0,0,0,.41.41H5.879a.41.41,0,0,0,.41-.41V.41A.41.41,0,0,0,5.879,0Zm-.41,5.469H.82V.82H5.469Z"/>
                                                         </g>
                                                     </g>
                                                     <g id="Group_1540" data-name="Group 1540">
                                                         <g id="Group_1539" data-name="Group 1539">
-                                                            <path id="Path_1238" data-name="Path 1238" d="M3.965,1.914H2.324a.41.41,0,0,0-.41.41V3.965a.41.41,0,0,0,.41.41H3.965a.41.41,0,0,0,.41-.41V2.324A.41.41,0,0,0,3.965,1.914Zm-.41,1.641h-.82v-.82h.82Z"/>
+                                                            <path id="Path_1238" data-name="Path 1238"
+                                                                  d="M3.965,1.914H2.324a.41.41,0,0,0-.41.41V3.965a.41.41,0,0,0,.41.41H3.965a.41.41,0,0,0,.41-.41V2.324A.41.41,0,0,0,3.965,1.914Zm-.41,1.641h-.82v-.82h.82Z"/>
                                                         </g>
                                                     </g>
                                                     <g id="Group_1542" data-name="Group 1542">
                                                         <g id="Group_1541" data-name="Group 1541">
-                                                            <path id="Path_1239" data-name="Path 1239" d="M13.59,0H8.121a.41.41,0,0,0-.41.41V5.879a.41.41,0,0,0,.41.41H13.59a.41.41,0,0,0,.41-.41V.41A.41.41,0,0,0,13.59,0Zm-.41,5.469H8.531V.82H13.18Z"/>
+                                                            <path id="Path_1239" data-name="Path 1239"
+                                                                  d="M13.59,0H8.121a.41.41,0,0,0-.41.41V5.879a.41.41,0,0,0,.41.41H13.59a.41.41,0,0,0,.41-.41V.41A.41.41,0,0,0,13.59,0Zm-.41,5.469H8.531V.82H13.18Z"/>
                                                         </g>
                                                     </g>
                                                     <g id="Group_1544" data-name="Group 1544">
                                                         <g id="Group_1543" data-name="Group 1543">
-                                                            <path id="Path_1240" data-name="Path 1240" d="M11.676,1.914H10.035a.41.41,0,0,0-.41.41V3.965a.41.41,0,0,0,.41.41h1.641a.41.41,0,0,0,.41-.41V2.324A.41.41,0,0,0,11.676,1.914Zm-.41,1.641h-.82v-.82h.82Z"/>
+                                                            <path id="Path_1240" data-name="Path 1240"
+                                                                  d="M11.676,1.914H10.035a.41.41,0,0,0-.41.41V3.965a.41.41,0,0,0,.41.41h1.641a.41.41,0,0,0,.41-.41V2.324A.41.41,0,0,0,11.676,1.914Zm-.41,1.641h-.82v-.82h.82Z"/>
                                                         </g>
                                                     </g>
                                                     <g id="Group_1546" data-name="Group 1546">
                                                         <g id="Group_1545" data-name="Group 1545">
-                                                            <path id="Path_1241" data-name="Path 1241" d="M5.879,7.711H.41a.41.41,0,0,0-.41.41V13.59A.41.41,0,0,0,.41,14H5.879a.41.41,0,0,0,.41-.41V8.121A.41.41,0,0,0,5.879,7.711Zm-.41,5.469H.82V8.531H5.469Z"/>
+                                                            <path id="Path_1241" data-name="Path 1241"
+                                                                  d="M5.879,7.711H.41a.41.41,0,0,0-.41.41V13.59A.41.41,0,0,0,.41,14H5.879a.41.41,0,0,0,.41-.41V8.121A.41.41,0,0,0,5.879,7.711Zm-.41,5.469H.82V8.531H5.469Z"/>
                                                         </g>
                                                     </g>
                                                     <g id="Group_1548" data-name="Group 1548">
                                                         <g id="Group_1547" data-name="Group 1547">
-                                                            <path id="Path_1242" data-name="Path 1242" d="M3.965,9.625H2.324a.41.41,0,0,0-.41.41v1.641a.41.41,0,0,0,.41.41H3.965a.41.41,0,0,0,.41-.41V10.035A.41.41,0,0,0,3.965,9.625Zm-.41,1.641h-.82v-.82h.82Z"/>
+                                                            <path id="Path_1242" data-name="Path 1242"
+                                                                  d="M3.965,9.625H2.324a.41.41,0,0,0-.41.41v1.641a.41.41,0,0,0,.41.41H3.965a.41.41,0,0,0,.41-.41V10.035A.41.41,0,0,0,3.965,9.625Zm-.41,1.641h-.82v-.82h.82Z"/>
                                                         </g>
                                                     </g>
                                                     <g id="Group_1550" data-name="Group 1550">
                                                         <g id="Group_1549" data-name="Group 1549">
-                                                            <path id="Path_1243" data-name="Path 1243" d="M13.59,11.556H11.266V10.035a.41.41,0,0,0-.82,0v1.931a.41.41,0,0,0,.41.41H13.18v.8H10.855a.41.41,0,0,0,0,.82H13.59a.41.41,0,0,0,.41-.41V11.967A.41.41,0,0,0,13.59,11.556Z"/>
+                                                            <path id="Path_1243" data-name="Path 1243"
+                                                                  d="M13.59,11.556H11.266V10.035a.41.41,0,0,0-.82,0v1.931a.41.41,0,0,0,.41.41H13.18v.8H10.855a.41.41,0,0,0,0,.82H13.59a.41.41,0,0,0,.41-.41V11.967A.41.41,0,0,0,13.59,11.556Z"/>
                                                         </g>
                                                     </g>
                                                     <g id="Group_1552" data-name="Group 1552">
                                                         <g id="Group_1551" data-name="Group 1551">
-                                                            <path id="Path_1244" data-name="Path 1244" d="M13.59,7.711a.41.41,0,0,0-.41.41v1.914a.41.41,0,0,0,.82,0V8.121A.41.41,0,0,0,13.59,7.711Z"/>
+                                                            <path id="Path_1244" data-name="Path 1244"
+                                                                  d="M13.59,7.711a.41.41,0,0,0-.41.41v1.914a.41.41,0,0,0,.82,0V8.121A.41.41,0,0,0,13.59,7.711Z"/>
                                                         </g>
                                                     </g>
                                                     <g id="Group_1554" data-name="Group 1554">
                                                         <g id="Group_1553" data-name="Group 1553">
-                                                            <path id="Path_1245" data-name="Path 1245" d="M10.035,7.711H8.121a.41.41,0,0,0-.41.41v1.914a.41.41,0,0,0,.82,0v-1.5h1.5a.41.41,0,0,0,0-.82Z"/>
+                                                            <path id="Path_1245" data-name="Path 1245"
+                                                                  d="M10.035,7.711H8.121a.41.41,0,0,0-.41.41v1.914a.41.41,0,0,0,.82,0v-1.5h1.5a.41.41,0,0,0,0-.82Z"/>
                                                         </g>
                                                     </g>
                                                     <g id="Group_1556" data-name="Group 1556">
                                                         <g id="Group_1555" data-name="Group 1555">
-                                                            <path id="Path_1246" data-name="Path 1246" d="M8.121,11.556a.41.41,0,0,0-.41.41V13.59a.41.41,0,0,0,.82,0V11.967A.41.41,0,0,0,8.121,11.556Z"/>
+                                                            <path id="Path_1246" data-name="Path 1246"
+                                                                  d="M8.121,11.556a.41.41,0,0,0-.41.41V13.59a.41.41,0,0,0,.82,0V11.967A.41.41,0,0,0,8.121,11.556Z"/>
                                                         </g>
                                                     </g>
                                                 </g>
@@ -712,17 +796,24 @@ class PollCard extends Component {
                                     color="inherit"
                                     classes={{root: classes.imgIconsP}}
                                 >
-                                    <SvgIcon viewBox="0 0 14 14"  classes={{root: classes.svgRootIcon}}>
+                                    <SvgIcon viewBox="0 0 14 14" classes={{root: classes.svgRootIcon}}>
                                         <defs>
                                             <clipPath id="clip-path-share">
-                                                <rect id="Rectangle_48" data-name="Rectangle 48" width="14" height="14" transform="translate(224 1409)" fill="#fff" stroke="#707070" stroke-width="1"/>
+                                                <rect id="Rectangle_48" data-name="Rectangle 48" width="14" height="14"
+                                                      transform="translate(224 1409)" fill="#fff" stroke="#707070"
+                                                      stroke-width="1"/>
                                             </clipPath>
                                         </defs>
-                                        <g id="Mask_Group_3" data-name="Mask Group 3" transform="translate(-224 -1409)" clip-path="url(#clip-path-share)">
+                                        <g id="Mask_Group_3" data-name="Mask Group 3" transform="translate(-224 -1409)"
+                                           clip-path="url(#clip-path-share)">
                                             <g id="upload" transform="translate(224 1409.513)">
                                                 <g id="Group_1046" data-name="Group 1046" transform="translate(0 0)">
-                                                    <path id="Path_1220" data-name="Path 1220" d="M13.6,5.87a.4.4,0,0,0-.4.4V9.919a1.8,1.8,0,0,1-1.8,1.8H2.6a1.8,1.8,0,0,1-1.8-1.8V6.211a.4.4,0,0,0-.8,0V9.919a2.6,2.6,0,0,0,2.6,2.6h8.8a2.6,2.6,0,0,0,2.6-2.6V6.271A.4.4,0,0,0,13.6,5.87Z" transform="translate(0 0.456)"/>
-                                                    <path id="Path_1221" data-name="Path 1221" d="M4.154,3.675,6.02,1.809V9.947a.4.4,0,0,0,.8,0V1.809L8.688,3.675a.4.4,0,0,0,.282.119.387.387,0,0,0,.282-.119.4.4,0,0,0,0-.567L6.7.558A.406.406,0,0,0,6.421.439a.388.388,0,0,0-.282.119L3.59,3.107a.4.4,0,0,0,.565.567Z" transform="translate(0.579 -0.439)"/>
+                                                    <path id="Path_1220" data-name="Path 1220"
+                                                          d="M13.6,5.87a.4.4,0,0,0-.4.4V9.919a1.8,1.8,0,0,1-1.8,1.8H2.6a1.8,1.8,0,0,1-1.8-1.8V6.211a.4.4,0,0,0-.8,0V9.919a2.6,2.6,0,0,0,2.6,2.6h8.8a2.6,2.6,0,0,0,2.6-2.6V6.271A.4.4,0,0,0,13.6,5.87Z"
+                                                          transform="translate(0 0.456)"/>
+                                                    <path id="Path_1221" data-name="Path 1221"
+                                                          d="M4.154,3.675,6.02,1.809V9.947a.4.4,0,0,0,.8,0V1.809L8.688,3.675a.4.4,0,0,0,.282.119.387.387,0,0,0,.282-.119.4.4,0,0,0,0-.567L6.7.558A.406.406,0,0,0,6.421.439a.388.388,0,0,0-.282.119L3.59,3.107a.4.4,0,0,0,.565.567Z"
+                                                          transform="translate(0.579 -0.439)"/>
                                                 </g>
                                             </g>
                                         </g>
@@ -732,16 +823,20 @@ class PollCard extends Component {
                                     aria-haspopup="true"
                                     color="inherit"
                                     classes={{root: classes.imgIconsP}}
-                                ><SvgIcon viewBox="0 0 14 14"  classes={{root: classes.svgRootIcon}}>
+                                ><SvgIcon viewBox="0 0 14 14" classes={{root: classes.svgRootIcon}}>
                                     <defs>
                                         <clipPath id="clip-path-ad">
-                                            <rect id="Rectangle_72" data-name="Rectangle 72" width="14" height="14" transform="translate(234 1407)" fill="#fff" stroke="#707070" stroke-width="1"/>
+                                            <rect id="Rectangle_72" data-name="Rectangle 72" width="14" height="14"
+                                                  transform="translate(234 1407)" fill="#fff" stroke="#707070"
+                                                  stroke-width="1"/>
                                         </clipPath>
                                     </defs>
-                                    <g id="Mask_Group_33" data-name="Mask Group 33" transform="translate(-234 -1407)" clip-path="url(#clip-path-ad)">
+                                    <g id="Mask_Group_33" data-name="Mask Group 33" transform="translate(-234 -1407)"
+                                       clip-path="url(#clip-path-ad)">
                                         <g id="megaphone" transform="translate(234 1407)">
                                             <g id="Group_1652" data-name="Group 1652">
-                                                <path id="Path_1288" data-name="Path 1288" d="M12.291,3.764V1.511a.693.693,0,0,0-1.032-.6A16.111,16.111,0,0,1,4.538,2.926c-.018,0-2.17.011-2.17.011a1.058,1.058,0,0,0-1.049.932H.877A.878.878,0,0,0,0,4.746V6.673a.878.878,0,0,0,.877.877h.442a1.059,1.059,0,0,0,.623.842L3.514,12.73a.688.688,0,0,0,.645.451H5.736a.686.686,0,0,0,.645-.92L5.03,8.536a16.089,16.089,0,0,1,6.229,1.974.688.688,0,0,0,.69-.007.685.685,0,0,0,.341-.6V7.654a1.961,1.961,0,0,0,0-3.89ZM1.311,6.873H.877a.2.2,0,0,1-.2-.2V4.746a.2.2,0,0,1,.2-.2h.434Zm.9.9a.381.381,0,0,1-.225-.347V3.993h0a.381.381,0,0,1,.38-.38H4.209V7.806H2.344A.355.355,0,0,1,2.213,7.772Zm3.532,4.72a.008.008,0,0,1,0,.009.008.008,0,0,1-.008,0H4.158a.01.01,0,0,1-.009-.006L2.694,8.482h1.6Zm5.87-2.586a.012.012,0,0,1-.007.013.016.016,0,0,1-.018,0,16.767,16.767,0,0,0-6.7-2.077V3.576a16.772,16.772,0,0,0,6.7-2.077.016.016,0,0,1,.018,0,.012.012,0,0,1,.007.013Zm.676-2.937V4.449a1.286,1.286,0,0,1,0,2.521Z"/>
+                                                <path id="Path_1288" data-name="Path 1288"
+                                                      d="M12.291,3.764V1.511a.693.693,0,0,0-1.032-.6A16.111,16.111,0,0,1,4.538,2.926c-.018,0-2.17.011-2.17.011a1.058,1.058,0,0,0-1.049.932H.877A.878.878,0,0,0,0,4.746V6.673a.878.878,0,0,0,.877.877h.442a1.059,1.059,0,0,0,.623.842L3.514,12.73a.688.688,0,0,0,.645.451H5.736a.686.686,0,0,0,.645-.92L5.03,8.536a16.089,16.089,0,0,1,6.229,1.974.688.688,0,0,0,.69-.007.685.685,0,0,0,.341-.6V7.654a1.961,1.961,0,0,0,0-3.89ZM1.311,6.873H.877a.2.2,0,0,1-.2-.2V4.746a.2.2,0,0,1,.2-.2h.434Zm.9.9a.381.381,0,0,1-.225-.347V3.993h0a.381.381,0,0,1,.38-.38H4.209V7.806H2.344A.355.355,0,0,1,2.213,7.772Zm3.532,4.72a.008.008,0,0,1,0,.009.008.008,0,0,1-.008,0H4.158a.01.01,0,0,1-.009-.006L2.694,8.482h1.6Zm5.87-2.586a.012.012,0,0,1-.007.013.016.016,0,0,1-.018,0,16.767,16.767,0,0,0-6.7-2.077V3.576a16.772,16.772,0,0,0,6.7-2.077.016.016,0,0,1,.018,0,.012.012,0,0,1,.007.013Zm.676-2.937V4.449a1.286,1.286,0,0,1,0,2.521Z"/>
                                             </g>
                                         </g>
                                     </g>
@@ -750,14 +845,16 @@ class PollCard extends Component {
                         </Grid>
                         <Grid item md={6} sm={6} xs={6}>
 
-                                {this.state.iconFovrite ? <React.Fragment>
-                                        <div style={{textAlign: 'right', padding: 10}}><span style={{fontSize: 12}}>255 </span>
-                                            <IconButton
-                                                onClick={this.likedClick}
-                                    aria-haspopup="true"
-                                    color="inherit"
-                                    classes={{root: classes.imgIconsP}}
-                                        > {this.state.liked ? <FovriteIcon classes={{root:classes.fovriteRed}}/> : <FovriteBorderIcon />}</IconButton></div></React.Fragment> : ""}
+                            {this.state.iconFovrite ? <React.Fragment>
+                                <div style={{textAlign: 'right', padding: 10}}><span style={{fontSize: 12}}>255 </span>
+                                    <IconButton
+                                        onClick={this.likedClick}
+                                        aria-haspopup="true"
+                                        color="inherit"
+                                        classes={{root: classes.imgIconsP}}
+                                    > {this.state.liked ? <FovriteIcon classes={{root: classes.fovriteRed}}/> :
+                                        <FovriteBorderIcon/>}</IconButton></div>
+                            </React.Fragment> : ""}
 
 
                         </Grid>
@@ -778,6 +875,7 @@ PollCard.propTypes = {
     iconAnonced: PropTypes.bool.isRequired,
     iconStatis: PropTypes.bool.isRequired,
 };
+
 function mapStateToProps(state) {
 
 }
@@ -785,7 +883,6 @@ function mapStateToProps(state) {
 function matchDispatchToProps(dispatch) {
     return bindActionCreators({setIsAuth}, dispatch)
 }
-
 
 
 export default connect(mapStateToProps, matchDispatchToProps)(withStyles(styles)(withRouter(PollCard)));

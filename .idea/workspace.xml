@@ -2,35 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3013fece-6add-4506-8dd7-e5be49d79bf2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/AuthDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/AuthDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/ProfileFollower.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ProfileFollower.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/pages/ProfileJuridic.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ProfileJuridic.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/StatisPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/StatisPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/tools/PollCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/PollCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/ProfileHeadLine.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/ProfileHeadLine.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/Mask Group 19.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/Mask Group 23.svg.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/anounced.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/chat.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/crown.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/edit.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/facebook-logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/facebook.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/gplus.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/instagram.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/lave.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/moreAvatars.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/photo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/icons/photo.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/qrcode.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/share.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/statis.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/telegram.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/twitter (1).svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/web.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/wk.svg" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -46,8 +19,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/tools/PollCard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="360" column="111" lean-forward="true" selection-start-line="360" selection-start-column="53" selection-end-line="360" selection-end-column="111" />
+            <state relative-caret-position="1089">
+              <caret line="557" column="51" selection-start-line="557" selection-start-column="51" selection-end-line="557" selection-end-column="51" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -76,7 +49,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="357">
@@ -100,11 +73,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/pages/ProfileJuridic.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="130" column="28" selection-start-line="130" selection-start-column="28" selection-end-line="130" selection-end-column="28" />
+            <state relative-caret-position="219">
+              <caret line="179" column="10" lean-forward="true" selection-start-line="179" selection-start-column="10" selection-end-line="179" selection-end-column="10" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -168,9 +141,9 @@
       <find>svgRoot</find>
       <find>photoSvg</find>
       <find>SvgIcon</find>
-      <find>qrcode</find>
       <find>socialIcons</find>
       <find>buttonGroupActive</find>
+      <find>qrcode</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/components</dir>
@@ -218,7 +191,6 @@
         <option value="$PROJECT_DIR$/src/components/pages/PollView.js" />
         <option value="$PROJECT_DIR$/src/components/tools/TopMenu.js" />
         <option value="$PROJECT_DIR$/src/media/icons/moreAvatars.svg" />
-        <option value="$PROJECT_DIR$/src/components/tools/PollCard.js" />
         <option value="$PROJECT_DIR$/src/components/pages/StatisPage.js" />
         <option value="$PROJECT_DIR$/src/media/icons/wk.svg" />
         <option value="$PROJECT_DIR$/src/media/icons/gplus.svg" />
@@ -231,8 +203,9 @@
         <option value="$PROJECT_DIR$/src/components/pages/ProfileFollower.js" />
         <option value="$PROJECT_DIR$/src/media/icons/photo.svg" />
         <option value="$PROJECT_DIR$/src/components/pages/Profile.js" />
-        <option value="$PROJECT_DIR$/src/components/pages/ProfileJuridic.js" />
         <option value="$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js" />
+        <option value="$PROJECT_DIR$/src/components/tools/PollCard.js" />
+        <option value="$PROJECT_DIR$/src/components/pages/ProfileJuridic.js" />
       </list>
     </option>
   </component>
@@ -361,15 +334,16 @@
       <workItem from="1565155544413" duration="35717000" />
       <workItem from="1565351273903" duration="17412000" />
       <workItem from="1565692735988" duration="1562000" />
-      <workItem from="1565850824718" duration="7822000" />
+      <workItem from="1565850824718" duration="8234000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="387047000" />
+    <option name="totallyTimeSpent" value="387459000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18987341" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -667,16 +641,6 @@
     <entry file="file://$PROJECT_DIR$/src/media/icons/gplus.svg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/tools/PollCard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="360" column="111" lean-forward="true" selection-start-line="360" selection-start-column="53" selection-end-line="360" selection-end-column="111" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/media/icons/web.svg">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -729,16 +693,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/pages/ProfileJuridic.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="130" column="28" selection-start-line="130" selection-start-column="28" selection-end-line="130" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="222">
@@ -753,6 +707,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="120" column="51" selection-start-line="120" selection-start-column="51" selection-end-line="120" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/tools/PollCard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1089">
+          <caret line="557" column="51" selection-start-line="557" selection-start-column="51" selection-end-line="557" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/pages/ProfileJuridic.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="179" column="10" lean-forward="true" selection-start-line="179" selection-start-column="10" selection-end-line="179" selection-end-column="10" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
