@@ -59,7 +59,7 @@ const styles = theme => ({
         '&:hover': {
             backgroundColor: fade(theme.palette.common.white, 0.25),
         },
-        marginRight: theme.spacing(2),
+        marginRight: theme.spacing(2)*1,
         marginLeft: 0,
         width: '100%',
         [theme.breakpoints.up('sm')]: {
@@ -87,6 +87,9 @@ const styles = theme => ({
         [theme.breakpoints.up('md')]: {
             width: 200,
         },
+        fontSize: 14,
+        fontWeight: 600,
+        fontFamily: "'Source Sans Pro', sans-serif"
     },
     sectionDesktop: {
         display: 'none',
@@ -175,7 +178,8 @@ const styles = theme => ({
                     </Link> : ""}
 
 
-                    {this.state.isSerachOpen ? <div className={classes.searchM}>
+                    {this.state.isSerachOpen ?
+                        <div className={classes.searchM}>
                             <div className={classes.searchIcon}>
                                 <SearchIcon/>
                             </div>

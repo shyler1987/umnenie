@@ -34,18 +34,27 @@ const styles = theme => ({
         overflow: 'hidden',
         // backgroundColor: theme.palette.background.paper,
     },
+    rootDialog: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'baseline',
+        overflow: 'hidden',
+        padding:"20px 20px 0px"
+        // backgroundColor: theme.palette.background.paper,
+    },
     fab: {
         //margin: theme.spacing(1),
     },
     closeButton: {
         position: 'absolute',
-        right: theme.spacing(1),
-        top: theme.spacing(1),
+        right: '-45px',
+        top: '-6px',
         color: theme.palette.grey[500],
     },
-    paper: {
-        padding: theme.spacing(2),
-        color: theme.palette.text.secondary,
+    moper: {
+        // padding: theme.spacing(2),
+        // color: theme.palette.text.secondary,
+        overflowY: 'unset'
         //minHeight:500
     },
     textField: {},
@@ -66,7 +75,39 @@ const styles = theme => ({
     svgRootIcon:{
         height:'40.196px',
         width:'40.196px',
+    },
+    titleText:{
+        fontSize:15,
+        fontWeight:600
+    },
+    fastAc:{
+        fontSize:15,
+        fontWeight:600,
+        textAlign:'center'
+    },
+    textA:{
+        color:"#e35b1e", fontSize:13, textDecoration: 'underline', fontWeight: 600
+    },
+    iconBtn:{
+        padding: 5
+    },
+    loginBtn:{
+        marginTop:10
+    },
+    outlinedIn:{
+        fontSize:15,
+        fontWeight:600
+    },
+    btnText:{
+
+    },
+    white:{
+        color:"#ffffff"
+    },
+    backdrop:{
+        backgroundColor: 'rgba(0, 0, 0, 0.8)'
     }
+
 
 
 });
@@ -84,13 +125,9 @@ onClose: () => void;
 const DialogTitle = withStyles(styles)((props: DialogTitleProps) => {
     const {children, classes, onClose} = props;
     return (
-        <MuiDialogTitle disableTypography className={classes.root}>
-            <Typography variant="h6">{children}</Typography>
-            {onClose ? (
-                <IconButton aria-label="Close" className={classes.closeButton} onClick={onClose}>
-                    <CloseIcon/>
-                </IconButton>
-            ) : null}
+        <MuiDialogTitle disableTypography className={classes.rootDialog}>
+            <Typography classes={{root:classes.titleText}}>{children}</Typography>
+
         </MuiDialogTitle>
     );
 });
@@ -160,9 +197,21 @@ class AuthDialog extends Component {
                     onClose={this.handleClose}
                     fullWidth={"xs"}
                     maxWidth={"xs"}
+                    BackdropProps={{
+                        classes: {
+                            root: classes.backdrop
+                        }
+                    }
+                    }
+                    classes={{paper:classes.moper}}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
+                    <div>
+                        <IconButton aria-label="Close" className={classes.closeButton}  classes={{root:classes.iconBtn}} >
+                            <CloseIcon className={classes.white}/>
+                        </IconButton>
+                    </div>
                     <DialogTitle id="alert-dialog-title" onClose={this.handleClose}>Авторизоваться</DialogTitle>
                     <DialogContent>
                         <Grid
@@ -178,9 +227,13 @@ class AuthDialog extends Component {
                                         id="outlined-bare"
                                         name={"username"}
                                         onChange={this.handleChange}
-                                        placeholder={"Номер телефона или почты"}
-                                        className={classes.textField}
-                                        margin="normal"
+                                        placeholder={"Телефона или Почта"}
+                                        InputProps={{
+                                            classes: {
+                                                input: classes.outlinedIn,
+                                            },
+                                        }}
+                                        margin="dense"
                                         variant="outlined"
                                         inputProps={{
                                             style: {
@@ -191,13 +244,16 @@ class AuthDialog extends Component {
                                     />
                                     <TextField
                                         fullWidth
-                                        id="outlined-bare"
                                         placeholder={"Пароль"}
                                         name={"password"}
                                         type={"password"}
                                         onChange={this.handleChange}
-                                        className={classes.textField}
-                                        margin="normal"
+                                        InputProps={{
+                                            classes: {
+                                                input: classes.outlinedIn,
+                                            },
+                                        }}
+                                        margin="dense"
                                         variant="outlined"
                                         inputProps={{
                                             style: {
@@ -207,7 +263,7 @@ class AuthDialog extends Component {
                                         }}
                                     />
 
-                                    <Button variant="contained" color="secondary" fullWidth className={classes.button} type={"submit"}>
+                                    <Button variant="contained" color="secondary" fullWidth classes={{root:classes.loginBtn}} type={"submit"}>
                                         Войти
                                     </Button>
 
@@ -219,21 +275,21 @@ class AuthDialog extends Component {
 
                                     >
                                         <Grid item md={6} style={{marginTop: 10, textAlign: 'left'}}>
-                                            <Link to={"/account/recovery"} onClick={this.handleClose} color="secondary" style={{color:"#e35b1e"}}>
+                                            <Link to={"/account/recovery"} onClick={this.handleClose}  className={classes.textA}>
                                                 Забыли пароль?
                                             </Link>
                                         </Grid>
                                         <Grid item md={6} style={{marginTop: 10, textAlign: 'right'}}>
-                                            <Link to={"/account/registration"} onClick={this.handleClose} style={{color:"#e35b1e"}}>
+                                            <Link to={"/account/registration"} onClick={this.handleClose} className={classes.textA}>
                                                 Регистрация
                                             </Link>
                                         </Grid>
                                         <Grid md={12}>
-                                            <Typography variant="h6" align={'center'} gutterBottom>
+                                            <Typography classes={{root:classes.fastAc}}>
                                                 Быстрый доступ с
                                             </Typography>
-                                            <div style={{textAlign:'center'}}>
-                                                <IconButton>
+                                            <div style={{textAlign:'center',     paddingBottom: 20}}>
+                                                <IconButton classes={{root:classes.iconBtn}}>
                                                     <SvgIcon viewBox="0 0 40.196 40.196"  classes={{root: classes.svgRootIcon}}>
                                                         <g id="facebook_2_" data-name="facebook (2)" transform="translate(0)">
                                                             <circle id="Ellipse_9" data-name="Ellipse 9" cx="20.098" cy="20.098" r="20.098" transform="translate(0 0)" fill="#3b5998"/>
@@ -241,7 +297,7 @@ class AuthDialog extends Component {
                                                         </g>
                                                     </SvgIcon>
                                                 </IconButton>
-                                                <IconButton>
+                                                <IconButton  classes={{root:classes.iconBtn}}>
                                                     <SvgIcon viewBox="0 0 40.196 40.196"  classes={{root: classes.svgRootIcon}}>
                                                         <g id="twitter_1_" data-name="twitter (1)" transform="translate(-0.001)">
                                                             <circle id="Ellipse_10" data-name="Ellipse 10" cx="20.098" cy="20.098" r="20.098" transform="translate(0.001 0)" fill="#55acee"/>
@@ -251,7 +307,7 @@ class AuthDialog extends Component {
                                                         </g>
                                                     </SvgIcon>
                                                 </IconButton>
-                                                <IconButton>
+                                                <IconButton  classes={{root:classes.iconBtn}}>
                                                     <SvgIcon viewBox="0 0 40.196 40.196"  classes={{root: classes.svgRootIcon}}>
                                                         <defs>
                                                             <clipPath id="clip-path-wk">
@@ -266,7 +322,7 @@ class AuthDialog extends Component {
                                                         </g>
                                                     </SvgIcon>
                                                 </IconButton>
-                                                <IconButton>
+                                                <IconButton  classes={{root:classes.iconBtn}}>
                                                     <SvgIcon viewBox="0 0 40.196 40.196"  classes={{root: classes.svgRootIcon}}>
                                                         <defs>
                                                             <clipPath id="clip-path-gp">

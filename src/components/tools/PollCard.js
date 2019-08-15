@@ -153,7 +153,7 @@ const styles = theme => ({
         },
         cardTileImg: {
             width: '100%',
-            height: 'inherit',
+            height: 'initial',
 
         },
         clickCard: {
