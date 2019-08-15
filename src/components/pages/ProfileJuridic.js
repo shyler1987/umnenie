@@ -112,22 +112,22 @@ const styles = theme => ({
         color:"#ffffff",
         "&:hover": {
             //you want this to be the same as the backgroundColor above
-            backgroundColor: "#322c25",
+            backgroundColor: 'rgb(156, 56, 23)',
             color:"#ffffff",
         }
     },
     buttonGroup:{
         "&:hover": {
             //you want this to be the same as the backgroundColor above
-            backgroundColor: "rgba(43, 42, 41, 0.5)",
+            backgroundColor: "rgb(193, 193, 193)",
             color:"#ffffff",
         },
         '&:active': {
-            backgroundColor: "rgba(43, 42, 41, 0.5)",
+            backgroundColor: "rgb(193, 193, 193)",
             color:"#ffffff",
         },
         '&:focus': {
-            backgroundColor: "rgba(43, 42, 41, 0.5)",
+            backgroundColor: "rgb(193, 193, 193)",
             color:"#ffffff",
         },
     }

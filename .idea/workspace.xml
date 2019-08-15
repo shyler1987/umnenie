@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3013fece-6add-4506-8dd7-e5be49d79bf2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/ProfileJuridic.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ProfileJuridic.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/tools/PollCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/PollCard.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -18,11 +18,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/components/tools/PollCard.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="180">
-                  <caret line="94" column="27" selection-start-line="94" selection-start-column="27" selection-end-line="94" selection-end-column="27" />
+                <state relative-caret-position="315">
+                  <caret line="103" column="18" selection-start-line="103" selection-start-column="18" selection-end-line="103" selection-end-column="18" />
                   <folding>
                     <element signature="e#0#39#0" expanded="true" />
                   </folding>
@@ -63,11 +63,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/App.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1725">
-                  <caret line="134" column="8" selection-start-line="134" selection-start-column="8" selection-end-line="134" selection-end-column="8" />
+                <state relative-caret-position="117">
+                  <caret line="127" column="17" selection-start-line="127" selection-start-column="8" selection-end-line="127" selection-end-column="17" />
                   <folding>
                     <element signature="e#0#39#0" expanded="true" />
                   </folding>
@@ -78,8 +78,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/components/pages/ProfileJuridic.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2430">
-                  <caret line="179" column="10" selection-start-line="179" selection-start-column="10" selection-end-line="179" selection-end-column="10" />
+                <state relative-caret-position="399">
+                  <caret line="218" column="83" selection-start-line="218" selection-start-column="83" selection-end-line="218" selection-end-column="83" />
                   <folding>
                     <element signature="e#0#39#0" expanded="true" />
                   </folding>
@@ -112,20 +112,40 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/components/tools/PollCard.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="342">
-                  <caret line="472" column="114" selection-start-line="472" selection-start-column="107" selection-end-line="472" selection-end-column="114" />
-                  <folding>
-                    <element signature="e#0#39#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
+        <splitter split-orientation="vertical" split-proportion="0.5">
+          <split-first>
+            <leaf>
+              <file pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/src/components/pages/ProfileJuridic.js">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="69">
+                      <caret line="121" column="48" selection-start-line="121" selection-start-column="48" selection-end-line="121" selection-end-column="48" />
+                      <folding>
+                        <element signature="e#0#39#0" expanded="true" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+            </leaf>
+          </split-first>
+          <split-second>
+            <leaf>
+              <file pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/src/components/pages/ProfileJuridic.js">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="136">
+                      <caret line="218" column="112" selection-start-line="218" selection-start-column="112" selection-end-line="218" selection-end-column="112" />
+                      <folding>
+                        <element signature="e#0#39#0" expanded="true" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+            </leaf>
+          </split-second>
+        </splitter>
       </split-second>
     </splitter>
   </component>
@@ -139,7 +159,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ListButtonInActive</find>
       <find>ListButton</find>
       <find>paper</find>
       <find>dot</find>
@@ -169,6 +188,7 @@
       <find>socialIcons</find>
       <find>buttonGroupActive</find>
       <find>qrcode</find>
+      <find>cardTileImg</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/components</dir>
@@ -229,8 +249,8 @@
         <option value="$PROJECT_DIR$/src/media/icons/photo.svg" />
         <option value="$PROJECT_DIR$/src/components/pages/Profile.js" />
         <option value="$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js" />
-        <option value="$PROJECT_DIR$/src/components/pages/ProfileJuridic.js" />
         <option value="$PROJECT_DIR$/src/components/tools/PollCard.js" />
+        <option value="$PROJECT_DIR$/src/components/pages/ProfileJuridic.js" />
       </list>
     </option>
   </component>
@@ -360,18 +380,18 @@
       <workItem from="1565351273903" duration="17412000" />
       <workItem from="1565692735988" duration="1562000" />
       <workItem from="1565850824718" duration="12992000" />
-      <workItem from="1565865835155" duration="3100000" />
+      <workItem from="1565865835155" duration="3854000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="395317000" />
+    <option name="totallyTimeSpent" value="396071000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18987341" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18987341" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -386,7 +406,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32894737" />
       <window_info anchor="bottom" id="TypeScript" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50052744" side_tool="true" weight="0.32894737" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.4994726" visible="true" weight="0.23245615" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4994726" visible="true" weight="0.23245615" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -677,26 +697,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1725">
-          <caret line="134" column="8" selection-start-line="134" selection-start-column="8" selection-end-line="134" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/pages/ProfileJuridic.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2430">
-          <caret line="179" column="10" selection-start-line="179" selection-start-column="10" selection-end-line="179" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/media/logo.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -722,8 +722,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/tools/PollCard.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="94" column="27" selection-start-line="94" selection-start-column="27" selection-end-line="94" selection-end-column="27" />
+        <state relative-caret-position="315">
+          <caret line="103" column="18" selection-start-line="103" selection-start-column="18" selection-end-line="103" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="127" column="17" selection-start-line="127" selection-start-column="8" selection-end-line="127" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/pages/ProfileJuridic.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="121" column="48" selection-start-line="121" selection-start-column="48" selection-end-line="121" selection-end-column="48" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

@@ -102,12 +102,6 @@ const styles = theme => ({
                 "& .MuiGridListTileBar-root":{
                     background: 'transparent'
                 },
-
-
-
-
-
-
             },
 
 
