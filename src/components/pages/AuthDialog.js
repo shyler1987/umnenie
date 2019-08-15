@@ -220,7 +220,7 @@ class AuthDialog extends Component {
                             justify="center"
                             alignItems="flex-start"
                         >
-                            <Grid item md={12}>
+                            <Grid item md={12} xs={12} sm={12}>
                                 <form fullWidth onSubmit={this.checkAuth}>
                                     <TextField
                                         fullWidth
@@ -274,12 +274,12 @@ class AuthDialog extends Component {
                                         alignItems="flex-start"
 
                                     >
-                                        <Grid item md={6} style={{marginTop: 10, textAlign: 'left'}}>
+                                        <Grid item md={6} sm={6} xs={6} style={{marginTop: 10, textAlign: 'left'}}>
                                             <Link to={"/account/recovery"} onClick={this.handleClose}  className={classes.textA}>
                                                 Забыли пароль?
                                             </Link>
                                         </Grid>
-                                        <Grid item md={6} style={{marginTop: 10, textAlign: 'right'}}>
+                                        <Grid item md={6} sm={6} xs={6} style={{marginTop: 10, textAlign: 'right'}}>
                                             <Link to={"/account/registration"} onClick={this.handleClose} className={classes.textA}>
                                                 Регистрация
                                             </Link>

@@ -39,8 +39,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/pages/AuthDialog.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="210" column="63" selection-start-line="210" selection-start-column="63" selection-end-line="210" selection-end-column="63" />
+            <state relative-caret-position="372">
+              <caret line="281" column="71" selection-start-line="281" selection-start-column="71" selection-end-line="281" selection-end-column="71" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
                 <element signature="e#615#674#0" expanded="true" />
@@ -347,12 +347,12 @@
       <workItem from="1565351273903" duration="17412000" />
       <workItem from="1565692735988" duration="1562000" />
       <workItem from="1565850824718" duration="12992000" />
-      <workItem from="1565865835155" duration="12923000" />
+      <workItem from="1565865835155" duration="13477000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="405140000" />
+    <option name="totallyTimeSpent" value="405694000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
@@ -708,8 +708,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/pages/AuthDialog.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="210" column="63" selection-start-line="210" selection-start-column="63" selection-end-line="210" selection-end-column="63" />
+        <state relative-caret-position="372">
+          <caret line="281" column="71" selection-start-line="281" selection-start-column="71" selection-end-line="281" selection-end-column="71" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
             <element signature="e#615#674#0" expanded="true" />
