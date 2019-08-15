@@ -86,13 +86,30 @@ const styles = theme => ({
             color: '#ec4956'
         },
         titleBar: {
-            background:
-                'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, ' +
-                'rgba(0,0,0,0.1) 27%, rgba(0,0,0,0) 100%)',
-
+             background: 'linear-gradient(to bottom, rgba(33, 32, 32, 0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0, 0, 0, 0) 80%)'
+            //background:'transparent'
         },
         GridListTileRoot: {
             height: 'auto',
+            '&:hover': {
+                "& .imgTile":{
+                    opacity: '.2',
+                    cursor: 'pointer',
+                },
+                "& grid":{
+                    background: 'transparent'
+                },
+                "& .MuiGridListTileBar-root":{
+                    background: 'transparent'
+                },
+
+
+
+
+
+
+            },
+
 
         },
         Gridtile: {
@@ -109,6 +126,8 @@ const styles = theme => ({
             display: 'flex',
             position: 'absolute',
             alignItems: 'center',
+            background: 'linear-gradient(to top, rgba(33, 32, 32, 0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0, 0, 0, 0) 80%)',
+           // background:'transparent'
         },
         pollBottomCircle: {
             padding: '0px 10px 0px'
@@ -133,7 +152,7 @@ const styles = theme => ({
         },
         tint: {
             overflow: 'hidden',
-            margin: '0 20px 20px 0',
+            margin: '0 20px 0px 0',
             background: '#dc5b2b',
             width: '100%',
             height: 'inherit'
@@ -141,10 +160,7 @@ const styles = theme => ({
         cardTileImg: {
             width: '100%',
             height: 'inherit',
-            '&:hover': {
-                opacity: '.2',
-                cursor: 'pointer'
-            },
+
         },
         clickCard: {
             textDecoration: 'none',
@@ -454,7 +470,7 @@ class PollCard extends Component {
                                             >
 
                                                 <figure className={classes.tint}>
-                                                    <img src={item.image} className={classes.cardTileImg}/>
+                                                    <img src={item.image} className={classes.cardTileImg+' imgTile'}/>
                                                 </figure>
                                                 <GridListTileBar
                                                     title={item.option}
