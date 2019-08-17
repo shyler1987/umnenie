@@ -17,6 +17,7 @@ import setIsAuth from '../../redux/actions/setIsAuth'
 import {connect} from "react-redux";
 import Button from '@material-ui/core/Button';
 import AuthDialog from "../pages/AuthDialog";
+import Grid from "../pages/Registration";
 
 const styles = theme => ({
     toolbar: {
@@ -42,7 +43,7 @@ const styles = theme => ({
             backgroundColor: fade(theme.palette.common.white, 0.25),
         },
         marginRight: theme.spacing(2),
-        marginLeft: 0,
+        marginLeft: theme.spacing(2),
         width: '100%',
         [theme.breakpoints.up('sm')]: {
             marginLeft: theme.spacing(3),
@@ -132,7 +133,10 @@ const styles = theme => ({
     },
     appBar:{
         backgroundColor: '#ffffff',
-        color:"#000"
+        color:"#000",
+        borderBottom: '1px solid #e6e6e6',
+        boxShadow: 'unset'
+
 
     },
     loginIn:{
@@ -141,7 +145,16 @@ const styles = theme => ({
             cursor:"pointer",
             textDecoration:'none'
         }
-    }
+    },
+    borderBot:{
+        borderBottom: '1px solid #e6e6e6',
+    },
+    LogoDiv: {
+        [theme.breakpoints.up('md')]: {
+            width: '20%',
+        },
+    },
+
 });
 
  class TopMenu extends React.Component  {
@@ -173,9 +186,11 @@ const styles = theme => ({
 
                 <Toolbar className={classes.toolbar} disableGutters={true}>
 
-                    {!this.state.isSerachOpen ? <Link to={'/'}>
-                        <img src={logo} alt="Kitten"  width="150" />
-                    </Link> : ""}
+                    {!this.state.isSerachOpen ?
+                        <div className={classes.LogoDiv}>
+                        <Link to={'/'} style={{marginRight:20}} >
+                            <img src={logo} alt="Kitten"  width="150" />
+                        </Link> </div> : ""}
 
 
                     {this.state.isSerachOpen ?

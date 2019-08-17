@@ -6,18 +6,10 @@ import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
-import {Link} from "react-router-dom";
-
-import selenaAvatar from '../../media/selenaAvatar.jpg';
-import Avatar from '@material-ui/core/Avatar';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import Select from '@material-ui/core/Select';
 import ListItemText from '@material-ui/core/ListItemText';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import EditIcon from '@material-ui/icons/Edit'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import LeftMenu from '../tools/LeftMenu';
 import Divider from '@material-ui/core/Divider';
@@ -30,9 +22,35 @@ import {FilePond, registerPlugin} from "react-filepond";
 import "filepond/dist/filepond.min.css";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import FormControl from '@material-ui/core/FormControl';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import SvgIcon from '@material-ui/core/SvgIcon';
 
 registerPlugin(FilePondPluginImagePreview, FilePondPluginImageExifOrientation);
+const names = [
+    'Все',
+    'Выберите категорию',
 
+    'Выберите категорию А',
+];
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+    margin: "dense",
+    getContentAnchorEl: null,
+    anchorOrigin: {
+        vertical: "bottom",
+        horizontal: "left",
+    }
+};
 
 const styles = theme => ({
     root: {
@@ -60,7 +78,7 @@ const styles = theme => ({
 
     poperContent: {
         padding: 10,
-        minHeight:850
+        minHeight: 850
     },
     inputHeight: {
         height: 100
@@ -78,39 +96,66 @@ const styles = theme => ({
             cursor: 'pointer'
         }
     },
+    svgRoot: {
+        width:'15px',
+        height:'15px'
+    }
+    ,
     inlineText: {
         display: 'flex',
         justifyContent: 'flex-end',
-        alignItems: 'baseline',
+        alignItems: 'center',
         '& p': {
             fontWeight: 700,
             paddingRight: 10,
             minWidth: '25%',
             textAlign: 'right'
         }
-
-
     },
     pHeader: {
         color: '#e35b1e',
-        fontWeight: 700,
+        fontWeight: 600,
+        fontSize: 15,
         textAlign: 'center',
         marginBottom: 5
     },
     greyP: {
-        padding: 5, color: 'grey', fontSize: 12
+        padding: 5, color: 'grey', fontSize: 13, fontWeight: 400
     },
     blackP: {
         padding: 5,
         color: '#000',
         fontSize: 14
     },
-    titleHead:{
-    fontWeight: 600,
-    fontSize:30,
-    margin: '25px 5px 10px 0px'
-}
+    titleHead: {
+        fontWeight: 600,
+        fontSize: 30,
+        margin: '25px 5px 10px 0px'
+    },
+    titleFieldesetHeadKategory: {
+        fontWeight: 600,
+        fontSize: 15,
+    },
+    titleFile: {
+        fontWeight: 600,
+        fontSize: 13,
+    },
+    muiSeelctRoot: {
+        textAlign: 'center',
+        fontSize: 15,
+        fontWeight: 600,
+        color: theme.palette.mainBlackColor
 
+    },
+    inLabel: {
+        left: '30%',
+        fontSize: 15,
+        fontWeight: 600,
+        color: theme.palette.mainBlackColor
+    },
+    input: {
+        display: 'none',
+    },
 
 });
 
@@ -124,8 +169,28 @@ class PollCreate extends Component {
         super(props);
         this.state = {
             polls: [],
-            show: false
+            show: false,
+            step: 2,
+            categorySelected: [],
+            variants: [{variantNomer: 1}, {variantNomer: 2}, {variantNomer: 3}]
         };
+    }
+
+    handleChangeCategory = (event) => {
+        this.setState({categorySelected: event.target.value});
+
+    }
+
+    changeStep = () => {
+        this.setState({
+            step: this.state.step === 1 ? 2 : 1
+        })
+    }
+    addVariant = () => {
+
+        this.setState({
+            variants: this.state.variants.concat({variantNomer: null})
+        })
     }
 
     submit = (values, pristineValues) => {
@@ -158,13 +223,15 @@ class PollCreate extends Component {
 
     render() {
         const {classes} = this.props;
+
         return (
             <div>
                 <Loading
                     show={this.state.show}
                     color="red"
                 />
-                <Typography classes={{root:classes.titleHead}} >
+                {this.state.step === 1 ? <React.Fragment>
+                    <Typography classes={{root: classes.titleHead}}>
                         Создать опрос
                     </Typography>
                     <Grid container spacing={2} direction={"row"}>
@@ -173,245 +240,268 @@ class PollCreate extends Component {
                         </Grid>
                         <Grid item md={9} sm={12} xs={12}>
                             <Paper classes={{root: classes.poperContent}}>
+                                <Grid container spacing={3} direction={"row"}>
+                                    <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
+                                        <Typography
+                                            classes={{root: classes.titleFieldesetHeadKategory}}>Категория</Typography>
+                                    </Grid>
+                                    <Grid item md={9} sm={9} xs={9}>
+                                        <FormControl className={classes.formControl} margin="dense" fullWidth
+                                                     variant="outlined">
+                                            {this.state.categorySelected.length === 0 ?
+                                                <InputLabel htmlFor="outlined-category"
+                                                            classes={{root: classes.inLabel}} shrink={false}>
+                                                    Выберите категорию
+                                                </InputLabel> : ""}
+                                            <Select
+                                                multiple
+                                                classes={{root: classes.muiSeelctRoot}}
+                                                value={this.state.categorySelected}
+                                                onChange={this.handleChangeCategory}
+                                                MenuProps={MenuProps}
+                                                input={<OutlinedInput name="category" id="outlined-kategory-select"/>}
+                                                renderValue={selected => {
+                                                    return selected.join(', ');
+                                                }}
+                                                value={this.state.categorySelected}
+                                            >
+                                                {names.map(name => (
+                                                    <MenuItem key={name} value={name}>
+                                                        <ListItemText primary={name}/>
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
+
+                                </Grid>
 
                                 <Grid container spacing={3} direction={"row"}>
-                                    <Grid item md={12}>
-                                        <div className={classes.inlineText}>
-                                            <Typography>Категория</Typography>
-                                            <TextField
-                                                id="standard-select-currency"
-                                                select
-                                                fullWidth
-                                                className={classes.textField}
-                                                SelectProps={{
-                                                    MenuProps: {
-                                                        className: classes.menu,
-                                                    },
-                                                    style: {
-                                                        height: 40,
-                                                    },
-                                                }}
-                                                placeholder={"Выберите категорию"}
-                                                variant="outlined"
-                                                margin="dense"
-                                            >
-                                                <MenuItem key={1} value={1}>
-                                                    Выберите категорию
-                                                </MenuItem>
-                                                <MenuItem key={2} value={2}>
-                                                    Выберите категорию
-                                                </MenuItem>
-
-                                            </TextField>
-                                        </div>
-                                        <div className={classes.inlineText}>
-                                            <Typography>Вапрос</Typography>
-                                            <TextField
-                                                margin="dense"
-                                                id="outlined-name"
-                                                fullWidth
-                                                multiline
-                                                placeholder={"..."}
-                                                className={classes.textField}
-                                                variant="outlined"
-                                                helperText="Введите ваши вопрос, например Какой любимый копозиция"
-                                            />
-                                        </div>
-
+                                    <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
+                                        <Typography
+                                            classes={{root: classes.titleFieldesetHeadKategory}}>Вапрос</Typography>
                                     </Grid>
+                                    <Grid item md={9} sm={9} xs={9}>
+                                        <TextField
+                                            margin="dense"
+                                            id="outlined-name"
+                                            fullWidth
+                                            multiline
+                                            placeholder={"..."}
+                                            className={classes.textField}
+                                            variant="outlined"
+                                            helperText="Введите ваши вопрос, например Какой любимый копозиция"
+                                        />
+                                    </Grid>
+
                                 </Grid>
                                 <Grid container spacing={3} direction={"row"}>
-                                    <Grid item md={8}>
-                                        <Typography classes={{root: classes.blackP}}>Вы можете загрузить основное
-                                            фото к вопросу или добавить фото к вариантов ответов</Typography>
+                                    <Grid item md={8} sm={8} xs={8} classes={{root: classes.inlineText}}>
+                                        <Typography classes={{root: classes.titleFile}}>Вы можете загрузить основное
+                                            фото к вопросу или добавить фото к вариантам ответов</Typography>
+                                    </Grid>
+                                    <Grid item md={4} sm={4} xs={4}>
+                                        <input
+                                            accept="image/*"
+                                            className={classes.input}
+                                            id="contained-button-file"
+                                            multiple
+                                            type="file"
+                                        />
+                                        <label htmlFor="contained-button-file" style={{width: '100%'}}>
+                                            <Button color={"secondary"} variant="contained" component="span"
+                                                    className={classes.button} fullWidth>
+                                                Загрузить основное изображение
+                                            </Button>
+                                        </label>
+                                    </Grid>
 
-                                    </Grid>
-                                    <Grid item md={4}>
-                                        <FilePond
-                                            allowImagePreview={true}
-                                            ref={ref => this.pond = ref}
-                                            files={[]}
-                                            server="/api"
-                                            //labelIdle={"Загрузить изображение"}
-                                            labelIdle={'<span class="filepond--label-action"> Загрузить изображение </span>'}
-                                        >
-                                        </FilePond>
-                                    </Grid>
                                 </Grid>
+
+                                <Typography classes={{root: classes.pHeader}}>Дополнительные параметры</Typography>
+
                                 <Grid container spacing={3} direction={"row"}>
-
-                                    <Grid item md={12}>
-                                        <Typography classes={{root: classes.pHeader}}>Дополнительное
-                                            параметр</Typography>
-                                        <div className={classes.inlineText}>
-                                            <Typography>Видимость:</Typography>
-                                            <TextField
-                                                id="standard-select-currency"
-                                                select
-                                                fullWidth
-                                                className={classes.textField}
-                                                SelectProps={{
-                                                    MenuProps: {
-                                                        className: classes.menu,
-                                                    },
-                                                    style: {
-                                                        height: 40,
-                                                    },
+                                    <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
+                                        <Typography
+                                            classes={{root: classes.titleFieldesetHeadKategory}}>Видимость:</Typography>
+                                    </Grid>
+                                    <Grid item md={9} sm={9} xs={9}>
+                                        <FormControl className={classes.formControl} margin="dense" fullWidth
+                                                     variant="outlined">
+                                            {this.state.categorySelected.length === 0 ?
+                                                <InputLabel htmlFor="outlined-category"
+                                                            classes={{root: classes.inLabel}} shrink={false}>
+                                                    Выберите категорию
+                                                </InputLabel> : ""}
+                                            <Select
+                                                multiple
+                                                classes={{root: classes.muiSeelctRoot}}
+                                                value={this.state.categorySelected}
+                                                onChange={this.handleChangeCategory}
+                                                MenuProps={MenuProps}
+                                                input={<OutlinedInput name="category" id="outlined-kategory-select"/>}
+                                                renderValue={selected => {
+                                                    return selected.join(', ');
                                                 }}
-                                                placeholder={"Выберите категорию"}
-                                                variant="outlined"
-                                                margin="dense"
+                                                value={this.state.categorySelected}
                                             >
-                                                <MenuItem key={1} value={1}>
-                                                    Виден всем
-                                                </MenuItem>
-                                                <MenuItem key={2} value={2}>
-                                                    Некто
-                                                </MenuItem>
+                                                {names.map(name => (
+                                                    <MenuItem key={name} value={name}>
+                                                        <ListItemText primary={name}/>
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
 
-                                            </TextField>
-                                        </div>
-                                        <div className={classes.inlineText}>
-                                            <Typography>Комментарии:</Typography>
-                                            <TextField
-                                                id="standard-select-currency"
-                                                select
-                                                fullWidth
-                                                className={classes.textField}
-                                                SelectProps={{
-                                                    MenuProps: {
-                                                        className: classes.menu,
-                                                    },
-                                                    style: {
-                                                        height: 40,
-                                                    },
+                                </Grid>
+
+                                <Grid container spacing={3} direction={"row"}>
+                                    <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
+                                        <Typography
+                                            classes={{root: classes.titleFieldesetHeadKategory}}>Комментарии:</Typography>
+                                    </Grid>
+                                    <Grid item md={9} sm={9} xs={9}>
+                                        <FormControl className={classes.formControl} margin="dense" fullWidth
+                                                     variant="outlined">
+                                            {this.state.categorySelected.length === 0 ?
+                                                <InputLabel htmlFor="outlined-category"
+                                                            classes={{root: classes.inLabel}} shrink={false}>
+                                                    Выберите категорию
+                                                </InputLabel> : ""}
+                                            <Select
+                                                multiple
+                                                classes={{root: classes.muiSeelctRoot}}
+                                                value={this.state.categorySelected}
+                                                onChange={this.handleChangeCategory}
+                                                MenuProps={MenuProps}
+                                                input={<OutlinedInput name="category" id="outlined-kategory-select"/>}
+                                                renderValue={selected => {
+                                                    return selected.join(', ');
                                                 }}
-                                                placeholder={"Выберите категорию"}
-                                                variant="outlined"
-                                                margin="dense"
+                                                value={this.state.categorySelected}
                                             >
-                                                <MenuItem key={1} value={1}>
-                                                    Разрешены
-                                                </MenuItem>
-                                                <MenuItem key={2} value={2}>
-                                                    Некто
-                                                </MenuItem>
+                                                {names.map(name => (
+                                                    <MenuItem key={name} value={name}>
+                                                        <ListItemText primary={name}/>
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
 
-                                            </TextField>
-                                        </div>
-                                        <div className={classes.inlineText}>
-                                            <Typography>Срок:</Typography>
-                                            <TextField
-                                                id="standard-select-currency"
-                                                select
-                                                fullWidth
-                                                className={classes.textField}
-                                                SelectProps={{
-                                                    MenuProps: {
-                                                        className: classes.menu,
-                                                    },
-                                                    style: {
-                                                        height: 40,
-                                                    },
+                                </Grid>
+
+                                <Grid container spacing={3} direction={"row"}>
+                                    <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
+                                        <Typography
+                                            classes={{root: classes.titleFieldesetHeadKategory}}>Срок:</Typography>
+                                    </Grid>
+                                    <Grid item md={9} sm={9} xs={9}>
+                                        <FormControl className={classes.formControl} margin="dense" fullWidth
+                                                     variant="outlined">
+                                            {this.state.categorySelected.length === 0 ?
+                                                <InputLabel htmlFor="outlined-category"
+                                                            classes={{root: classes.inLabel}} shrink={false}>
+                                                    Выберите категорию
+                                                </InputLabel> : ""}
+                                            <Select
+                                                multiple
+                                                classes={{root: classes.muiSeelctRoot}}
+                                                value={this.state.categorySelected}
+                                                onChange={this.handleChangeCategory}
+                                                MenuProps={MenuProps}
+                                                input={<OutlinedInput name="category" id="outlined-kategory-select"/>}
+                                                renderValue={selected => {
+                                                    return selected.join(', ');
                                                 }}
-                                                placeholder={"Выберите категорию"}
-                                                variant="outlined"
-                                                margin="dense"
+                                                value={this.state.categorySelected}
                                             >
-                                                <MenuItem key={1} value={1}>
-                                                    1 месяц
-                                                </MenuItem>
-                                                <MenuItem key={2} value={2}>
-                                                    Некто
-                                                </MenuItem>
+                                                {names.map(name => (
+                                                    <MenuItem key={name} value={name}>
+                                                        <ListItemText primary={name}/>
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
 
-                                            </TextField>
-                                        </div>
+                                </Grid>
 
-
-                                        <div className={classes.inlineText}>
-                                            <Typography>Хэштэги:</Typography>
-                                            <TextField
-                                                margin="dense"
-                                                id="outlined-name"
-                                                fullWidth
-                                                multiline
-                                                placeholder={"..."}
-                                                className={classes.textField}
-                                                variant="outlined"
-                                            />
-                                        </div>
-
+                                <Grid container spacing={3} direction={"row"}>
+                                    <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
+                                        <Typography
+                                            classes={{root: classes.titleFieldesetHeadKategory}}>Хэштэги:</Typography>
+                                    </Grid>
+                                    <Grid item md={9} sm={9} xs={9}>
+                                        <TextField
+                                            margin="dense"
+                                            id="outlined-name"
+                                            fullWidth
+                                            placeholder={"..."}
+                                            className={classes.textField}
+                                            variant="outlined"
+                                        />
                                     </Grid>
 
                                 </Grid>
 
 
                                 <Grid container spacing={3} direction={"row"} justify="flex-end" alignItems="flex-end">
-                                    <Grid item md={5}>
-                                        <Button fullWidth variant="contained" color={"secondary"}>Далее</Button>
+                                    <Grid item md={4} sm={12} xs={12}>
+                                        <Button fullWidth variant="contained" onClick={() => {
+                                            this.changeStep()
+                                        }} color={"secondary"}>Далее</Button>
                                     </Grid>
                                 </Grid>
                             </Paper>
-                            <br/>
-                            <br/>
-
+                        </Grid>
+                    </Grid></React.Fragment> : <React.Fragment>
+                    <Typography classes={{root: classes.titleHead}}>
+                        Создать опрос
+                    </Typography>
+                    <Grid container spacing={2} direction={"row"}>
+                        <Grid item md={3} sm={12} xs={12}>
+                            <LeftMenu/>
+                        </Grid>
+                        <Grid item md={9} sm={12} xs={12}>
                             <Paper classes={{root: classes.poperContent}}>
+                                {this.state.variants.map(variant => {
+                                    return (<Grid container spacing={3} direction={"row"}>
+                                        <Grid item md={2} sm={2} xs={2} classes={{root: classes.inlineText}}>
+                                            <Typography
+                                                classes={{root: classes.titleFieldesetHeadKategory}}>Вариант {variant.variantNomer}</Typography>
+                                        </Grid>
+                                        <Grid item md={7} sm={7} xs={7}>
+                                            <TextField
+                                                margin="dense"
+                                                id="outlined-name"
+                                                fullWidth
+                                                multiline
+                                                placeholder={"..."}
+                                                className={classes.textField}
+                                                variant="outlined"
+                                            />
+                                        </Grid>
+                                        <Grid item md={3} sm={3} xs={3}>
+                                            <input
+                                                accept="image/*"
+                                                className={classes.input}
+                                                id="contained-button-file"
+                                                multiple
+                                                type="file"
+                                            />
+                                            <label htmlFor="contained-button-file"
+                                                   style={{width: '100%', marginTop: '.5rem'}}>
+                                                <Button color={"secondary"} variant="contained" component="span"
+                                                        className={classes.button} fullWidth>Загрузить
+                                                    изображение</Button>
+                                            </label>
+                                        </Grid>
 
-                                <Grid container spacing={3} direction={"row"}>
-                                    <Grid item md={8}>
-                                        <div className={classes.inlineText}>
-                                            <Typography>Вариант 1:</Typography>
-                                            <TextField
-                                                margin="dense"
-                                                id="outlined-name"
-                                                fullWidth
-                                                multiline
-                                                placeholder={"..."}
-                                                className={classes.textField}
-                                                variant="outlined"
-                                            />
-                                        </div>
-                                    </Grid>
-                                    <Grid item md={4}>
-                                        <FilePond
-                                            allowImagePreview={true}
-                                            ref={ref => this.pond = ref}
-                                            files={[]}
-                                            server="/api"
-                                            //labelIdle={"Загрузить изображение"}
-                                            labelIdle={'<span class="filepond--label-action"> Загрузить изображение </span>'}
-                                        >
-                                        </FilePond>
-                                    </Grid>
-                                </Grid>
-                                <Grid container spacing={3} direction={"row"}>
-                                    <Grid item md={8}>
-                                        <div className={classes.inlineText}>
-                                            <Typography>Вариант 2:</Typography>
-                                            <TextField
-                                                margin="dense"
-                                                id="outlined-name"
-                                                fullWidth
-                                                multiline
-                                                placeholder={"..."}
-                                                className={classes.textField}
-                                                variant="outlined"
-                                            />
-                                        </div>
-                                    </Grid>
-                                    <Grid item md={4}>
-                                        <FilePond
-                                            allowImagePreview={true}
-                                            ref={ref => this.pond = ref}
-                                            files={[]}
-                                            server="/api"
-                                            //labelIdle={"Загрузить изображение"}
-                                            labelIdle={'<span class="filepond--label-action"> Загрузить изображение </span>'}
-                                        >
-                                        </FilePond>
-                                    </Grid>
-                                </Grid>
+                                    </Grid>);
+                                })}
+
 
                                 <Grid container spacing={3} direction={"row"} justify="flex-end" alignItems="flex-end">
 
@@ -421,9 +511,11 @@ class PollCreate extends Component {
                                         </div>
 
                                     </Grid>
-                                    <Grid item md={4}>
+                                    <Grid item md={3}>
 
-                                        <Button fullWidth variant="contained" color={"secondary"}>Дабовить варианть
+                                        <Button fullWidth variant="contained" onClick={() => {
+                                            this.addVariant()
+                                        }} color={"secondary"}>Дабовить варианть
                                             +</Button>
 
 
@@ -433,7 +525,8 @@ class PollCreate extends Component {
                                 <Divider style={{margin: '15px 0px 15px'}}/>
 
 
-                                <Grid container spacing={3} direction={"row"} justify="flex-end" alignItems="flex-end">
+                                <Grid container spacing={3} direction={"row"} justify="flex-end" alignItems="flex-end"
+                                      style={{paddingBottom: 10}}>
                                     <Grid item md={10}>
                                         <TextField
                                             margin="dense"
@@ -442,6 +535,35 @@ class PollCreate extends Component {
                                             multiline
                                             placeholder={"..."}
                                             className={classes.textField}
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <a className={classes.editP}>
+                                                            <SvgIcon viewBox="0 0 12 12" width={10} height={10}
+                                                                     classes={{root: classes.svgRoot}}>
+                                                                <defs>
+                                                                    <clipPath id="clip-path-link">
+                                                                        <rect id="Rectangle_81" data-name="Rectangle 81"
+                                                                              width="12" height="12"
+                                                                              transform="translate(914 1486)"
+                                                                              fill="#fff" stroke="#707070"
+                                                                              stroke-width="1"/>
+                                                                    </clipPath>
+                                                                </defs>
+                                                                <g id="Mask_Group_24" data-name="Mask Group 24"
+                                                                   transform="translate(-914 -1486)"
+                                                                   clip-path="url(#clip-path-link)">
+                                                                    <g id="link-symbol" transform="translate(914 1486)">
+                                                                        <path id="Path_1257" data-name="Path 1257"
+                                                                              d="M11.067,5.437,8.815,7.689a3.147,3.147,0,0,1-4.987-.642L4.874,6a.751.751,0,0,1,.17-.113,1.567,1.567,0,0,0,.393.676,1.594,1.594,0,0,0,2.252,0L9.941,4.311A1.593,1.593,0,0,0,7.689,2.059l-.8.8a4,4,0,0,0-2.032-.221L6.563.933a3.185,3.185,0,0,1,4.5,4.5ZM5.112,9.14l-.8.8A1.593,1.593,0,1,1,2.059,7.689L4.311,5.437a1.593,1.593,0,0,1,2.252,0,1.576,1.576,0,0,1,.393.675A.765.765,0,0,0,7.126,6L8.172,4.954a3.13,3.13,0,0,0-.484-.643,3.185,3.185,0,0,0-4.5,0L.933,6.563a3.185,3.185,0,0,0,4.5,4.5L7.144,9.361A3.993,3.993,0,0,1,5.112,9.14Z"
+                                                                              fill="#2b2a29"/>
+                                                                    </g>
+                                                                </g>
+                                                            </SvgIcon>
+                                                        </a>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
                                             variant="outlined"
                                         />
                                         <Button fullWidth variant="contained" color={"secondary"}>Создать код (ctrl +
@@ -452,7 +574,7 @@ class PollCreate extends Component {
                                             bgColor="#FFFFFF"
                                             fgColor="#000000"
                                             level="Q"
-                                            style={{width: '75%'}}
+                                            style={{width: '65%', margin: '0px 10px 0px'}}
                                             value="some text"
                                         />
                                     </Grid>
@@ -462,12 +584,14 @@ class PollCreate extends Component {
 
                                 <Grid container spacing={3} direction={"row"}>
                                     <Grid item md={5}>
-                                        <Button color="primary" fullWidth className={classes.button}>
+                                        <Button color="primary" className={classes.button}>
                                             Сохранить как черновик
                                         </Button>
                                     </Grid>
                                     <Grid item md={3}>
-                                        <Button fullWidth variant="outlined" className={classes.button}>
+                                        <Button fullWidth variant="outlined" onClick={() => {
+                                            this.changeStep()
+                                        }} className={classes.button}>
                                             Назад
                                         </Button>
                                     </Grid>
@@ -479,8 +603,7 @@ class PollCreate extends Component {
                             </Paper>
                         </Grid>
                     </Grid>
-
-
+                </React.Fragment>}
             </div>
         );
     }

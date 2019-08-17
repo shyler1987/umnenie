@@ -251,7 +251,12 @@ const styles = theme => ({
             fontSize: 13,
             fontFamily: "'Source Sans Pro', sans-serif",
             fontWeight: 600
+        },
+        disableCard:{
+            backgroundColor: '#e6e6e6',
+            opacity: 0.55
         }
+
 
 
     })
@@ -265,7 +270,8 @@ class PollCard extends Component {
             avatarUrl, fullName, datePoll, imagePoll, contentPoll, pollType, idPoll, pollItems,
             iconStatis, iconFovrite, iconShare, iconComment, iconAnonced, iconEdit, CrownSvg, QrCode,
             cellHeight,
-            answerText
+            answerText,
+            disableCard
         } = this.props;
 
         this.state = {
@@ -277,6 +283,7 @@ class PollCard extends Component {
             imagePoll: imagePoll,
             idPoll: idPoll,
             pollItems: pollItems,
+            disableCard: disableCard === null ? false : disableCard,
             iconStatis: iconStatis === null ? false : iconStatis,
             iconFovrite: iconFovrite === null ? false : iconFovrite,
             iconShare: iconShare === null ? false : iconShare,
@@ -297,7 +304,8 @@ class PollCard extends Component {
             avatarUrl, fullName, datePoll, imagePoll, contentPoll, pollType, idPoll, pollItems,
             iconStatis, iconFovrite, iconShare, iconComment, iconAnonced, iconEdit, CrownSvg, QrCode,
             cellHeight,
-            answerText
+            answerText,
+
         } = nextProps;
 
         this.setState({
@@ -340,7 +348,7 @@ class PollCard extends Component {
     render() {
         const {classes} = this.props;
         return (<Link to={"/polls/" + this.state.idPoll} className={classes.clickCard}>
-                <Card className={classes.card}>
+                <Card className={this.state.disableCard ? classes.disableCard : ""} >
                     <CardHeader
                         avatar={
                             <Avatar aria-label="Recipe" src={this.state.avatarUrl}>

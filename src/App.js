@@ -74,11 +74,17 @@ const outerTheme = createMuiTheme({
             label: {
                 fontFamily: "'Source Sans Pro', sans-serif",
                 fontSize: 15,
-                textTransform: 'capitalize',
+                textTransform: 'initial',
                 fontWeight: 600,
             }
 
             //outline: none
+        },
+        MuiPaper:{
+            elevation1:{
+                border: '1px solid #e6e6e6',
+                boxShadow: 'unset'
+            }
         },
         MuiButtonBase: {
             root: {

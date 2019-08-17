@@ -14,52 +14,12 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import LeftMenu from '../tools/LeftMenu';
 import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
-import InputBase from '@material-ui/core/InputBase';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 
-const BootstrapInput = withStyles(theme => ({
-    root: {
-        'label + &': {
-            marginTop: theme.spacing(3),
-        },
-    },
-    input: {
-        borderRadius: 4,
-        position: 'relative',
-        backgroundColor: theme.palette.background.paper,
-        border: '1px solid #ced4da',
-        fontSize: 16,
-        padding: '10px 26px 10px 12px',
-        transition: theme.transitions.create(['border-color', 'box-shadow']),
-        // Use the system font instead of the default Roboto font.
-        fontFamily: [
-            '-apple-system',
-            'BlinkMacSystemFont',
-            '"Segoe UI"',
-            'Roboto',
-            '"Helvetica Neue"',
-            'Arial',
-            'sans-serif',
-            '"Apple Color Emoji"',
-            '"Segoe UI Emoji"',
-            '"Segoe UI Symbol"',
-        ].join(','),
-        '&:focus': {
-            borderRadius: 4,
-            boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-        },
-        titleHead:{
-            fontWeight: 600,
-            fontSize:30,
-            margin: '25px 5px 10px 0px'
-        }
-    },
-}))(InputBase);
 
 const styles = theme => ({
     root: {
@@ -139,9 +99,9 @@ const styles = theme => ({
     editP: {
         display: 'flex',
         margin: 5,
-        fontSize: 16,
-        color: '#e0512a',
-        textDecoration: 'underline',
+        fontSize: 12,
+        color: '#e0512a !important',
+        textDecoration: 'underline !important',
         '&:hover': {
             cursor: 'pointer'
         }
@@ -164,7 +124,35 @@ const styles = theme => ({
     },
     titleFieldesetHead:{
         fontWeight: 600,
-        fontSize:14,
+        fontSize:15,
+        marginTop:10
+    },
+    titleFieldesetHeadKategory:{
+        fontWeight: 600,
+        fontSize:15,
+
+    },
+    muiSeelctRoot:{
+        textAlign: 'center',
+        fontSize: 15,
+        fontWeight: 600,
+        color: theme.palette.mainBlackColor
+
+    },
+    inLabel:{
+        left:'30%',
+        fontSize: 15,
+        fontWeight: 600,
+        color: theme.palette.mainBlackColor
+    },inLabelSpeasial:{
+        left:'30%',
+        fontSize: 15,
+        fontWeight: 600,
+        color: theme.palette.mainBlackColor
+    },
+    socSet:{
+        fontSize: 15,
+        fontWeight: 600
     }
 
 
@@ -172,15 +160,9 @@ const styles = theme => ({
 });
 const names = [
     'Все',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
+    'Выберите категорию',
+
+    'Выберите категорию А',
 ];
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -191,6 +173,12 @@ const MenuProps = {
             width: 250,
         },
     },
+    margin:"dense",
+    getContentAnchorEl: null,
+    anchorOrigin: {
+        vertical: "bottom",
+        horizontal: "left",
+    }
 };
 
 
@@ -205,7 +193,8 @@ class ProfileEdit extends Component {
         this.state = {
             polls: [],
             show: false,
-            selected:[]
+            selected:[],
+            selectedSpetsializatsiya:[],
         };
 
 
@@ -217,6 +206,10 @@ class ProfileEdit extends Component {
 
     handleChange = (event) =>{
         this.setState({ selected: event.target.value});
+
+    }
+    handleChangeSpecial = (event) =>{
+        this.setState({ selectedSpetsializatsiya: event.target.value});
 
     }
 
@@ -265,28 +258,26 @@ class ProfileEdit extends Component {
                                 <Typography classes={{root:classes.titleFieldesetHead}}>Личная информация</Typography>
                                 <Grid container spacing={3} direction={"row"}>
                                     <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
-                                        <Typography classes={{root:classes.titleFieldesetHead}}>Категория</Typography>
+                                        <Typography classes={{root:classes.titleFieldesetHeadKategory}}>Категория</Typography>
                                     </Grid>
                                     <Grid item md={9} sm={9} xs={9}>
-                                        <FormControl className={classes.formControl}  fullWidth variant="outlined">
+                                        <FormControl className={classes.formControl} margin="dense" fullWidth variant="outlined">
+                                            {this.state.selected.length===0 ?
+                                                <InputLabel htmlFor="outlined-category" classes={{root:classes.inLabel}} shrink={false}>
+                                                    Выберите категорию
+                                                </InputLabel> : ""}
+
                                             <Select
-                                                placeholder={"Выберите категорию"}
                                                 multiple
+                                                classes={{root:classes.muiSeelctRoot}}
                                                 value={this.state.selected}
                                                 onChange={this.handleChange}
                                                 MenuProps={MenuProps}
-                                                input={<BootstrapInput name="age" id="age-customized-select" />}
-                                                // input={<Input id="select-multiple" />}
+                                                input={<OutlinedInput  name="category" id="outlined-kategory-simple"/>}
                                                 renderValue={selected=>{
-                                                    if (selected.length === 0) {
-                                                        return <em>Placeholder</em>;
-                                                    }
-
                                                     return selected.join(', ');
                                                 }}
                                                 value={this.state.selected}
-
-
                                             >
                                                 {names.map(name => (
                                                     <MenuItem key={name} value={name}>
@@ -310,10 +301,10 @@ class ProfileEdit extends Component {
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="end">
-                                                        <p className={classes.editP}>
-                                                            <EditIcon style={{fontSize: 20}}/> Редактировать
-                                                        </p>
-
+                                                        <a className={classes.editP}>
+                                                            <EditIcon style={{fontSize: 16, color: '#e0512a'}}/>
+                                                            Редактировать
+                                                        </a>
                                                     </InputAdornment>
                                                 ),
                                             }}
@@ -328,10 +319,10 @@ class ProfileEdit extends Component {
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="end">
-                                                        <p className={classes.editP}>
-                                                            <EditIcon style={{fontSize: 20}}/> Редактировать
-                                                        </p>
-
+                                                        <a className={classes.editP}>
+                                                            <EditIcon style={{fontSize: 16, color: '#e0512a'}}/>
+                                                            Редактировать
+                                                        </a>
                                                     </InputAdornment>
                                                 ),
                                             }}
@@ -346,10 +337,10 @@ class ProfileEdit extends Component {
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="end">
-                                                        <p className={classes.editP}>
-                                                            <EditIcon style={{fontSize: 20}}/> Редактировать
-                                                        </p>
-
+                                                        <a className={classes.editP}>
+                                                            <EditIcon style={{fontSize: 16, color: '#e0512a'}}/>
+                                                            Редактировать
+                                                        </a>
                                                     </InputAdornment>
                                                 ),
                                             }}
@@ -359,17 +350,17 @@ class ProfileEdit extends Component {
 
                                 </Grid>
                                 <Grid container spacing={3} direction={"row"}>
-                                    <Grid item md={6}>
+                                    <Grid item md={6}  sm={12} xs={12}>
                                         <TextField
                                             margin="dense"
                                             id="outlined-name"
                                             fullWidth
-                                            placeholder={"Эл. адрес"}
+                                            placeholder={"Телефон"}
                                             className={classes.textField}
                                             variant="outlined"
                                             InputProps={{
                                                 endAdornment: (
-                                                    <InputAdornment position="end">
+                                                    <InputAdornment position="end" style={{width: '50%'}}>
                                                         <span className={classes.editPЗ}>
                                                             нельзя изменить
                                                         </span>
@@ -381,26 +372,22 @@ class ProfileEdit extends Component {
                                             margin="dense"
                                             id="outlined-name"
                                             fullWidth
-                                            placeholder={"Страна/Город"}
+                                            placeholder={"Страна\Город"}
                                             className={classes.textField}
                                             variant="outlined"
                                         />
                                     </Grid>
                                     <Grid item md={6} sm={12} xs={12}>
-                                        <FormControl className={classes.formControl}  fullWidth variant="outlined">
+                                        <FormControl className={classes.formControl} margin="dense" fullWidth variant="outlined">
+                                            {this.state.selectedSpetsializatsiya.length===0 ?
+                                                <InputLabel htmlFor="outlined-category" classes={{root:classes.inLabelSpeasial}} shrink={false}>Специализация</InputLabel> : ""}
                                             <Select
-                                                placeholder={"Выберите категорию"}
                                                 multiple
-                                                value={this.state.selected}
-                                                onChange={this.handleChange}
+                                                value={this.state.selectedSpetsializatsiya}
+                                                onChange={this.handleChangeSpecial}
                                                 MenuProps={MenuProps}
-                                                input={<BootstrapInput name="age" id="age-customized-select" />}
-                                                // input={<Input id="select-multiple" />}
+                                                input={<OutlinedInput  name="speacial" id="outlined-speacial-simple"/>}
                                                 renderValue={selected=>{
-                                                    if (selected.length === 0) {
-                                                        return <em>Placeholder</em>;
-                                                    }
-
                                                     return selected.join(', ');
                                                 }}
                                                 value={this.state.selected}
@@ -430,7 +417,7 @@ class ProfileEdit extends Component {
                                 <Grid container spacing={3} direction={"row"}>
                                     <Grid item md={12}>
                                         <div className={classes.inlineText}>
-                                            <Typography>ссылка на сайт</Typography>
+                                            <Typography classes={{root:classes.socSet}}>ссылка на сайт</Typography>
                                             <TextField
                                                 margin="dense"
                                                 id="outlined-name"
@@ -441,7 +428,7 @@ class ProfileEdit extends Component {
                                             />
                                         </div>
                                         <div className={classes.inlineText}>
-                                            <Typography>Facebook</Typography>
+                                            <Typography classes={{root:classes.socSet}}>Facebook</Typography>
                                             <TextField
                                                 margin="dense"
                                                 id="outlined-name"
@@ -452,7 +439,7 @@ class ProfileEdit extends Component {
                                             />
                                         </div>
                                         <div className={classes.inlineText}>
-                                            <Typography>Telegram</Typography>
+                                            <Typography classes={{root:classes.socSet}}>Telegram</Typography>
                                             <TextField
                                                 margin="dense"
                                                 id="outlined-name"
@@ -463,7 +450,7 @@ class ProfileEdit extends Component {
                                             />
                                         </div>
                                         <div className={classes.inlineText}>
-                                            <Typography>Twitter</Typography>
+                                            <Typography classes={{root:classes.socSet}}>Twitter</Typography>
                                             <TextField
                                                 margin="dense"
                                                 id="outlined-name"
@@ -484,7 +471,7 @@ class ProfileEdit extends Component {
                                             fullWidth
                                             rows="4"
                                             variant="outlined"
-                                            defaultValue="О себе"
+                                            defaultValue="О компании"
                                             className={classes.textField}
                                             margin="normal"
                                         />

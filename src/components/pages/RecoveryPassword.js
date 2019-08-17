@@ -31,9 +31,11 @@ const styles = theme => ({
         height:100
     },
     textP:{
-        fontSize: 14,
-        textAlign: 'justify',
-        paddingTop: 10
+        fontSize: 13,
+        textAlign: 'center',
+        padding: '10px 20px 10px',
+        fontWeight: 600,
+        color:"#2b2a29"
     },
     callCenter:{
         textAlign: 'right',
@@ -57,7 +59,25 @@ const styles = theme => ({
         fontWeight: 600,
         fontSize:30,
         margin: '25px 5px 10px 0px'
+    },
+    outlinedPrimary:{
+        border: "1px solid #e6e6e6",
+        "&:hover":{
+            border: "1px solid #e6e6e6",
+        }
+
+    },
+    muiBtnLabel:{
+        opacity: 0.88
+    },
+    textA:{
+        color:"#e05022",
+        textDecoration:'underline'
+    },
+    marginBottom:{
+        marginBottom:30
     }
+
 
 
 
@@ -88,7 +108,7 @@ class RecoveryPassword extends Component {
                 <Typography classes={{root:classes.titleHead}} >
                     Восстановит пароль
                 </Typography>
-                <Grid container spacing={0}>
+                <Grid container spacing={0} classes={{root:classes.marginBottom}} >
                     <Grid md={12}>
                         <Paper className={classes.paper}>
 
@@ -120,15 +140,16 @@ class RecoveryPassword extends Component {
                                             direction="row"
                                             justify="center"
                                             alignItems="flex-start"
+                                            spacing={2}
 
                                         >
                                             <Grid item md={4}>
-                                                <Button  color="primary" fullWidth className={classes.button}>
+                                                <Button  color="primary" variant={"outlined"} fullWidth classes={{outlinedPrimary:classes.outlinedPrimary}}>
                                                     Назад
                                                 </Button>
                                             </Grid>
                                             <Grid item md={8}>
-                                                <Button variant="contained" color="secondary" fullWidth className={classes.button}>
+                                                <Button variant="contained" color="secondary" fullWidth classes={{label:classes.muiBtnLabel}}>
                                                     Отправить смс
                                                 </Button>
                                             </Grid>
@@ -136,7 +157,7 @@ class RecoveryPassword extends Component {
                                         </Grid>
                                     </form>
                                     <div>
-                                        <p className={classes.textP}>Все права защищены. Используя сайт, вы обязуетесь выполнять условия <a href={"#"}>Пользовательского соглашения.</a></p>
+                                        <Typography classes={{root:classes.textP}}>Все права защищены. Используя сайт, вы обязуетесь выполнять условия <a href={"#"} className={classes.textA}>Пользовательского соглашения.</a></Typography>
                                     </div>
                                 </Grid>
 
@@ -171,6 +192,7 @@ class RecoveryPassword extends Component {
                         </Paper>
                     </Grid>
                 </Grid>
+
 
             </div>
         );

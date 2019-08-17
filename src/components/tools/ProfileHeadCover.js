@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import 'react-loading-bar/dist/index.css'
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import {Link, NavLink, withRouter} from "react-router-dom";
 
 import CoverImage from '../../media/back.jpg';
 import selenaAvatar from '../../media/selenaAvatar.jpg';
@@ -44,7 +45,7 @@ const styles = theme => ({
         margin: 5,
         width: 180,
         height: 180,
-        border: '3px solid #fff',
+        border: '4px solid #fff',
         [theme.breakpoints.down('md')]: {
             margin: 5,
             width: 90,
@@ -242,8 +243,13 @@ class ProfileHeadCover extends Component {
             profilePhoto:profilePhoto===null ? false : profilePhoto,
             show: false
         }
+        this.profileEdit=this.profileEdit.bind(this);
     }
 
+
+    profileEdit=()=>{
+        this.props.history.push('/account/profile-edit/')
+    }
 
     render() {
         const {classes} = this.props;
@@ -410,7 +416,7 @@ class ProfileHeadCover extends Component {
 
                                 </Hidden>
 
-                                <Button variant="contained" size="meduim"  color="secondary" classes={{root:classes.buttonLine}} onClick={()=>{this.props.history.push('/account/profile-edit/')}}>
+                                <Button variant="contained" size="meduim"  color="secondary" classes={{root:classes.buttonLine}} onClick={()=>{this.profileEdit()}}>
                                     Редактировать профиль
                                 </Button>
                                 <Button variant="contained" size="meduim"  color="secondary" classes={{root:classes.buttonLine}}>
@@ -435,4 +441,4 @@ class ProfileHeadCover extends Component {
 
 }
 
-export default withStyles(styles)(ProfileHeadCover);
+export default withStyles(styles)(withRouter(ProfileHeadCover));

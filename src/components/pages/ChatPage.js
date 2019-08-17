@@ -149,7 +149,7 @@ class ChatPage extends Component {
                                         <ListItem alignItems="flex-start" classes={{root: classes.listItem}}>
                                             <ListItemAvatar>
                                                 <Link to={"/"}> <Avatar alt="Никита Макаренко"
-                                                                        src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"/>
+                                                                        src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"/>
                                                 </Link>
                                             </ListItemAvatar>
                                             <ListItemText
@@ -164,7 +164,7 @@ class ChatPage extends Component {
                                                     <Avatar
                                                         alt="Никита Макаренко"
                                                         classes={{root: classes.avatarChat}}
-                                                        src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                                        src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
                                                     />
                                                 </Link>
                                             </ListItemAvatar>
@@ -177,7 +177,7 @@ class ChatPage extends Component {
                                         <ListItem alignItems="flex-start" classes={{root: classes.listItem}}>
                                             <ListItemAvatar>
                                                 <Link to={"/"}> <Avatar alt="Никита Макаренко"
-                                                                        src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"/>
+                                                                        src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"/>
                                                 </Link>
                                             </ListItemAvatar>
                                             <ListItemText
@@ -189,7 +189,7 @@ class ChatPage extends Component {
                                         <ListItem alignItems="flex-start" classes={{root: classes.listItem}}>
                                             <ListItemAvatar>
                                                 <Link to={"/"}> <Avatar alt="Никита Макаренко"
-                                                                        src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"/>
+                                                                        src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"/>
                                                 </Link>
                                             </ListItemAvatar>
                                             <ListItemText
@@ -207,7 +207,7 @@ class ChatPage extends Component {
                                     <div className="d-flex justify-content-start itemChat">
                                         <div className="img_cont_msg">
                                             <Link to={"/"}> <img
-                                                src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                                src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
                                                 className="rounded-circle user_img_msg"/></Link>
                                         </div>
                                         <div className="msg_cotainer">
@@ -220,7 +220,7 @@ class ChatPage extends Component {
                                     <div className="d-flex justify-content-start itemChat">
                                         <div className="img_cont_msg">
                                             <img
-                                                src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                                src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
                                                 className="rounded-circle user_img_msg"/>
                                         </div>
                                         <div className="msg_cotainer">
@@ -239,14 +239,14 @@ class ChatPage extends Component {
                                         </div>
                                         <div className="img_cont_msg">
                                             <img
-                                                src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                                src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
                                                 className="rounded-circle user_img_msg"/>
                                         </div>
                                     </div>
                                     <div className="d-flex justify-content-start itemChat">
                                         <div className="img_cont_msg">
                                             <img
-                                                src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                                src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
                                                 className="rounded-circle user_img_msg"/>
                                         </div>
                                         <div className="msg_cotainer">
@@ -263,7 +263,7 @@ class ChatPage extends Component {
                                         </div>
                                         <div className="img_cont_msg">
                                             <img
-                                                src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                                src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
                                                 className="rounded-circle user_img_msg"/>
                                         </div>
                                     </div>
@@ -274,7 +274,7 @@ class ChatPage extends Component {
                                         </div>
                                         <div className="img_cont_msg">
                                             <img
-                                                src="http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"
+                                                src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
                                                 className="rounded-circle user_img_msg"/>
                                         </div>
                                     </div>

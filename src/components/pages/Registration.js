@@ -45,16 +45,16 @@ const styles = theme => ({
         },
 
     },
-    textFieldInput: {
-
-    },
+    textFieldInput: {},
     inputHeight: {
         height: 100
     },
     textP: {
-        fontSize: 14,
-        textAlign: 'justify',
-        paddingTop: 10
+        fontSize: 13,
+        textAlign: 'center',
+        padding: '10px 20px 10px',
+        fontWeight: 600,
+        color: "#2b2a29"
     },
     callCenter: {
         textAlign: 'right',
@@ -64,6 +64,7 @@ const styles = theme => ({
     },
     ButtonGroup: {
         background: '#fff',
+        marginBottom: 10
     },
     buttonGroup: {
         color: "#2B2A29"
@@ -73,15 +74,15 @@ const styles = theme => ({
         color: '#fff',
         border: '1px solid #e35b1e',
         '&:hover': {
-            background: 'rgba(227, 91, 30, 0.08)',
-            color: '#e35b1e',
+            background: '#e35b1e',
+            //color:// '#e35b1e',
         }
     },
     cssOutlinedInput: {
         '&$cssFocused $notchedOutline': {
             //borderColor: `#e35b1e !important`,
-            borderWidth:1,
-            borderStyle:'solid',
+            borderWidth: 1,
+            borderStyle: 'solid',
             borderColor: 'rgba(0, 0, 0, 0.23)'
         },
         "&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline": {
@@ -94,23 +95,51 @@ const styles = theme => ({
     },
 
     notchedOutline: {
-        borderWidth:1,
-        borderStyle:'solid',
+        borderWidth: 1,
+        borderStyle: 'solid',
         borderColor: 'rgba(0, 0, 0, 0.23)',
-        "&:hover":{
-            borderWidth:1,
-            borderStyle:'solid',
+        "&:hover": {
+            borderWidth: 1,
+            borderStyle: 'solid',
             borderColor: 'rgba(0, 0, 0, 0.23)',
         }
 
     },
-    titleHead:{
+    titleHead: {
         fontWeight: 600,
-        fontSize:30,
+        fontSize: 30,
         margin: '25px 5px 10px 0px'
+    },
+
+    muiBtnLabel: {
+        opacity: 0.88
+    },
+    textA: {
+        color: "#e05022",
+        textDecoration: 'underline'
+    },
+    regBtn: {
+        marginTop: 10
+    },
+    marginBottom: {
+        marginBottom: 30
+    },
+    CopyRight: {
+        fontSize: 13,
+        fontWeight: 400,
+        opacity: 0.45,
+        color: '#2b2a29'
+    },
+    support: {
+        fontSize: 13,
+        fontWeight: 400,
+        opacity: 0.45,
+        color: '#2b2a29',
+        textDecoration: 'underline',
+        "&:hover":{
+            color: '#2b2a29',
+        }
     }
-
-
 
 });
 
@@ -141,10 +170,10 @@ class Registration extends Component {
                     show={this.state.show}
                     color="red"
                 />
-                <Typography classes={{root:classes.titleHead}} >
+                <Typography classes={{root: classes.titleHead}}>
                     Регистрация
                 </Typography>
-                <Grid container spacing={0}>
+                <Grid container spacing={0} classes={{root: classes.marginBottom}}>
                     <Grid md={12} sm={12} xs={12}>
                         <Paper className={classes.paper}>
                             <br/>
@@ -240,8 +269,8 @@ class Registration extends Component {
                                         >
 
                                             <Grid item md={12}>
-                                                <Button variant="contained" color="secondary" fullWidth
-                                                        className={classes.button}>
+                                                <Button variant="contained" color="secondary" style={{marginTop: 10}}
+                                                        classes={{root: classes.regBtns}} fullWidth>
                                                     Зарегистрироваться
                                                 </Button>
                                             </Grid>
@@ -249,8 +278,10 @@ class Registration extends Component {
                                         </Grid>
                                     </form>
                                     <div>
-                                        <p className={classes.textP}>Все права защищены. Используя сайт, вы обязуетесь
-                                            выполнять условия <a href={"#"}>Пользовательского соглашения.</a></p>
+                                        <Typography classes={{root: classes.textP}}>Все права защищены. Используя сайт,
+                                            вы обязуетесь выполнять условия <a href={"#"} className={classes.textA}>Пользовательского
+                                                соглашения.</a></Typography>
+
                                     </div>
                                 </Grid>
 
@@ -268,14 +299,14 @@ class Registration extends Component {
                                     <Divider variant="fullWidth" component="hr" style={{marginBottom: 10}}/>
                                 </Grid>
                                 <Grid md={6} className={classes.copyright}>
-                                    <Typography variant="caption" align={'left'} gutterBottom>
-                                        (c) 2015-2019
+                                    <Typography classes={{root: classes.CopyRight}} gutterBottom>
+                                        © 2015-2019 UMNENIE
                                     </Typography>
                                 </Grid>
                                 <Grid md={6} className={classes.callCenter}>
-                                    <Typography variant="caption" gutterBottom style={{paddingTop: 5}}>
-                                        <Link to={"/"}>Обратиться в службу поддержки</Link>
-                                    </Typography>
+
+                                        <Link to={"/"} className={classes.support}>Обратиться в службу поддержки</Link>
+
 
                                 </Grid>
 
