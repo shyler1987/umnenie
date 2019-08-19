@@ -9,16 +9,13 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import CoverImage from '../../media/back.jpg';
 import selenaAvatar from '../../media/selenaAvatar.jpg';
-import Hidden from '@material-ui/core/Hidden';
 import Avatar from '@material-ui/core/Avatar';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import FolderIcon from '@material-ui/icons/Folder';
 
 import ProfileHeadCover from '../tools/ProfileHeadCover'
 const styles = theme => ({

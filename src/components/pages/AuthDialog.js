@@ -138,7 +138,6 @@ class AuthDialog extends Component {
 
     constructor(props) {
         super(props);
-        const {dialogBool} = this.props;
         this.state = {
             show: false,
             dialogBool: this.props.isAuth,
@@ -195,7 +194,7 @@ class AuthDialog extends Component {
                 <Dialog
                     open={this.props.isAuth}
                     onClose={this.handleClose}
-                    fullWidth={"xs"}
+                    fullWidth={true}
                     maxWidth={"xs"}
                     BackdropProps={{
                         classes: {
@@ -223,6 +222,8 @@ class AuthDialog extends Component {
                             <Grid item md={12} xs={12} sm={12}>
                                 <form fullWidth onSubmit={this.checkAuth}>
                                     <TextField
+                                        autoComplete='off'
+
                                         fullWidth
                                         id="outlined-bare"
                                         name={"username"}
@@ -284,7 +285,7 @@ class AuthDialog extends Component {
                                                 Регистрация
                                             </Link>
                                         </Grid>
-                                        <Grid md={12}>
+                                        <Grid md={12} item>
                                             <Typography classes={{root:classes.fastAc}}>
                                                 Быстрый доступ с
                                             </Typography>

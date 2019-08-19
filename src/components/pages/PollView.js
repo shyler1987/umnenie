@@ -11,7 +11,6 @@ import 'react-loading-bar/dist/index.css'
 import Grid from '@material-ui/core/Grid';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -25,8 +24,7 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 import FloatActionButtun from "../tools/FloatActionButtun";
 
 
-import {useSwipeable, Swipeable} from 'react-swipeable'
-import EditIcon from "./ProfileEdit";
+import { Swipeable} from 'react-swipeable'
 
 const styles = theme => ({
     root: {

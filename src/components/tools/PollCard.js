@@ -483,7 +483,7 @@ class PollCard extends Component {
                                                     }}
 
                                                 />
-                                                <grid className={classes.cardBar}>
+                                                <div className={classes.cardBar}>
                                                     <Grid container spacing={0}>
                                                         <Grid item xs={3} sm={3} xs={3}>
                                                             <div className={classes.pollBottomCircle}>
@@ -512,9 +512,9 @@ class PollCard extends Component {
                                                         </Grid>
                                                         <Grid item xs={6} sm={6} xs={6} className={classes.textRight}>
                                                             <div className={classes.avatars}>
-                                                                {item.avatars.map((avatarItem) => {
+                                                                {item.avatars.map((avatarItem, key) => {
                                                                     return (
-                                                                        <span className={classes.avatar}>
+                                                                        <span key={"avatar-"+key} className={classes.avatar}>
                                                                 <img src={avatarItem}/>
                                                             </span>
                                                                     );
@@ -586,7 +586,7 @@ class PollCard extends Component {
 
                                                         </Grid>
                                                     </Grid>
-                                                </grid>
+                                                </div>
                                             </GridListTile>);
                                     }) : ""
                                 }
@@ -606,7 +606,7 @@ class PollCard extends Component {
                                 }
                             >
                                 {this.state.pollItems !== undefined ? this.state.pollItems.map((itemOption, Key) => {
-                                    return (<ListItem classes={{root: classes.rootItem}}>
+                                    return (<ListItem key={"ListItem"+Key} classes={{root: classes.rootItem}}>
                                         <ListItemIcon classes={{root: classes.ListItemIconRoot}}>
                                             <CircularProgressbar
                                                 value={itemOption.percent}
@@ -626,9 +626,9 @@ class PollCard extends Component {
                                                       primary={itemOption.option}/>
                                         <ListItemIcon classes={{root: classes.avatarsContainer}}>
                                             <div className={classes.avatars}>
-                                                {itemOption.avatars.map((avatarItem) => {
+                                                {itemOption.avatars.map((avatarItem, key) => {
                                                     return (
-                                                        <span className={classes.avatar}>
+                                                        <span  key={"ava-"+key}  className={classes.avatar}>
                                                             <img src={avatarItem}/>
                                                         </span>
                                                     );
@@ -887,20 +887,12 @@ class PollCard extends Component {
 //
 PollCard.propTypes = {
     classes: PropTypes.object.isRequired,
-    iconFovrite: PropTypes.bool.isRequired,
-    iconComment: PropTypes.bool.isRequired,
-    iconShare: PropTypes.bool.isRequired,
-    iconAnonced: PropTypes.bool.isRequired,
-    iconStatis: PropTypes.bool.isRequired,
 };
 
-function mapStateToProps(state) {
-
-}
 
 function matchDispatchToProps(dispatch) {
     return bindActionCreators({setIsAuth}, dispatch)
 }
 
 
-export default connect(mapStateToProps, matchDispatchToProps)(withStyles(styles)(withRouter(PollCard)));
+export default connect(matchDispatchToProps)(withStyles(styles)(withRouter(PollCard)));

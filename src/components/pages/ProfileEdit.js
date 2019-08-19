@@ -136,19 +136,41 @@ const styles = theme => ({
         textAlign: 'center',
         fontSize: 15,
         fontWeight: 600,
-        color: theme.palette.mainBlackColor
-
+        color: theme.palette.mainBlackColor,
+    },
+    muiSelectRootL:{
+        textAlign: 'center',
+        fontSize: 15,
+        fontWeight: 600,
+        color: theme.palette.mainBlackColor,
+        "&::after":{
+            content: "'▾'",
+            paddingLeft:5,
+            fontSize: 10
+        }
     },
     inLabel:{
         left:'30%',
         fontSize: 15,
         fontWeight: 600,
-        color: theme.palette.mainBlackColor
-    },inLabelSpeasial:{
+        color: theme.palette.mainBlackColor,
+        "&::after":{
+            content: "'▾'",
+            paddingLeft:5,
+            fontSize: 10
+        }
+    },
+
+    inLabelSpeasial:{
         left:'30%',
         fontSize: 15,
         fontWeight: 600,
-        color: theme.palette.mainBlackColor
+        color: theme.palette.mainBlackColor,
+        "&::after":{
+            content: "'▾'",
+            paddingLeft:5,
+            fontSize: 10
+        }
     },
     socSet:{
         fontSize: 15,
@@ -269,7 +291,10 @@ class ProfileEdit extends Component {
 
                                             <Select
                                                 multiple
-                                                classes={{root:classes.muiSeelctRoot}}
+                                                IconComponent={()=>{
+                                                    return "";
+                                                }}
+                                                classes={{root: this.state.selected.length===0 ? classes.muiSeelctRoot : classes.muiSelectRootL}}
                                                 value={this.state.selected}
                                                 onChange={this.handleChange}
                                                 MenuProps={MenuProps}
@@ -385,12 +410,16 @@ class ProfileEdit extends Component {
                                                 multiple
                                                 value={this.state.selectedSpetsializatsiya}
                                                 onChange={this.handleChangeSpecial}
+                                                IconComponent={()=>{
+                                                    return "";
+                                                }}
+                                                classes={{root: this.state.selectedSpetsializatsiya.length===0 ? classes.muiSeelctRoot : classes.muiSelectRootL}}
                                                 MenuProps={MenuProps}
                                                 input={<OutlinedInput  name="speacial" id="outlined-speacial-simple"/>}
                                                 renderValue={selected=>{
                                                     return selected.join(', ');
                                                 }}
-                                                value={this.state.selected}
+                                                value={this.state.selectedSpetsializatsiya}
 
 
                                             >

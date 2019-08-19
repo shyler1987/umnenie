@@ -40,7 +40,7 @@ const ITEM_PADDING_TOP = 8;
 const MenuProps = {
     PaperProps: {
         style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            //maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
             width: 250,
         },
     },
@@ -144,18 +144,48 @@ const styles = theme => ({
         textAlign: 'center',
         fontSize: 15,
         fontWeight: 600,
-        color: theme.palette.mainBlackColor
+        color: theme.palette.mainBlackColor,
 
     },
-    inLabel: {
-        left: '30%',
+    muiSelectRootL:{
+        textAlign: 'center',
         fontSize: 15,
         fontWeight: 600,
-        color: theme.palette.mainBlackColor
+        color: theme.palette.mainBlackColor,
+        "&::after":{
+            content: "'▾'",
+            paddingLeft:5,
+            fontSize: 10
+        }
     },
+    inLabel:{
+        left:'30%',
+        fontSize: 15,
+        fontWeight: 600,
+        color: theme.palette.mainBlackColor,
+        "&::after":{
+            content: "'▾'",
+            paddingLeft:5,
+            fontSize: 10
+        }
+    },
+
     input: {
         display: 'none',
     },
+    listItemRoot:{
+        marginTop:0,
+        marginBottom:0,
+
+    },
+    listItemPrimary:{
+        fontFamily: "'Source Sans Pro', sans-serif",
+        color: '#2B2A29',
+        fontSize: 15,
+        textAlign: 'center',
+        fontWeight: 600
+    }
+
 
 });
 
@@ -170,14 +200,20 @@ class PollCreate extends Component {
         this.state = {
             polls: [],
             show: false,
-            step: 2,
+            step: 1,
             categorySelected: [],
+            visibility:null,
             variants: [{variantNomer: 1}, {variantNomer: 2}, {variantNomer: 3}]
         };
     }
 
     handleChangeCategory = (event) => {
         this.setState({categorySelected: event.target.value});
+
+    }
+
+    handleChange = (event) => {
+        this.setState({[event.target.name]: event.target.value});
 
     }
 
@@ -256,9 +292,13 @@ class PollCreate extends Component {
                                             <Select
                                                 multiple
                                                 classes={{root: classes.muiSeelctRoot}}
+                                                classes={{root: this.state.categorySelected.length===0 ? classes.muiSeelctRoot : classes.muiSelectRootL}}
                                                 value={this.state.categorySelected}
                                                 onChange={this.handleChangeCategory}
                                                 MenuProps={MenuProps}
+                                                IconComponent={()=>{
+                                                    return "";
+                                                }}
                                                 input={<OutlinedInput name="category" id="outlined-kategory-select"/>}
                                                 renderValue={selected => {
                                                     return selected.join(', ');
@@ -267,7 +307,7 @@ class PollCreate extends Component {
                                             >
                                                 {names.map(name => (
                                                     <MenuItem key={name} value={name}>
-                                                        <ListItemText primary={name}/>
+                                                        <ListItemText classes={{root:classes.listItemRoot, primary:classes.listItemPrimary}} primary={name}/>
                                                     </MenuItem>
                                                 ))}
                                             </Select>
@@ -328,26 +368,25 @@ class PollCreate extends Component {
                                     <Grid item md={9} sm={9} xs={9}>
                                         <FormControl className={classes.formControl} margin="dense" fullWidth
                                                      variant="outlined">
-                                            {this.state.categorySelected.length === 0 ?
-                                                <InputLabel htmlFor="outlined-category"
+                                            {this.state.visibility === null ?
+                                                <InputLabel htmlFor="outlined-visibility"
                                                             classes={{root: classes.inLabel}} shrink={false}>
-                                                    Выберите категорию
+                                                    Выберите
                                                 </InputLabel> : ""}
                                             <Select
-                                                multiple
                                                 classes={{root: classes.muiSeelctRoot}}
-                                                value={this.state.categorySelected}
-                                                onChange={this.handleChangeCategory}
+                                                name={"visibility"}
+                                                onChange={this.handleChange}
                                                 MenuProps={MenuProps}
-                                                input={<OutlinedInput name="category" id="outlined-kategory-select"/>}
-                                                renderValue={selected => {
-                                                    return selected.join(', ');
+                                                input={<OutlinedInput  id="outlined-visibility"/>}
+                                                IconComponent={()=>{
+                                                    return "";
                                                 }}
-                                                value={this.state.categorySelected}
+                                                value={this.state.visibility}
                                             >
                                                 {names.map(name => (
-                                                    <MenuItem key={name} value={name}>
-                                                        <ListItemText primary={name}/>
+                                                    <MenuItem key={name} value={name} >
+                                                        <ListItemText classes={{root:classes.listItemRoot, primary:classes.listItemPrimary}} primary={name}/>
                                                     </MenuItem>
                                                 ))}
                                             </Select>
@@ -364,26 +403,25 @@ class PollCreate extends Component {
                                     <Grid item md={9} sm={9} xs={9}>
                                         <FormControl className={classes.formControl} margin="dense" fullWidth
                                                      variant="outlined">
-                                            {this.state.categorySelected.length === 0 ?
-                                                <InputLabel htmlFor="outlined-category"
+                                            {this.state.visibility === null ?
+                                                <InputLabel htmlFor="outlined-visibility"
                                                             classes={{root: classes.inLabel}} shrink={false}>
-                                                    Выберите категорию
+                                                    Выберите
                                                 </InputLabel> : ""}
                                             <Select
-                                                multiple
                                                 classes={{root: classes.muiSeelctRoot}}
-                                                value={this.state.categorySelected}
-                                                onChange={this.handleChangeCategory}
+                                                name={"visibility"}
+                                                onChange={this.handleChange}
                                                 MenuProps={MenuProps}
-                                                input={<OutlinedInput name="category" id="outlined-kategory-select"/>}
-                                                renderValue={selected => {
-                                                    return selected.join(', ');
+                                                input={<OutlinedInput  id="outlined-visibility"/>}
+                                                IconComponent={()=>{
+                                                    return "";
                                                 }}
-                                                value={this.state.categorySelected}
+                                                value={this.state.visibility}
                                             >
                                                 {names.map(name => (
-                                                    <MenuItem key={name} value={name}>
-                                                        <ListItemText primary={name}/>
+                                                    <MenuItem key={name} value={name} >
+                                                        <ListItemText classes={{root:classes.listItemRoot, primary:classes.listItemPrimary}} primary={name}/>
                                                     </MenuItem>
                                                 ))}
                                             </Select>
@@ -400,26 +438,25 @@ class PollCreate extends Component {
                                     <Grid item md={9} sm={9} xs={9}>
                                         <FormControl className={classes.formControl} margin="dense" fullWidth
                                                      variant="outlined">
-                                            {this.state.categorySelected.length === 0 ?
-                                                <InputLabel htmlFor="outlined-category"
+                                            {this.state.visibility === null ?
+                                                <InputLabel htmlFor="outlined-visibility"
                                                             classes={{root: classes.inLabel}} shrink={false}>
-                                                    Выберите категорию
+                                                    Выберите
                                                 </InputLabel> : ""}
                                             <Select
-                                                multiple
                                                 classes={{root: classes.muiSeelctRoot}}
-                                                value={this.state.categorySelected}
-                                                onChange={this.handleChangeCategory}
+                                                name={"visibility"}
+                                                onChange={this.handleChange}
                                                 MenuProps={MenuProps}
-                                                input={<OutlinedInput name="category" id="outlined-kategory-select"/>}
-                                                renderValue={selected => {
-                                                    return selected.join(', ');
+                                                input={<OutlinedInput  id="outlined-visibility"/>}
+                                                IconComponent={()=>{
+                                                    return "";
                                                 }}
-                                                value={this.state.categorySelected}
+                                                value={this.state.visibility}
                                             >
                                                 {names.map(name => (
-                                                    <MenuItem key={name} value={name}>
-                                                        <ListItemText primary={name}/>
+                                                    <MenuItem key={name} value={name} >
+                                                        <ListItemText classes={{root:classes.listItemRoot, primary:classes.listItemPrimary}} primary={name}/>
                                                     </MenuItem>
                                                 ))}
                                             </Select>

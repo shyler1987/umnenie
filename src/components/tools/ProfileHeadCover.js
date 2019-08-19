@@ -346,7 +346,7 @@ class ProfileHeadCover extends Component {
 
                                     <div className={classes.fotoBouttonContainer}>
                                         {this.state.profilePhoto ? <Button variant="outlined" className={classes.buttonOblojka}
-                                                                classes={{root: classes.buttonFollow}} color="secondary1" size="large">
+                                                                classes={{root: classes.buttonFollow}}  size="large">
                                             <SvgIcon viewBox="0 0 15 15"  classes={{root: classes.svgRootIconRight}}><defs>
                                                 <clipPath id="clip-path-photo">
                                                     <rect id="Rectangle_103" data-name="Rectangle 103" width="15" height="15" transform="translate(175 1484)" fill="#fff" stroke="#707070" stroke-width="1"/>
@@ -370,11 +370,11 @@ class ProfileHeadCover extends Component {
                                     <div className={classes.profileHeadButtonBar}>
 
                                         <Button variant="outlined" className={classes.button}
-                                                classes={{root: classes.buttonFollow}} color="secondary1" size="large">
+                                                classes={{root: classes.buttonFollow}} size="large">
                                             Подписчиков <span style={{marginLeft: 20, color: '#e35b1e'}}>255</span> <dot className={classes.dot}></dot>
                                         </Button>
                                         <Button variant="outlined" className={classes.button}
-                                                classes={{root: classes.buttonFollow}} color="secondary1" size="large">
+                                                classes={{root: classes.buttonFollow}}  size="large">
                                             Подписки <span style={{marginLeft: 20, color: '#e35b1e'}}>255</span> <dot className={classes.dot}></dot>
                                         </Button>
                                     </div>
@@ -416,17 +416,17 @@ class ProfileHeadCover extends Component {
 
                                 </Hidden>
 
-                                <Button variant="contained" size="meduim"  color="secondary" classes={{root:classes.buttonLine}} onClick={()=>{this.profileEdit()}}>
+                                <Button variant="contained" size="medium"  color="secondary" classes={{root:classes.buttonLine}} onClick={()=>{this.profileEdit()}}>
                                     Редактировать профиль
                                 </Button>
-                                <Button variant="contained" size="meduim"  color="secondary" classes={{root:classes.buttonLine}}>
+                                <Button variant="contained" size="medium"  color="secondary" classes={{root:classes.buttonLine}}>
                                     Заблокировать
                                 </Button>
 
-                                <Button variant="contained" size="meduim" color="secondary" classes={{root:classes.buttonLine}}>
+                                <Button variant="contained" size="medium" color="secondary" classes={{root:classes.buttonLine}}>
                                     Написать
                                 </Button>
-                                <Button variant="contained" size="meduim" color="secondary" classes={{root:classes.buttonLine}}>
+                                <Button variant="contained" size="medium" color="secondary" classes={{root:classes.buttonLine}}>
                                     Подписаться
                                 </Button>
 

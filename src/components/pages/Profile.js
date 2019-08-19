@@ -144,7 +144,7 @@ class ProfileFollower extends Component {
                         О себе
                     </Typography>
                     <Grid container spacing={0} >
-                        <Grid md={12}>
+                        <Grid md={12} item>
                             <Typography classes={{root:classes.textAbout}}>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                                 labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
