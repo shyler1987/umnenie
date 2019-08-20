@@ -34,11 +34,10 @@ const BorderLinearProgress = withStyles({
         backgroundColor: '#ff6c5c',
         //transform: "translateX(50%) !important"
     },
-    determinate:{
+    determinate: {
         //transform: 'translateX(50%)'
     }
 })(LinearProgress);
-
 
 
 const BootstrapInput = withStyles(theme => ({
@@ -203,7 +202,28 @@ const styles = theme => ({
         display: 'flex',
         position: 'relative'
     },
-
+    lineBarColor1: {
+        backgroundColor: '#3c5aff'
+    },
+    lineBarColor2: {
+        backgroundColor: '#6ec549'
+    },
+    lineBarColor3: {
+        backgroundColor: '#e05022'
+    },
+    lineBarColor4: {
+        backgroundColor: '#ef7f1a'
+    },
+    lineBarColor5: {
+        backgroundColor: '#e0da22'
+    },
+    lineBarColor6: {
+        backgroundColor: '#2b9ce8'
+    },
+    rootLineText: {
+        fontWeight: 600,
+        fontSize: 15,
+    },
     lineStatisP: {
         fontWeight: 600,
         fontSize: 15,
@@ -216,6 +236,10 @@ const styles = theme => ({
             fontSize: 12,
         }
     },
+    lineSize: {
+        padding: '6px 0px 6px 0px'
+    },
+
     svgRoot: {
         width: 20,
         fill: theme.palette.mainBlackColor,
@@ -296,11 +320,11 @@ class StatisPage extends Component {
                 <Grid container spacing={0}>
                     <Grid md={12} sm={12} xs={12}>
                         <Paper className={classes.paper}>
-                            <Grid container spacing={3} direction={"row"} >
+                            <Grid container spacing={3} direction={"row"}>
                                 <Grid md={2} sm={12} xs={12}>
                                     <Grid container justify="center"
                                           alignItems="center">
-                                        <Grid sm={5} xs={5} md={9} >
+                                        <Grid sm={5} xs={5} md={9}>
                                             <div style={{padding: '8px 8px 8px'}}>
                                                 <PieChart
                                                     data={[
@@ -551,72 +575,114 @@ class StatisPage extends Component {
                             <Table className={classes.table}>
                                 <TableBody>
                                     <TableRow key={1}>
-                                        <TableCell component="th" scope="row" style={{width:'25%'}}>
-                                            Тюмень
+                                        <TableCell component="th" style={{width: '25%'}}>
+                                            <Typography classes={{root: classes.rootLineText}}> Тюмень</Typography>
                                         </TableCell>
-                                        <TableCell component="th" scope="row" size={"small"}>
+                                        <TableCell component="th" classes={{root: classes.lineSize}}>
                                             <BorderLinearProgress
                                                 className={classes.margin}
-                                                classes={{bar:{backgroundColor: '#ff1205'}}}
+                                                classes={{barColorPrimary: classes.lineBarColor1}}
                                                 variant="determinate"
-                                                color="secondary"
+                                                value={10}
+                                            />
+                                        </TableCell>
+                                        <TableCell component="th" style={{width: '5%'}}>
+                                            <Typography classes={{root: classes.rootLineText}}> 1255</Typography>
+
+                                        </TableCell>
+                                    </TableRow>
+
+                                    <TableRow key={1}>
+                                        <TableCell component="th" scope="row" style={{width: '25%'}}>
+                                            <Typography classes={{root: classes.rootLineText}}> Казань</Typography>
+                                        </TableCell>
+                                        <TableCell component="th" scope="row" classes={{root: classes.lineSize}}>
+                                            <BorderLinearProgress
+                                                className={classes.margin}
+                                                classes={{barColorPrimary: classes.lineBarColor2}}
+                                                variant="determinate"
                                                 value={80}
                                             />
                                         </TableCell>
-                                        <TableCell component="th" scope="row" style={{width:'10%'}}>
-                                            1255
+                                        <TableCell component="th" scope="row" style={{width: '5%'}}>
+                                            <Typography classes={{root: classes.rootLineText}}> 1255</Typography>
+
                                         </TableCell>
                                     </TableRow>
+
                                     <TableRow key={1}>
-                                        <TableCell component="th" scope="row" style={{width:'25%'}}>
-                                            Тюмень
+                                        <TableCell component="th" scope="row" style={{width: '25%'}}>
+                                            <Typography
+                                                classes={{root: classes.rootLineText}}> Екатеринбург</Typography>
+
                                         </TableCell>
-                                        <TableCell component="th" scope="row" size={"small"}>
+                                        <TableCell component="th" scope="row" classes={{root: classes.lineSize}}>
                                             <BorderLinearProgress
                                                 className={classes.margin}
-                                                classes={{bar:{backgroundColor: '#ff1205'}}}
+                                                classes={{barColorPrimary: classes.lineBarColor3}}
                                                 variant="determinate"
-                                                color="secondary"
-                                                value={80}
-                                            />
-                                        </TableCell>
-                                        <TableCell component="th" scope="row" style={{width:'10%'}}>
-                                            1255
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow key={1}>
-                                        <TableCell component="th" scope="row" style={{width:'25%'}}>
-                                            Тюмень
-                                        </TableCell>
-                                        <TableCell component="th" scope="row" size={"small"}>
-                                            <BorderLinearProgress
-                                                className={classes.margin}
-                                                classes={{bar:{backgroundColor: '#ff1205'}}}
-                                                variant="determinate"
-                                                color="secondary"
                                                 value={10}
 
                                             />
                                         </TableCell>
-                                        <TableCell component="th" scope="row" style={{width:'10%'}}>
-                                            1255
+                                        <TableCell component="th" scope="row" style={{width: '5%'}}>
+                                            <Typography classes={{root: classes.rootLineText}}> 1255</Typography>
+
                                         </TableCell>
                                     </TableRow>
                                     <TableRow key={1}>
-                                        <TableCell component="th" scope="row" style={{width:'25%'}}>
-                                            Тюмень
+                                        <TableCell component="th" scope="row" style={{width: '5%'}}>
+                                            <Typography classes={{root: classes.rootLineText}}> Челябинск</Typography>
+
                                         </TableCell>
-                                        <TableCell component="th" scope="row" size={"small"}>
+                                        <TableCell component="th" scope="row" classes={{root: classes.lineSize}}>
                                             <BorderLinearProgress
                                                 className={classes.margin}
-
+                                                classes={{barColorPrimary: classes.lineBarColor4}}
                                                 variant="determinate"
-                                                color="secondary"
                                                 value={30}
                                             />
                                         </TableCell>
-                                        <TableCell component="th" scope="row" style={{width:'10%'}}>
-                                            1255
+                                        <TableCell component="th" scope="row" style={{width: '5%'}}>
+                                            <Typography classes={{root: classes.rootLineText}}> 1255</Typography>
+
+                                        </TableCell>
+                                    </TableRow>
+
+                                    <TableRow key={1}>
+                                        <TableCell component="th" scope="row" style={{width: '25%'}}>
+                                            <Typography classes={{root: classes.rootLineText}}> Уфа</Typography>
+
+                                        </TableCell>
+                                        <TableCell component="th" scope="row" classes={{root: classes.lineSize}}>
+                                            <BorderLinearProgress
+                                                className={classes.margin}
+                                                classes={{barColorPrimary: classes.lineBarColor5}}
+                                                variant="determinate"
+                                                value={30}
+                                            />
+                                        </TableCell>
+                                        <TableCell component="th" scope="row" style={{width: '5%'}}>
+                                            <Typography classes={{root: classes.rootLineText}}> 1255</Typography>
+
+                                        </TableCell>
+                                    </TableRow>
+
+                                    <TableRow key={1}>
+                                        <TableCell component="th" scope="row" style={{width: '25%'}}>
+                                            <Typography classes={{root: classes.rootLineText}}> Пермь</Typography>
+
+                                        </TableCell>
+                                        <TableCell component="th" scope="row" classes={{root: classes.lineSize}}>
+                                            <BorderLinearProgress
+                                                className={classes.margin}
+                                                classes={{barColorPrimary: classes.lineBarColor6}}
+                                                variant="determinate"
+                                                value={30}
+                                            />
+                                        </TableCell>
+                                        <TableCell component="th" scope="row" style={{width: '5%'}}>
+                                            <Typography classes={{root: classes.rootLineText}}> 1255</Typography>
                                         </TableCell>
                                     </TableRow>
 
