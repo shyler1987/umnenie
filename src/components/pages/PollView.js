@@ -93,6 +93,9 @@ const styles = theme => ({
     labelCommentFile:{
         display: 'inline-block',
         marginBottom: 0
+    },
+    cell:{
+        paddingBottom: 20
     }
 });
 const API_POLLS = "polls/item/?id=";

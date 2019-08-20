@@ -15,8 +15,7 @@ import Divider from '@material-ui/core/Divider';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import PieChart from 'react-minimal-pie-chart';
 import LinearProgress from '@material-ui/core/LinearProgress';
-
-
+import FloatActionButtun from "../tools/FloatActionButtun";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -275,6 +274,8 @@ class StatisPage extends Component {
         const {classes} = this.props;
         return (
             <div>
+                <FloatActionButtun/>
+
                 <Loading
                     show={this.state.show}
                     color="red"
@@ -669,11 +670,11 @@ class StatisPage extends Component {
                                     </TableRow>
 
                                     <TableRow key={1}>
-                                        <TableCell component="th" scope="row" style={{width: '25%'}}>
+                                        <TableCell component="th" scope="row" style={{width: '25%',  paddingBottom: 25}}>
                                             <Typography classes={{root: classes.rootLineText}}> Пермь</Typography>
 
                                         </TableCell>
-                                        <TableCell component="th" scope="row" classes={{root: classes.lineSize}}>
+                                        <TableCell component="th" scope="row" classes={{root: classes.lineSize}} style={{ paddingBottom: 25}}>
                                             <BorderLinearProgress
                                                 className={classes.margin}
                                                 classes={{barColorPrimary: classes.lineBarColor6}}
@@ -681,7 +682,7 @@ class StatisPage extends Component {
                                                 value={30}
                                             />
                                         </TableCell>
-                                        <TableCell component="th" scope="row" style={{width: '5%'}}>
+                                        <TableCell component="th" scope="row" style={{width: '5%',  paddingBottom: 25}}>
                                             <Typography classes={{root: classes.rootLineText}}> 1255</Typography>
                                         </TableCell>
                                     </TableRow>
