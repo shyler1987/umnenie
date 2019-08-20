@@ -52,7 +52,15 @@ const styles = theme => ({
         fontWeight: 400,
         color:theme.palette.mainBlackColor,
         textAlign: 'justify'
-    }
+    },
+    textPFoot:{
+        fontSize: 15,
+        textAlign: 'center !important',
+        padding: '10px 10px 10px',
+        fontWeight: 600,
+        color:"#2b2a29"
+    },
+
 
 });
 
@@ -72,7 +80,7 @@ class License extends Component {
     render() {
         const {classes} = this.props;
         return (
-            <div>
+            <div style={{margin: '0px 20px 20px 15px'}}>
                 <FloatActionButtun/>
                 <Loading
                     show={this.state.show}
@@ -139,7 +147,11 @@ class License extends Component {
                         8. Условия использования аналога собственноручной подписи
                         Раздел включает порядок использования логина и пароля или адреса электронной почты в качестве ключа простой электронной подписи. Данное условие необходимо для придания юридической силы всем действиям сторон и упрощения возможного документооборота.
                     </Typography>
+
+
                 </Grid>
+                <Typography classes={{root:classes.textPFoot}}>© 2015-2019 UMNENIE </Typography>
+
 
             </div>
         );

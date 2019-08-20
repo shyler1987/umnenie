@@ -33,10 +33,11 @@ const styles = theme => ({
     textP:{
         fontSize: 13,
         textAlign: 'center',
-        padding: '10px 20px 10px',
+        padding: '10px 10px 10px',
         fontWeight: 600,
         color:"#2b2a29"
     },
+
     callCenter:{
         textAlign: 'right',
     },
@@ -119,7 +120,7 @@ class RecoveryPassword extends Component {
                                 alignItems="flex-start"
                                 style={{minHeight:500}}
                             >
-                                <Grid item md={4}>
+                                <Grid item md={4} style={{padding: '0px 20px 0px'}}>
                                     <form fullWidth>
                                         <TextField
                                             fullWidth

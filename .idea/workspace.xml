@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3013fece-6add-4506-8dd7-e5be49d79bf2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/pages/StatisPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/StatisPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/License.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/License.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/RecoveryPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/RecoveryPassword.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -29,11 +31,35 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/components/pages/StatisPage.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="170">
+                <state relative-caret-position="374">
                   <caret line="695" column="29" selection-start-line="695" selection-start-column="29" selection-end-line="695" selection-end-column="29" />
+                  <folding>
+                    <element signature="e#0#39#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/components/pages/RecoveryPassword.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="257">
+                  <caret line="122" column="81" selection-start-line="122" selection-start-column="81" selection-end-line="122" selection-end-column="81" />
+                  <folding>
+                    <element signature="e#0#39#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/components/pages/License.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="569">
+                  <caret line="153" lean-forward="true" selection-start-line="153" selection-end-line="153" />
                   <folding>
                     <element signature="e#0#39#0" expanded="true" />
                   </folding>
@@ -79,10 +105,10 @@
       <split-second>
         <leaf>
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/components/pages/PollView.js">
+            <entry file="file://$PROJECT_DIR$/src/components/pages/License.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="110">
-                  <caret line="97" column="25" lean-forward="true" selection-start-line="97" selection-start-column="7" selection-end-line="97" selection-end-column="25" />
+                <state relative-caret-position="464">
+                  <caret line="57" column="37" selection-start-line="57" selection-start-column="37" selection-end-line="57" selection-end-column="37" />
                   <folding>
                     <element signature="e#0#39#0" expanded="true" />
                   </folding>
@@ -162,7 +188,6 @@
         <option value="$PROJECT_DIR$/src/LayoutPages/Menu.js" />
         <option value="$PROJECT_DIR$/src/components/tools/BootstrapInput.js" />
         <option value="$PROJECT_DIR$/src/LayoutPages/Profile.js" />
-        <option value="$PROJECT_DIR$/src/components/pages/License.js" />
         <option value="$PROJECT_DIR$/src/components/pages/PasswordChange.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/redux/actions/setIsAuth.js" />
@@ -181,7 +206,6 @@
         <option value="$PROJECT_DIR$/src/media/icons/photo.svg" />
         <option value="$PROJECT_DIR$/src/components/pages/ProfileJuridic.js" />
         <option value="$PROJECT_DIR$/src/App.js" />
-        <option value="$PROJECT_DIR$/src/components/pages/RecoveryPassword.js" />
         <option value="$PROJECT_DIR$/src/components/pages/Registration.js" />
         <option value="$PROJECT_DIR$/src/components/tools/TopMenu.js" />
         <option value="$PROJECT_DIR$/src/components/tools/LeftMenu.js" />
@@ -196,14 +220,15 @@
         <option value="$PROJECT_DIR$/src/components/pages/PollCreate.js" />
         <option value="$PROJECT_DIR$/src/components/pages/PollView.js" />
         <option value="$PROJECT_DIR$/src/components/pages/StatisPage.js" />
+        <option value="$PROJECT_DIR$/src/components/pages/RecoveryPassword.js" />
+        <option value="$PROJECT_DIR$/src/components/pages/License.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="472" />
-    <option name="y" value="166" />
-    <option name="width" value="1356" />
-    <option name="height" value="748" />
+    <option name="y" value="27" />
+    <option name="width" value="1366" />
+    <option name="height" value="741" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -310,18 +335,18 @@
       <workItem from="1566011554866" duration="18615000" />
       <workItem from="1566130175044" duration="9681000" />
       <workItem from="1566205671228" duration="105000" />
-      <workItem from="1566291069089" duration="4541000" />
+      <workItem from="1566291069089" duration="7041000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="446740000" />
+    <option name="totallyTimeSpent" value="449240000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="27" width="1366" height="741" extended-state="6" />
+    <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2503726" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17721519" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -336,7 +361,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32894737" />
       <window_info anchor="bottom" id="TypeScript" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50052744" side_tool="true" weight="0.32894737" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.4994726" visible="true" weight="0.35" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4994726" visible="true" weight="0.23026316" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -373,16 +398,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="29" column="20" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/pages/License.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-345">
-          <caret line="85" column="31" selection-start-line="85" selection-start-column="31" selection-end-line="85" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -454,16 +469,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="399">
           <caret line="218" column="83" selection-start-line="218" selection-start-column="83" selection-end-line="218" selection-end-column="83" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/pages/RecoveryPassword.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="76" column="4" lean-forward="true" selection-start-line="76" selection-start-column="4" selection-end-line="78" selection-end-column="5" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -662,8 +667,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/pages/StatisPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
+        <state relative-caret-position="374">
           <caret line="695" column="29" selection-start-line="695" selection-start-column="29" selection-end-line="695" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/pages/RecoveryPassword.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="122" column="81" selection-start-line="122" selection-start-column="81" selection-end-line="122" selection-end-column="81" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/pages/License.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="153" lean-forward="true" selection-start-line="153" selection-end-line="153" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
