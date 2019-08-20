@@ -670,11 +670,11 @@ class StatisPage extends Component {
                                     </TableRow>
 
                                     <TableRow key={1}>
-                                        <TableCell component="th" scope="row" style={{width: '25%',  paddingBottom: 25}}>
+                                        <TableCell component="th" scope="row" style={{width: '25%'}}>
                                             <Typography classes={{root: classes.rootLineText}}> Пермь</Typography>
 
                                         </TableCell>
-                                        <TableCell component="th" scope="row" classes={{root: classes.lineSize}} style={{ paddingBottom: 25}}>
+                                        <TableCell component="th" scope="row" classes={{root: classes.lineSize}}>
                                             <BorderLinearProgress
                                                 className={classes.margin}
                                                 classes={{barColorPrimary: classes.lineBarColor6}}
@@ -682,15 +682,18 @@ class StatisPage extends Component {
                                                 value={30}
                                             />
                                         </TableCell>
-                                        <TableCell component="th" scope="row" style={{width: '5%',  paddingBottom: 25}}>
+                                        <TableCell component="th" scope="row" style={{width: '5%'}}>
                                             <Typography classes={{root: classes.rootLineText}}> 1255</Typography>
                                         </TableCell>
                                     </TableRow>
 
                                 </TableBody>
                             </Table>
-                        </Paper>
 
+
+                        </Paper>
+                        <br/>
+                        <br/>
                     </Grid>
 
                 </Grid>
