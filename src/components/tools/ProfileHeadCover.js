@@ -88,16 +88,16 @@ const styles = theme => ({
     buttonFollow: {
         color: "#ffffff",
         fontWeight: 600,
-        borderColor: theme.palette.BorderColor,
+        borderColor: 'rgba(230, 230, 230, 0.45)',
         margin: '0px 5px 0px 5px',
         background: 'rgba(43, 42, 41, 0.45)',
         '&:hover': {
-            borderColor: theme.palette.BorderColor,
+            borderColor: 'rgba(230, 230, 230, 0.45)',
             background: 'rgba(255, 255, 255, 0.2)'
         },
         '&:active': {
             boxShadow: 'none',
-            borderColor: theme.palette.BorderColor,
+            borderColor: 'rgba(230, 230, 230, 0.45)',
             background: 'rgba(43, 42, 41, 0.45)'
         },
         '&:focus': {
@@ -110,16 +110,16 @@ const styles = theme => ({
         color: "#000",
         fontWeight: 600,
         width:'100%',
-        borderColor: theme.palette.BorderColor,
+        borderColor: 'rgba(230, 230, 230, 0.45)',
         margin: '4px 0px',
         //background: 'rgba(43, 42, 41, 0.45)',
         '&:hover': {
-            borderColor: theme.palette.BorderColor,
+            borderColor: 'rgba(230, 230, 230, 0.45)',
             //background: 'rgba(43, 42, 41, 0.45)'
         },
         '&:active': {
             boxShadow: 'none',
-            borderColor: theme.palette.BorderColor,
+            borderColor: 'rgba(230, 230, 230, 0.45)',
             //background: 'rgba(43, 42, 41, 0.45)'
         },
         '&:focus': {
