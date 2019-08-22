@@ -19,123 +19,176 @@ import ProfileHeadCover from "../tools/ProfileHeadCover";
 
 
 const styles = theme => ({
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-around',
-        overflow: 'hidden',
-        // backgroundColor: theme.palette.background.paper,
-    },
-    paper: {
-        //padding: theme.spacing(2),
-        margin: '15px 0px 10px',
-        color: theme.palette.text.secondary,
-        //minHeight:500
-    },
-    textField: {},
-    inputHeight: {
-        height: 100
-    },
-    textP: {
-        fontSize: 14,
-        textAlign: 'justify',
-        paddingTop: 10
-    },
-    callCenter: {
-        textAlign: 'right',
-    },
-    copyright: {
-        textAlign: 'left',
-    },
-    bigAvatar: {
-        margin: 5,
-        width: 180,
-        height: 180,
-        border: '3px solid #fff',
-    },
-    cover: {
-        position: 'absolute',
-        bottom: -30,
-        zIndex: 1000
-    },
-    timelineCover: {
-        background: `url(${CoverImage})`,
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        minHeight: 300,
-        borderRadius: '0 0 4px 4px',
-        position: 'relative',
-    },
-    timelineSocial: {
-        background: "#fff",
-        position: 'relative',
-    },
-    button: {
-        margin: '15px 5px 15px'
-    },
-    ListButton: {
-        textTransform: 'none'
-    },
-    ListButtonInActive: {
-        textTransform: 'none',
-        color:"#000"
-    },
+        root: {
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-around',
+            overflow: 'hidden',
+            // backgroundColor: theme.palette.background.paper,
+        },
+        paper: {
+            //padding: theme.spacing(2),
+            margin: '15px 0px 10px',
+            color: theme.palette.text.secondary,
+            //minHeight:500
+        },
+        textField: {},
+        inputHeight: {
+            height: 100
+        },
+        textP: {
+            fontSize: 14,
+            textAlign: 'justify',
+            paddingTop: 10
+        },
+        callCenter: {
+            textAlign: 'right',
+        },
+        copyright: {
+            textAlign: 'left',
+        },
+        bigAvatar: {
+            margin: 5,
+            width: 180,
+            height: 180,
+            border: '3px solid #fff',
+        },
+        cover: {
+            position: 'absolute',
+            bottom: -30,
+            zIndex: 1000
+        },
+        timelineCover: {
+            background: `url(${CoverImage})`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            minHeight: 300,
+            borderRadius: '0 0 4px 4px',
+            position: 'relative',
+        },
+        timelineSocial: {
+            background: "#fff",
+            position: 'relative',
+        },
+        button: {
+            margin: '15px 5px 15px'
+        },
+        ListButton: {
+            textTransform: 'none'
+        },
+        ListButtonInActive: {
+            textTransform: 'none',
+            color: "#000"
+        },
 
-    buttonFollow: {
-        color: "#ffffff",
-        fontWeight: 600,
-        borderColor: '#E6E6E6',
-        margin: '0px 5px 0px 5px'
-    },
-    '&:hover': {
-        borderColor: '#E6E6E6',
-    },
-    '&:active': {
-        boxShadow: 'none',
-        borderColor: '#E6E6E6',
-    },
-    '&:focus': {
-        boxShadow: '0 0 0 0.0rem rgba(255,255,255,.5)',
-        color: 'outline: 5px auto #fff'
-    },
-    about:{
-        fontSize:18,
-        color:theme.palette.mainBlackColor
-    },
-    titleHead:{
-        fontWeight: 600,
-        fontSize:30,
-        margin: '25px 5px 10px 0px'
-    },
-    buttonGroupActive:{
-        background:theme.palette.YellowColor,
-        color:"#ffffff",
-        "&:hover": {
-            //you want this to be the same as the backgroundColor above
-            backgroundColor: 'rgb(156, 56, 23)',
-            color:"#ffffff",
-        }
-    },
-    buttonGroup:{
-        "&:hover": {
-            //you want this to be the same as the backgroundColor above
-            backgroundColor: "rgb(193, 193, 193)",
-            color:"#ffffff",
+        buttonFollow: {
+            color: "#ffffff",
+            fontWeight: 600,
+            borderColor: '#E6E6E6',
+            margin: '0px 5px 0px 5px'
+        },
+        '&:hover': {
+            borderColor: '#E6E6E6',
         },
         '&:active': {
-            backgroundColor: "rgb(193, 193, 193)",
-            color:"#ffffff",
+            boxShadow: 'none',
+            borderColor: '#E6E6E6',
         },
         '&:focus': {
-            backgroundColor: "rgb(193, 193, 193)",
-            color:"#ffffff",
+            boxShadow: '0 0 0 0.0rem rgba(255,255,255,.5)',
+            color: 'outline: 5px auto #fff'
         },
-    }
+        about: {
+            fontSize: 18,
+            color: theme.palette.mainBlackColor
+        },
+        titleHead: {
+            fontWeight: 600,
+            fontSize: 30,
+            margin: '25px 5px 10px 0px'
+        },
+        buttonGroupActive: {
+            background: theme.palette.YellowColor,
+            color: "#ffffff",
+            "&:hover": {
+                //you want this to be the same as the backgroundColor above
+                backgroundColor: theme.palette.YellowColor,
+                color: "#ffffff",
+            },
+            [theme.breakpoints.down('md')
+                ]:
+                {
+                    border: 0,
+                    margin: '0px  !important',
+                    "&:not(:last-child)": {
+                        borderBottom: 0
+                    },
+                    "&:first-child": {
+                        borderTopRightRadius: '4px !important',
+                        borderBottomRightRadius: '0px !important',
+                        borderBottomLeftRadius: '0px !important',
+                        borderTopLeftRadius: '4px !important',
+                    },
+                    "&:last-child": {
+                        borderTopRightRadius: '0px',
+                        borderBottomRightRadius: '4px !important',
+                        borderBottomLeftRadius: '4px !important',
+                        borderTopLeftRadius: '0px',
+                    }
+                }
+        },
+        buttonGroup: {
+            backgroundColor: "rgb(255, 255, 255)",
+            "&:not(:first-child)": {
+                marginLeft: 0
+            },
+            "&:hover": {
+                //you want this to be the same as the backgroundColor above
+                backgroundColor: "rgb(193, 193, 193)",
+                color: "#ffffff",
+            },
+            '&:active': {
+                backgroundColor: "rgb(193, 193, 193)",
+                color: "#ffffff",
+            },
+            '&:focus': {
+                backgroundColor: "rgb(193, 193, 193)",
+                color: "#ffffff",
+            },
+            [theme.breakpoints.down('md')
+                ]:
+                {
+                    flexDirection: 'column',
+                    alignItems: 'flex-center',
+                    justifyContent: 'center',
+                    backgroundColor: "rgb(255, 255, 255)",
+                    borderLeftColor: '#E6E6E6 !important',
+                    borderColor: '#E6E6E6 !important',
+                    // "&:not(:first-child)": {
+                    //     borderBottom:0
+                    // },
+                    "&:not(:last-child)": {
+                        borderBottom: 0
+                    },
+                    "&:first-child": {
+                        borderTopRightRadius: '4px !important',
+                        borderBottomRightRadius: '0px !important',
+                        borderBottomLeftRadius: '0px !important',
+                        borderTopLeftRadius: '4px !important',
+                    },
+                    "&:last-child": {
+                        borderTopRightRadius: '0px',
+                        borderBottomRightRadius: '4px !important',
+                        borderBottomLeftRadius: '4px !important',
+                        borderTopLeftRadius: '0px',
+                    }
+
+                }
+        },
 
 
-
-
-});
+    })
+;
 
 
 const API_POLLS = "polls/list";
@@ -146,50 +199,51 @@ class ProfileJuridic extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            polls:[],
-            show:false,
-            activeButton:0
+            polls: [],
+            show: false,
+            activeButton: 0
         };
     }
+
     componentDidMount() {
         this.setState({
-            show:true
+            show: true
         })
         axios.get(API_POLLS).then(res => {
-            if(res.status===200 && res.data.count>0){
+            if (res.status === 200 && res.data.count > 0) {
 
                 this.setState({
-                    polls:res.data.result
+                    polls: res.data.result
 
                 })
             }
             this.setState({
-                show:false
+                show: false
             })
 
         }).catch(err => {
             this.setState({
-                show:false
+                show: false
             })
             console.log(err);
         })
     }
-    setActive = (index) =>{
+
+    setActive = (index) => {
         this.setState({
-            activeButton:index
+            activeButton: index
         })
     }
 
-     getClass = (index) =>{
-         let activeButton = this.state.activeButton;
-         if(index===activeButton)
+    getClass = (index) => {
+        let activeButton = this.state.activeButton;
+        if (index === activeButton)
             return 'buttonGroupActive'
-         return 'buttonGroup'
+        return 'buttonGroup'
     }
 
     render() {
         const {classes} = this.props;
-
 
 
         return (
@@ -201,25 +255,39 @@ class ProfileJuridic extends Component {
                     color="red"
                 />
                 <Container>
-                    <Typography classes={{root:classes.titleHead}} >
+                    <Typography classes={{root: classes.titleHead}}>
                         О себе
                     </Typography>
                     <Grid container spacing={0}>
                         <Grid md={12}>
-                            <Typography classes={{root:classes.about}}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            <Typography classes={{root: classes.about}}>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                mollit anim id est laborum.
                             </Typography>
 
                         </Grid>
                     </Grid>
 
-                    <Grid container spacing={0} style={{marginTop:20}}>
+                    <Grid container spacing={0} style={{marginTop: 20}}>
                         <Grid md={12} xs={12} sm={12}>
-                            <ButtonGroup fullWidth aria-label="full width outlined button group" classes={{root:classes.ButtonGroup}}>
-                                <Button onClick={()=>{this.setActive(0)}} classes={{root:classes[this.getClass(0)]}}>Мои опросы</Button>
-                                <Button onClick={()=>{this.setActive(1)}}  classes={{root:classes[this.getClass(1)]}}>Избранное</Button>
-                                <Button onClick={()=>{this.setActive(2)}}  classes={{root:classes[this.getClass(2)]}}>Реферальный</Button>
-                                <Button onClick={()=>{this.setActive(3)}}  classes={{root:classes[this.getClass(3)]}}>Черновики</Button>
+                            <ButtonGroup fullWidth aria-label="full width outlined button group"
+                                         classes={{root: classes.buttonGroup}}>
+                                <Button onClick={() => {
+                                    this.setActive(0)
+                                }} classes={{root: classes[this.getClass(0)]}}>Мои опросы</Button>
+                                <Button onClick={() => {
+                                    this.setActive(1)
+                                }} classes={{root: classes[this.getClass(1)]}}>Избранное</Button>
+                                <Button onClick={() => {
+                                    this.setActive(2)
+                                }} classes={{root: classes[this.getClass(2)]}}>Реферальный</Button>
+                                <Button onClick={() => {
+                                    this.setActive(3)
+                                }} classes={{root: classes[this.getClass(3)]}}>Черновики</Button>
                             </ButtonGroup>
                         </Grid>
                     </Grid>
@@ -227,7 +295,7 @@ class ProfileJuridic extends Component {
                 </Container>
 
                 <Container>
-                    <Typography classes={{root:classes.titleHead}} >
+                    <Typography classes={{root: classes.titleHead}}>
                         Опросы пользователя
                     </Typography>
                     <ResponsiveMasonry

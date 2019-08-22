@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3013fece-6add-4506-8dd7-e5be49d79bf2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/ProfileJuridic.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ProfileJuridic.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -19,88 +19,22 @@
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/components/pages/PollCreate.js">
+            <entry file="file://$PROJECT_DIR$/src/App.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2280">
-                  <caret line="180" column="19" selection-start-line="180" selection-start-column="4" selection-end-line="180" selection-end-column="19" />
+                <state relative-caret-position="413">
+                  <caret line="140" column="29" selection-start-line="140" selection-start-column="23" selection-end-line="140" selection-end-column="29" />
                   <folding>
                     <element signature="e#0#39#0" expanded="true" />
                   </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/components/pages/StatisPage.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="10110">
-                  <caret line="695" column="29" selection-start-line="695" selection-start-column="29" selection-end-line="695" selection-end-column="29" />
-                  <folding>
-                    <element signature="e#0#39#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/components/pages/RecoveryPassword.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="257">
-                  <caret line="122" column="81" selection-start-line="122" selection-start-column="81" selection-end-line="122" selection-end-column="81" />
-                  <folding>
-                    <element signature="e#0#39#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/components/pages/ProfileFollower.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-90">
-                  <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js">
+            <entry file="file://$PROJECT_DIR$/src/components/pages/ProfileJuridic.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="503">
-                  <caret line="141" column="22" lean-forward="true" selection-start-line="141" selection-start-column="22" selection-end-line="141" selection-end-column="22" />
-                  <folding>
-                    <element signature="e#0#39#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/components/pages/PollView.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="60">
-                  <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/components/Dash.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1260">
-                  <caret line="94" column="25" selection-start-line="94" selection-end-line="95" />
-                  <folding>
-                    <element signature="e#0#39#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/App.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="825">
-                  <caret line="74" column="60" selection-start-line="74" selection-start-column="16" selection-end-line="74" selection-end-column="60" />
+                <state relative-caret-position="268">
+                  <caret line="121" column="44" selection-start-line="121" selection-start-column="44" selection-end-line="121" selection-end-column="44" />
                   <folding>
                     <element signature="e#0#39#0" expanded="true" />
                   </folding>
@@ -111,12 +45,12 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+        <leaf>
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/components/pages/License.js">
+            <entry file="file://$PROJECT_DIR$/src/components/pages/ProfileJuridic.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="110">
-                  <caret line="57" column="37" selection-start-line="57" selection-start-column="37" selection-end-line="57" selection-end-column="37" />
+                <state relative-caret-position="748">
+                  <caret line="184" selection-start-line="184" selection-end-line="184" />
                   <folding>
                     <element signature="e#0#39#0" expanded="true" />
                   </folding>
@@ -212,7 +146,6 @@
         <option value="$PROJECT_DIR$/src/media/icons/instagram.svg" />
         <option value="$PROJECT_DIR$/src/components/tools/ProfileHeadLine.js" />
         <option value="$PROJECT_DIR$/src/media/icons/photo.svg" />
-        <option value="$PROJECT_DIR$/src/components/pages/ProfileJuridic.js" />
         <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/components/pages/Registration.js" />
         <option value="$PROJECT_DIR$/src/components/tools/TopMenu.js" />
@@ -230,6 +163,7 @@
         <option value="$PROJECT_DIR$/src/components/pages/RecoveryPassword.js" />
         <option value="$PROJECT_DIR$/src/components/pages/License.js" />
         <option value="$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js" />
+        <option value="$PROJECT_DIR$/src/components/pages/ProfileJuridic.js" />
       </list>
     </option>
   </component>
@@ -351,12 +285,12 @@
       <workItem from="1566130175044" duration="9681000" />
       <workItem from="1566205671228" duration="105000" />
       <workItem from="1566291069089" duration="7775000" />
-      <workItem from="1566461078211" duration="732000" />
+      <workItem from="1566461078211" duration="9630000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="450706000" />
+    <option name="totallyTimeSpent" value="459604000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
@@ -377,7 +311,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32894737" />
       <window_info anchor="bottom" id="TypeScript" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50052744" side_tool="true" weight="0.32894737" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4994726" visible="true" weight="0.3508772" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4994726" weight="0.3508772" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -480,16 +414,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/media/icons/photo.svg">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/pages/ProfileJuridic.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="218" column="83" selection-start-line="218" selection-start-column="83" selection-end-line="218" selection-end-column="83" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/tools/ProfileHeadLine.js" />
     <entry file="file://$PROJECT_DIR$/src/components/pages/Registration.js">
@@ -627,26 +551,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/pages/PollCreate.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2280">
-          <caret line="180" column="19" selection-start-line="180" selection-start-column="4" selection-end-line="180" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/pages/StatisPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10110">
-          <caret line="695" column="29" selection-start-line="695" selection-start-column="29" selection-end-line="695" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/pages/PollView.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -664,30 +568,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="825">
-          <caret line="74" column="60" selection-start-line="74" selection-start-column="16" selection-end-line="74" selection-end-column="60" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/pages/License.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
+        <state relative-caret-position="-250">
           <caret line="57" column="37" selection-start-line="57" selection-start-column="37" selection-end-line="57" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/pages/RecoveryPassword.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="122" column="81" selection-start-line="122" selection-start-column="81" selection-end-line="122" selection-end-column="81" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -701,10 +585,60 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/pages/RecoveryPassword.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="122" column="81" selection-start-line="122" selection-start-column="81" selection-end-line="122" selection-end-column="81" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/pages/StatisPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="695" column="29" selection-start-line="695" selection-start-column="29" selection-end-line="695" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/pages/PollCreate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="180" column="19" selection-start-line="180" selection-start-column="4" selection-end-line="180" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="141" column="22" lean-forward="true" selection-start-line="141" selection-start-column="22" selection-end-line="141" selection-end-column="22" />
+        <state relative-caret-position="1229">
+          <caret line="417" column="48" selection-start-line="417" selection-start-column="48" selection-end-line="417" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="413">
+          <caret line="140" column="29" selection-start-line="140" selection-start-column="23" selection-end-line="140" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/pages/ProfileJuridic.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="121" column="44" selection-start-line="121" selection-start-column="44" selection-end-line="121" selection-end-column="44" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

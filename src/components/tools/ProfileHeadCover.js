@@ -7,11 +7,10 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import {Link, NavLink, withRouter} from "react-router-dom";
 
-import CoverImage from '../../media/back.jpg';
+import CoverImage from '../../media/back.png';
 import selenaAvatar from '../../media/selenaAvatar.jpg';
 import Hidden from '@material-ui/core/Hidden';
 import Avatar from '@material-ui/core/Avatar';
-import photoSvg from  '../../media/icons/photo.svg';
 
 
 import { Provider } from 'react-redux'
