@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3013fece-6add-4506-8dd7-e5be49d79bf2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/pages/ProfileJuridic.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ProfileJuridic.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/ChatPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ChatPage.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,7 +21,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/App.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="413">
+                <state relative-caret-position="1815">
                   <caret line="140" column="29" selection-start-line="140" selection-start-column="23" selection-end-line="140" selection-end-column="29" />
                   <folding>
                     <element signature="e#0#39#0" expanded="true" />
@@ -45,12 +45,24 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf>
-          <file pinned="false" current-in-tab="true">
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/components/pages/ProfileJuridic.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="748">
+                <state relative-caret-position="177">
                   <caret line="184" selection-start-line="184" selection-end-line="184" />
+                  <folding>
+                    <element signature="e#0#39#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/components/pages/ChatPage.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="243">
+                  <caret line="266" column="96" selection-start-line="266" selection-start-column="96" selection-end-line="266" selection-end-column="96" />
                   <folding>
                     <element signature="e#0#39#0" expanded="true" />
                   </folding>
@@ -150,7 +162,6 @@
         <option value="$PROJECT_DIR$/src/components/pages/Registration.js" />
         <option value="$PROJECT_DIR$/src/components/tools/TopMenu.js" />
         <option value="$PROJECT_DIR$/src/components/tools/LeftMenu.js" />
-        <option value="$PROJECT_DIR$/src/components/pages/ChatPage.js" />
         <option value="$PROJECT_DIR$/src/components/pages/ProfileEdit.js" />
         <option value="$PROJECT_DIR$/src/components/pages/Profile.js" />
         <option value="$PROJECT_DIR$/src/components/tools/PollCard.js" />
@@ -164,6 +175,7 @@
         <option value="$PROJECT_DIR$/src/components/pages/License.js" />
         <option value="$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js" />
         <option value="$PROJECT_DIR$/src/components/pages/ProfileJuridic.js" />
+        <option value="$PROJECT_DIR$/src/components/pages/ChatPage.js" />
       </list>
     </option>
   </component>
@@ -285,18 +297,20 @@
       <workItem from="1566130175044" duration="9681000" />
       <workItem from="1566205671228" duration="105000" />
       <workItem from="1566291069089" duration="7775000" />
-      <workItem from="1566461078211" duration="9630000" />
+      <workItem from="1566461078211" duration="10414000" />
+      <workItem from="1566487899133" duration="359000" />
+      <workItem from="1566806297431" duration="158000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="459604000" />
+    <option name="totallyTimeSpent" value="460905000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24947257" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -311,7 +325,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32894737" />
       <window_info anchor="bottom" id="TypeScript" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50052744" side_tool="true" weight="0.32894737" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4994726" weight="0.3508772" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.4994726" visible="true" weight="0.35307017" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -420,16 +434,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="27" lean-forward="true" selection-start-line="4" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/pages/ChatPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3825">
-          <caret line="276" column="106" selection-start-line="276" selection-start-column="106" selection-end-line="276" selection-end-column="106" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -627,7 +631,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
+        <state relative-caret-position="1815">
           <caret line="140" column="29" selection-start-line="140" selection-start-column="23" selection-end-line="140" selection-end-column="29" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
@@ -637,8 +641,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/pages/ProfileJuridic.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="121" column="44" selection-start-line="121" selection-start-column="44" selection-end-line="121" selection-end-column="44" />
+        <state relative-caret-position="177">
+          <caret line="184" selection-start-line="184" selection-end-line="184" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/pages/ChatPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="266" column="96" selection-start-line="266" selection-start-column="96" selection-end-line="266" selection-end-column="96" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

@@ -219,9 +219,9 @@ class ChatPage extends Component {
                                     </div>
                                     <div className="d-flex justify-content-start itemChat">
                                         <div className="img_cont_msg">
-                                            <img
+                                            <Link to={"/"}> <img
                                                 src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                className="rounded-circle user_img_msg"/>
+                                                className="rounded-circle user_img_msg"/></Link>
                                         </div>
                                         <div className="msg_cotainer">
                                             Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно
@@ -238,16 +238,16 @@ class ChatPage extends Component {
                                             <div className="msg_time_send">8:55</div>
                                         </div>
                                         <div className="img_cont_msg">
-                                            <img
+                                            <Link to={"/"}> <img
                                                 src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                className="rounded-circle user_img_msg"/>
+                                                className="rounded-circle user_img_msg"/></Link>
                                         </div>
                                     </div>
                                     <div className="d-flex justify-content-start itemChat">
                                         <div className="img_cont_msg">
-                                            <img
+                                            <Link to={"/"}> <img
                                                 src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                className="rounded-circle user_img_msg"/>
+                                                className="rounded-circle user_img_msg"/></Link>
                                         </div>
                                         <div className="msg_cotainer">
                                             Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно
@@ -262,9 +262,9 @@ class ChatPage extends Component {
                                             <div className="msg_time_send">8:55</div>
                                         </div>
                                         <div className="img_cont_msg">
-                                            <img
+                                            <Link to={"/"}> <img
                                                 src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                className="rounded-circle user_img_msg"/>
+                                                className="rounded-circle user_img_msg"/></Link>
                                         </div>
                                     </div>
                                     <div className="d-flex justify-content-end itemChat">
@@ -273,9 +273,9 @@ class ChatPage extends Component {
                                             <div className="msg_time_send">8:55</div>
                                         </div>
                                         <div className="img_cont_msg">
-                                            <img
+                                            <Link to={"/"}> <img
                                                 src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                className="rounded-circle user_img_msg"/>
+                                                className="rounded-circle user_img_msg"/></Link>
                                         </div>
                                     </div>
                                     <br/>
