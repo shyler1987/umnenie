@@ -43,7 +43,7 @@ const styles = theme => ({
                     border: 2,
                     borderStyle: 'solid',
                     borderColor: theme.palette.YellowColor,
-                    borderRadius:50
+                    borderRadius: 50
                 }
             },
 
@@ -62,7 +62,6 @@ const styles = theme => ({
         },
         poperContent: {
             padding: 10,
-            minHeight: 850
         },
         titleHead: {
             fontWeight: 600,
@@ -74,8 +73,10 @@ const styles = theme => ({
             fontSize: 15,
 
         },
-        avatarChat: {
-
+        avatarChat: {},
+        scrollable:{
+            overflow: 'auto',
+            maxHeight: 500
         }
     })
 ;
@@ -204,78 +205,157 @@ class ChatPage extends Component {
 
                                 </Grid>
                                 <Grid item md={8}>
-                                    <div className="d-flex justify-content-start itemChat">
-                                        <div className="img_cont_msg">
-                                            <Link to={"/"}> <img
-                                                src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                className="rounded-circle user_img_msg"/></Link>
+                                    <div className={classes.scrollable}>
+                                        <div className="d-flex justify-content-start itemChat">
+                                            <div className="img_cont_msg">
+                                                <Link to={"/"}> <img
+                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
+                                                    className="rounded-circle user_img_msg"/></Link>
+                                            </div>
+                                            <div className="msg_cotainer">
+                                                Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно
+                                                чата Всегда
+                                                буду рад ответить Вам.
+                                                <div className="msg_time">8:40</div>
+                                            </div>
                                         </div>
-                                        <div className="msg_cotainer">
-                                            Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно
-                                            чата Всегда
-                                            буду рад ответить Вам.
-                                            <div className="msg_time">8:40</div>
+                                        <div className="d-flex justify-content-start itemChat">
+                                            <div className="img_cont_msg">
+                                                <Link to={"/"}> <img
+                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
+                                                    className="rounded-circle user_img_msg"/></Link>
+                                            </div>
+                                            <div className="msg_cotainer">
+                                                Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно
+                                                чата Всегда
+                                                буду рад ответить Вам.
+                                                <div className="msg_time">8:40</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="d-flex justify-content-start itemChat">
-                                        <div className="img_cont_msg">
-                                            <Link to={"/"}> <img
-                                                src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                className="rounded-circle user_img_msg"/></Link>
-                                        </div>
-                                        <div className="msg_cotainer">
-                                            Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно
-                                            чата Всегда
-                                            буду рад ответить Вам.
-                                            <div className="msg_time">8:40</div>
-                                        </div>
-                                    </div>
 
 
-                                    <div className="d-flex justify-content-end itemChat">
-                                        <div className="msg_cotainer_send">
-                                            Hi Maryam i am good tnx how about you?
-                                            <div className="msg_time_send">8:55</div>
+                                        <div className="d-flex justify-content-end itemChat">
+                                            <div className="msg_cotainer_send">
+                                                Hi Maryam i am good tnx how about you?
+                                                <div className="msg_time_send">8:55</div>
+                                            </div>
+                                            <div className="img_cont_msg">
+                                                <Link to={"/"}> <img
+                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
+                                                    className="rounded-circle user_img_msg"/></Link>
+                                            </div>
                                         </div>
-                                        <div className="img_cont_msg">
-                                            <Link to={"/"}> <img
-                                                src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                className="rounded-circle user_img_msg"/></Link>
+                                        <div className="d-flex justify-content-start itemChat">
+                                            <div className="img_cont_msg">
+                                                <Link to={"/"}> <img
+                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
+                                                    className="rounded-circle user_img_msg"/></Link>
+                                            </div>
+                                            <div className="msg_cotainer">
+                                                Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно
+                                                чата Всегда
+                                                буду рад ответить Вам.
+                                                <div className="msg_time">8:40</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="d-flex justify-content-start itemChat">
-                                        <div className="img_cont_msg">
-                                            <Link to={"/"}> <img
-                                                src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                className="rounded-circle user_img_msg"/></Link>
+                                        <div className="d-flex justify-content-end itemChat">
+                                            <div className="msg_cotainer_send">
+                                                Hi Maryam i am good tnx how about you?
+                                                <div className="msg_time_send">8:55</div>
+                                            </div>
+                                            <div className="img_cont_msg">
+                                                <Link to={"/"}> <img
+                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
+                                                    className="rounded-circle user_img_msg"/></Link>
+                                            </div>
                                         </div>
-                                        <div className="msg_cotainer">
-                                            Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно
-                                            чата Всегда
-                                            буду рад ответить Вам.
-                                            <div className="msg_time">8:40</div>
+                                        <div className="d-flex justify-content-end itemChat">
+                                            <div className="msg_cotainer_send">
+                                                Hi Maryam i am good tnx how about you?
+                                                <div className="msg_time_send">8:55</div>
+                                            </div>
+                                            <div className="img_cont_msg">
+                                                <Link to={"/"}> <img
+                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
+                                                    className="rounded-circle user_img_msg"/></Link>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="d-flex justify-content-end itemChat">
-                                        <div className="msg_cotainer_send">
-                                            Hi Maryam i am good tnx how about you?
-                                            <div className="msg_time_send">8:55</div>
+                                        <div className="d-flex justify-content-end itemChat">
+                                            <div className="msg_cotainer_send">
+                                                Hi Maryam i am good tnx how about you?
+                                                <div className="msg_time_send">8:55</div>
+                                            </div>
+                                            <div className="img_cont_msg">
+                                                <Link to={"/"}> <img
+                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
+                                                    className="rounded-circle user_img_msg"/></Link>
+                                            </div>
                                         </div>
-                                        <div className="img_cont_msg">
-                                            <Link to={"/"}> <img
-                                                src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                className="rounded-circle user_img_msg"/></Link>
+                                        <div className="d-flex justify-content-end itemChat">
+                                            <div className="msg_cotainer_send">
+                                                Hi Maryam i am good tnx how about you?
+                                                <div className="msg_time_send">8:55</div>
+                                            </div>
+                                            <div className="img_cont_msg">
+                                                <Link to={"/"}> <img
+                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
+                                                    className="rounded-circle user_img_msg"/></Link>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="d-flex justify-content-end itemChat">
-                                        <div className="msg_cotainer_send">
-                                            Hi Maryam i am good tnx how about you?
-                                            <div className="msg_time_send">8:55</div>
+                                        <div className="d-flex justify-content-end itemChat">
+                                            <div className="msg_cotainer_send">
+                                                Hi Maryam i am good tnx how about you?
+                                                <div className="msg_time_send">8:55</div>
+                                            </div>
+                                            <div className="img_cont_msg">
+                                                <Link to={"/"}> <img
+                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
+                                                    className="rounded-circle user_img_msg"/></Link>
+                                            </div>
                                         </div>
-                                        <div className="img_cont_msg">
-                                            <Link to={"/"}> <img
-                                                src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                className="rounded-circle user_img_msg"/></Link>
+                                        <div className="d-flex justify-content-end itemChat">
+                                            <div className="msg_cotainer_send">
+                                                Hi Maryam i am good tnx how about you?
+                                                <div className="msg_time_send">8:55</div>
+                                            </div>
+                                            <div className="img_cont_msg">
+                                                <Link to={"/"}> <img
+                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
+                                                    className="rounded-circle user_img_msg"/></Link>
+                                            </div>
+                                        </div>
+                                        <div className="d-flex justify-content-end itemChat">
+                                            <div className="msg_cotainer_send">
+                                                Hi Maryam i am good tnx how about you?
+                                                <div className="msg_time_send">8:55</div>
+                                            </div>
+                                            <div className="img_cont_msg">
+                                                <Link to={"/"}> <img
+                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
+                                                    className="rounded-circle user_img_msg"/></Link>
+                                            </div>
+                                        </div>
+                                        <div className="d-flex justify-content-end itemChat">
+                                            <div className="msg_cotainer_send">
+                                                Hi Maryam i am good tnx how about you?
+                                                <div className="msg_time_send">8:55</div>
+                                            </div>
+                                            <div className="img_cont_msg">
+                                                <Link to={"/"}> <img
+                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
+                                                    className="rounded-circle user_img_msg"/></Link>
+                                            </div>
+                                        </div>
+                                        <div className="d-flex justify-content-end itemChat">
+                                            <div className="msg_cotainer_send">
+                                                Hi Maryam i am good tnx how about you?
+                                                <div className="msg_time_send">8:55</div>
+                                            </div>
+                                            <div className="img_cont_msg">
+                                                <Link to={"/"}> <img
+                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
+                                                    className="rounded-circle user_img_msg"/></Link>
+                                            </div>
                                         </div>
                                     </div>
                                     <br/>

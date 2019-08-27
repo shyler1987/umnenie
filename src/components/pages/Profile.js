@@ -6,10 +6,12 @@ import axios from 'axios';
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
 import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
 
 import PollCard from '../tools/PollCard'
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import ProfileHeadCover from "../tools/ProfileHeadCover";
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 const styles = theme => ({
     root: {
@@ -86,7 +88,85 @@ const styles = theme => ({
     textAbout:{
         fontSize:18,
         fontWeight:400
-    }
+    },
+    buttonGroupActive: {
+        background: theme.palette.YellowColor,
+        color: "#ffffff",
+        "&:hover": {
+            //you want this to be the same as the backgroundColor above
+            backgroundColor: theme.palette.YellowColor,
+            color: "#ffffff",
+        },
+        [theme.breakpoints.down('md')
+            ]:
+            {
+                border: 0,
+                margin: '0px  !important',
+                "&:not(:last-child)": {
+                    borderBottom: 0
+                },
+                "&:first-child": {
+                    borderTopRightRadius: '4px !important',
+                    borderBottomRightRadius: '0px !important',
+                    borderBottomLeftRadius: '0px !important',
+                    borderTopLeftRadius: '4px !important',
+                },
+                "&:last-child": {
+                    borderTopRightRadius: '0px',
+                    borderBottomRightRadius: '4px !important',
+                    borderBottomLeftRadius: '4px !important',
+                    borderTopLeftRadius: '0px',
+                }
+            }
+    },
+    buttonGroup: {
+        backgroundColor: "rgb(255, 255, 255)",
+        "&:not(:first-child)": {
+            marginLeft: 0
+        },
+        "&:hover": {
+            //you want this to be the same as the backgroundColor above
+            backgroundColor: "rgb(193, 193, 193)",
+            color: "#ffffff",
+        },
+        '&:active': {
+            backgroundColor: "rgb(193, 193, 193)",
+            color: "#ffffff",
+        },
+        '&:focus': {
+            backgroundColor: "rgb(193, 193, 193)",
+            color: "#ffffff",
+        },
+        [theme.breakpoints.down('md')
+            ]:
+            {
+                flexDirection: 'column',
+                alignItems: 'flex-center',
+                justifyContent: 'center',
+                backgroundColor: "rgb(255, 255, 255)",
+                borderLeftColor: '#E6E6E6 !important',
+                borderColor: '#E6E6E6 !important',
+                // "&:not(:first-child)": {
+                //     borderBottom:0
+                // },
+                "&:not(:last-child)": {
+                    borderBottom: 0
+                },
+                "&:first-child": {
+                    borderTopRightRadius: '4px !important',
+                    borderBottomRightRadius: '0px !important',
+                    borderBottomLeftRadius: '0px !important',
+                    borderTopLeftRadius: '4px !important',
+                },
+                "&:last-child": {
+                    borderTopRightRadius: '0px',
+                    borderBottomRightRadius: '4px !important',
+                    borderBottomLeftRadius: '4px !important',
+                    borderTopLeftRadius: '0px',
+                }
+
+            }
+    },
 
 
 });
@@ -101,10 +181,22 @@ class ProfileFollower extends Component {
         super(props);
         this.state = {
             polls: [],
-            show: false
+            show: false,
+            activeButton:0
         };
     }
+    setActive = (index) => {
+        this.setState({
+            activeButton: index
+        })
+    }
 
+    getClass = (index) => {
+        let activeButton = this.state.activeButton;
+        if (index === activeButton)
+            return 'buttonGroupActive'
+        return 'buttonGroup'
+    }
     componentDidMount() {
         this.setState({
             show: true
@@ -152,6 +244,23 @@ class ProfileFollower extends Component {
                                 voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
                                 cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                             </Typography>
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={0} style={{marginTop: 20}}>
+                        <Grid md={12} xs={12} sm={12}>
+                            <ButtonGroup fullWidth aria-label="full width outlined button group"
+                                         classes={{root: classes.buttonGroup}}>
+                                <Button onClick={() => {
+                                    this.setActive(0)
+                                }} classes={{root: classes[this.getClass(0)]}}>Мои опросы</Button>
+                                <Button onClick={() => {
+                                    this.setActive(1)
+                                }} classes={{root: classes[this.getClass(1)]}}>Избранное</Button>
+
+                                <Button onClick={() => {
+                                    this.setActive(3)
+                                }} classes={{root: classes[this.getClass(3)]}}>Черновики</Button>
+                            </ButtonGroup>
                         </Grid>
                     </Grid>
                 </Container>
