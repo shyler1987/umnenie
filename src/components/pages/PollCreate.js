@@ -78,7 +78,6 @@ const styles = theme => ({
 
     poperContent: {
         padding: 10,
-        minHeight: 850
     },
     inputHeight: {
         height: 100

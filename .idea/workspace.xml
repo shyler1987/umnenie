@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3013fece-6add-4506-8dd7-e5be49d79bf2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/ChatPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ChatPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/PasswordChange.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PasswordChange.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/PollCreate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PollCreate.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -43,11 +39,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/pages/Profile.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="330">
               <caret line="184" column="26" selection-start-line="184" selection-start-column="26" selection-end-line="184" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/pages/PollCreate.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="333">
+              <caret line="80" selection-start-line="80" selection-end-line="80" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -148,7 +156,6 @@
         <option value="$PROJECT_DIR$/src/components/pages/ProfileFollower.js" />
         <option value="$PROJECT_DIR$/src/components/Dash.js" />
         <option value="$PROJECT_DIR$/src/components/pages/AuthDialog.js" />
-        <option value="$PROJECT_DIR$/src/components/pages/PollCreate.js" />
         <option value="$PROJECT_DIR$/src/components/pages/PollView.js" />
         <option value="$PROJECT_DIR$/src/components/pages/StatisPage.js" />
         <option value="$PROJECT_DIR$/src/components/pages/RecoveryPassword.js" />
@@ -159,6 +166,7 @@
         <option value="$PROJECT_DIR$/src/components/pages/PasswordChange.js" />
         <option value="$PROJECT_DIR$/src/components/pages/ChatPage.js" />
         <option value="$PROJECT_DIR$/src/components/pages/Profile.js" />
+        <option value="$PROJECT_DIR$/src/components/pages/PollCreate.js" />
       </list>
     </option>
   </component>
@@ -283,12 +291,12 @@
       <workItem from="1566461078211" duration="10414000" />
       <workItem from="1566487899133" duration="359000" />
       <workItem from="1566806297431" duration="841000" />
-      <workItem from="1566904817696" duration="1275000" />
+      <workItem from="1566904817696" duration="1595000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="462863000" />
+    <option name="totallyTimeSpent" value="463183000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
@@ -562,16 +570,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/pages/PollCreate.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="180" column="19" selection-start-line="180" selection-start-column="4" selection-end-line="180" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1229">
@@ -643,6 +641,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="184" column="26" selection-start-line="184" selection-start-column="26" selection-end-line="184" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/pages/PollCreate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="80" selection-start-line="80" selection-end-line="80" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
