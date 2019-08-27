@@ -119,7 +119,7 @@ class Dash extends Component {
                         <h3 style={{textAlign: 'center'}}>&#8595; Потяните вниз, чтобы обновить</h3>
                     }
                     releaseToRefreshContent={
-                        <h3 style={{textAlign: 'center'}}>&#8593; Отпустите, чтобы обновить</h3>
+                        <h3 style={{textAlign: 'center'}}>&#8593; Обновить</h3>
                     }>
                     <ResponsiveMasonry
                         columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
