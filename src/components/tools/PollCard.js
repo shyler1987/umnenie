@@ -214,8 +214,10 @@ const styles = theme => ({
             fontWeight: 600
         },
         ListItemIconRoot: {
-            minWidth: 40
-        },
+            minWidth: 40,
+            display: '-webkit-inline-box',
+            //display: 'inline-flex'
+},
         cardContent: {
             color: "#2B2A29"
         },
@@ -468,7 +470,8 @@ class PollCard extends Component {
                                                     root: classes.GridListTileRoot,
                                                     tile: classes.Gridtile
                                                 }}
-                                                cols={this.state.pollItems.length % 2 && (this.state.pollItems.length - 1) === Key ? 2 : 1}
+                                                //cols={1}
+                                                 cols={this.state.pollItems.length % 2 && (this.state.pollItems.length - 1) === Key ? 2 : 1}
                                             >
 
                                                 <figure className={classes.tint}>
