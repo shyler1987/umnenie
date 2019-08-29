@@ -148,7 +148,7 @@ class ProfileFollower extends Component {
                                         <ListItemText
                                             classes={{primary:classes.textListItem, secondary:classes.textListItemSecondary}}
                                             primary="Исидатэ Тайти"
-                                            secondary={'Бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла '}
+                                            secondary={'Бла бла бла бла '}
                                         />
                                         <ListItemSecondaryAction>
                                             <Button color="secondary" variant={"outlined"}

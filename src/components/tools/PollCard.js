@@ -103,6 +103,10 @@ const styles = theme => ({
                     background: 'transparent'
                 },
             },
+            '&:hover $tint':{
+                background: '#e67043',
+
+            }
 
 
         },
@@ -147,13 +151,14 @@ const styles = theme => ({
         tint: {
             overflow: 'hidden',
             margin: '0 20px 0px 0',
-            background: '#dc5b2b',
+            background: '#000',
             width: '100%',
             height: 'inherit'
         },
         cardTileImg: {
             width: '100%',
             height: 'inherit',
+            objectFit: 'contain'
 
         },
         clickCard: {

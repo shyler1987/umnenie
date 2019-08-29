@@ -116,7 +116,10 @@ const styles = theme => ({
         fontWeight: 600,
         fontSize: 15,
         textAlign: 'center',
-        marginBottom: 5
+        marginBottom: 5,
+        "&:hover":{
+            cursor:'pointer'
+        }
     },
     greyP: {
         padding: 5, color: 'grey', fontSize: 13, fontWeight: 400
@@ -202,13 +205,20 @@ class PollCreate extends Component {
             step: 1,
             categorySelected: [],
             visibility:null,
-            variants: [{variantNomer: 1}, {variantNomer: 2}, {variantNomer: 3}]
+            variants: [{variantNomer: 1}, {variantNomer: 2}, {variantNomer: 3}],
+            showMoreActions:false
         };
     }
 
     handleChangeCategory = (event) => {
         this.setState({categorySelected: event.target.value});
 
+    }
+
+    showMore = () =>{
+        this.setState({
+            showMoreActions:!this.state.showMoreActions ? true : false
+        })
     }
 
     handleChange = (event) => {
@@ -357,130 +367,132 @@ class PollCreate extends Component {
 
                                 </Grid>
 
-                                <Typography classes={{root: classes.pHeader}}>Дополнительные параметры</Typography>
+                                <Typography classes={{root: classes.pHeader}} onClick={this.showMore}>Дополнительные параметры {!this.state.showMoreActions ? "▾" : "▴"}  </Typography>
+                                {this.state.showMoreActions ? <React.Fragment>
+                                    <Grid container spacing={3} direction={"row"}>
+                                        <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
+                                            <Typography
+                                                classes={{root: classes.titleFieldesetHeadKategory}}>Видимость:</Typography>
+                                        </Grid>
+                                        <Grid item md={9} sm={9} xs={9}>
+                                            <FormControl className={classes.formControl} margin="dense" fullWidth
+                                                         variant="outlined">
+                                                {this.state.visibility === null ?
+                                                    <InputLabel htmlFor="outlined-visibility"
+                                                                classes={{root: classes.inLabel}} shrink={false}>
+                                                        Выберите
+                                                    </InputLabel> : ""}
+                                                <Select
+                                                    classes={{root: classes.muiSeelctRoot}}
+                                                    name={"visibility"}
+                                                    onChange={this.handleChange}
+                                                    MenuProps={MenuProps}
+                                                    input={<OutlinedInput  id="outlined-visibility"/>}
+                                                    IconComponent={()=>{
+                                                        return "";
+                                                    }}
+                                                    value={this.state.visibility}
+                                                >
+                                                    {names.map(name => (
+                                                        <MenuItem key={name} value={name} >
+                                                            <ListItemText classes={{root:classes.listItemRoot, primary:classes.listItemPrimary}} primary={name}/>
+                                                        </MenuItem>
+                                                    ))}
+                                                </Select>
+                                            </FormControl>
+                                        </Grid>
 
-                                <Grid container spacing={3} direction={"row"}>
-                                    <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
-                                        <Typography
-                                            classes={{root: classes.titleFieldesetHeadKategory}}>Видимость:</Typography>
-                                    </Grid>
-                                    <Grid item md={9} sm={9} xs={9}>
-                                        <FormControl className={classes.formControl} margin="dense" fullWidth
-                                                     variant="outlined">
-                                            {this.state.visibility === null ?
-                                                <InputLabel htmlFor="outlined-visibility"
-                                                            classes={{root: classes.inLabel}} shrink={false}>
-                                                    Выберите
-                                                </InputLabel> : ""}
-                                            <Select
-                                                classes={{root: classes.muiSeelctRoot}}
-                                                name={"visibility"}
-                                                onChange={this.handleChange}
-                                                MenuProps={MenuProps}
-                                                input={<OutlinedInput  id="outlined-visibility"/>}
-                                                IconComponent={()=>{
-                                                    return "";
-                                                }}
-                                                value={this.state.visibility}
-                                            >
-                                                {names.map(name => (
-                                                    <MenuItem key={name} value={name} >
-                                                        <ListItemText classes={{root:classes.listItemRoot, primary:classes.listItemPrimary}} primary={name}/>
-                                                    </MenuItem>
-                                                ))}
-                                            </Select>
-                                        </FormControl>
-                                    </Grid>
-
-                                </Grid>
-
-                                <Grid container spacing={3} direction={"row"}>
-                                    <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
-                                        <Typography
-                                            classes={{root: classes.titleFieldesetHeadKategory}}>Комментарии:</Typography>
-                                    </Grid>
-                                    <Grid item md={9} sm={9} xs={9}>
-                                        <FormControl className={classes.formControl} margin="dense" fullWidth
-                                                     variant="outlined">
-                                            {this.state.visibility === null ?
-                                                <InputLabel htmlFor="outlined-visibility"
-                                                            classes={{root: classes.inLabel}} shrink={false}>
-                                                    Выберите
-                                                </InputLabel> : ""}
-                                            <Select
-                                                classes={{root: classes.muiSeelctRoot}}
-                                                name={"visibility"}
-                                                onChange={this.handleChange}
-                                                MenuProps={MenuProps}
-                                                input={<OutlinedInput  id="outlined-visibility"/>}
-                                                IconComponent={()=>{
-                                                    return "";
-                                                }}
-                                                value={this.state.visibility}
-                                            >
-                                                {names.map(name => (
-                                                    <MenuItem key={name} value={name} >
-                                                        <ListItemText classes={{root:classes.listItemRoot, primary:classes.listItemPrimary}} primary={name}/>
-                                                    </MenuItem>
-                                                ))}
-                                            </Select>
-                                        </FormControl>
                                     </Grid>
 
-                                </Grid>
+                                    <Grid container spacing={3} direction={"row"}>
+                                        <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
+                                            <Typography
+                                                classes={{root: classes.titleFieldesetHeadKategory}}>Комментарии:</Typography>
+                                        </Grid>
+                                        <Grid item md={9} sm={9} xs={9}>
+                                            <FormControl className={classes.formControl} margin="dense" fullWidth
+                                                         variant="outlined">
+                                                {this.state.visibility === null ?
+                                                    <InputLabel htmlFor="outlined-visibility"
+                                                                classes={{root: classes.inLabel}} shrink={false}>
+                                                        Выберите
+                                                    </InputLabel> : ""}
+                                                <Select
+                                                    classes={{root: classes.muiSeelctRoot}}
+                                                    name={"visibility"}
+                                                    onChange={this.handleChange}
+                                                    MenuProps={MenuProps}
+                                                    input={<OutlinedInput  id="outlined-visibility"/>}
+                                                    IconComponent={()=>{
+                                                        return "";
+                                                    }}
+                                                    value={this.state.visibility}
+                                                >
+                                                    {names.map(name => (
+                                                        <MenuItem key={name} value={name} >
+                                                            <ListItemText classes={{root:classes.listItemRoot, primary:classes.listItemPrimary}} primary={name}/>
+                                                        </MenuItem>
+                                                    ))}
+                                                </Select>
+                                            </FormControl>
+                                        </Grid>
 
-                                <Grid container spacing={3} direction={"row"}>
-                                    <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
-                                        <Typography
-                                            classes={{root: classes.titleFieldesetHeadKategory}}>Срок:</Typography>
-                                    </Grid>
-                                    <Grid item md={9} sm={9} xs={9}>
-                                        <FormControl className={classes.formControl} margin="dense" fullWidth
-                                                     variant="outlined">
-                                            {this.state.visibility === null ?
-                                                <InputLabel htmlFor="outlined-visibility"
-                                                            classes={{root: classes.inLabel}} shrink={false}>
-                                                    Выберите
-                                                </InputLabel> : ""}
-                                            <Select
-                                                classes={{root: classes.muiSeelctRoot}}
-                                                name={"visibility"}
-                                                onChange={this.handleChange}
-                                                MenuProps={MenuProps}
-                                                input={<OutlinedInput  id="outlined-visibility"/>}
-                                                IconComponent={()=>{
-                                                    return "";
-                                                }}
-                                                value={this.state.visibility}
-                                            >
-                                                {names.map(name => (
-                                                    <MenuItem key={name} value={name} >
-                                                        <ListItemText classes={{root:classes.listItemRoot, primary:classes.listItemPrimary}} primary={name}/>
-                                                    </MenuItem>
-                                                ))}
-                                            </Select>
-                                        </FormControl>
-                                    </Grid>
-
-                                </Grid>
-
-                                <Grid container spacing={3} direction={"row"}>
-                                    <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
-                                        <Typography
-                                            classes={{root: classes.titleFieldesetHeadKategory}}>Хэштэги:</Typography>
-                                    </Grid>
-                                    <Grid item md={9} sm={9} xs={9}>
-                                        <TextField
-                                            margin="dense"
-                                            id="outlined-name"
-                                            fullWidth
-                                            placeholder={"..."}
-                                            className={classes.textField}
-                                            variant="outlined"
-                                        />
                                     </Grid>
 
-                                </Grid>
+                                    <Grid container spacing={3} direction={"row"}>
+                                        <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
+                                            <Typography
+                                                classes={{root: classes.titleFieldesetHeadKategory}}>Срок:</Typography>
+                                        </Grid>
+                                        <Grid item md={9} sm={9} xs={9}>
+                                            <FormControl className={classes.formControl} margin="dense" fullWidth
+                                                         variant="outlined">
+                                                {this.state.visibility === null ?
+                                                    <InputLabel htmlFor="outlined-visibility"
+                                                                classes={{root: classes.inLabel}} shrink={false}>
+                                                        Выберите
+                                                    </InputLabel> : ""}
+                                                <Select
+                                                    classes={{root: classes.muiSeelctRoot}}
+                                                    name={"visibility"}
+                                                    onChange={this.handleChange}
+                                                    MenuProps={MenuProps}
+                                                    input={<OutlinedInput  id="outlined-visibility"/>}
+                                                    IconComponent={()=>{
+                                                        return "";
+                                                    }}
+                                                    value={this.state.visibility}
+                                                >
+                                                    {names.map(name => (
+                                                        <MenuItem key={name} value={name} >
+                                                            <ListItemText classes={{root:classes.listItemRoot, primary:classes.listItemPrimary}} primary={name}/>
+                                                        </MenuItem>
+                                                    ))}
+                                                </Select>
+                                            </FormControl>
+                                        </Grid>
+
+                                    </Grid>
+
+                                    <Grid container spacing={3} direction={"row"}>
+                                        <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
+                                            <Typography
+                                                classes={{root: classes.titleFieldesetHeadKategory}}>Хэштэги:</Typography>
+                                        </Grid>
+                                        <Grid item md={9} sm={9} xs={9}>
+                                            <TextField
+                                                margin="dense"
+                                                id="outlined-name"
+                                                fullWidth
+                                                placeholder={"..."}
+                                                className={classes.textField}
+                                                variant="outlined"
+                                            />
+                                        </Grid>
+
+                                    </Grid>
+                                </React.Fragment> : ""}
+
 
 
                                 <Grid container spacing={3} direction={"row"} justify="flex-end" alignItems="flex-end">

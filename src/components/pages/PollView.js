@@ -195,7 +195,7 @@ class PollView extends Component {
                                     </Link>
                                 </Grid>
                             </Hidden>
-                            <Grid item md={7} sm={12} xs={12}>
+                            <Grid item md={7} xl={7} sm={12} xs={12}>
 
                                 <Swipeable onSwipedRight={this.nextPollGet} onSwipedLeft={this.prevPollGet}>
 
