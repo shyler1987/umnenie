@@ -20,6 +20,8 @@ import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
+import SvgIcon from '@material-ui/core/SvgIcon';
+
 
 
 const styles = theme => ({
@@ -74,10 +76,22 @@ const styles = theme => ({
 
         },
         avatarChat: {},
-        scrollable:{
+        scrollable: {
             overflow: 'auto',
             maxHeight: 500
-        }
+        },
+        sectionDesktop: {
+            display: 'none',
+            [theme.breakpoints.up('md')]: {
+                display: 'inherit'
+            },
+        },
+        sectionMobile: {
+            display: 'flex',
+            [theme.breakpoints.up('md')]: {
+                display: 'none',
+            },
+        },
     })
 ;
 
@@ -367,7 +381,7 @@ class ChatPage extends Component {
                                         spacing={2}
                                         style={{padding: 10}}
                                     >
-                                        <Grid item md={9}>
+                                        <Grid item md={9} sm={9} xs={9}>
                                             <TextField
                                                 id="standard-multiline-flexible"
                                                 fullWidth
@@ -383,10 +397,33 @@ class ChatPage extends Component {
                                                 }
                                             />
                                         </Grid>
-                                        <Grid item md={3}>
+                                        <Grid item md={3} sm={3} xs={3}>
                                             <Button variant="contained" color="secondary" fullWidth
-                                                    className={classes.button}>
+                                                    className={classes.sectionDesktop}>
                                                 Отправить
+                                            </Button>
+                                            <Button variant="contained" color="secondary" fullWidth
+                                                    className={classes.sectionMobile}>
+                                                <SvgIcon viewBox="0 0 16 16"
+                                                         classes={{root: classes.svgRootP}}>
+                                                    <defs>
+                                                        <clipPath id="clip-path-sendTg">
+                                                            <rect id="brooke-cagle-609873-unsplash"
+                                                                  width="16" height="16"
+                                                                  transform="translate(750 1484)"
+                                                                  fill="#fff"/>
+                                                        </clipPath>
+                                                    </defs>
+                                                    <g id="Mask_Group_27" data-name="Mask Group 27"
+                                                       transform="translate(-750 -1484)"
+                                                       clip-path="url(#clip-path-sendTg)">
+                                                        <g id="paper-plane" transform="translate(750 1484)">
+                                                            <path id="Path_1260" data-name="Path 1260"
+                                                                  d="M15.863.139a.461.461,0,0,0-.508-.1L.277,6.651A.466.466,0,0,0,0,7.05a.458.458,0,0,0,.232.423l5.257,2.981,3.121,5.311a.464.464,0,0,0,.4.229h.027a.461.461,0,0,0,.4-.276L15.962.647A.455.455,0,0,0,15.863.139Zm-2.4,1.736L5.749,9.541,1.488,7.125ZM8.945,14.518,6.4,10.189l7.761-7.709Z"
+                                                                  fill="#fff"/>
+                                                        </g>
+                                                    </g>
+                                                </SvgIcon>
                                             </Button>
                                         </Grid>
 

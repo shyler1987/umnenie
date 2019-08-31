@@ -17,21 +17,22 @@ const styles = theme => ({
         justifyContent: 'flex-start',
         overflow: 'hidden',
         fontWeight: 600,
-        fontSize:18,
+        fontSize: 18,
+        color:'#000'
 
         // backgroundColor: theme.palette.background.paper,
     },
-    rootLink:{
+    rootLink: {
         fontFamily: "'Source Sans Pro', sans-serif",
         fontWeight: 400,
-        fontSize:15,
+        fontSize: 15,
         color: "#e0512a",
-        "&:hover":{
+        "&:hover": {
             color: "#e0512a",
         }
     },
-    title:{
-      marginBottom:0
+    title: {
+        marginBottom: 0
     },
     papeRoot: {
         //padding: theme.spacing(2),
@@ -91,24 +92,31 @@ const styles = theme => ({
             borderRadius: 4
         },
     },
-    itemTitle:{
+    itemTitle: {
         fontFamily: "'Source Sans Pro', sans-serif",
         fontWeight: 600,
-        fontSize:15,
+        fontSize: 15,
     },
-    avatarTitle:{
-
-
-    },
+    avatarTitle: {},
     CopyRight: {
         fontSize: 13,
         fontWeight: 400,
         opacity: 0.45,
         color: '#2b2a29'
     },
-    rootTypography:{
+    rootTypography: {
         fontSize: 15,
+    },
+    clickAvatar:{
+        display: 'inline-flex',
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'center',
+        "&:hover":{
+            textDecoration:'none'
+        }
     }
+
 });
 
 
@@ -124,44 +132,50 @@ class LeftMenu extends Component {
         return (
             <div>
                 <div className={classes.avatarWithTextRoot}>
-                    <Avatar alt="Remy Sharp" src={selenaAvatar} className={classes.bigAvatar}/>
-                    <div style={{paddingLeft: 10}}>
-                        <Typography classes={{root:classes.rootHead}} variant={"h5"}>Исидатэ Тайти</Typography>
-                        <Link to={"/"} className={classes.rootLink}>
-                            <Typography> Сменить фото профиля</Typography>
-                        </Link>
-                    </div>
+                    <Link to={""} className={classes.clickAvatar}>
+                        <Avatar alt="Remy Sharp" src={selenaAvatar} className={classes.bigAvatar}/>
+                        <div style={{paddingLeft: 10}}>
+                            <Typography classes={{root: classes.rootHead}} variant={"h5"}>Исидатэ Тайти</Typography>
+                            <Link to={"/"} className={classes.rootLink}>
+                                <Typography> Сменить фото профиля</Typography>
+                            </Link>
+                        </div>
+                    </Link>
                 </div>
 
                 <List component="nav">
                     <Paper className={classes.papeRoot}>
-                        <ListItem button classes={{root: classes.ListItemRoot}} to={"/account/profile-edit"}   component={NavLink} activeClassName={classes.ListItemRootActive}>
+                        <ListItem button classes={{root: classes.ListItemRoot}} to={"/account/profile-edit"}
+                                  component={NavLink} activeClassName={classes.ListItemRootActive}>
                             <ListItemText
-                                classes={{primary:classes.itemTitle}}
+                                classes={{primary: classes.itemTitle}}
                                 primary="Редактировать профиль"
                             />
                         </ListItem>
                     </Paper>
                     <Paper className={classes.papeRoot}>
-                        <ListItem button component={NavLink} to={"/account/passchange"}  classes={{root: classes.ListItemRoot}} activeClassName={classes.ListItemRootActive}>
+                        <ListItem button component={NavLink} to={"/account/passchange"}
+                                  classes={{root: classes.ListItemRoot}} activeClassName={classes.ListItemRootActive}>
                             <ListItemText
-                                classes={{primary:classes.itemTitle}}
+                                classes={{primary: classes.itemTitle}}
                                 primary="Сменить пароль"
                             />
                         </ListItem>
                     </Paper>
                     <Paper className={classes.papeRoot}>
-                        <ListItem button component={NavLink} to={"/polls/create"}  classes={{root: classes.ListItemRoot}} activeClassName={classes.ListItemRootActive}>
+                        <ListItem button component={NavLink} to={"/polls/create"} classes={{root: classes.ListItemRoot}}
+                                  activeClassName={classes.ListItemRootActive}>
                             <ListItemText
-                                classes={{primary:classes.itemTitle}}
+                                classes={{primary: classes.itemTitle}}
                                 primary="Создать опрос"
                             />
                         </ListItem>
                     </Paper>
                     <Paper className={classes.papeRoot}>
-                        <ListItem button component={NavLink} to={"/chat"} classes={{root: classes.ListItemRoot}} activeClassName={classes.ListItemRootActive}>
+                        <ListItem button component={NavLink} to={"/chat"} classes={{root: classes.ListItemRoot}}
+                                  activeClassName={classes.ListItemRootActive}>
                             <ListItemText
-                                classes={{primary:classes.itemTitle}}
+                                classes={{primary: classes.itemTitle}}
                                 primary="Чат"
                             />
                         </ListItem>

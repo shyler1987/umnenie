@@ -111,6 +111,7 @@ const styles = theme => ({
 
         },
         Gridtile: {
+            
             cursor: 'pointer',
             '&:hover': {
                 backgroundColor: '#000 !important',
