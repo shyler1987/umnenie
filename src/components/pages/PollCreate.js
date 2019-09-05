@@ -573,61 +573,7 @@ class PollCreate extends Component {
                                 <Divider style={{margin: '15px 0px 15px'}}/>
 
 
-                                <Grid container spacing={3} direction={"row"} justify="flex-end" alignItems="flex-end"
-                                      style={{paddingBottom: 10}}>
-                                    <Grid item md={10}>
-                                        <TextField
-                                            margin="dense"
-                                            id="outlined-name"
-                                            fullWidth
-                                            multiline
-                                            placeholder={"..."}
-                                            className={classes.textField}
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <a className={classes.editP}>
-                                                            <SvgIcon viewBox="0 0 12 12" width={10} height={10}
-                                                                     classes={{root: classes.svgRoot}}>
-                                                                <defs>
-                                                                    <clipPath id="clip-path-link">
-                                                                        <rect id="Rectangle_81" data-name="Rectangle 81"
-                                                                              width="12" height="12"
-                                                                              transform="translate(914 1486)"
-                                                                              fill="#fff" stroke="#707070"
-                                                                              stroke-width="1"/>
-                                                                    </clipPath>
-                                                                </defs>
-                                                                <g id="Mask_Group_24" data-name="Mask Group 24"
-                                                                   transform="translate(-914 -1486)"
-                                                                   clip-path="url(#clip-path-link)">
-                                                                    <g id="link-symbol" transform="translate(914 1486)">
-                                                                        <path id="Path_1257" data-name="Path 1257"
-                                                                              d="M11.067,5.437,8.815,7.689a3.147,3.147,0,0,1-4.987-.642L4.874,6a.751.751,0,0,1,.17-.113,1.567,1.567,0,0,0,.393.676,1.594,1.594,0,0,0,2.252,0L9.941,4.311A1.593,1.593,0,0,0,7.689,2.059l-.8.8a4,4,0,0,0-2.032-.221L6.563.933a3.185,3.185,0,0,1,4.5,4.5ZM5.112,9.14l-.8.8A1.593,1.593,0,1,1,2.059,7.689L4.311,5.437a1.593,1.593,0,0,1,2.252,0,1.576,1.576,0,0,1,.393.675A.765.765,0,0,0,7.126,6L8.172,4.954a3.13,3.13,0,0,0-.484-.643,3.185,3.185,0,0,0-4.5,0L.933,6.563a3.185,3.185,0,0,0,4.5,4.5L7.144,9.361A3.993,3.993,0,0,1,5.112,9.14Z"
-                                                                              fill="#2b2a29"/>
-                                                                    </g>
-                                                                </g>
-                                                            </SvgIcon>
-                                                        </a>
-                                                    </InputAdornment>
-                                                ),
-                                            }}
-                                            variant="outlined"
-                                        />
-                                        <Button fullWidth variant="contained" color={"secondary"}>Создать код (ctrl +
-                                            enter)</Button>
-                                    </Grid>
-                                    <Grid item md={2}>
-                                        <QRCode
-                                            bgColor="#FFFFFF"
-                                            fgColor="#000000"
-                                            level="Q"
-                                            style={{width: '65%', margin: '0px 10px 0px'}}
-                                            value="some text"
-                                        />
-                                    </Grid>
 
-                                </Grid>
 
 
                                 <Grid container spacing={3} direction={"row"}>
