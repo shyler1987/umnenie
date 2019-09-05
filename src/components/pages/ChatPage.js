@@ -21,7 +21,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import SvgIcon from '@material-ui/core/SvgIcon';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
+import IconButton from '@material-ui/core/IconButton';
 
 
 const styles = theme => ({
@@ -36,6 +38,9 @@ const styles = theme => ({
         inline: {
             display: 'inline',
         },
+    input: {
+        display: 'none',
+    },
         listItem: {
             alignItems: 'center',
             "&:hover": {
@@ -92,6 +97,20 @@ const styles = theme => ({
                 display: 'none',
             },
         },
+        labelCommentFile:{
+            display: 'inline-block',
+            marginBottom: 0
+        },
+        fileSendIcon:{
+            padding: 0,
+            "&:hover":{
+                backgroundColor: "rgba(0, 0, 0, 0)"
+            }
+        },
+    svgRoot: {
+        width: '20px',
+        height: '20apx',
+    }
     })
 ;
 
@@ -392,9 +411,44 @@ class ChatPage extends Component {
                                                     {
                                                         classes: {
                                                             root: classes.multlineInput
-                                                        }
+                                                        },
+                                                        endAdornment: (
+                                                            <InputAdornment position="end">
+                                                                <input
+                                                                    accept="image/*"
+                                                                    className={classes.input}
+                                                                    id="contained-button-file"
+                                                                    multiple
+                                                                    type="file"
+                                                                />
+                                                                <label htmlFor="contained-button-file" className={classes.labelCommentFile}>
+                                                                    <IconButton variant="contained" component="span" classes={{root:classes.fileSendIcon}}>
+                                                                        <SvgIcon viewBox="0 0 16 16"
+                                                                                 classes={{root: classes.svgRoot}}>
+                                                                            <defs>
+                                                                                <clipPath id="clip-path-send">
+                                                                                    <rect
+                                                                                        id="brooke-cagle-609873-unsplash"
+                                                                                        width="16" height="16"/>
+                                                                                </clipPath>
+                                                                            </defs>
+                                                                            <g id="Mask_Group_28"
+                                                                               data-name="Mask Group 28"
+                                                                               opacity="0.35"
+                                                                               clip-path="url(#clip-path-send)">
+                                                                                <path id="paperclip"
+                                                                                      d="M1.016,9.861,2.2,8.678,7.524,3.353a2.51,2.51,0,0,1,3.55,3.55L5.749,12.229a.558.558,0,0,1-.789-.789l5.325-5.326A1.394,1.394,0,0,0,8.313,4.142L2.987,9.467,1.8,10.65A2.511,2.511,0,1,0,5.355,14.2l.986-.986,5.522-5.522.395-.394A3.626,3.626,0,0,0,7.129,2.17L1.213,8.086A.558.558,0,1,1,.424,7.3L6.341,1.381a4.741,4.741,0,0,1,6.705,6.705L7.129,14l-.987.986A3.626,3.626,0,0,1,1.016,9.861Zm0,0"
+                                                                                      transform="translate(0.785)"/>
+                                                                            </g>
+                                                                        </SvgIcon>
+                                                                    </IconButton>
+                                                                </label>
+
+                                                            </InputAdornment>
+                                                        ),
                                                     }
                                                 }
+
                                             />
                                         </Grid>
                                         <Grid item md={3} sm={3} xs={3}>

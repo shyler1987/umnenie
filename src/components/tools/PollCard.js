@@ -431,7 +431,7 @@ class PollCard extends Component {
                                             classes={{root: classes.imgIconsPTOP}}
                                             onClick={() => {
 
-                                            }
+                                                }
                                             }
                                         >
                                             <SvgIcon viewBox="0 0 15 15" classes={{root: classes.svgRootIcon}}>
