@@ -27,7 +27,7 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SvgIcon from '@material-ui/core/SvgIcon';
-
+import AddAPhoto from '@material-ui/icons/AddAPhoto'
 registerPlugin(FilePondPluginImagePreview, FilePondPluginImageExifOrientation);
 const names = [
     'Все',
@@ -117,6 +117,7 @@ const styles = theme => ({
         fontSize: 15,
         textAlign: 'center',
         marginBottom: 5,
+        cursor:'pointer',
         "&:hover":{
             cursor:'pointer'
         }
@@ -161,9 +162,10 @@ const styles = theme => ({
         }
     },
     inLabel:{
-        left:'30%',
         fontSize: 15,
         fontWeight: 600,
+        width:'100%',
+        left: '-15px',
         color: theme.palette.mainBlackColor,
         "&::after":{
             content: "'▾'",
@@ -171,9 +173,12 @@ const styles = theme => ({
             fontSize: 10
         }
     },
-
+        formControl:{
+            textAlign:'center'
+        },
     input: {
         display: 'none',
+
     },
     listItemRoot:{
         marginTop:0,
@@ -308,6 +313,7 @@ class PollCreate extends Component {
                                                 IconComponent={()=>{
                                                     return "";
                                                 }}
+                                                floatingLabelStyle={{ textAlign: 'center', width: '100%', transformOrigin: 'center top 0px' }}
                                                 input={<OutlinedInput name="category" id="outlined-kategory-select"/>}
                                                 renderValue={selected => {
                                                     return selected.join(', ');
@@ -346,8 +352,8 @@ class PollCreate extends Component {
                                 </Grid>
                                 <Grid container spacing={3} direction={"row"}>
                                     <Grid item md={8} sm={8} xs={8} classes={{root: classes.inlineText}}>
-                                        <Typography classes={{root: classes.titleFile}}>Вы можете загрузить основное
-                                            фото к вопросу или добавить фото к вариантам ответов</Typography>
+                                        <Typography classes={{root: classes.titleFile}}>Основное
+                                            фото</Typography>
                                     </Grid>
                                     <Grid item md={4} sm={4} xs={4}>
                                         <input
@@ -360,7 +366,7 @@ class PollCreate extends Component {
                                         <label htmlFor="contained-button-file" style={{width: '100%'}}>
                                             <Button color={"secondary"} variant="contained" component="span"
                                                     className={classes.button} fullWidth>
-                                                Загрузить основное изображение
+                                                <AddAPhoto/>
                                             </Button>
                                         </label>
                                     </Grid>
@@ -405,11 +411,11 @@ class PollCreate extends Component {
                                     </Grid>
 
                                     <Grid container spacing={3} direction={"row"}>
-                                        <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
+                                        <Grid item md={3} sm={12} xs={12} classes={{root: classes.inlineText}}>
                                             <Typography
                                                 classes={{root: classes.titleFieldesetHeadKategory}}>Комментарии:</Typography>
                                         </Grid>
-                                        <Grid item md={9} sm={9} xs={9}>
+                                        <Grid item md={9} sm={12} xs={12}>
                                             <FormControl className={classes.formControl} margin="dense" fullWidth
                                                          variant="outlined">
                                                 {this.state.visibility === null ?
@@ -542,8 +548,7 @@ class PollCreate extends Component {
                                             <label htmlFor="contained-button-file"
                                                    style={{width: '100%', marginTop: '.5rem'}}>
                                                 <Button color={"secondary"} variant="contained" component="span"
-                                                        className={classes.button} fullWidth>Загрузить
-                                                    изображение</Button>
+                                                        className={classes.button} fullWidth><AddAPhoto/></Button>
                                             </label>
                                         </Grid>
 

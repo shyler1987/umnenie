@@ -10,6 +10,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #FAFAFA !important;
+  padding-right: 0px !important;
 }
 
 code {
