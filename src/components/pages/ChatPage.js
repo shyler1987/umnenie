@@ -7,40 +7,27 @@ import axios from 'axios';
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
 import {Link} from "react-router-dom";
-
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import LeftMenu from '../tools/LeftMenu';
-import '../../media/style.css';
 
 
+import ChatProfileItem from '../tools/ChatProfileItem'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import SvgIcon from '@material-ui/core/SvgIcon';
-import InputAdornment from '@material-ui/core/InputAdornment';
-
-import IconButton from '@material-ui/core/IconButton';
-
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const styles = theme => ({
-        multlineInput: {
-            padding: 10
-        },
         root: {
             width: '100%',
-            maxWidth: 360,
             backgroundColor: theme.palette.background.paper,
+            overflow: 'auto',
+            maxHeight: '150vh'
         },
-        inline: {
-            display: 'inline',
-        },
-    input: {
-        display: 'none',
-    },
+
         listItem: {
             alignItems: 'center',
             "&:hover": {
@@ -55,10 +42,6 @@ const styles = theme => ({
             },
 
 
-        },
-        chatHeaderTitle: {
-            padding: '5px 10px 5px',
-            fontWeight: 600
         },
         dvider: {
             marginLeft: 12
@@ -85,32 +68,17 @@ const styles = theme => ({
             overflow: 'auto',
             maxHeight: 500
         },
-        sectionDesktop: {
-            display: 'none',
-            [theme.breakpoints.up('md')]: {
-                display: 'inherit'
-            },
-        },
-        sectionMobile: {
-            display: 'flex',
-            [theme.breakpoints.up('md')]: {
-                display: 'none',
-            },
-        },
-        labelCommentFile:{
-            display: 'inline-block',
-            marginBottom: 0
-        },
-        fileSendIcon:{
-            padding: 0,
-            "&:hover":{
-                backgroundColor: "rgba(0, 0, 0, 0)"
+        contentPageOnDesc: {
+            [theme.breakpoints.down('md')]: {
+                display: 'block'
             }
         },
-    svgRoot: {
-        width: '20px',
-        height: '20apx',
-    }
+        contentPageOnMobile: {
+            [theme.breakpoints.down('md')]: {
+                display: 'none'
+            }
+        }
+
     })
 ;
 
@@ -124,7 +92,8 @@ class ChatPage extends Component {
         super(props);
         this.state = {
             polls: [],
-            show: false
+            show: false,
+            chatUserShow:false
         };
     }
 
@@ -156,6 +125,18 @@ class ChatPage extends Component {
         })
     }
 
+    getChats = (profile_id) => {
+        this.setState({
+            chatUserShow:true
+        })
+    }
+
+    backToChatsList = (bool) =>{
+        this.setState({
+            chatUserShow:bool
+        })
+    }
+
     render() {
         const {classes} = this.props;
         return (
@@ -172,18 +153,17 @@ class ChatPage extends Component {
                     <Grid item md={3} sm={12} xs={12}>
                         <LeftMenu/>
                     </Grid>
-                    <Grid item md={9}>
+                    <Grid item md={9} sm={12} xs={12}>
                         <Paper classes={{root: classes.poperContent}}>
                             <Grid container spacing={3} direction={"row"}>
-                                <Grid item md={4} style={{borderRight: '1px solid #eee'}}>
-                                    <Typography variant="h5" component={"h4"}
-                                                classes={{root: classes.chatHeaderTitle}}> Старый пароль</Typography>
+                                <Grid item md={4} sm={12} xs={12} style={{borderRight: '1px solid #eee'}} className={this.state.chatUserShow ? classes.contentPageOnMobile : classes.contentPageOnDesc }>
+
                                     <List className={classes.root}>
 
-                                        <ListItem alignItems="flex-start" classes={{root: classes.listItem}}>
+                                        <ListItem alignItems="flex-start" classes={{root: classes.listItem}} button onClick={this.getChats}>
                                             <ListItemAvatar>
                                                 <Link to={"/"}> <Avatar alt="Никита Макаренко"
-                                                                        src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"/>
+                                                                        src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"/>
                                                 </Link>
                                             </ListItemAvatar>
                                             <ListItemText
@@ -192,13 +172,13 @@ class ChatPage extends Component {
                                             />
                                         </ListItem>
                                         <Divider component="li" classes={{root: classes.dividerCustom}}/>
-                                        <ListItem alignItems="flex-start" classes={{root: classes.listItem}}>
+                                        <ListItem alignItems="flex-start" classes={{root: classes.listItem}} button onClick={this.getChats}>
                                             <ListItemAvatar>
                                                 <Link to={"/"}>
                                                     <Avatar
                                                         alt="Никита Макаренко"
                                                         classes={{root: classes.avatarChat}}
-                                                        src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
+                                                        src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"
                                                     />
                                                 </Link>
                                             </ListItemAvatar>
@@ -208,10 +188,10 @@ class ChatPage extends Component {
                                             />
                                         </ListItem>
                                         <Divider component="li" classes={{root: classes.dividerCustom}}/>
-                                        <ListItem alignItems="flex-start" classes={{root: classes.listItem}}>
+                                        <ListItem alignItems="flex-start" classes={{root: classes.listItem}} button onClick={this.getChats} >
                                             <ListItemAvatar>
                                                 <Link to={"/"}> <Avatar alt="Никита Макаренко"
-                                                                        src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"/>
+                                                                        src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"/>
                                                 </Link>
                                             </ListItemAvatar>
                                             <ListItemText
@@ -220,10 +200,10 @@ class ChatPage extends Component {
                                             />
                                         </ListItem>
                                         <Divider component="li" classes={{root: classes.dividerCustom}}/>
-                                        <ListItem alignItems="flex-start" classes={{root: classes.listItem}}>
+                                        <ListItem alignItems="flex-start" classes={{root: classes.listItem}} button onClick={this.getChats}>
                                             <ListItemAvatar>
                                                 <Link to={"/"}> <Avatar alt="Никита Макаренко"
-                                                                        src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"/>
+                                                                        src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"/>
                                                 </Link>
                                             </ListItemAvatar>
                                             <ListItemText
@@ -237,252 +217,8 @@ class ChatPage extends Component {
                                     </List>
 
                                 </Grid>
-                                <Grid item md={8}>
-                                    <div className={classes.scrollable}>
-                                        <div className="d-flex justify-content-start itemChat">
-                                            <div className="img_cont_msg">
-                                                <Link to={"/"}> <img
-                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                    className="rounded-circle user_img_msg"/></Link>
-                                            </div>
-                                            <div className="msg_cotainer">
-                                                Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно
-                                                чата Всегда
-                                                буду рад ответить Вам.
-                                                <div className="msg_time">8:40</div>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex justify-content-start itemChat">
-                                            <div className="img_cont_msg">
-                                                <Link to={"/"}> <img
-                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                    className="rounded-circle user_img_msg"/></Link>
-                                            </div>
-                                            <div className="msg_cotainer">
-                                                Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно
-                                                чата Всегда
-                                                буду рад ответить Вам.
-                                                <div className="msg_time">8:40</div>
-                                            </div>
-                                        </div>
-
-
-                                        <div className="d-flex justify-content-end itemChat">
-                                            <div className="msg_cotainer_send">
-                                                Hi Maryam i am good tnx how about you?
-                                                <div className="msg_time_send">8:55</div>
-                                            </div>
-                                            <div className="img_cont_msg">
-                                                <Link to={"/"}> <img
-                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                    className="rounded-circle user_img_msg"/></Link>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex justify-content-start itemChat">
-                                            <div className="img_cont_msg">
-                                                <Link to={"/"}> <img
-                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                    className="rounded-circle user_img_msg"/></Link>
-                                            </div>
-                                            <div className="msg_cotainer">
-                                                Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте окно
-                                                чата Всегда
-                                                буду рад ответить Вам.
-                                                <div className="msg_time">8:40</div>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex justify-content-end itemChat">
-                                            <div className="msg_cotainer_send">
-                                                Hi Maryam i am good tnx how about you?
-                                                <div className="msg_time_send">8:55</div>
-                                            </div>
-                                            <div className="img_cont_msg">
-                                                <Link to={"/"}> <img
-                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                    className="rounded-circle user_img_msg"/></Link>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex justify-content-end itemChat">
-                                            <div className="msg_cotainer_send">
-                                                Hi Maryam i am good tnx how about you?
-                                                <div className="msg_time_send">8:55</div>
-                                            </div>
-                                            <div className="img_cont_msg">
-                                                <Link to={"/"}> <img
-                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                    className="rounded-circle user_img_msg"/></Link>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex justify-content-end itemChat">
-                                            <div className="msg_cotainer_send">
-                                                Hi Maryam i am good tnx how about you?
-                                                <div className="msg_time_send">8:55</div>
-                                            </div>
-                                            <div className="img_cont_msg">
-                                                <Link to={"/"}> <img
-                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                    className="rounded-circle user_img_msg"/></Link>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex justify-content-end itemChat">
-                                            <div className="msg_cotainer_send">
-                                                Hi Maryam i am good tnx how about you?
-                                                <div className="msg_time_send">8:55</div>
-                                            </div>
-                                            <div className="img_cont_msg">
-                                                <Link to={"/"}> <img
-                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                    className="rounded-circle user_img_msg"/></Link>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex justify-content-end itemChat">
-                                            <div className="msg_cotainer_send">
-                                                Hi Maryam i am good tnx how about you?
-                                                <div className="msg_time_send">8:55</div>
-                                            </div>
-                                            <div className="img_cont_msg">
-                                                <Link to={"/"}> <img
-                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                    className="rounded-circle user_img_msg"/></Link>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex justify-content-end itemChat">
-                                            <div className="msg_cotainer_send">
-                                                Hi Maryam i am good tnx how about you?
-                                                <div className="msg_time_send">8:55</div>
-                                            </div>
-                                            <div className="img_cont_msg">
-                                                <Link to={"/"}> <img
-                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                    className="rounded-circle user_img_msg"/></Link>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex justify-content-end itemChat">
-                                            <div className="msg_cotainer_send">
-                                                Hi Maryam i am good tnx how about you?
-                                                <div className="msg_time_send">8:55</div>
-                                            </div>
-                                            <div className="img_cont_msg">
-                                                <Link to={"/"}> <img
-                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                    className="rounded-circle user_img_msg"/></Link>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex justify-content-end itemChat">
-                                            <div className="msg_cotainer_send">
-                                                Hi Maryam i am good tnx how about you?
-                                                <div className="msg_time_send">8:55</div>
-                                            </div>
-                                            <div className="img_cont_msg">
-                                                <Link to={"/"}> <img
-                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                    className="rounded-circle user_img_msg"/></Link>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex justify-content-end itemChat">
-                                            <div className="msg_cotainer_send">
-                                                Hi Maryam i am good tnx how about you?
-                                                <div className="msg_time_send">8:55</div>
-                                            </div>
-                                            <div className="img_cont_msg">
-                                                <Link to={"/"}> <img
-                                                    src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                    className="rounded-circle user_img_msg"/></Link>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <Grid
-                                        direction={"row"}
-                                        container
-                                        spacing={2}
-                                        style={{padding: 10}}
-                                    >
-                                        <Grid item md={9} sm={9} xs={9}>
-                                            <TextField
-                                                id="standard-multiline-flexible"
-                                                fullWidth
-                                                multiline
-                                                variant="outlined"
-                                                className={classes.textField}
-                                                InputProps={
-                                                    {
-                                                        classes: {
-                                                            root: classes.multlineInput
-                                                        },
-                                                        endAdornment: (
-                                                            <InputAdornment position="end">
-                                                                <input
-                                                                    accept="image/*"
-                                                                    className={classes.input}
-                                                                    id="contained-button-file"
-                                                                    multiple
-                                                                    type="file"
-                                                                />
-                                                                <label htmlFor="contained-button-file" className={classes.labelCommentFile}>
-                                                                    <IconButton variant="contained" component="span" classes={{root:classes.fileSendIcon}}>
-                                                                        <SvgIcon viewBox="0 0 16 16"
-                                                                                 classes={{root: classes.svgRoot}}>
-                                                                            <defs>
-                                                                                <clipPath id="clip-path-send">
-                                                                                    <rect
-                                                                                        id="brooke-cagle-609873-unsplash"
-                                                                                        width="16" height="16"/>
-                                                                                </clipPath>
-                                                                            </defs>
-                                                                            <g id="Mask_Group_28"
-                                                                               data-name="Mask Group 28"
-                                                                               opacity="0.35"
-                                                                               clip-path="url(#clip-path-send)">
-                                                                                <path id="paperclip"
-                                                                                      d="M1.016,9.861,2.2,8.678,7.524,3.353a2.51,2.51,0,0,1,3.55,3.55L5.749,12.229a.558.558,0,0,1-.789-.789l5.325-5.326A1.394,1.394,0,0,0,8.313,4.142L2.987,9.467,1.8,10.65A2.511,2.511,0,1,0,5.355,14.2l.986-.986,5.522-5.522.395-.394A3.626,3.626,0,0,0,7.129,2.17L1.213,8.086A.558.558,0,1,1,.424,7.3L6.341,1.381a4.741,4.741,0,0,1,6.705,6.705L7.129,14l-.987.986A3.626,3.626,0,0,1,1.016,9.861Zm0,0"
-                                                                                      transform="translate(0.785)"/>
-                                                                            </g>
-                                                                        </SvgIcon>
-                                                                    </IconButton>
-                                                                </label>
-
-                                                            </InputAdornment>
-                                                        ),
-                                                    }
-                                                }
-
-                                            />
-                                        </Grid>
-                                        <Grid item md={3} sm={3} xs={3}>
-                                            <Button variant="contained" color="secondary" fullWidth
-                                                    className={classes.sectionDesktop}>
-                                                Отправить
-                                            </Button>
-                                            <Button variant="contained" color="secondary" fullWidth
-                                                    className={classes.sectionMobile}>
-                                                <SvgIcon viewBox="0 0 16 16"
-                                                         classes={{root: classes.svgRootP}}>
-                                                    <defs>
-                                                        <clipPath id="clip-path-sendTg">
-                                                            <rect id="brooke-cagle-609873-unsplash"
-                                                                  width="16" height="16"
-                                                                  transform="translate(750 1484)"
-                                                                  fill="#fff"/>
-                                                        </clipPath>
-                                                    </defs>
-                                                    <g id="Mask_Group_27" data-name="Mask Group 27"
-                                                       transform="translate(-750 -1484)"
-                                                       clip-path="url(#clip-path-sendTg)">
-                                                        <g id="paper-plane" transform="translate(750 1484)">
-                                                            <path id="Path_1260" data-name="Path 1260"
-                                                                  d="M15.863.139a.461.461,0,0,0-.508-.1L.277,6.651A.466.466,0,0,0,0,7.05a.458.458,0,0,0,.232.423l5.257,2.981,3.121,5.311a.464.464,0,0,0,.4.229h.027a.461.461,0,0,0,.4-.276L15.962.647A.455.455,0,0,0,15.863.139Zm-2.4,1.736L5.749,9.541,1.488,7.125ZM8.945,14.518,6.4,10.189l7.761-7.709Z"
-                                                                  fill="#fff"/>
-                                                        </g>
-                                                    </g>
-                                                </SvgIcon>
-                                            </Button>
-                                        </Grid>
-
-
-                                    </Grid>
+                                <Grid item md={8} sm={12} xs={12}>
+                                    <ChatProfileItem chatUserShow={this.state.chatUserShow} backTo={this.backToChatsList}/>
                                 </Grid>
 
                             </Grid>

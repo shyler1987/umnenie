@@ -411,11 +411,11 @@ class PollCreate extends Component {
                                     </Grid>
 
                                     <Grid container spacing={3} direction={"row"}>
-                                        <Grid item md={3} sm={12} xs={12} classes={{root: classes.inlineText}}>
+                                        <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
                                             <Typography
                                                 classes={{root: classes.titleFieldesetHeadKategory}}>Комментарии:</Typography>
                                         </Grid>
-                                        <Grid item md={9} sm={12} xs={12}>
+                                        <Grid item md={9} sm={9} xs={9}>
                                             <FormControl className={classes.formControl} margin="dense" fullWidth
                                                          variant="outlined">
                                                 {this.state.visibility === null ?

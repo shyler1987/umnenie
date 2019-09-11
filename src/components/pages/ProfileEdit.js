@@ -35,6 +35,10 @@ const styles = theme => ({
         color: theme.palette.text.secondary,
         //minHeight:500
     },
+    formControl:{
+        width: '100%',
+        textAlign: 'center'
+    },
     bigAvatar: {
         width: 70,
         height: 70
@@ -150,7 +154,8 @@ const styles = theme => ({
         }
     },
     inLabel:{
-        left:'30%',
+        left: '-15px',
+        width:'100%',
         fontSize: 15,
         fontWeight: 600,
         color: theme.palette.mainBlackColor,
@@ -162,7 +167,8 @@ const styles = theme => ({
     },
 
     inLabelSpeasial:{
-        left:'30%',
+        left: '-15px',
+        width:'100%',
         fontSize: 15,
         fontWeight: 600,
         color: theme.palette.mainBlackColor,
