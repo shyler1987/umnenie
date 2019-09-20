@@ -18,6 +18,7 @@ import {connect} from "react-redux";
 import Button from '@material-ui/core/Button';
 import AuthDialog from "../pages/AuthDialog";
 import Grid from "../pages/Registration";
+import axios from "axios";
 
 const styles = theme => ({
     toolbar: {
@@ -175,6 +176,7 @@ const styles = theme => ({
          this.props.setIsAuth(true);
      }
 
+
      render(){
          const {classes} = this.props;
 
@@ -189,7 +191,7 @@ const styles = theme => ({
                     {!this.state.isSerachOpen ?
                         <div className={classes.LogoDiv}>
                         <Link to={'/'} style={{marginRight:20}} >
-                            <img src={logo} alt="Kitten"  width="150" />
+                            <img src={logo} alt="logo"  width="150" />
                         </Link> </div> : ""}
 
 
@@ -225,8 +227,8 @@ const styles = theme => ({
                         <div className={classes.grow}/>
                     {this.props.isAuthenticated ? <React.Fragment>
                         <Link to={"/account/profile"} className={classes.sectionDesktop}>
-                            <Avatar aria-label="Recipe" src={"http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"}/>
-                            <Typography>Исидатэ Тайти</Typography>
+                            <Avatar aria-label="Recipe" src={this.props.userInfo.userImage}/>
+                            <Typography>{this.props.userInfo.userFIO}</Typography>
                         </Link>
                     </React.Fragment>:
                             <Button className={classes.button} onClick={this.setAuthClick}>Войти</Button>
@@ -254,7 +256,7 @@ const styles = theme => ({
                             }
                             {!this.state.isSerachOpen ? this.props.isAuthenticated ?
                                     <Link to={"/account/profile"} className={classes.sectionMobileAvatar}>
-                                <Avatar aria-label="Recipe" src={"http://umnenie.foundrising.uz/uploads/user/foto/1.jpg"}/>
+                                <Avatar aria-label="Recipe" src={this.props.userInfo.userImage}/>
                             </Link> : "" : ""}
 
                         </div>
@@ -268,7 +270,8 @@ const styles = theme => ({
 
 function mapStateToProps(state){
      return {
-         isAuthenticated:state.mainData.isAuthenticated
+         isAuthenticated:state.mainData.isAuthenticated,
+         userInfo:state.mainData.user
      }
 }
 

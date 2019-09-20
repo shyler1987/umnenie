@@ -18,6 +18,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import setIsAuth from '../../redux/actions/setIsAuth'
 import seTisAuthenticated from '../../redux/actions/seTisAuthenticated'
+import setUserData from '../../redux/actions/setUserData'
 import SvgIcon from '@material-ui/core/SvgIcon';
 
 
@@ -169,10 +170,11 @@ class AuthDialog extends Component {
                 password:this.state.password,
         })
             .then(response => {
-                if(response.data.status===200){
-                    localStorage.setItem('token', response.data.data.access_token);
+                if(response.status===200){
+                    localStorage.setItem('token', response.data.access_token);
                     this.props.setIsAuth(false);
                     this.props.seTisAuthenticated(true);
+                    this.props.setUserData(response.data)
 
                 }
             })
@@ -300,16 +302,6 @@ class AuthDialog extends Component {
                                                 </IconButton>
                                                 <IconButton  classes={{root:classes.iconBtn}}>
                                                     <SvgIcon viewBox="0 0 40.196 40.196"  classes={{root: classes.svgRootIcon}}>
-                                                        <g id="twitter_1_" data-name="twitter (1)" transform="translate(-0.001)">
-                                                            <circle id="Ellipse_10" data-name="Ellipse 10" cx="20.098" cy="20.098" r="20.098" transform="translate(0.001 0)" fill="#55acee"/>
-                                                            <g id="Group_1518" data-name="Group 1518" transform="translate(8.994 12.191)">
-                                                                <path id="Path_1225" data-name="Path 1225" d="M48.519,36.281a9.585,9.585,0,0,1-2.759.756,4.817,4.817,0,0,0,2.113-2.657,9.617,9.617,0,0,1-3.051,1.165,4.808,4.808,0,0,0-8.186,4.382,13.637,13.637,0,0,1-9.9-5.02,4.809,4.809,0,0,0,1.486,6.414,4.77,4.77,0,0,1-2.176-.6c0,.02,0,.041,0,.061A4.807,4.807,0,0,0,29.9,45.49a4.823,4.823,0,0,1-2.169.083,4.809,4.809,0,0,0,4.488,3.336A9.7,9.7,0,0,1,25.1,50.9a13.662,13.662,0,0,0,21.032-11.51c0-.208,0-.416-.014-.621a9.742,9.742,0,0,0,2.4-2.486Z" transform="translate(-25.103 -34.028)" fill="#f1f2f2"/>
-                                                            </g>
-                                                        </g>
-                                                    </SvgIcon>
-                                                </IconButton>
-                                                <IconButton  classes={{root:classes.iconBtn}}>
-                                                    <SvgIcon viewBox="0 0 40.196 40.196"  classes={{root: classes.svgRootIcon}}>
                                                         <defs>
                                                             <clipPath id="clip-path-wk">
                                                                 <rect width="40.196" height="40.196" fill="none"/>
@@ -359,12 +351,15 @@ class AuthDialog extends Component {
 }
 
 function mapDispatch(dispatch) {
-    return bindActionCreators({setIsAuth, seTisAuthenticated}, dispatch);
+    return bindActionCreators({setIsAuth, seTisAuthenticated, setUserData}, dispatch);
 }
 
 function mapStateToProps(state) {
 
-    return {isAuth:state.mainData.isAuth};
+    return {
+        isAuth:state.mainData.isAuth,
+        user:state.mainData.user
+    };
 
 }
 

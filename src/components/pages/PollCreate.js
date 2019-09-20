@@ -28,6 +28,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import AddAPhoto from '@material-ui/icons/AddAPhoto'
+import Clear from '@material-ui/icons/Clear'
 registerPlugin(FilePondPluginImagePreview, FilePondPluginImageExifOrientation);
 const names = [
     'Все',
@@ -538,6 +539,9 @@ class PollCreate extends Component {
                                             />
                                         </Grid>
                                         <Grid item md={3} sm={3} xs={3}>
+                                            <Button color={"secondary"} variant="contained" >
+                                                <Clear/>
+                                            </Button>
                                             <input
                                                 accept="image/*"
                                                 className={classes.input}
@@ -546,9 +550,9 @@ class PollCreate extends Component {
                                                 type="file"
                                             />
                                             <label htmlFor="contained-button-file"
-                                                   style={{width: '100%', marginTop: '.5rem'}}>
+                                                   style={{marginLeft:5, marginTop: '.5rem'}}>
                                                 <Button color={"secondary"} variant="contained" component="span"
-                                                        className={classes.button} fullWidth><AddAPhoto/></Button>
+                                                        className={classes.button} ><AddAPhoto/></Button>
                                             </label>
                                         </Grid>
 

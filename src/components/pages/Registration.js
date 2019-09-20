@@ -11,7 +11,12 @@ import Button from '@material-ui/core/Button';
 import {Link} from "react-router-dom";
 import Divider from '@material-ui/core/Divider';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import setIsAuth from '../../redux/actions/setIsAuth'
+import seTisAuthenticated from '../../redux/actions/seTisAuthenticated'
+import setUserData from '../../redux/actions/setUserData'
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -143,9 +148,17 @@ const styles = theme => ({
 
 });
 
-const API_POLLS = "polls/list";
+const API_REGFISTRATION = "account/registry";
 
-
+const NamesState = [
+    'phone',
+    'fio',
+    'org_name',
+    'email',
+    'username',
+    'password',
+    'retry_password',
+];
 class Registration extends Component {
 
     constructor(props) {
@@ -161,6 +174,82 @@ class Registration extends Component {
             personToggle: !this.state.personToggle
         })
     }
+
+    handleChange = (e) => {
+        this.setState({
+            [e.target.name]:e.target.value
+        })
+    }
+
+    onSubmitForm = () =>{
+        if(this.state.personToggle){
+            //fiz litsoi
+            const  data = {
+                type:1,
+                fio:this.state.fio,
+                phone:this.state.phone,
+                username:this.state.username,
+                password:this.state.password,
+                retry_password:this.state.retry_password,
+            };
+            this.regAction(data)
+        }else{
+            //yur litsoi
+            const  data = {
+                type:2,
+                org_name:this.state.org_name,
+                email:this.state.email,
+                username:this.state.username,
+                password:this.state.password,
+                retry_password:this.state.retry_password,
+            };
+            this.regAction(data)
+        }
+    }
+
+
+    regAction = (data) => {
+        this.setState({show:true})
+        axios.post(API_REGFISTRATION, data).then(res=>{
+
+            this.setState({show:false})
+            if(res.status===201){
+                localStorage.setItem('token', res.data.data.access_token);
+                this.props.seTisAuthenticated(true);
+                this.props.setUserData(res.data.data)
+                this.props.history.push("/account/profile")
+            }
+
+        }).catch(err=>{
+            this.setState({show:false})
+            let errTextAll = "";
+            NamesState.map(item => {
+                this.setState({
+                    [item + 'Error']: false,
+                    [item + 'ErrorText']: null
+                });
+            })
+            if(err.response!==undefined){
+                let erors = JSON.parse(err.response.data.message);
+                Object.keys(erors).map(item => {
+                    let errText = "";
+                    erors[item].map(itemError => {
+                        errTextAll += itemError + ', ';
+                        errText += itemError + ', ';
+                    })
+                    this.setState({
+                        [item + 'Error']: true,
+                        [item + 'ErrorText']: errText,
+                    });
+
+                });
+            }
+
+            console.log(err)
+        })
+    }
+
+
 
     render() {
         const {classes} = this.props;
@@ -187,7 +276,12 @@ class Registration extends Component {
                             >
 
                                 <Grid item md={4} xs={12} sm={12}>
-                                    <form fullWidth>
+                                    <ValidatorForm
+                                        fullWidth
+                                        ref="form"
+                                        onSubmit={this.onSubmitForm}
+                                        onError={errors => console.log(errors)}
+                                    >
                                         <ButtonGroup fullWidth aria-label="full width outlined button group"
                                                      classes={{root: classes.ButtonGroup}}>
                                             <Button onClick={this.personToggle}
@@ -200,62 +294,104 @@ class Registration extends Component {
                                         </ButtonGroup>
                                         {this.state.personToggle ?
                                             <React.Fragment>
-                                                <TextField
+                                                <TextValidator
                                                     fullWidth
                                                     id="outlined-bare"
                                                     placeholder={"Ф.И.О"}
-                                                    //className={classes.textField}
-
+                                                    name={"fio"}
+                                                    value={this.state.fio}
+                                                    onChange={this.handleChange}
+                                                    validators={['required']}
+                                                    errorMessages={['Это поле обязательно к заполнению']}
+                                                    error={this.state.fioError}
+                                                    helperText={this.state.fioErrorText}
                                                     margin="dense"
                                                     variant="outlined"
                                                 />
-                                                <TextField
+                                                <TextValidator
                                                     fullWidth
                                                     id="outlined-bare"
                                                     placeholder={"Номер телефона"}
                                                     margin="dense"
+                                                    name={"phone"}
+                                                    onChange={this.handleChange}
+                                                    value={this.state.phone}
+                                                    error={this.state.phoneError}
+                                                    helperText={this.state.phoneErrorText}
                                                     variant="outlined"
+                                                    validators={['required']}
+                                                    errorMessages={['Это поле обязательно к заполнению']}
                                                 />
                                             </React.Fragment>
                                             :
                                             <React.Fragment>
-                                                <TextField
+                                                <TextValidator
                                                     fullWidth
                                                     id="outlined-bare"
                                                     placeholder={"Название организация"}
                                                     margin="dense"
+                                                    name={"org_name"}
+                                                    value={this.state.org_name}
+                                                    error={this.state.org_nameError}
+                                                    helperText={this.state.org_nameErrorText}
+                                                    onChange={this.handleChange}
                                                     variant="outlined"
+                                                    validators={['required']}
+                                                    errorMessages={['Это поле обязательно к заполнению']}
                                                 />
-                                                <TextField
+                                                <TextValidator
                                                     fullWidth
                                                     id="outlined-bare"
                                                     placeholder={"E-mail"}
+                                                    name={"email"}
+                                                    value={this.state.email}
+                                                    error={this.state.emailError}
+                                                    helperText={this.state.emailErrorText}
+                                                    onChange={this.handleChange}
                                                     margin="dense"
                                                     variant="outlined"
+                                                    validators={['required', 'isEmail']}
+                                                    errorMessages={['Это поле обязательно к заполнению', 'Email не является допустимым']}
                                                 />
                                             </React.Fragment>
                                         }
 
-                                        <TextField
+                                        <TextValidator
                                             fullWidth
                                             id="outlined-bare"
                                             placeholder={"Придумайте логин/имя пользователя"}
                                             variant="outlined"
+                                            name={"username"}
+                                            value={this.state.username}
+                                            error={this.state.usernameError}
+                                            helperText={this.state.usernameErrorText}
+                                            onChange={this.handleChange}
                                             margin="dense"
                                         />
-                                        <TextField
+                                        <TextValidator
                                             fullWidth
                                             id="outlined-bare"
                                             placeholder={"Пароль"}
                                             variant="outlined"
                                             margin="dense"
+                                            name={"password"}
+                                            value={this.state.password}
+                                            error={this.state.passwordError}
+                                            helperText={this.state.passwordErrorText}
+                                            onChange={this.handleChange}
+                                            type={"password"}
 
                                         />
-                                        <TextField
+                                        <TextValidator
                                             fullWidth
                                             id="outlined-bare"
                                             placeholder={"Павтаритие пароль"}
-
+                                            name={"retry_password"}
+                                            value={this.state.retry_password}
+                                            onChange={this.handleChange}
+                                            type={"password"}
+                                            error={this.state.retry_passwordError}
+                                            helperText={this.state.retry_passwordErrorText}
                                             variant="outlined"
                                             margin="dense"
 
@@ -269,14 +405,16 @@ class Registration extends Component {
                                         >
 
                                             <Grid item md={12}>
-                                                <Button variant="contained" color="secondary" style={{marginTop: 10}}
+                                                <Button
+                                                    disabled={this.state.show}
+                                                    variant="contained" color="secondary" style={{marginTop: 10}} type={"submit"}
                                                         classes={{root: classes.regBtns}} fullWidth>
                                                     Зарегистрироваться
                                                 </Button>
                                             </Grid>
 
                                         </Grid>
-                                    </form>
+                                    </ValidatorForm>
                                     <div>
                                         <Typography classes={{root: classes.textP}}>Все права защищены. Используя сайт,
                                             вы обязуетесь выполнять условия <a href={"#"} className={classes.textA}>Пользовательского
@@ -323,4 +461,16 @@ class Registration extends Component {
 
 }
 
-export default withStyles(styles)(Registration);
+
+function mapDispatch(dispatch) {
+    return bindActionCreators({setIsAuth, seTisAuthenticated, setUserData}, dispatch);
+}
+
+function mapStateToProps(state) {
+    return {
+        isAuth:state.mainData.isAuth,
+        user:state.mainData.user
+    };
+}
+
+export default connect(mapStateToProps, mapDispatch)(withStyles(styles)(Registration));

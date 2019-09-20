@@ -18,7 +18,9 @@ import PollCreate from "./components/pages/PollCreate";
 import ChatPage from "./components/pages/ChatPage";
 import Registration from "./components/pages/Registration";
 import StatisPage from "./components/pages/StatisPage";
-
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import setUserData from './redux/actions/setUserData'
 const raleway = {};
 
 
@@ -150,12 +152,27 @@ class App extends Component {
 
 
     }
+    componentDidMount() {
+        if(localStorage.getItem('token')!==null){
+            this.fetchMe();
+        }
+    }
+
+    fetchMe = () => {
+        axios.get("profil/me").then(res=>{
+            this.props.setUserData(res.data)
+        }).catch(err=>{
+            console.log(err);
+        })
+    }
 
     componentWillMount() {
         axios.defaults.baseURL = "http://api.foundrising.uz/v1/";
         axios.interceptors.request.use(function (config) {
 
-
+            if (localStorage.getItem('token') !== null) {
+                config.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+            }
             return config;
         }, function (error) {
             // Do something with request error
@@ -207,8 +224,19 @@ class App extends Component {
     }
 
 }
+function mapStateToProps(state) {
+    return {
+        isAuthenticated: state.mainData.isAuthenticated,
+        user: state.mainData.user
+    }
+}
 
-export default App;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({setUserData}, dispatch);
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps) (App);
 
 
 
