@@ -385,7 +385,7 @@ class Registration extends Component {
                                         <TextValidator
                                             fullWidth
                                             id="outlined-bare"
-                                            placeholder={"Павтаритие пароль"}
+                                            placeholder={"Повторите пароль"}
                                             name={"retry_password"}
                                             value={this.state.retry_password}
                                             onChange={this.handleChange}

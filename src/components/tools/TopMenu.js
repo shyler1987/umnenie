@@ -19,7 +19,10 @@ import Button from '@material-ui/core/Button';
 import AuthDialog from "../pages/AuthDialog";
 import Grid from "../pages/Registration";
 import axios from "axios";
-
+import seTisAuthenticated from "../../redux/actions/seTisAuthenticated";
+import setUserData from "../../redux/actions/setUserData";
+import Loading from 'react-loading-bar'
+import 'react-loading-bar/dist/index.css'
 const styles = theme => ({
     toolbar: {
         // maxWidth: 1170
@@ -158,11 +161,15 @@ const styles = theme => ({
 
 });
 
+const LOGOUT = "profil/logout";
+
+
  class TopMenu extends React.Component  {
      constructor(props) {
          super(props);
          this.state = {
-             isSerachOpen:false
+             isSerachOpen:false,
+             show:false,
          }
      }
 
@@ -176,12 +183,41 @@ const styles = theme => ({
          this.props.setIsAuth(true);
      }
 
+     logOut = () =>{
+         this.setState({show:true})
+         axios.get(LOGOUT).then(res=>{
+             if(res.status===200){
+                 localStorage.removeItem("token");
+                 this.props.seTisAuthenticated(false);
+                 this.props.setUserData({
+                     userFIO: null,
+                     userName: null,
+                     userImage: null,
+                     access_token: null,
+                     user_id: null,
+                     role: null
+                 });
+                 this.props.history.push("/")
+             }
+             this.setState({show:false})
+
+         }).catch(err=>{
+             this.setState({show:false})
+            console.log(err)
+         })
+     }
+
 
      render(){
          const {classes} = this.props;
 
          return (
         <div className={classes.grow}>
+
+            <Loading
+                show={this.state.show}
+                color="red"
+            />
             <AuthDialog dialogBool={false}/>
             <AppBar position="relative" classes={{root:classes.appBar}}>
                 <Container maxWidth="lg">
@@ -227,6 +263,7 @@ const styles = theme => ({
                         <div className={classes.grow}/>
                     {this.props.isAuthenticated ? <React.Fragment>
                         <Link to={"/account/profile"} className={classes.sectionDesktop}>
+                            <Button className={classes.button} onClick={this.logOut}>Выход</Button>
                             <Avatar aria-label="Recipe" src={this.props.userInfo.userImage}/>
                             <Typography>{this.props.userInfo.userFIO}</Typography>
                         </Link>
@@ -276,7 +313,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-     return bindActionCreators({setIsAuth}, dispatch);
+     return bindActionCreators({setIsAuth, seTisAuthenticated, setUserData}, dispatch);
 }
 
 
