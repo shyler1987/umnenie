@@ -87,7 +87,11 @@ class Dash extends Component {
     refresh = ()=>{
         this.fetchDataPollsScroll(API_POLLS);
     }
-
+    showLoadingBar = (bool) =>{
+        this.setState({
+            show:bool
+        })
+    }
     render() {
         const {classes} = this.props;
         return (
@@ -142,7 +146,11 @@ class Dash extends Component {
                                         pollType={item.pollType}
                                         pollItems={item.items}
                                         CrownSvg={item.pollCrown}
+                                        like={item.like}
                                         iconFovrite={true}
+                                        clickOtvet={false}
+                                        disableClickCard={true}
+                                        showLoading={this.showLoadingBar}
                                     />
                                 );
                             })}

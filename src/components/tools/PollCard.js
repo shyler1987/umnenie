@@ -29,7 +29,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import '../../media/style.css';
 import {CircularProgressbar} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-
+import {QRCode} from "react-qr-svg";
 import check from '../../media/icons/check.svg'
 
 import {Progress} from 'react-sweet-progress';
@@ -39,7 +39,8 @@ import {Link, NavLink, withRouter} from "react-router-dom";
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import setIsAuth from '../../redux/actions/setIsAuth'
-
+import axios from 'axios';
+import Dialog from "@material-ui/core/Dialog";
 
 const styles = theme => ({
         avatars: {
@@ -181,6 +182,7 @@ const styles = theme => ({
                 paddingRight: 9,
                 border: "1px solid #E6E6E6",
                 borderRadius: 5,
+                cursor:'ponter',
                 "& dot": {
                     borderRadius: '50%',
                     width: 5,
@@ -270,6 +272,9 @@ const styles = theme => ({
     })
 ;
 
+
+const API_VOICE = "/plikedClickrofil/answer-to-poll";
+const API_Like = "/profil/like-to-poll";
 class PollCard extends Component {
 
     constructor(props) {
@@ -279,7 +284,12 @@ class PollCard extends Component {
             iconStatis, iconFovrite, iconShare, iconComment, iconAnonced, iconEdit, CrownSvg, QrCode,
             cellHeight,
             answerText,
-            disableCard
+            disableCard,
+            like,
+            pollAnswerCount,
+            pollLikeCount,
+            clickOtvet,
+            disableClickCard
         } = this.props;
 
         this.state = {
@@ -290,8 +300,12 @@ class PollCard extends Component {
             pollType: pollType,
             imagePoll: imagePoll,
             idPoll: idPoll,
+            show: false,
+            dialogopen: false,
             pollItems: pollItems,
             disableCard: disableCard === null ? false : disableCard,
+            disableClickCard: disableClickCard === null ? false : disableClickCard,
+            clickOtvet: clickOtvet === null ? false : clickOtvet,
             iconStatis: iconStatis === null ? false : iconStatis,
             iconFovrite: iconFovrite === null ? false : iconFovrite,
             iconShare: iconShare === null ? false : iconShare,
@@ -302,8 +316,12 @@ class PollCard extends Component {
             QrCode: QrCode === null ? false : QrCode,
             answerText: answerText === null ? false : answerText,
             cellHeight: cellHeight === null ? 180 : cellHeight,
-            liked: false
+            liked: like,
+            pollAnswerCount: pollAnswerCount,
+            pollLikeCount: pollLikeCount,
+
         }
+
         this.changeRoute = this.changeRoute.bind(this);
     }
 
@@ -313,6 +331,10 @@ class PollCard extends Component {
             iconStatis, iconFovrite, iconShare, iconComment, iconAnonced, iconEdit, CrownSvg, QrCode,
             cellHeight,
             answerText,
+            like,
+            pollAnswerCount,
+            clickOtvet,
+            disableClickCard,
 
         } = nextProps;
 
@@ -326,7 +348,10 @@ class PollCard extends Component {
             idPoll: idPoll,
             pollItems: pollItems,
             iconStatis: iconStatis === null ? false : iconStatis,
+            clickOtvet: clickOtvet === null ? false : clickOtvet,
             iconFovrite: iconFovrite === null ? false : iconFovrite,
+            liked: like,
+            pollAnswerCount: pollAnswerCount,
             iconShare: iconShare === null ? false : iconShare,
             iconComment: iconComment === null ? false : iconComment,
             iconAnonced: iconAnonced === null ? false : iconAnonced,
@@ -335,7 +360,8 @@ class PollCard extends Component {
             QrCode: QrCode === null ? false : QrCode,
             answerText: answerText === null ? false : answerText,
             cellHeight: cellHeight === null ? 180 : cellHeight,
-            liked: false
+            disableClickCard: disableClickCard === null ? false : disableClickCard,
+
         });
     }
 
@@ -345,7 +371,50 @@ class PollCard extends Component {
         history.push('/statis')
     }
 
-    likedClick = (e) => {
+    clickItem = (poll_id, item_id) => (e) =>{
+        e.preventDefault();
+        // if(this.props.clickOtvet===false){
+        //     return;
+        // }
+        //
+        // if(this.props.isAuthenticated===false){
+        //     this.props.setIsAuth(true);
+        //     return;
+        // }
+
+
+        this.props.showLoading(true);
+        axios.post(API_VOICE, {
+            poll_item_id:item_id,
+            poll_id:poll_id
+        }).then(res=>{
+            if(res.status===202){
+                this.setState({
+                    pollItems:res.data
+                })
+            }
+            this.props.showLoading(false);
+        }).catch(err=>{
+            this.props.showLoading(false);
+        })
+    }
+
+    likedClick = (poll_id)=> (e) => {
+        this.props.showLoading(true);
+        axios.post(API_Like, {
+            poll_id:poll_id
+        }).then(res=>{
+            if(res.status===202){
+                this.setState({
+                    pollLikeCount:res.data.pollLikeCount
+                })
+            }
+            this.props.showLoading(false);
+        }).catch(err=>{
+            this.props.showLoading(false);
+        })
+
+
         this.setState({
             liked: !this.state.liked
         });
@@ -353,18 +422,31 @@ class PollCard extends Component {
     }
 
 
+    handleClose = () =>{
+        this.setState({
+            dialogopen:false
+        })
+    }
+
+    oepnQrCode = () =>{
+        this.setState({
+            dialogopen:true
+        })
+    }
+
     render() {
         const {classes} = this.props;
-        return (<Link to={"/polls/" + this.state.idPoll} className={classes.clickCard}>
-                <Card className={this.state.disableCard ? classes.disableCard : ""} >
-                    <CardHeader
-                        avatar={
-                            <Avatar aria-label="Recipe" src={this.state.avatarUrl}>
-                                R
-                            </Avatar>
-                        }
-                        action={
-                            <div>
+
+
+        const cardContent = <Card className={this.state.disableCard ? classes.disableCard : ""} >
+            <CardHeader
+                avatar={
+                    <Avatar aria-label="Recipe" src={this.state.avatarUrl}>
+                        R
+                    </Avatar>
+                }
+                action={
+                    <div>
                                 <span className={classes.cardDateTitle}>
                                     {this.state.iconStatis ?
                                         <IconButton
@@ -431,7 +513,7 @@ class PollCard extends Component {
                                             classes={{root: classes.imgIconsPTOP}}
                                             onClick={() => {
 
-                                                }
+                                            }
                                             }
                                         >
                                             <SvgIcon viewBox="0 0 15 15" classes={{root: classes.svgRootIcon}}>
@@ -441,94 +523,95 @@ class PollCard extends Component {
                                             </SvgIcon>
                                         </IconButton> : ""}
                                 </span>
-                            </div>}
-                        classes={{title: classes.cardTitle}}
-                        title={this.state.fullName}
+                    </div>}
+                classes={{title: classes.cardTitle}}
+                title={this.state.fullName}
 
-                        subheaderTypographyProps={{color: 'secondary'}}
-                        subheader={this.state.datePoll}
-                    />
-                    <CardContent>
-                        <Typography component="p" classes={{root: classes.cardContentText}}>
-                            {this.state.contentPoll}
-                        </Typography>
-                        {this.state.pollType === 1 && this.state.answerText ?
-                            <Typography component="p" classes={{root: classes.cardContentAnswers}}>
-                                Ответы (258)
-                            </Typography> : ""}
+                subheaderTypographyProps={{color: 'secondary'}}
+                subheader={this.state.datePoll}
+            />
+            <CardContent>
+                <Typography component="p" classes={{root: classes.cardContentText}}>
+                    {this.state.contentPoll}
+                </Typography>
+                {this.state.pollType === 1 && this.state.answerText ?
+                    <Typography component="p" classes={{root: classes.cardContentAnswers}}>
+                        Ответы ({this.state.pollAnswerCount})
+                    </Typography> : ""}
 
-                    </CardContent>
-                    <CardMedia
-                        className={classes.media}
-                        title={this.state.fullName}
-                        key={"pollcard" + this.state.pollId}
-                    >
+            </CardContent>
+            <CardMedia
+                className={classes.media}
+                title={this.state.fullName}
+                key={"pollcard" + this.state.pollId}
+            >
 
-                        {this.state.pollType === 1 ?
-                            <GridList key={"grid" + this.state.pollId} cellHeight={this.state.cellHeight}
-                                      className={classes.gridList}>
-                                {
-                                    this.state.pollItems !== undefined ? this.state.pollItems.map((item, Key) => {
-                                        return (
-                                            <GridListTile
-                                                key={"SubItem" + Key}
-                                                classes={{
-                                                    root: classes.GridListTileRoot,
-                                                    tile: classes.Gridtile
-                                                }}
-                                                //cols={1}
-                                                 cols={this.state.pollItems.length % 2 && (this.state.pollItems.length - 1) === Key ? 2 : 1}
-                                            >
+                {this.state.pollType === 1 ?
+                    <GridList key={"grid" + this.state.pollId} cellHeight={this.state.cellHeight}
+                              className={classes.gridList}>
+                        {
+                            this.state.pollItems !== undefined ? this.state.pollItems.map((item, Key) => {
+                                return (
+                                    <GridListTile
+                                        key={"SubItem" + Key}
+                                        classes={{
+                                            root: classes.GridListTileRoot,
+                                            tile: classes.Gridtile
+                                        }}
+                                        onClick={this.clickItem(this.props.idPoll, item.id)}
+                                        //cols={1}
+                                        cols={this.state.pollItems.length % 2 && (this.state.pollItems.length - 1) === Key ? 2 : 1}
+                                    >
 
-                                                <figure className={classes.tint}>
-                                                    <img src={item.image} className={classes.cardTileImg+' imgTile'}/>
-                                                </figure>
-                                                <GridListTileBar
-                                                    title={item.option}
-                                                    titlePosition="top"
-                                                    actionPosition="left"
-                                                    classes={{
-                                                        root: classes.titleBar, title: classes.tileText
-                                                    }}
+                                        <figure className={classes.tint}>
+                                            <img src={item.image} className={classes.cardTileImg+' imgTile'}/>
+                                        </figure>
+                                        <GridListTileBar
+                                            title={item.option}
+                                            titlePosition="top"
+                                            actionPosition="left"
+                                            classes={{
+                                                root: classes.titleBar, title: classes.tileText
+                                            }}
 
-                                                />
-                                                <div className={classes.cardBar}>
-                                                    <Grid container spacing={0}>
-                                                        <Grid item xs={3} sm={3} xs={3}>
-                                                            <div className={classes.pollBottomCircle}>
-                                                                <Progress
-                                                                    type="circle"
-                                                                    percent={item.percent}
-                                                                    width={30}
-                                                                    strokeWidth={10}
-                                                                    theme={{
-                                                                        default: {
-                                                                            symbol: ' ',
-                                                                            trailColor: '#d6d6d6',
-                                                                            color: '#fff'
-                                                                        },
+                                        />
+                                        <div className={classes.cardBar}>
+                                            <Grid container spacing={0}>
+                                                <Grid item xs={3} sm={3} xs={3}>
+                                                    <div className={classes.pollBottomCircle}>
+                                                        <Progress
+                                                            type="circle"
+                                                            percent={item.percent}
+                                                            width={30}
+                                                            strokeWidth={10}
+                                                            theme={{
+                                                                default: {
+                                                                    symbol: ' ',
+                                                                    trailColor: '#d6d6d6',
+                                                                    color: '#fff'
+                                                                },
 
-                                                                        full: {
-                                                                            symbol: <img src={check} width={8}
-                                                                                         height={6.13}/>,
-                                                                            trailColor: '#d6d6d6',
-                                                                            color: '#fff'
-                                                                        },
-                                                                    }}
-                                                                    status={item.percent === 100 ? "full" : "default"}
-                                                                />
-                                                            </div>
-                                                        </Grid>
-                                                        <Grid item xs={6} sm={6} xs={6} className={classes.textRight}>
-                                                            <div className={classes.avatars}>
-                                                                {item.avatars.map((avatarItem, key) => {
-                                                                    return (
-                                                                        <span key={"avatar-"+key} className={classes.avatar}>
+                                                                full: {
+                                                                    symbol: <img src={check} width={8}
+                                                                                 height={6.13}/>,
+                                                                    trailColor: '#d6d6d6',
+                                                                    color: '#fff'
+                                                                },
+                                                            }}
+                                                            status={item.percent === 100 ? "full" : "default"}
+                                                        />
+                                                    </div>
+                                                </Grid>
+                                                <Grid item xs={6} sm={6} xs={6} className={classes.textRight}>
+                                                    <div className={classes.avatars}>
+                                                        {item.avatars.map((avatarItem, key) => {
+                                                            return (
+                                                                <span key={"avatar-"+key} className={classes.avatar}>
                                                                 <img src={avatarItem}/>
                                                             </span>
-                                                                    );
-                                                                })}
-                                                                <span className={classes.avatarMore}>
+                                                            );
+                                                        })}
+                                                        <span className={classes.avatarMore}>
                                                                     <SvgIcon viewBox="0 0 20 20"
                                                                              classes={{root: classes.svgRoot}}>
                                                                       <defs>
@@ -584,65 +667,65 @@ class PollCard extends Component {
                                                                           </g>
                                                                     </SvgIcon>
                                                 </span>
-                                                            </div>
+                                                    </div>
 
-                                                        </Grid>
-                                                        <Grid item xs={3} sm={3} xs={3}
-                                                              classes={{root: classes.percentPcontainer}}>
-                                                            <Typography className={classes.procentP}>
-                                                                {item.percent}%
-                                                            </Typography>
+                                                </Grid>
+                                                <Grid item xs={3} sm={3} xs={3}
+                                                      classes={{root: classes.percentPcontainer}}>
+                                                    <Typography className={classes.procentP}>
+                                                        {item.percent}%
+                                                    </Typography>
 
-                                                        </Grid>
-                                                    </Grid>
-                                                </div>
-                                            </GridListTile>);
-                                    }) : ""
-                                }
+                                                </Grid>
+                                            </Grid>
+                                        </div>
+                                    </GridListTile>);
+                            }) : ""
+                        }
 
-                            </GridList> : <img style={{width: '100%'}} src={this.state.imagePoll}/>}
+                    </GridList> : <img style={{width: '100%'}} src={this.state.imagePoll}/>}
 
-                    </CardMedia>
-                    {this.state.pollType === 2 ?
-                        <CardContent>
-                            <List
-                                component="nav"
-                                aria-label="Main mailbox folders"
-                                subheader={
-                                    <ListSubheader component="div" id="nested-list-subheader">
-                                        Ответы (258)
-                                    </ListSubheader>
-                                }
-                            >
-                                {this.state.pollItems !== undefined ? this.state.pollItems.map((itemOption, Key) => {
-                                    return (<ListItem key={"ListItem"+Key} classes={{root: classes.rootItem}}>
-                                        <ListItemIcon classes={{root: classes.ListItemIconRoot}}>
-                                            <CircularProgressbar
-                                                value={itemOption.percent}
-                                                text={``}
-                                                className={classes.CircularProgressbar}
-                                                strokeWidth={10}
-                                                styles={
-                                                    {
-                                                        path: {
-                                                            stroke: `rgba(222, 98, 42, 100)`,
-                                                        }
-                                                    }
+            </CardMedia>
+            {this.state.pollType === 2 ?
+                <CardContent>
+                    <List
+                        component="nav"
+                        aria-label="Main mailbox folders"
+                        subheader={
+                            <ListSubheader component="div" id="nested-list-subheader">
+                                Ответы ({this.state.pollAnswerCount})
+                            </ListSubheader>
+                        }
+                    >
+                        {this.state.pollItems !== undefined ? this.state.pollItems.map((itemOption, Key) => {
+                            return (<ListItem key={"ListItem"+Key} classes={{root: classes.rootItem}} onClick={this.clickItem(this.props.idPoll, itemOption.id)}>
+                                <ListItemIcon classes={{root: classes.ListItemIconRoot}}>
+                                    <CircularProgressbar
+                                        value={itemOption.percent}
+                                        text={``}
+                                        className={classes.CircularProgressbar}
+                                        strokeWidth={10}
+                                        styles={
+                                            {
+                                                path: {
+                                                    stroke: `rgba(222, 98, 42, 100)`,
                                                 }
-                                            />
-                                        </ListItemIcon>
-                                        <ListItemText classes={{primary: classes.ListItemTextRoot}}
-                                                      primary={itemOption.option}/>
-                                        <ListItemIcon classes={{root: classes.avatarsContainer}}>
-                                            <div className={classes.avatars}>
-                                                {itemOption.avatars.map((avatarItem, key) => {
-                                                    return (
-                                                        <span  key={"ava-"+key}  className={classes.avatar}>
+                                            }
+                                        }
+                                    />
+                                </ListItemIcon>
+                                <ListItemText classes={{primary: classes.ListItemTextRoot}}
+                                              primary={itemOption.option}/>
+                                <ListItemIcon classes={{root: classes.avatarsContainer}}>
+                                    <div className={classes.avatars}>
+                                        {itemOption.avatars.map((avatarItem, key) => {
+                                            return (
+                                                <span  key={"ava-"+key}  className={classes.avatar}>
                                                             <img src={avatarItem}/>
                                                         </span>
-                                                    );
-                                                })}
-                                                <span className={classes.avatarMore}>
+                                            );
+                                        })}
+                                        <span className={classes.avatarMore}>
                                                             <SvgIcon viewBox="0 0 20 20"
                                                                      classes={{root: classes.svgRoot}}>
                                                               <defs>
@@ -687,221 +770,247 @@ class PollCard extends Component {
                                                                   </g>
                                                             </SvgIcon>
                                                 </span>
-                                            </div>
-                                        </ListItemIcon>
-                                        <ListItemIcon>
-                                            <div style={{
-                                                textAlign: 'center',
-                                                color: "#dc5b2b",
-                                                marginLeft: 5
-                                            }}>{itemOption.percent}%
-                                            </div>
-                                            <dot className={classes.dot}></dot>
-                                        </ListItemIcon>
+                                    </div>
+                                </ListItemIcon>
+                                <ListItemIcon>
+                                    <div style={{
+                                        textAlign: 'center',
+                                        color: "#dc5b2b",
+                                        marginLeft: 5
+                                    }}>{itemOption.percent}%
+                                    </div>
+                                    <dot className={classes.dot}></dot>
+                                </ListItemIcon>
 
-                                    </ListItem>)
-                                }) : ""}
+                            </ListItem>)
+                        }) : ""}
 
 
-                            </List>
-                        </CardContent> : ""
+                    </List>
+                </CardContent> : ""
 
-                    }
-                    <Grid container spacing={0} direction={"row"}>
-                        <Grid item md={6} sm={6} xs={6}>
-                            <div className={classes.imgIcons}>
-                                {this.state.iconComment ? <IconButton
-                                    aria-haspopup="true"
-                                    color="inherit"
-                                    classes={{root: classes.imgIconsP}}
-                                >
-                                    <SvgIcon viewBox="0 0 14 14" classes={{root: classes.svgRootIcon}}>
-                                        <defs>
-                                            <clipPath id="clip-path-chat">
-                                                <rect id="Rectangle_46" data-name="Rectangle 46" width="14" height="14"
-                                                      transform="translate(190 1409)" fill="#fff" stroke="#707070"
-                                                      stroke-width="1"/>
-                                            </clipPath>
-                                        </defs>
-                                        <g id="Mask_Group_2" data-name="Mask Group 2" transform="translate(-190 -1409)"
-                                           clip-path="url(#clip-path-chat)">
-                                            <g id="chat" transform="translate(190.003 1409)">
-                                                <g id="Group_1045" data-name="Group 1045" transform="translate(0)">
-                                                    <path id="Path_1219" data-name="Path 1219"
-                                                          d="M11.947,2.052A7,7,0,0,0,1.588,11.438a2.626,2.626,0,0,1-1.1,1.275.653.653,0,0,0,.188,1.231,3.33,3.33,0,0,0,.5.038h0a4.526,4.526,0,0,0,2.515-.815A7,7,0,0,0,11.947,2.052Zm-.56,9.336a6.21,6.21,0,0,1-7.531.964.394.394,0,0,0-.443.026,3.769,3.769,0,0,1-2.2.806,3.983,3.983,0,0,0,1.2-1.656.4.4,0,0,0-.067-.422,6.207,6.207,0,1,1,9.037.281Z"
-                                                          transform="translate(-0.003)"/>
-                                                </g>
-                                            </g>
+            }
+            <Grid container spacing={0} direction={"row"}>
+                <Grid item md={6} sm={6} xs={6}>
+                    <div className={classes.imgIcons}>
+                        {this.state.iconComment ? <IconButton
+                            aria-haspopup="true"
+                            color="inherit"
+                            classes={{root: classes.imgIconsP}}
+                            onClick={this.props.commentClick}
+                        >
+                            <SvgIcon viewBox="0 0 14 14" classes={{root: classes.svgRootIcon}}>
+                                <defs>
+                                    <clipPath id="clip-path-chat">
+                                        <rect id="Rectangle_46" data-name="Rectangle 46" width="14" height="14"
+                                              transform="translate(190 1409)" fill="#fff" stroke="#707070"
+                                              stroke-width="1"/>
+                                    </clipPath>
+                                </defs>
+                                <g id="Mask_Group_2" data-name="Mask Group 2" transform="translate(-190 -1409)"
+                                   clip-path="url(#clip-path-chat)">
+                                    <g id="chat" transform="translate(190.003 1409)">
+                                        <g id="Group_1045" data-name="Group 1045" transform="translate(0)">
+                                            <path id="Path_1219" data-name="Path 1219"
+                                                  d="M11.947,2.052A7,7,0,0,0,1.588,11.438a2.626,2.626,0,0,1-1.1,1.275.653.653,0,0,0,.188,1.231,3.33,3.33,0,0,0,.5.038h0a4.526,4.526,0,0,0,2.515-.815A7,7,0,0,0,11.947,2.052Zm-.56,9.336a6.21,6.21,0,0,1-7.531.964.394.394,0,0,0-.443.026,3.769,3.769,0,0,1-2.2.806,3.983,3.983,0,0,0,1.2-1.656.4.4,0,0,0-.067-.422,6.207,6.207,0,1,1,9.037.281Z"
+                                                  transform="translate(-0.003)"/>
                                         </g>
-                                    </SvgIcon>
-                                </IconButton> : ""}
-                                {this.state.QrCode ?
-                                    <IconButton
-                                        aria-haspopup="true"
-                                        color="inherit"
-                                        classes={{root: classes.imgIconsP}}
-                                    >
-                                        <SvgIcon viewBox="0 0 14 14" classes={{root: classes.svgRootIcon}}>
-                                            <defs>
-                                                <clipPath id="clip-path-qrcode">
-                                                    <rect id="Rectangle_72" data-name="Rectangle 72" width="14"
-                                                          height="14" transform="translate(234 1407)" fill="#fff"
-                                                          stroke="#707070" stroke-width="1"/>
-                                                </clipPath>
-                                            </defs>
-                                            <g id="Mask_Group_22" data-name="Mask Group 22"
-                                               transform="translate(-234 -1407)" clip-path="url(#clip-path-qrcode)">
-                                                <g id="qr-code_4_" data-name="qr-code (4)"
-                                                   transform="translate(234 1407)">
-                                                    <g id="Group_1538" data-name="Group 1538">
-                                                        <g id="Group_1537" data-name="Group 1537">
-                                                            <path id="Path_1237" data-name="Path 1237"
-                                                                  d="M5.879,0H.41A.41.41,0,0,0,0,.41V5.879a.41.41,0,0,0,.41.41H5.879a.41.41,0,0,0,.41-.41V.41A.41.41,0,0,0,5.879,0Zm-.41,5.469H.82V.82H5.469Z"/>
-                                                        </g>
-                                                    </g>
-                                                    <g id="Group_1540" data-name="Group 1540">
-                                                        <g id="Group_1539" data-name="Group 1539">
-                                                            <path id="Path_1238" data-name="Path 1238"
-                                                                  d="M3.965,1.914H2.324a.41.41,0,0,0-.41.41V3.965a.41.41,0,0,0,.41.41H3.965a.41.41,0,0,0,.41-.41V2.324A.41.41,0,0,0,3.965,1.914Zm-.41,1.641h-.82v-.82h.82Z"/>
-                                                        </g>
-                                                    </g>
-                                                    <g id="Group_1542" data-name="Group 1542">
-                                                        <g id="Group_1541" data-name="Group 1541">
-                                                            <path id="Path_1239" data-name="Path 1239"
-                                                                  d="M13.59,0H8.121a.41.41,0,0,0-.41.41V5.879a.41.41,0,0,0,.41.41H13.59a.41.41,0,0,0,.41-.41V.41A.41.41,0,0,0,13.59,0Zm-.41,5.469H8.531V.82H13.18Z"/>
-                                                        </g>
-                                                    </g>
-                                                    <g id="Group_1544" data-name="Group 1544">
-                                                        <g id="Group_1543" data-name="Group 1543">
-                                                            <path id="Path_1240" data-name="Path 1240"
-                                                                  d="M11.676,1.914H10.035a.41.41,0,0,0-.41.41V3.965a.41.41,0,0,0,.41.41h1.641a.41.41,0,0,0,.41-.41V2.324A.41.41,0,0,0,11.676,1.914Zm-.41,1.641h-.82v-.82h.82Z"/>
-                                                        </g>
-                                                    </g>
-                                                    <g id="Group_1546" data-name="Group 1546">
-                                                        <g id="Group_1545" data-name="Group 1545">
-                                                            <path id="Path_1241" data-name="Path 1241"
-                                                                  d="M5.879,7.711H.41a.41.41,0,0,0-.41.41V13.59A.41.41,0,0,0,.41,14H5.879a.41.41,0,0,0,.41-.41V8.121A.41.41,0,0,0,5.879,7.711Zm-.41,5.469H.82V8.531H5.469Z"/>
-                                                        </g>
-                                                    </g>
-                                                    <g id="Group_1548" data-name="Group 1548">
-                                                        <g id="Group_1547" data-name="Group 1547">
-                                                            <path id="Path_1242" data-name="Path 1242"
-                                                                  d="M3.965,9.625H2.324a.41.41,0,0,0-.41.41v1.641a.41.41,0,0,0,.41.41H3.965a.41.41,0,0,0,.41-.41V10.035A.41.41,0,0,0,3.965,9.625Zm-.41,1.641h-.82v-.82h.82Z"/>
-                                                        </g>
-                                                    </g>
-                                                    <g id="Group_1550" data-name="Group 1550">
-                                                        <g id="Group_1549" data-name="Group 1549">
-                                                            <path id="Path_1243" data-name="Path 1243"
-                                                                  d="M13.59,11.556H11.266V10.035a.41.41,0,0,0-.82,0v1.931a.41.41,0,0,0,.41.41H13.18v.8H10.855a.41.41,0,0,0,0,.82H13.59a.41.41,0,0,0,.41-.41V11.967A.41.41,0,0,0,13.59,11.556Z"/>
-                                                        </g>
-                                                    </g>
-                                                    <g id="Group_1552" data-name="Group 1552">
-                                                        <g id="Group_1551" data-name="Group 1551">
-                                                            <path id="Path_1244" data-name="Path 1244"
-                                                                  d="M13.59,7.711a.41.41,0,0,0-.41.41v1.914a.41.41,0,0,0,.82,0V8.121A.41.41,0,0,0,13.59,7.711Z"/>
-                                                        </g>
-                                                    </g>
-                                                    <g id="Group_1554" data-name="Group 1554">
-                                                        <g id="Group_1553" data-name="Group 1553">
-                                                            <path id="Path_1245" data-name="Path 1245"
-                                                                  d="M10.035,7.711H8.121a.41.41,0,0,0-.41.41v1.914a.41.41,0,0,0,.82,0v-1.5h1.5a.41.41,0,0,0,0-.82Z"/>
-                                                        </g>
-                                                    </g>
-                                                    <g id="Group_1556" data-name="Group 1556">
-                                                        <g id="Group_1555" data-name="Group 1555">
-                                                            <path id="Path_1246" data-name="Path 1246"
-                                                                  d="M8.121,11.556a.41.41,0,0,0-.41.41V13.59a.41.41,0,0,0,.82,0V11.967A.41.41,0,0,0,8.121,11.556Z"/>
-                                                        </g>
-                                                    </g>
-                                                </g>
-                                            </g>
-                                        </SvgIcon>
-
-                                    </IconButton> : ""}
-                                {this.state.iconShare ? <IconButton
-                                    aria-haspopup="true"
-                                    color="inherit"
-                                    classes={{root: classes.imgIconsP}}
-                                >
-                                    <SvgIcon viewBox="0 0 14 14" classes={{root: classes.svgRootIcon}}>
-                                        <defs>
-                                            <clipPath id="clip-path-share">
-                                                <rect id="Rectangle_48" data-name="Rectangle 48" width="14" height="14"
-                                                      transform="translate(224 1409)" fill="#fff" stroke="#707070"
-                                                      stroke-width="1"/>
-                                            </clipPath>
-                                        </defs>
-                                        <g id="Mask_Group_3" data-name="Mask Group 3" transform="translate(-224 -1409)"
-                                           clip-path="url(#clip-path-share)">
-                                            <g id="upload" transform="translate(224 1409.513)">
-                                                <g id="Group_1046" data-name="Group 1046" transform="translate(0 0)">
-                                                    <path id="Path_1220" data-name="Path 1220"
-                                                          d="M13.6,5.87a.4.4,0,0,0-.4.4V9.919a1.8,1.8,0,0,1-1.8,1.8H2.6a1.8,1.8,0,0,1-1.8-1.8V6.211a.4.4,0,0,0-.8,0V9.919a2.6,2.6,0,0,0,2.6,2.6h8.8a2.6,2.6,0,0,0,2.6-2.6V6.271A.4.4,0,0,0,13.6,5.87Z"
-                                                          transform="translate(0 0.456)"/>
-                                                    <path id="Path_1221" data-name="Path 1221"
-                                                          d="M4.154,3.675,6.02,1.809V9.947a.4.4,0,0,0,.8,0V1.809L8.688,3.675a.4.4,0,0,0,.282.119.387.387,0,0,0,.282-.119.4.4,0,0,0,0-.567L6.7.558A.406.406,0,0,0,6.421.439a.388.388,0,0,0-.282.119L3.59,3.107a.4.4,0,0,0,.565.567Z"
-                                                          transform="translate(0.579 -0.439)"/>
-                                                </g>
-                                            </g>
-                                        </g>
-                                    </SvgIcon>
-                                </IconButton> : ""}
-                                {this.state.iconAnonced ? <IconButton
-                                    aria-haspopup="true"
-                                    color="inherit"
-                                    classes={{root: classes.imgIconsP}}
-                                ><SvgIcon viewBox="0 0 14 14" classes={{root: classes.svgRootIcon}}>
+                                    </g>
+                                </g>
+                            </SvgIcon>
+                        </IconButton> : ""}
+                        {this.state.QrCode ?
+                            <IconButton
+                                aria-haspopup="true"
+                                color="inherit"
+                                onClick={this.oepnQrCode}
+                                classes={{root: classes.imgIconsP}}
+                            >
+                                <SvgIcon viewBox="0 0 14 14" classes={{root: classes.svgRootIcon}}>
                                     <defs>
-                                        <clipPath id="clip-path-ad">
-                                            <rect id="Rectangle_72" data-name="Rectangle 72" width="14" height="14"
-                                                  transform="translate(234 1407)" fill="#fff" stroke="#707070"
-                                                  stroke-width="1"/>
+                                        <clipPath id="clip-path-qrcode">
+                                            <rect id="Rectangle_72" data-name="Rectangle 72" width="14"
+                                                  height="14" transform="translate(234 1407)" fill="#fff"
+                                                  stroke="#707070" stroke-width="1"/>
                                         </clipPath>
                                     </defs>
-                                    <g id="Mask_Group_33" data-name="Mask Group 33" transform="translate(-234 -1407)"
-                                       clip-path="url(#clip-path-ad)">
-                                        <g id="megaphone" transform="translate(234 1407)">
-                                            <g id="Group_1652" data-name="Group 1652">
-                                                <path id="Path_1288" data-name="Path 1288"
-                                                      d="M12.291,3.764V1.511a.693.693,0,0,0-1.032-.6A16.111,16.111,0,0,1,4.538,2.926c-.018,0-2.17.011-2.17.011a1.058,1.058,0,0,0-1.049.932H.877A.878.878,0,0,0,0,4.746V6.673a.878.878,0,0,0,.877.877h.442a1.059,1.059,0,0,0,.623.842L3.514,12.73a.688.688,0,0,0,.645.451H5.736a.686.686,0,0,0,.645-.92L5.03,8.536a16.089,16.089,0,0,1,6.229,1.974.688.688,0,0,0,.69-.007.685.685,0,0,0,.341-.6V7.654a1.961,1.961,0,0,0,0-3.89ZM1.311,6.873H.877a.2.2,0,0,1-.2-.2V4.746a.2.2,0,0,1,.2-.2h.434Zm.9.9a.381.381,0,0,1-.225-.347V3.993h0a.381.381,0,0,1,.38-.38H4.209V7.806H2.344A.355.355,0,0,1,2.213,7.772Zm3.532,4.72a.008.008,0,0,1,0,.009.008.008,0,0,1-.008,0H4.158a.01.01,0,0,1-.009-.006L2.694,8.482h1.6Zm5.87-2.586a.012.012,0,0,1-.007.013.016.016,0,0,1-.018,0,16.767,16.767,0,0,0-6.7-2.077V3.576a16.772,16.772,0,0,0,6.7-2.077.016.016,0,0,1,.018,0,.012.012,0,0,1,.007.013Zm.676-2.937V4.449a1.286,1.286,0,0,1,0,2.521Z"/>
+                                    <g id="Mask_Group_22" data-name="Mask Group 22"
+                                       transform="translate(-234 -1407)" clip-path="url(#clip-path-qrcode)">
+                                        <g id="qr-code_4_" data-name="qr-code (4)"
+                                           transform="translate(234 1407)">
+                                            <g id="Group_1538" data-name="Group 1538">
+                                                <g id="Group_1537" data-name="Group 1537">
+                                                    <path id="Path_1237" data-name="Path 1237"
+                                                          d="M5.879,0H.41A.41.41,0,0,0,0,.41V5.879a.41.41,0,0,0,.41.41H5.879a.41.41,0,0,0,.41-.41V.41A.41.41,0,0,0,5.879,0Zm-.41,5.469H.82V.82H5.469Z"/>
+                                                </g>
+                                            </g>
+                                            <g id="Group_1540" data-name="Group 1540">
+                                                <g id="Group_1539" data-name="Group 1539">
+                                                    <path id="Path_1238" data-name="Path 1238"
+                                                          d="M3.965,1.914H2.324a.41.41,0,0,0-.41.41V3.965a.41.41,0,0,0,.41.41H3.965a.41.41,0,0,0,.41-.41V2.324A.41.41,0,0,0,3.965,1.914Zm-.41,1.641h-.82v-.82h.82Z"/>
+                                                </g>
+                                            </g>
+                                            <g id="Group_1542" data-name="Group 1542">
+                                                <g id="Group_1541" data-name="Group 1541">
+                                                    <path id="Path_1239" data-name="Path 1239"
+                                                          d="M13.59,0H8.121a.41.41,0,0,0-.41.41V5.879a.41.41,0,0,0,.41.41H13.59a.41.41,0,0,0,.41-.41V.41A.41.41,0,0,0,13.59,0Zm-.41,5.469H8.531V.82H13.18Z"/>
+                                                </g>
+                                            </g>
+                                            <g id="Group_1544" data-name="Group 1544">
+                                                <g id="Group_1543" data-name="Group 1543">
+                                                    <path id="Path_1240" data-name="Path 1240"
+                                                          d="M11.676,1.914H10.035a.41.41,0,0,0-.41.41V3.965a.41.41,0,0,0,.41.41h1.641a.41.41,0,0,0,.41-.41V2.324A.41.41,0,0,0,11.676,1.914Zm-.41,1.641h-.82v-.82h.82Z"/>
+                                                </g>
+                                            </g>
+                                            <g id="Group_1546" data-name="Group 1546">
+                                                <g id="Group_1545" data-name="Group 1545">
+                                                    <path id="Path_1241" data-name="Path 1241"
+                                                          d="M5.879,7.711H.41a.41.41,0,0,0-.41.41V13.59A.41.41,0,0,0,.41,14H5.879a.41.41,0,0,0,.41-.41V8.121A.41.41,0,0,0,5.879,7.711Zm-.41,5.469H.82V8.531H5.469Z"/>
+                                                </g>
+                                            </g>
+                                            <g id="Group_1548" data-name="Group 1548">
+                                                <g id="Group_1547" data-name="Group 1547">
+                                                    <path id="Path_1242" data-name="Path 1242"
+                                                          d="M3.965,9.625H2.324a.41.41,0,0,0-.41.41v1.641a.41.41,0,0,0,.41.41H3.965a.41.41,0,0,0,.41-.41V10.035A.41.41,0,0,0,3.965,9.625Zm-.41,1.641h-.82v-.82h.82Z"/>
+                                                </g>
+                                            </g>
+                                            <g id="Group_1550" data-name="Group 1550">
+                                                <g id="Group_1549" data-name="Group 1549">
+                                                    <path id="Path_1243" data-name="Path 1243"
+                                                          d="M13.59,11.556H11.266V10.035a.41.41,0,0,0-.82,0v1.931a.41.41,0,0,0,.41.41H13.18v.8H10.855a.41.41,0,0,0,0,.82H13.59a.41.41,0,0,0,.41-.41V11.967A.41.41,0,0,0,13.59,11.556Z"/>
+                                                </g>
+                                            </g>
+                                            <g id="Group_1552" data-name="Group 1552">
+                                                <g id="Group_1551" data-name="Group 1551">
+                                                    <path id="Path_1244" data-name="Path 1244"
+                                                          d="M13.59,7.711a.41.41,0,0,0-.41.41v1.914a.41.41,0,0,0,.82,0V8.121A.41.41,0,0,0,13.59,7.711Z"/>
+                                                </g>
+                                            </g>
+                                            <g id="Group_1554" data-name="Group 1554">
+                                                <g id="Group_1553" data-name="Group 1553">
+                                                    <path id="Path_1245" data-name="Path 1245"
+                                                          d="M10.035,7.711H8.121a.41.41,0,0,0-.41.41v1.914a.41.41,0,0,0,.82,0v-1.5h1.5a.41.41,0,0,0,0-.82Z"/>
+                                                </g>
+                                            </g>
+                                            <g id="Group_1556" data-name="Group 1556">
+                                                <g id="Group_1555" data-name="Group 1555">
+                                                    <path id="Path_1246" data-name="Path 1246"
+                                                          d="M8.121,11.556a.41.41,0,0,0-.41.41V13.59a.41.41,0,0,0,.82,0V11.967A.41.41,0,0,0,8.121,11.556Z"/>
+                                                </g>
                                             </g>
                                         </g>
                                     </g>
-                                </SvgIcon> </IconButton> : ""}
-                            </div>
-                        </Grid>
-                        <Grid item md={6} sm={6} xs={6}>
+                                </SvgIcon>
 
-                            {this.state.iconFovrite ? <React.Fragment>
-                                <div style={{textAlign: 'right', padding: 10}}><span style={{fontSize: 12}}>255 </span>
-                                    <IconButton
-                                        onClick={this.likedClick}
-                                        aria-haspopup="true"
-                                        color="inherit"
-                                        classes={{root: classes.imgIconsP}}
-                                    > {this.state.liked ? <FovriteIcon classes={{root: classes.fovriteRed}}/> :
-                                        <FovriteBorderIcon/>}</IconButton></div>
-                            </React.Fragment> : ""}
+                            </IconButton> : ""}
+                        {this.state.iconShare ? <IconButton
+                            aria-haspopup="true"
+                            color="inherit"
+                            classes={{root: classes.imgIconsP}}
+                        >
+                            <SvgIcon viewBox="0 0 14 14" classes={{root: classes.svgRootIcon}}>
+                                <defs>
+                                    <clipPath id="clip-path-share">
+                                        <rect id="Rectangle_48" data-name="Rectangle 48" width="14" height="14"
+                                              transform="translate(224 1409)" fill="#fff" stroke="#707070"
+                                              stroke-width="1"/>
+                                    </clipPath>
+                                </defs>
+                                <g id="Mask_Group_3" data-name="Mask Group 3" transform="translate(-224 -1409)"
+                                   clip-path="url(#clip-path-share)">
+                                    <g id="upload" transform="translate(224 1409.513)">
+                                        <g id="Group_1046" data-name="Group 1046" transform="translate(0 0)">
+                                            <path id="Path_1220" data-name="Path 1220"
+                                                  d="M13.6,5.87a.4.4,0,0,0-.4.4V9.919a1.8,1.8,0,0,1-1.8,1.8H2.6a1.8,1.8,0,0,1-1.8-1.8V6.211a.4.4,0,0,0-.8,0V9.919a2.6,2.6,0,0,0,2.6,2.6h8.8a2.6,2.6,0,0,0,2.6-2.6V6.271A.4.4,0,0,0,13.6,5.87Z"
+                                                  transform="translate(0 0.456)"/>
+                                            <path id="Path_1221" data-name="Path 1221"
+                                                  d="M4.154,3.675,6.02,1.809V9.947a.4.4,0,0,0,.8,0V1.809L8.688,3.675a.4.4,0,0,0,.282.119.387.387,0,0,0,.282-.119.4.4,0,0,0,0-.567L6.7.558A.406.406,0,0,0,6.421.439a.388.388,0,0,0-.282.119L3.59,3.107a.4.4,0,0,0,.565.567Z"
+                                                  transform="translate(0.579 -0.439)"/>
+                                        </g>
+                                    </g>
+                                </g>
+                            </SvgIcon>
+                        </IconButton> : ""}
+                        {this.state.iconAnonced ? <IconButton
+                            aria-haspopup="true"
+                            color="inherit"
+                            onClick={()=>{
+                                this.props.dialogOpenClick('jalba')
+                            }}
+                            classes={{root: classes.imgIconsP}}
+                        ><SvgIcon viewBox="0 0 14 14" classes={{root: classes.svgRootIcon}}>
+                            <defs>
+                                <clipPath id="clip-path-ad">
+                                    <rect id="Rectangle_72" data-name="Rectangle 72" width="14" height="14"
+                                          transform="translate(234 1407)" fill="#fff" stroke="#707070"
+                                          stroke-width="1"/>
+                                </clipPath>
+                            </defs>
+                            <g id="Mask_Group_33" data-name="Mask Group 33" transform="translate(-234 -1407)"
+                               clip-path="url(#clip-path-ad)">
+                                <g id="megaphone" transform="translate(234 1407)">
+                                    <g id="Group_1652" data-name="Group 1652">
+                                        <path id="Path_1288" data-name="Path 1288"
+                                              d="M12.291,3.764V1.511a.693.693,0,0,0-1.032-.6A16.111,16.111,0,0,1,4.538,2.926c-.018,0-2.17.011-2.17.011a1.058,1.058,0,0,0-1.049.932H.877A.878.878,0,0,0,0,4.746V6.673a.878.878,0,0,0,.877.877h.442a1.059,1.059,0,0,0,.623.842L3.514,12.73a.688.688,0,0,0,.645.451H5.736a.686.686,0,0,0,.645-.92L5.03,8.536a16.089,16.089,0,0,1,6.229,1.974.688.688,0,0,0,.69-.007.685.685,0,0,0,.341-.6V7.654a1.961,1.961,0,0,0,0-3.89ZM1.311,6.873H.877a.2.2,0,0,1-.2-.2V4.746a.2.2,0,0,1,.2-.2h.434Zm.9.9a.381.381,0,0,1-.225-.347V3.993h0a.381.381,0,0,1,.38-.38H4.209V7.806H2.344A.355.355,0,0,1,2.213,7.772Zm3.532,4.72a.008.008,0,0,1,0,.009.008.008,0,0,1-.008,0H4.158a.01.01,0,0,1-.009-.006L2.694,8.482h1.6Zm5.87-2.586a.012.012,0,0,1-.007.013.016.016,0,0,1-.018,0,16.767,16.767,0,0,0-6.7-2.077V3.576a16.772,16.772,0,0,0,6.7-2.077.016.016,0,0,1,.018,0,.012.012,0,0,1,.007.013Zm.676-2.937V4.449a1.286,1.286,0,0,1,0,2.521Z"/>
+                                    </g>
+                                </g>
+                            </g>
+                        </SvgIcon> </IconButton> : ""}
+                    </div>
+                </Grid>
+                <Grid item md={6} sm={6} xs={6}>
+
+                    {this.state.iconFovrite ? <React.Fragment>
+                        <div style={{textAlign: 'right', padding: 10}}><span style={{fontSize: 12}}>{this.state.pollLikeCount} </span>
+                            <IconButton
+                                onClick={this.likedClick(this.props.idPoll)}
+                                aria-haspopup="true"
+                                color="inherit"
+                                classes={{root: classes.imgIconsP}}
+                            > {this.state.liked ? <FovriteIcon classes={{root: classes.fovriteRed}}/> :
+                                <FovriteBorderIcon/>}</IconButton></div>
+                    </React.Fragment> : ""}
 
 
-                        </Grid>
-                    </Grid>
+                </Grid>
+            </Grid>
 
-                </Card>
-            </Link>
-        );
+        </Card>;
+
+
+        return this.state.disableClickCard ? <React.Fragment>
+            <Dialog onClose={this.handleClose} aria-labelledby="dialogQR" open={this.state.dialogopen}>
+                <QRCode
+                    bgColor="#FFFFFF"
+                    fgColor="#000000"
+                    level="Q"
+                    style={{width: '65%', margin: '0px 10px 0px'}}
+                    value="some text"
+                />
+            </Dialog>
+            <Link to={"/polls/" + this.state.idPoll} className={classes.clickCard}>
+            {cardContent}
+            </Link> </React.Fragment> : cardContent
+
     }
 }
 
 //
 PollCard.propTypes = {
     classes: PropTypes.object.isRequired,
+    disableClickCard:PropTypes.bool,
 };
 
+
+function mapStateToProps(state){
+    return {
+        isAuthenticated: state.mainData.isAuthenticated,
+    }
+}
 
 function matchDispatchToProps(dispatch) {
     return bindActionCreators({setIsAuth}, dispatch)
 }
 
 
-export default connect(matchDispatchToProps)(withStyles(styles)(withRouter(PollCard)));
+export default connect(mapStateToProps, matchDispatchToProps)(withStyles(styles)(withRouter(PollCard)));

@@ -313,12 +313,12 @@ class Registration extends Component {
                                                     id="outlined-bare"
                                                     placeholder={"Номер телефона"}
                                                     margin="dense"
+                                                    variant="outlined"
                                                     name={"phone"}
                                                     onChange={this.handleChange}
                                                     value={this.state.phone}
                                                     error={this.state.phoneError}
                                                     helperText={this.state.phoneErrorText}
-                                                    variant="outlined"
                                                     validators={['required']}
                                                     errorMessages={['Это поле обязательно к заполнению']}
                                                 />

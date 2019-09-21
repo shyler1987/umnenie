@@ -19,7 +19,11 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
+import Snackbar from '@material-ui/core/Snackbar';
+import CloseIcon from '@material-ui/icons/Close';
 import LeftMenu from '../tools/LeftMenu';
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 const styles = theme => ({
     root: {
@@ -128,46 +132,88 @@ const styles = theme => ({
 });
 
 
-const API_POLLS = "polls/list";
+const API_CHANGE_PASSWORD = "profil/edit-password ";
 
-
+const NamesState = [
+    'old_password',
+    'password',
+    'retry_password',
+];
 class PasswordChange extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             polls: [],
-            show: false
+            show: false,
+            snakbar: false,
         };
+    }
+    handleClose =()=>{
+        this.setState({
+            snakbar: false,
+        })
+    }
+
+    handleChange = (e) => {
+        this.setState({
+            [e.target.name]:e.target.value
+        })
     }
 
     submit = (values, pristineValues) => {
-        // get all values and pristineValues on form submission
+        this.regAction({
+            old_password:this.state.old_password,
+            password:this.state.password,
+            retry_password:this.state.retry_password,
+        });
     }
 
-    componentDidMount() {
-        this.setState({
-            show: true
-        })
-        axios.get(API_POLLS).then(res => {
-            if (res.status === 200 && res.data.count > 0) {
+    regAction = (data) => {
+        this.setState({show:true})
+        axios.post(API_CHANGE_PASSWORD, data).then(res=>{
 
-                this.setState({
-                    polls: res.data.result
-
+            this.setState({show:false})
+            if(res.status===202){
+                localStorage.setItem('token', res.data.access_token);
+                this.setState({snakbar:true});
+                NamesState.map(item => {
+                    this.setState({
+                        [item + 'Error']: false,
+                        [item + 'ErrorText']: null
+                    });
                 })
             }
-            this.setState({
-                show: false
-            })
 
-        }).catch(err => {
-            this.setState({
-                show: false
+        }).catch(err=>{
+            this.setState({show:false})
+            let errTextAll = "";
+            NamesState.map(item => {
+                this.setState({
+                    [item + 'Error']: false,
+                    [item + 'ErrorText']: null
+                });
             })
-            console.log(err);
+            if(err.response!==undefined){
+                let erors = JSON.parse(err.response.data.message);
+                Object.keys(erors).map(item => {
+                    let errText = "";
+                    erors[item].map(itemError => {
+                        errTextAll += itemError + ', ';
+                        errText += itemError + ', ';
+                    })
+                    this.setState({
+                        [item + 'Error']: true,
+                        [item + 'ErrorText']: errText,
+                    });
+
+                });
+            }
+
+            console.log(err)
         })
     }
+
 
     render() {
         const {classes} = this.props;
@@ -176,6 +222,30 @@ class PasswordChange extends Component {
                 <Loading
                     show={this.state.show}
                     color="red"
+                />
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    open={this.state.snakbar}
+                    autoHideDuration={6000}
+                    onClose={this.handleClose}
+                    ContentProps={{
+                        'aria-describedby': 'message-id',
+                    }}
+                    message={<span id="message-id">Пароль успешно изменен</span>}
+                    action={[
+                        <IconButton
+                            key="close"
+                            aria-label="close"
+                            color="inherit"
+                            className={classes.close}
+                            onClick={this.handleClose}
+                        >
+                            <CloseIcon />
+                        </IconButton>,
+                    ]}
                 />
                 <Typography classes={{root:classes.titleHead}} >
                         Сменить пароль
@@ -186,39 +256,65 @@ class PasswordChange extends Component {
                         </Grid>
                         <Grid item md={9} sm={12} xs={12}>
                             <Paper classes={{root: classes.poperContent}}>
+                                <ValidatorForm onSubmit={this.submit}>
                                 <Grid container spacing={3} direction={"row"}>
                                     <Grid item md={12}>
-                                        <TextField
+                                        <TextValidator
                                             margin="dense"
                                             id="outlined-name"
                                             fullWidth
                                             placeholder={"Старый пароль"}
                                             className={classes.textField}
                                             variant="outlined"
+                                            name={"old_password"}
+                                            onChange={this.handleChange}
+                                            type={"password"}
+                                            value={this.state.old_password}
+                                            error={this.state.old_passwordError}
+                                            helperText={this.state.old_passwordErrorText}
+                                            validators={['required']}
+                                            errorMessages={['Это поле обязательно к заполнению']}
                                         />
-                                        <TextField
+                                        <TextValidator
                                             margin="dense"
                                             id="outlined-name"
                                             fullWidth
+                                            type={"password"}
                                             placeholder={"Новый пароль"}
                                             className={classes.textField}
                                             variant="outlined"
+                                            name={"password"}
+                                            onChange={this.handleChange}
+                                            value={this.state.password}
+                                            error={this.state.passwordError}
+                                            helperText={this.state.passwordErrorText}
+                                            validators={['required']}
+                                            errorMessages={['Это поле обязательно к заполнению']}
                                         />
-                                        <TextField
+                                        <TextValidator
                                             margin="dense"
                                             id="outlined-name"
                                             fullWidth
+                                            type={"password"}
                                             placeholder={"Подтвердите новый пароль"}
                                             className={classes.textField}
                                             variant="outlined"
+                                            name={"retry_password"}
+                                            onChange={this.handleChange}
+                                            value={this.state.retry_password}
+                                            error={this.state.retry_passwordError}
+                                            helperText={this.state.retry_passwordErrorText}
+                                            validators={['required']}
+                                            errorMessages={['Это поле обязательно к заполнению']}
                                         />
                                     </Grid>
                                 </Grid>
                                 <Grid container spacing={3} direction={"row"} justify="flex-end" alignItems="flex-end">
                                     <Grid item md={5} sm={12} xs={12}>
-                                        <Button fullWidth variant="contained"  color={"secondary"}>Сохранить изменения</Button>
+                                        <Button fullWidth variant="contained" type={"submit"} color={"secondary"}>Сохранить изменения</Button>
                                     </Grid>
                                 </Grid>
+                                </ValidatorForm>
                             </Paper>
                         </Grid>
                     </Grid>

@@ -4,6 +4,7 @@ import Fab from '@material-ui/core/Fab';
 import {Link} from "react-router-dom";
 import React, {Component} from 'react';
 import {withStyles} from '@material-ui/styles';
+import { withRouter } from "react-router";
 
 const styles = theme => ({
     fab:{
@@ -30,13 +31,15 @@ class FloatActionButtun extends Component{
         super(props)
     }
 
-
+    onRouteChange = () =>{
+        this.props.history.push('/polls/create');
+    }
     render() {
         const {classes} = this.props;
         return(
             <div className={classes.fabContainer}>
                 <div className={classes.fabBox}>
-                    <Fab className={classes.fab} color="secondary" size="large"><AddIcon/></Fab>
+                    <Fab onClick={this.onRouteChange} className={classes.fab} color="secondary" size="large"><AddIcon/></Fab>
                 </div>
             </div>
         );
@@ -44,4 +47,4 @@ class FloatActionButtun extends Component{
 
 }
 
-export  default withStyles(styles)(FloatActionButtun);
+export  default withStyles(styles)( withRouter(FloatActionButtun));

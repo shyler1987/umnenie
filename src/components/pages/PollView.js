@@ -20,11 +20,15 @@ import {Link} from "react-router-dom";
 import Hidden from '@material-ui/core/Hidden';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SvgIcon from '@material-ui/core/SvgIcon';
-
+import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 import FloatActionButtun from "../tools/FloatActionButtun";
+import MySnackbarContentWrapper from "../tools/MySnackbarContentWrapper";
+import Snackbar from '@material-ui/core/Snackbar';
 
-
-import { Swipeable} from 'react-swipeable'
+import {Swipeable} from 'react-swipeable'
 
 const styles = theme => ({
     root: {
@@ -73,7 +77,7 @@ const styles = theme => ({
     }, svgRootP: {
         width: '15px',
         height: '15px',
-        margin:5
+        margin: 5
     },
     sectionMobile: {
         display: 'flex',
@@ -87,19 +91,20 @@ const styles = theme => ({
     sectionDesktop: {
         display: 'none',
         [theme.breakpoints.up('md')]: {
-            display:'inherit'
+            display: 'inherit'
         },
     },
-    labelCommentFile:{
+    labelCommentFile: {
         display: 'inline-block',
         marginBottom: 0
     },
-    cell:{
+    cell: {
         paddingBottom: 20
     }
 });
 const API_POLLS = "polls/item/?id=";
-
+const API_TXT_COMMENT = "profil/text-comment-to-poll";
+const API_PHOTO_COMMENT = "profil/comment-to-poll";
 
 class PollView extends Component {
 
@@ -108,8 +113,11 @@ class PollView extends Component {
         this.state = {
             polls: {},
             show: false,
+            openSnakbar: false,
+            dialogopen: false,
             idPoll: this.props.match.params.id
         };
+        this.commentAdd = React.createRef();
         this.PollNavigate = this.PollNavigate.bind(this);
         this.fetchPoll = this.fetchPoll.bind(this);
     }
@@ -122,6 +130,21 @@ class PollView extends Component {
         }
     }
 
+
+    handleClose = () => {
+        this.setState({
+            dialogopen: false,
+        })
+    }
+
+    dialogOpen = (type) => {
+        this.setState({
+            dialogopen: true,
+            dialogType: type,
+        })
+    }
+
+
     fetchPoll = (id) => {
         this.setState({
             show: true
@@ -129,7 +152,7 @@ class PollView extends Component {
         axios.get(API_POLLS + id).then(res => {
             if (res.status === 200) {
                 this.setState({
-                    polls: res.data
+                    polls: res.data.data
                 })
                 this.forceUpdate();
             }
@@ -146,7 +169,6 @@ class PollView extends Component {
 
 
     componentDidMount() {
-
         this.fetchPoll(this.state.idPoll);
     }
 
@@ -157,16 +179,163 @@ class PollView extends Component {
     }
 
     prevPollGet = () => {
-
         this.PollNavigate(this.state.polls.prevPoll);
+    }
+
+
+    commentAddClick = () => {
+        this.commentAdd.current.scrollIntoView({behavior: 'smooth', block: 'start'})
+    }
+
+    showLoadingBar = (bool) => {
+        this.setState({
+            show: bool
+        })
+    }
+
+    handleSendPhoto = (e) => {
+        this.sendToCommentFile(e.target.files[0]);
+    }
+
+    sendToCommentFile = (file) => {
+        var bodyFormData = new FormData();
+        bodyFormData.append('chat_image', file);
+        bodyFormData.append('poll_id', this.state.polls.pollId);
+
+        axios.post(
+            API_PHOTO_COMMENT,
+            bodyFormData
+        ).then(res => {
+            if (res.status === 202) {
+                let polls = this.state.polls;
+                polls.comments = res.data.comments;
+                this.setState({
+                    polls: polls
+                })
+            }
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+    handleChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    sendToCommentText = (e) => {
+        axios.post(
+            API_TXT_COMMENT,
+            {
+                poll_id: this.state.polls.pollId,
+                text: this.state.textComment
+            }
+        ).then(res => {
+            if (res.status === 202) {
+                let polls = this.state.polls;
+                polls.comments = res.data.comments;
+                this.setState({
+                    polls: polls,
+                    textComment: ""
+                })
+            }
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
+    openSnakbar = (snakbarVariant, snakbarMessage) =>{
+        this.setState({
+            openSnakbar:true,
+            snakbarVariant:snakbarVariant,
+            snakbarMessage:snakbarMessage,
+        })
+    }
+
+    closeSnakbar =() =>{
+        this.setState({
+            openSnakbar: false,
+        })
+    }
+
+    onSubmitFormJalba = () => {
+        this.showLoadingBar(true)
+        axios.post(
+            API_TXT_COMMENT,
+            {
+                poll_id: this.state.polls.pollId,
+                text: this.state.jalba
+            }
+        ).then(res => {
+            this.showLoadingBar(false)
+            if (res.status === 202) {
+                this.setState({
+                    jalba: "",
+                    dialogopen:false,
+                })
+                this.openSnakbar('success', 'Успешно отправлено');
+            }
+        }).catch(err => {
+            console.log(err)
+            this.openSnakbar('error', 'error sent');
+            this.showLoadingBar(false)
+        })
     }
 
 
     render() {
         const {classes} = this.props;
+        const comments = this.state.polls.comments;
+        const jalba = <React.Fragment>
+            <DialogTitle id="simple-dialog-title">Жалоба на опрос</DialogTitle>
+            <DialogContent>
+                <ValidatorForm
+                    fullWidth
+                    ref="form"
+                    onSubmit={this.onSubmitFormJalba}
+                >
+                    <TextValidator
+                        fullWidth
+                        id="outlined-bare"
+                        multiline
+                        placeholder={"..."}
+                        name={"jalba"}
+                        value={this.state.jalba}
+                        onChange={this.handleChange}
+                        validators={['required']}
+                        errorMessages={['Это поле обязательно к заполнению']}
+                        margin="dense"
+                        variant="outlined"
+                    />
+                    <Button
+                        disabled={this.state.show}
+                        variant="contained" color="secondary" type={"submit"}
+                        fullWidth>Отправить жалобу</Button>
+                </ValidatorForm>
+            </DialogContent>
+        </React.Fragment>;
 
         return (
             <div>
+                <Dialog onClose={this.handleClose} aria-labelledby="simple-dialog-title" open={this.state.dialogopen}>
+
+                    {this.state.dialogType==='jalba' ? jalba : ""}
+                </Dialog>
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    open={this.state.openSnakbar}
+                    autoHideDuration={6000}
+                    onClose={this.closeSnakbar}
+                >
+                    <MySnackbarContentWrapper
+                        onClose={this.closeSnakbar}
+                        variant={this.state.snakbarVariant}
+                        message={this.state.snakbarMessage}
+                    />
+                </Snackbar>
                 <FloatActionButtun/>
                 <Loading
                     show={this.state.show}
@@ -200,7 +369,6 @@ class PollView extends Component {
                                 <Swipeable onSwipedRight={this.nextPollGet} onSwipedLeft={this.prevPollGet}>
 
                                     <PollCard
-
                                         idPoll={this.state.polls.pollId}
                                         imagePoll={this.state.polls.pollImage}
                                         fullName={this.state.polls.userName}
@@ -209,15 +377,23 @@ class PollView extends Component {
                                         avatarUrl={this.state.polls.userImage}
                                         pollType={this.state.polls.pollType}
                                         pollItems={this.state.polls.items}
+                                        like={this.state.polls.like}
+                                        pollAnswerCount={this.state.polls.pollAnswerCount}
+                                        pollLikeCount={this.state.polls.pollLikeCount}
                                         iconFovrite={true}
                                         iconComment={true}
                                         iconShare={true}
                                         iconAnonced={true}
                                         iconStatis={true}
-                                        iconEdit={true}
+                                        iconEdit={this.state.polls.edit}
                                         QrCode={true}
                                         answerText={true}
                                         cellHeight={200}
+                                        commentClick={this.commentAddClick}
+                                        showLoading={this.showLoadingBar}
+                                        dialogOpenClick={this.dialogOpen}
+                                        clickOtvet={true}
+                                        disableClickCard={false}
                                     />
                                 </Swipeable>
                             </Grid>
@@ -245,59 +421,24 @@ class PollView extends Component {
 
                             <Grid item md={7} xs={12} sm={12}>
                                 <Typography classes={{root: classes.titleHead}}>
-                                    Комментарии (658)
+                                    Комментарии ({comments.count})
                                 </Typography>
                                 <Paper classes={{root: classes.noPad}}>
-                                    <div className="d-flex justify-content-start itemChat">
-                                        <div className="img_cont_msg">
-                                            <Link to={""}><img
-                                                src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                className="rounded-circle user_img_msg"/></Link>
-                                        </div>
-                                        <div className="msg_cotainer">
-                                            Здравствуйте! Я могу Вам чем-то помочь? Если помощь не нужна,
-                                            то закройте окно чата. Всегда буду рад ответить Вам.
-                                            <div className="msg_time">8:40</div>
-                                        </div>
-                                    </div>
-                                    <div className="d-flex justify-content-start itemChat">
-                                        <div className="img_cont_msg">
-                                            <Link to={""}><img
-                                                src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                className="rounded-circle user_img_msg"/></Link>
-                                        </div>
-                                        <div className="msg_cotainer">
-                                            Вы не добавлены в участники раздачи Скинов, так как у вас нет
-                                            ссылки на steam трейд. Указать.
-                                            <div className="msg_time">8:40</div>
-                                        </div>
-                                    </div>
-
-
-                                    <div className="d-flex justify-content-end itemChat">
-                                        <div className="msg_cotainer_send">
-                                            Здравствуйте
-                                            <div className="msg_time_send">8:55</div>
-                                        </div>
-                                        <div className="img_cont_msg">
-                                            <Link to={""}><img
-                                                src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                className="rounded-circle user_img_msg"/></Link>
-                                        </div>
-                                    </div>
-                                    <div className="d-flex justify-content-start itemChat">
-                                        <div className="img_cont_msg">
-                                            <Link to={""}><img
-                                                src="http://umnenie.foundrising.uz/uploads/user/foto/2.jpg"
-                                                className="rounded-circle user_img_msg"/></Link>
-                                        </div>
-                                        <div className="msg_cotainer">
-                                            Вы не добавлены в участники раздачи Скинов, так как у вас нет
-                                            ссылки на steam трейд. Указать.
-                                            <div className="msg_time">8:40</div>
-                                        </div>
-                                    </div>
-
+                                    {comments.items.map(itemComment => {
+                                        return (<div
+                                            className={itemComment.rtl === "left" ? "d-flex justify-content-start itemChat" : "d-flex justify-content-end itemChat"}>
+                                            <div className="img_cont_msg">
+                                                <Link to={itemComment.user_id}><img
+                                                    src={itemComment.avatar}
+                                                    className="rounded-circle user_img_msg"/></Link>
+                                            </div>
+                                            <div className="msg_cotainer">
+                                                {itemComment.text !== null ? itemComment.text :
+                                                    <img style={{width: '100%'}} src={itemComment.file}/>}
+                                                <div className="msg_time">{itemComment.date_cr}</div>
+                                            </div>
+                                        </div>);
+                                    })}
 
                                     <br/>
                                     <br/>
@@ -311,96 +452,118 @@ class PollView extends Component {
                                     >
 
                                         <Grid item md={12} xs={12} sm={12}>
-                                            <Paper>
-                                                <Grid
-                                                    direction={"row"}
-                                                    container
-                                                    spacing={2}
-                                                    style={{padding: 10}}
-                                                >
-                                                    <Grid item md={9} xs={9} sm={9}>
-                                                        <TextField
-                                                            id="standard-multiline-flexible"
-                                                            fullWidth
-                                                            multiline
-                                                            variant="outlined"
-                                                            className={classes.textField}
-                                                            InputProps={
-                                                                {
-                                                                    classes: {
-                                                                        root: classes.multlineInput
-                                                                    },
-                                                                    endAdornment: (
-                                                                        <InputAdornment position="end">
-                                                                            <input
-                                                                                accept="image/*"
-                                                                                className={classes.input}
-                                                                                id="contained-button-file"
-                                                                                multiple
-                                                                                type="file"
-                                                                            />
-                                                                            <label htmlFor="contained-button-file" className={classes.labelCommentFile}>
-                                                                                <IconButton variant="contained" component="span" className={classes.button}>
-                                                                                    <SvgIcon viewBox="0 0 16 16"
-                                                                                             classes={{root: classes.svgRoot}}>
-                                                                                        <defs>
-                                                                                            <clipPath id="clip-path-send">
-                                                                                                <rect
-                                                                                                    id="brooke-cagle-609873-unsplash"
-                                                                                                    width="16" height="16"/>
-                                                                                            </clipPath>
-                                                                                        </defs>
-                                                                                        <g id="Mask_Group_28"
-                                                                                           data-name="Mask Group 28"
-                                                                                           opacity="0.35"
-                                                                                           clip-path="url(#clip-path-send)">
-                                                                                            <path id="paperclip"
-                                                                                                  d="M1.016,9.861,2.2,8.678,7.524,3.353a2.51,2.51,0,0,1,3.55,3.55L5.749,12.229a.558.558,0,0,1-.789-.789l5.325-5.326A1.394,1.394,0,0,0,8.313,4.142L2.987,9.467,1.8,10.65A2.511,2.511,0,1,0,5.355,14.2l.986-.986,5.522-5.522.395-.394A3.626,3.626,0,0,0,7.129,2.17L1.213,8.086A.558.558,0,1,1,.424,7.3L6.341,1.381a4.741,4.741,0,0,1,6.705,6.705L7.129,14l-.987.986A3.626,3.626,0,0,1,1.016,9.861Zm0,0"
-                                                                                                  transform="translate(0.785)"/>
-                                                                                        </g>
-                                                                                    </SvgIcon>
-                                                                                </IconButton>
-                                                                            </label>
+                                            <Paper ref={this.commentAdd}>
+                                                <ValidatorForm onSubmit={this.sendToCommentText}>
+                                                    <Grid
+                                                        direction={"row"}
+                                                        container
+                                                        spacing={2}
+                                                        style={{padding: 10}}
+                                                    >
+                                                        <Grid item md={9} xs={9} sm={9}>
+                                                            <TextValidator
+                                                                id="standard-multiline-flexible"
+                                                                fullWidth
+                                                                multiline
+                                                                validators={['required']}
+                                                                errorMessages={['Это поле обязательно к заполнению']}
+                                                                variant="outlined"
+                                                                name={"textComment"}
+                                                                value={this.state.textComment}
+                                                                onChange={this.handleChange}
+                                                                className={classes.textField}
+                                                                InputProps={
+                                                                    {
+                                                                        classes: {
+                                                                            root: classes.multlineInput
+                                                                        },
+                                                                        endAdornment: (
+                                                                            <InputAdornment position="end">
+                                                                                <input
+                                                                                    accept="image/*"
+                                                                                    className={classes.input}
+                                                                                    id="contained-button-file"
+                                                                                    multiple
+                                                                                    onChange={this.handleSendPhoto}
+                                                                                    type="file"
+                                                                                />
+                                                                                <label htmlFor="contained-button-file"
+                                                                                       className={classes.labelCommentFile}>
+                                                                                    <IconButton variant="contained"
+                                                                                                component="span"
+                                                                                                className={classes.button}>
+                                                                                        <SvgIcon viewBox="0 0 16 16"
+                                                                                                 classes={{root: classes.svgRoot}}>
+                                                                                            <defs>
+                                                                                                <clipPath
+                                                                                                    id="clip-path-send">
+                                                                                                    <rect
+                                                                                                        id="brooke-cagle-609873-unsplash"
+                                                                                                        width="16"
+                                                                                                        height="16"/>
+                                                                                                </clipPath>
+                                                                                            </defs>
+                                                                                            <g id="Mask_Group_28"
+                                                                                               data-name="Mask Group 28"
+                                                                                               opacity="0.35"
+                                                                                               clip-path="url(#clip-path-send)">
+                                                                                                <path id="paperclip"
+                                                                                                      d="M1.016,9.861,2.2,8.678,7.524,3.353a2.51,2.51,0,0,1,3.55,3.55L5.749,12.229a.558.558,0,0,1-.789-.789l5.325-5.326A1.394,1.394,0,0,0,8.313,4.142L2.987,9.467,1.8,10.65A2.511,2.511,0,1,0,5.355,14.2l.986-.986,5.522-5.522.395-.394A3.626,3.626,0,0,0,7.129,2.17L1.213,8.086A.558.558,0,1,1,.424,7.3L6.341,1.381a4.741,4.741,0,0,1,6.705,6.705L7.129,14l-.987.986A3.626,3.626,0,0,1,1.016,9.861Zm0,0"
+                                                                                                      transform="translate(0.785)"/>
+                                                                                            </g>
+                                                                                        </SvgIcon>
+                                                                                    </IconButton>
+                                                                                </label>
 
-                                                                        </InputAdornment>
-                                                                    ),
+                                                                            </InputAdornment>
+                                                                        ),
+                                                                    }
                                                                 }
-                                                            }
-                                                        />
-                                                    </Grid>
-                                                    <Grid item md={3} xs={3} sm={3}>
-                                                        <Button variant="contained" color="secondary" fullWidth
-                                                                className={classes.sectionDesktop}>
-                                                            Отправить
-                                                        </Button>
-                                                        <Button variant="contained" color="secondary" fullWidth
-                                                                className={classes.sectionMobile}>
-                                                            <SvgIcon viewBox="0 0 16 16"
-                                                                     classes={{root: classes.svgRootP}}>
-                                                                <defs>
-                                                                    <clipPath id="clip-path-sendTg">
-                                                                        <rect id="brooke-cagle-609873-unsplash"
-                                                                              width="16" height="16"
-                                                                              transform="translate(750 1484)"
-                                                                              fill="#fff"/>
-                                                                    </clipPath>
-                                                                </defs>
-                                                                <g id="Mask_Group_27" data-name="Mask Group 27"
-                                                                   transform="translate(-750 -1484)"
-                                                                   clip-path="url(#clip-path-sendTg)">
-                                                                    <g id="paper-plane" transform="translate(750 1484)">
-                                                                        <path id="Path_1260" data-name="Path 1260"
-                                                                              d="M15.863.139a.461.461,0,0,0-.508-.1L.277,6.651A.466.466,0,0,0,0,7.05a.458.458,0,0,0,.232.423l5.257,2.981,3.121,5.311a.464.464,0,0,0,.4.229h.027a.461.461,0,0,0,.4-.276L15.962.647A.455.455,0,0,0,15.863.139Zm-2.4,1.736L5.749,9.541,1.488,7.125ZM8.945,14.518,6.4,10.189l7.761-7.709Z"
-                                                                              fill="#fff"/>
+                                                            />
+                                                        </Grid>
+                                                        <Grid item md={3} xs={3} sm={3}>
+                                                            <Button variant="contained"
+                                                                    color="secondary" fullWidth
+                                                                    className={classes.sectionDesktop}
+                                                                    type={"submit"}
+                                                            >
+                                                                Отправить
+                                                            </Button>
+                                                            <Button
+                                                                variant="contained"
+                                                                color="secondary"
+                                                                fullWidth
+                                                                className={classes.sectionMobile}
+                                                                type={"submit"}
+                                                            >
+                                                                <SvgIcon viewBox="0 0 16 16"
+                                                                         classes={{root: classes.svgRootP}}>
+                                                                    <defs>
+                                                                        <clipPath id="clip-path-sendTg">
+                                                                            <rect id="brooke-cagle-609873-unsplash"
+                                                                                  width="16" height="16"
+                                                                                  transform="translate(750 1484)"
+                                                                                  fill="#fff"/>
+                                                                        </clipPath>
+                                                                    </defs>
+                                                                    <g id="Mask_Group_27" data-name="Mask Group 27"
+                                                                       transform="translate(-750 -1484)"
+                                                                       clip-path="url(#clip-path-sendTg)">
+                                                                        <g id="paper-plane"
+                                                                           transform="translate(750 1484)">
+                                                                            <path id="Path_1260" data-name="Path 1260"
+                                                                                  d="M15.863.139a.461.461,0,0,0-.508-.1L.277,6.651A.466.466,0,0,0,0,7.05a.458.458,0,0,0,.232.423l5.257,2.981,3.121,5.311a.464.464,0,0,0,.4.229h.027a.461.461,0,0,0,.4-.276L15.962.647A.455.455,0,0,0,15.863.139Zm-2.4,1.736L5.749,9.541,1.488,7.125ZM8.945,14.518,6.4,10.189l7.761-7.709Z"
+                                                                                  fill="#fff"/>
+                                                                        </g>
                                                                     </g>
-                                                                </g>
-                                                            </SvgIcon>
-                                                        </Button>
+                                                                </SvgIcon>
+                                                            </Button>
+
+                                                        </Grid>
+
 
                                                     </Grid>
-
-
-                                                </Grid>
+                                                </ValidatorForm>
                                             </Paper>
                                         </Grid>
 
