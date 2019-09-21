@@ -15,6 +15,7 @@ import Avatar from '@material-ui/core/Avatar';
 
 import { Provider } from 'react-redux'
 import SvgIcon from '@material-ui/core/SvgIcon';
+import PropTypes from 'prop-types';
 
 
 
@@ -58,7 +59,7 @@ const styles = theme => ({
         zIndex: 1000
     },
     timelineCover: {
-        background: `url(${CoverImage})`,
+
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         minHeight: 300,
@@ -249,13 +250,30 @@ class ProfileHeadCover extends Component {
     profileEdit=()=>{
         this.props.history.push('/account/profile-edit/')
     }
-
+/*
+* facebook	facebook.com
+telegram	telegram.org
+twitter	twitter.com
+site	nodir.uz
+*
+* **/
     render() {
-        const {classes} = this.props;
+        const {
+            classes,
+            subscribersCount,
+            subscriptionCount,
+            userType,
+            userId,
+            social_networks,
+            userBackground,
+            userFIO,
+            userImage,
+            userRegistryDate,
+        } = this.props;
 
         const socialIcons =<React.Fragment>
             <div className={classes.socialIcons}>
-            <a href={"#"}>
+            <a href={social_networks.site}>
                 <SvgIcon viewBox="0 0 15 15"  classes={{root: classes.svgRootIcon}}>
                     <defs>
                         <clipPath id="clip-path-web">
@@ -271,7 +289,7 @@ class ProfileHeadCover extends Component {
                     </g>
                 </SvgIcon>
             </a>
-            <a href={"#"}>
+            <a href={social_networks.telegram}>
                 <SvgIcon viewBox="0 0 15 15"  classes={{root: classes.svgRootIcon}}>
                     <defs>
                         <clipPath id="clip-path-telegram">
@@ -285,7 +303,7 @@ class ProfileHeadCover extends Component {
                     </g>
                 </SvgIcon>
             </a>
-            <a href={"#"}>
+            <a href={social_networks.facebook}>
                 <SvgIcon viewBox="0 0 15 15"  classes={{root: classes.svgRootIcon}}>
                     <defs>
                         <clipPath id="clip-path-facebook">
@@ -299,7 +317,7 @@ class ProfileHeadCover extends Component {
                     </g>
                 </SvgIcon>
             </a>
-            <a href={"#"}>
+            <a href={social_networks.twitter}>
                 <SvgIcon viewBox="0 0 15 15"  classes={{root: classes.svgRootIcon}}>
                     <defs>
                         <clipPath id="clip-path-instagram">
@@ -320,7 +338,7 @@ class ProfileHeadCover extends Component {
 
         return (
             <div>
-                <div className={classes.timelineCover}>
+                <div className={classes.timelineCover} style={{background: 'url('+userBackground+')'}}>
                     <Container>
                         <Grid
                             direction={"row"}
@@ -329,14 +347,12 @@ class ProfileHeadCover extends Component {
                         >
                             <Grid item md={6}>
                                 <div className={classes.cover}>
-                                    <Avatar alt="Remy Sharp" src={selenaAvatar} className={classes.bigAvatar}/>
+                                    <Avatar alt="Remy Sharp" src={userImage} className={classes.bigAvatar}/>
                                     <div className={classes.profileTitleBar}>
                                         <Typography variant="caption" display="block" classes={{root:classes.profileTitleDate}}>
-                                            22.06.19
+                                            {userRegistryDate}
                                         </Typography>
-                                        <Typography   classes={{root:classes.profileTitle}}>
-                                            Исидатэ Тайти
-                                        </Typography>
+                                        <Typography   classes={{root:classes.profileTitle}}>{userFIO}</Typography>
                                     </div>
                                 </div>
                             </Grid>
@@ -370,11 +386,11 @@ class ProfileHeadCover extends Component {
 
                                         <Button variant="outlined" className={classes.button}
                                                 classes={{root: classes.buttonFollow}} size="large">
-                                            Подписчиков <span style={{marginLeft: 20, color: '#e35b1e'}}>255</span> <dot className={classes.dot}></dot>
+                                            Подписчиков <span style={{marginLeft: 20, color: '#e35b1e'}}>{subscribersCount}</span> <dot className={classes.dot}></dot>
                                         </Button>
                                         <Button variant="outlined" className={classes.button}
                                                 classes={{root: classes.buttonFollow}}  size="large">
-                                            Подписки <span style={{marginLeft: 20, color: '#e35b1e'}}>255</span> <dot className={classes.dot}></dot>
+                                            Подписки <span style={{marginLeft: 20, color: '#e35b1e'}}>{subscriptionCount}</span> <dot className={classes.dot}></dot>
                                         </Button>
                                     </div>
                                 </Grid>
@@ -406,11 +422,11 @@ class ProfileHeadCover extends Component {
                                 <Hidden only={['md', 'xl', 'lg']}>
                                     <Button variant="outlined" className={classes.button}
                                             classes={{root: classes.buttonFollowMobile, label:classes.buttonFollowMobileLabel}} color="secondary1" size="large">
-                                        Подписчиков <span style={{marginLeft: 20, color: '#e35b1e', float:"right"}}>255</span> <dot className={classes.dot}></dot>
+                                        Подписчиков <span style={{marginLeft: 20, color: '#e35b1e', float:"right"}}>{subscribersCount}</span> <dot className={classes.dot}></dot>
                                     </Button>
                                     <Button variant="outlined" className={classes.button}
                                             classes={{root: classes.buttonFollowMobile, label:classes.buttonFollowMobileLabel}} color="secondary1" size="large">
-                                        Подписки <span style={{marginLeft: 20, color: '#e35b1e', float:"right"}}>255</span> <dot className={classes.dot}></dot>
+                                        Подписки <span style={{marginLeft: 20, color: '#e35b1e', float:"right"}}>{subscriptionCount}</span> <dot className={classes.dot}></dot>
                                     </Button>
 
                                 </Hidden>
@@ -418,16 +434,16 @@ class ProfileHeadCover extends Component {
                                 <Button variant="contained" size="medium"  color="secondary" classes={{root:classes.buttonLine}} onClick={()=>{this.profileEdit()}}>
                                     Редактировать профиль
                                 </Button>
-                                <Button variant="contained" size="medium"  color="secondary" classes={{root:classes.buttonLine}}>
-                                    Заблокировать
-                                </Button>
+                                {/*<Button variant="contained" size="medium"  color="secondary" classes={{root:classes.buttonLine}}>*/}
+                                {/*    Заблокировать*/}
+                                {/*</Button>*/}
 
-                                <Button variant="contained" size="medium" color="secondary" classes={{root:classes.buttonLine}}>
-                                    Написать
-                                </Button>
-                                <Button variant="contained" size="medium" color="secondary" classes={{root:classes.buttonLine}}>
-                                    Подписаться
-                                </Button>
+                                {/*<Button variant="contained" size="medium" color="secondary" classes={{root:classes.buttonLine}}>*/}
+                                {/*    Написать*/}
+                                {/*</Button>*/}
+                                {/*<Button variant="contained" size="medium" color="secondary" classes={{root:classes.buttonLine}}>*/}
+                                {/*    Подписаться*/}
+                                {/*</Button>*/}
 
                             </Grid>
 
@@ -439,5 +455,18 @@ class ProfileHeadCover extends Component {
     }
 
 }
+
+ProfileHeadCover.propTypes = {
+    classes: PropTypes.object.isRequired,
+    subscribersCount:PropTypes.number,
+    subscriptionCount:PropTypes.number,
+    userType:PropTypes.number,
+    userId:PropTypes.number,
+    social_networks:PropTypes.object,
+    userBackground:PropTypes.string,
+    userFIO:PropTypes.string,
+    userImage:PropTypes.string,
+    userRegistryDate:PropTypes.string,
+};
 
 export default withStyles(styles)(withRouter(ProfileHeadCover));

@@ -12,6 +12,7 @@ import PollCard from '../tools/PollCard'
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import ProfileHeadCover from "../tools/ProfileHeadCover";
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import PropTypes from "prop-types";
 
 const styles = theme => ({
     root: {
@@ -80,14 +81,14 @@ const styles = theme => ({
         boxShadow: '0 0 0 0.0rem rgba(255,255,255,.5)',
         color: 'outline: 5px auto #fff'
     },
-    titleHead:{
+    titleHead: {
         fontWeight: 600,
-        fontSize:30,
+        fontSize: 30,
         margin: '25px 5px 10px 0px'
     },
-    textAbout:{
-        fontSize:18,
-        fontWeight:400
+    textAbout: {
+        fontSize: 18,
+        fontWeight: 400
     },
     buttonGroupActive: {
         background: theme.palette.YellowColor,
@@ -174,6 +175,12 @@ const styles = theme => ({
 
 const API_POLLS = "polls/list";
 
+const USER_ME = "profil/me";
+const MY_POLLS = "profil/my-polls";
+const MY_FOVRITES = "profil/my-favorites";
+const MY_DRAFTS = "profil/my-drafts";
+const MY_REFERAL = "profil/my-referalls";
+
 
 class ProfileFollower extends Component {
 
@@ -182,92 +189,175 @@ class ProfileFollower extends Component {
         this.state = {
             polls: [],
             show: false,
-            activeButton:0
+            activeButton: 0,
+            subscribersCount: 0,
+            subscriptionCount: 0,
+            social_networks: [],
+            userBackground: "",
+            userComments: "",
+            userFIO: "",
+            userId: null,
+            userImage: "",
+            userRegistryDate: null,
+            userType: null,
+            title: "Опросы пользователя",
         };
     }
+
     setActive = (index) => {
+        switch (index) {
+            case 0 :
+                this.getByUrl(MY_POLLS);
+                break;
+            case 1 :
+                this.getByUrl(MY_FOVRITES);
+                break;
+            case 2 :
+                this.getByUrl(MY_DRAFTS);
+                break;
+            case 3 :
+                this.getByUrl(MY_REFERAL);
+                break;
+
+        }
         this.setState({
             activeButton: index
         })
     }
 
     getClass = (index) => {
+
         let activeButton = this.state.activeButton;
         if (index === activeButton)
             return 'buttonGroupActive'
         return 'buttonGroup'
     }
-    componentDidMount() {
-        this.setState({
-            show: true
-        })
-        axios.get(API_POLLS).then(res => {
-            if (res.status === 200 && res.data.count > 0) {
 
+    showLoadingBar = (bool) => {
+        this.setState({
+            show: bool
+        })
+    }
+
+    componentDidMount() {
+
+        this.getUserMe();
+        this.getByUrl(MY_POLLS);
+    }
+
+    getByUrl = (url) => {
+        this.showLoadingBar(true)
+        axios.get(url).then(res => {
+            if (res.status === 200 && res.data.count > 0) {
                 this.setState({
                     polls: res.data.result
-
                 })
+            }else{
+                this.setState({polls:[]})
             }
-            this.setState({
-                show: false
-            })
-
+            this.showLoadingBar(false)
         }).catch(err => {
-            this.setState({
-                show: false
-            })
+            this.showLoadingBar(false)
             console.log(err);
         })
     }
 
+    getUserMe = () => {
+        axios.get(USER_ME).then(res => {
+            console.log(res);
+            if (res.status === 200) {
+                this.setState({
+                    subscribersCount: res.data.subscribersCount,
+                    subscriptionCount: res.data.subscriptionCount,
+                    social_networks: res.data.social_networks,
+                    userBackground: res.data.userBackground,
+                    userComments: res.data.userComments,
+                    userFIO: res.data.userFIO,
+                    userId: res.data.userId,
+                    userImage: res.data.userImage,
+                    userRegistryDate: res.data.userRegistryDate,
+                    userType: res.data.userType,
+                })
+            }
+
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
     render() {
-        const {classes} = this.props;
+        const {
+            classes,
+        } = this.props;
         return (
             <div>
-                <ProfileHeadCover profilePhoto={true}/>
+                <ProfileHeadCover
+                    profilePhoto={true}
+                    subscribersCount={this.state.subscribersCount}
+                    subscriptionCount={this.state.subscriptionCount}
+                    social_networks={this.state.social_networks}
+                    userBackground={this.state.userBackground}
+                    userFIO={this.state.userFIO}
+                    userId={this.state.userId}
+                    userImage={this.state.userImage}
+                    userRegistryDate={this.state.userRegistryDate}
+                    userType={this.state.userType}
+                />
                 <Loading
                     show={this.state.show}
                     color="red"
                 />
                 <Container>
 
-                    <Typography classes={{root:classes.titleHead}} >
+                    <Typography classes={{root: classes.titleHead}}>
                         О себе
                     </Typography>
-                    <Grid container spacing={0} >
+                    <Grid container spacing={0}>
                         <Grid md={12} item>
-                            <Typography classes={{root:classes.textAbout}}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </Typography>
+                            <Typography classes={{root: classes.textAbout}}>{this.state.userComments}</Typography>
                         </Grid>
                     </Grid>
                     <Grid container spacing={0} style={{marginTop: 20}}>
                         <Grid md={12} xs={12} sm={12}>
-                            <ButtonGroup fullWidth aria-label="full width outlined button group"
-                                         classes={{root: classes.buttonGroup}}>
-                                <Button onClick={() => {
-                                    this.setActive(0)
-                                }} classes={{root: classes[this.getClass(0)]}}>Мои опросы</Button>
-                                <Button onClick={() => {
-                                    this.setActive(1)
-                                }} classes={{root: classes[this.getClass(1)]}}>Избранное</Button>
+                            {this.state.userType === 1 ? <React.Fragment>
+                                <ButtonGroup fullWidth aria-label="full width outlined button group"
+                                             classes={{root: classes.buttonGroup}}>
+                                    <Button onClick={() => {
+                                        this.setActive(0)
+                                    }} classes={{root: classes[this.getClass(0)]}}>Мои опросы</Button>
+                                    <Button onClick={() => {
+                                        this.setActive(1)
+                                    }} classes={{root: classes[this.getClass(1)]}}>Избранное</Button>
 
-                                <Button onClick={() => {
-                                    this.setActive(3)
-                                }} classes={{root: classes[this.getClass(3)]}}>Черновики</Button>
-                            </ButtonGroup>
+                                    <Button onClick={() => {
+                                        this.setActive(2)
+                                    }} classes={{root: classes[this.getClass(2)]}}>Черновики</Button>
+                                </ButtonGroup>
+                            </React.Fragment> : <React.Fragment>
+                                <ButtonGroup fullWidth aria-label="full width outlined button group"
+                                             classes={{root: classes.buttonGroup}}>
+                                    <Button onClick={() => {
+                                        this.setActive(0)
+                                    }} classes={{root: classes[this.getClass(0)]}}>Мои опросы</Button>
+                                    <Button onClick={() => {
+                                        this.setActive(1)
+                                    }} classes={{root: classes[this.getClass(1)]}}>Избранное</Button>
+                                    <Button onClick={() => {
+                                        this.setActive(3)
+                                    }} classes={{root: classes[this.getClass(3)]}}>Реферальный</Button>
+                                    <Button onClick={() => {
+                                        this.setActive(2)
+                                    }} classes={{root: classes[this.getClass(2)]}}>Черновики</Button>
+                                </ButtonGroup>
+                            </React.Fragment>}
+
                         </Grid>
                     </Grid>
                 </Container>
 
                 <Container>
-                    <Typography classes={{root:classes.titleHead}} >
-                        Опросы пользователя
+                    <Typography classes={{root: classes.titleHead}}>
+                        {this.state.title}
                     </Typography>
                     <ResponsiveMasonry
                         columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
@@ -289,6 +379,7 @@ class ProfileFollower extends Component {
                                         pollType={item.pollType}
                                         pollItems={item.items}
                                         iconFovrite={true}
+                                        showLoading={this.showLoadingBar}
                                     />
                                 );
                             })}

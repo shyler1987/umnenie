@@ -273,7 +273,7 @@ const styles = theme => ({
 ;
 
 
-const API_VOICE = "/plikedClickrofil/answer-to-poll";
+const API_VOICE = "/profil/answer-to-poll";
 const API_Like = "/profil/like-to-poll";
 class PollCard extends Component {
 
@@ -536,7 +536,7 @@ class PollCard extends Component {
                 </Typography>
                 {this.state.pollType === 1 && this.state.answerText ?
                     <Typography component="p" classes={{root: classes.cardContentAnswers}}>
-                        Ответы ({this.state.pollAnswerCount})
+                        Ответы {this.state.pollAnswerCount!==0 ? "("+this.state.pollAnswerCount+")" : ""}
                     </Typography> : ""}
 
             </CardContent>
@@ -693,7 +693,7 @@ class PollCard extends Component {
                         aria-label="Main mailbox folders"
                         subheader={
                             <ListSubheader component="div" id="nested-list-subheader">
-                                Ответы ({this.state.pollAnswerCount})
+                                Ответы {this.state.pollAnswerCount!==0 ? "("+this.state.pollAnswerCount+")" : ""}
                             </ListSubheader>
                         }
                     >
