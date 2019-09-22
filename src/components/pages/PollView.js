@@ -100,11 +100,19 @@ const styles = theme => ({
     },
     cell: {
         paddingBottom: 20
+    },
+    dialogTitleRoot:{
+        padding:"5px 24px"
+    },
+    textPaddingBottom:{
+        paddingBottom: 5
     }
-});
+}
+);
 const API_POLLS = "polls/item/?id=";
 const API_TXT_COMMENT = "profil/text-comment-to-poll";
 const API_PHOTO_COMMENT = "profil/comment-to-poll";
+const JALBA = "profil/complaint";
 
 class PollView extends Component {
 
@@ -198,6 +206,7 @@ class PollView extends Component {
     }
 
     sendToCommentFile = (file) => {
+        this.showLoadingBar(true);
         var bodyFormData = new FormData();
         bodyFormData.append('chat_image', file);
         bodyFormData.append('poll_id', this.state.polls.pollId);
@@ -213,8 +222,10 @@ class PollView extends Component {
                     polls: polls
                 })
             }
+            this.showLoadingBar(false);
         }).catch(err => {
             console.log(err)
+            this.showLoadingBar(false);
         })
     }
     handleChange = (e) => {
@@ -261,14 +272,14 @@ class PollView extends Component {
     onSubmitFormJalba = () => {
         this.showLoadingBar(true)
         axios.post(
-            API_TXT_COMMENT,
+            JALBA,
             {
                 poll_id: this.state.polls.pollId,
                 text: this.state.jalba
             }
         ).then(res => {
             this.showLoadingBar(false)
-            if (res.status === 202) {
+            if (res.status === 201) {
                 this.setState({
                     jalba: "",
                     dialogopen:false,
@@ -287,7 +298,7 @@ class PollView extends Component {
         const {classes} = this.props;
         const comments = this.state.polls.comments;
         const jalba = <React.Fragment>
-            <DialogTitle id="simple-dialog-title">Жалоба на опрос</DialogTitle>
+            <DialogTitle classes={{root:classes.dialogTitleRoot}} id="simple-dialog-title">Жалоба на опрос</DialogTitle>
             <DialogContent>
                 <ValidatorForm
                     fullWidth
@@ -296,8 +307,10 @@ class PollView extends Component {
                 >
                     <TextValidator
                         fullWidth
+                        classes={{root:classes.textPaddingBottom}}
                         id="outlined-bare"
                         multiline
+                        rows={2}
                         placeholder={"..."}
                         name={"jalba"}
                         value={this.state.jalba}
@@ -307,6 +320,7 @@ class PollView extends Component {
                         margin="dense"
                         variant="outlined"
                     />
+
                     <Button
                         disabled={this.state.show}
                         variant="contained" color="secondary" type={"submit"}
@@ -483,7 +497,6 @@ class PollView extends Component {
                                                                                     accept="image/*"
                                                                                     className={classes.input}
                                                                                     id="contained-button-file"
-                                                                                    multiple
                                                                                     onChange={this.handleSendPhoto}
                                                                                     type="file"
                                                                                 />

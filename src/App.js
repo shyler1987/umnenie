@@ -207,7 +207,8 @@ class App extends Component {
                         <ProfileLayoutRoute exact path="/account/profile" component={Profile}/>
 
                         <ProfileLayoutRoute exact path="/account/profilej" component={ProfileJuridic}/>
-                        <ProfileLayoutRoute exact path="/account/followers" component={ProfileFollower}/>
+                        <ProfileLayoutRoute exact path="/profile/followers" component={ProfileFollower}/>
+                        <ProfileLayoutRoute exact path="/profile/following" component={ProfileFollower}/>
 
                         <DashboardLayoutRoute exact path="/account/registration" component={Registration}/>
                         <DashboardLayoutRoute exact path="/account/profile-edit" component={ProfileEdit}/>

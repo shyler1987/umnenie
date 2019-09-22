@@ -1,4 +1,9 @@
 import React, {Component} from 'react';
+import { withRouter } from "react-router";
+import Button from '@material-ui/core/Button';
+
+import Loading from 'react-loading-bar'
+import 'react-loading-bar/dist/index.css'
 import {withStyles} from '@material-ui/styles';
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
@@ -8,6 +13,12 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import setIsAuth from "../../redux/actions/setIsAuth";
+import seTisAuthenticated from "../../redux/actions/seTisAuthenticated";
+import setUserData from "../../redux/actions/setUserData";
+import axios from "axios";
 
 const styles = theme => ({
     rootHead: {
@@ -98,6 +109,7 @@ const styles = theme => ({
         fontSize: 15,
     },
     avatarTitle: {},
+    input: {display:'none'},
     CopyRight: {
         fontSize: 13,
         fontWeight: 400,
@@ -118,29 +130,89 @@ const styles = theme => ({
     }
 
 });
-
+const API_USER_IMAGE = "profil/add-avatar";
 
 class LeftMenu extends Component {
     constructor(props) {
         super(props);
+        const {userInfo} = this.props;
+        this.state = {
+            userImage: userInfo.userImage,
+            show:false
+        }
+    }
+
+    showLoadingBar = (bool) =>{
+        this.setState({
+            show:bool
+        })
+    }
 
 
+    componentWillReceiveProps(nextProps, nextContext) {
+        if(nextProps.userInfo.userImage!==this.state.userImage){
+            this.state = {
+                userImage: nextProps.userInfo.userImage
+            }
+        }
+    }
+
+    handleSendPhoto = (e) => {
+        this.sendToCommentFile(e.target.files[0]);
+    }
+
+    sendToCommentFile = (file) => {
+        this.showLoadingBar(true);
+        var bodyFormData = new FormData();
+        bodyFormData.append('user_image', file);
+        axios.post(
+            API_USER_IMAGE,
+            bodyFormData
+        ).then(res => {
+            if (res.status === 202) {
+
+                this.setState({
+                    userImage:res.data.userImage
+                })
+                this.forceUpdate()
+            }
+            this.showLoadingBar(false);
+        }).catch(err => {
+            console.log(err)
+            this.showLoadingBar(false);
+
+        })
     }
 
     render() {
         const {classes} = this.props;
         return (
             <div>
+                <Loading
+                    show={this.state.show}
+                    color="red"
+                />
                 <div className={classes.avatarWithTextRoot}>
-                    <Link to={""} className={classes.clickAvatar}>
-                        <Avatar alt="Remy Sharp" src={selenaAvatar} className={classes.bigAvatar}/>
+                    <div className={classes.clickAvatar}>
+                        <Link to={""}><Avatar alt="Remy Sharp" src={this.state.userImage} className={classes.bigAvatar}/></Link>
                         <div style={{paddingLeft: 10}}>
-                            <Typography classes={{root: classes.rootHead}} variant={"h5"}>Исидатэ Тайти</Typography>
-                            <Link to={"/"} className={classes.rootLink}>
-                                <Typography> Сменить фото профиля</Typography>
-                            </Link>
+                            <Link to={""}><Typography classes={{root: classes.rootHead}} variant={"h5"}>Исидатэ Тайти</Typography></Link>
+
+
+                                <label htmlFor="contained-button-avatar">
+                                    <input
+                                        accept="image/*"
+                                        className={classes.input}
+                                        id="contained-button-avatar"
+                                        type="file"
+                                        onChange={this.handleSendPhoto}
+                                    />
+                                    <a component={"span"} className={classes.rootLink}>
+                                        <Typography> Сменить фото профиля</Typography>
+                                    </a>
+                                </label>
                         </div>
-                    </Link>
+                    </div>
                 </div>
 
                 <List component="nav">
@@ -191,5 +263,11 @@ class LeftMenu extends Component {
 
 }
 
-export default withStyles(styles)(LeftMenu);
+function mapStateToProps(state){
+    return {
+        isAuthenticated:state.mainData.isAuthenticated,
+        userInfo:state.mainData.user
+    }
+}
 
+export default connect(mapStateToProps)(withStyles(styles)(withRouter(LeftMenu)));

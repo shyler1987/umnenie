@@ -16,6 +16,7 @@ import Avatar from '@material-ui/core/Avatar';
 import { Provider } from 'react-redux'
 import SvgIcon from '@material-ui/core/SvgIcon';
 import PropTypes from 'prop-types';
+import axios from "axios";
 
 
 
@@ -227,36 +228,73 @@ const styles = theme => ({
         height: 20,
         marginRight: 10
     },
+    input:{
+        display:'none'
+    }
 
 
 });
 
 const API_POLLS = "polls/list";
-
+const API_USER_BACKGROUND = "profil/add-background";
 
 class ProfileHeadCover extends Component {
 
     constructor(props) {
         super(props);
-        const {profilePhoto} = this.props;
+        const {profilePhoto, userBackground} = this.props;
+        console.log(userBackground)
         this.state = {
             profilePhoto:profilePhoto===null ? false : profilePhoto,
+            userBackground:userBackground===null ? "" : userBackground,
             show: false
         }
         this.profileEdit=this.profileEdit.bind(this);
     }
 
+    componentWillReceiveProps(nextProps, nextContext) {
+        if(this.props.userBackground!==nextProps.userBackground){
+            this.setState({
+                userBackground:nextProps.userBackground
+            })
+        }
+    }
 
     profileEdit=()=>{
         this.props.history.push('/account/profile-edit/')
     }
-/*
-* facebook	facebook.com
-telegram	telegram.org
-twitter	twitter.com
-site	nodir.uz
-*
-* **/
+
+
+    handleSendPhoto = (e) => {
+        this.sendToCommentFile(e.target.files[0]);
+    }
+
+    sendToCommentFile = (file) => {
+        this.props.showLoadingBar(true);
+        var bodyFormData = new FormData();
+        bodyFormData.append('user_image', file);
+        axios.post(
+            API_USER_BACKGROUND,
+            bodyFormData
+        ).then(res => {
+            if (res.status === 202) {
+                console.log(res.data.userBackground)
+
+                this.setState({
+                    userBackground:res.data.userBackground
+                })
+                this.forceUpdate()
+            }
+            this.props.showLoadingBar(false);
+        }).catch(err => {
+            console.log(err)
+            this.props.showLoadingBar(false);
+
+        })
+    }
+
+
+
     render() {
         const {
             classes,
@@ -338,7 +376,8 @@ site	nodir.uz
 
         return (
             <div>
-                <div className={classes.timelineCover} style={{background: 'url('+userBackground+')'}}>
+
+                <div className={classes.timelineCover} style={{background: 'url('+this.state.userBackground+')'}}>
                     <Container>
                         <Grid
                             direction={"row"}
@@ -360,24 +399,41 @@ site	nodir.uz
                                 <Grid item md={6} style={{textAlign: "right"}} xsDown>
 
                                     <div className={classes.fotoBouttonContainer}>
-                                        {this.state.profilePhoto ? <Button variant="outlined" className={classes.buttonOblojka}
-                                                                classes={{root: classes.buttonFollow}}  size="large">
-                                            <SvgIcon viewBox="0 0 15 15"  classes={{root: classes.svgRootIconRight}}><defs>
-                                                <clipPath id="clip-path-photo">
-                                                    <rect id="Rectangle_103" data-name="Rectangle 103" width="15" height="15" transform="translate(175 1484)" fill="#fff" stroke="#707070" stroke-width="1"/>
-                                                </clipPath>
-                                            </defs>
-                                                <g id="Mask_Group_32" data-name="Mask Group 32" transform="translate(-175 -1484)" clip-path="url(#clip-path-photo)">
-                                                    <g id="photo-camera_2_" data-name="photo-camera (2)" transform="translate(175 1484)">
-                                                        <g id="Group_1651" data-name="Group 1651">
-                                                            <path id="Path_1285" data-name="Path 1285" d="M12.989,3.474l-1.574-.008L9.907,1.216A.5.5,0,0,0,9.494.985H5.431a.5.5,0,0,0-.4.223L3.47,3.466l-1.459.008A2.019,2.019,0,0,0,0,5.485v6.5a2.033,2.033,0,0,0,2.011,2.027H12.989A2.033,2.033,0,0,0,15,11.988v-6.5A2.019,2.019,0,0,0,12.989,3.474Zm1.022,8.514a1.041,1.041,0,0,1-1.022,1.038H2.011A1.041,1.041,0,0,1,.989,11.988v-6.5A1.027,1.027,0,0,1,2.011,4.463H3.734a.5.5,0,0,0,.4-.223L5.7,1.982H9.231l1.5,2.242a.509.509,0,0,0,.4.223l1.846.016A1.027,1.027,0,0,1,14,5.485v6.5h.008Z" fill="#fff"/>
-                                                            <path id="Path_1286" data-name="Path 1286" d="M7.541,4.661a3.5,3.5,0,1,0,3.5,3.5A3.505,3.505,0,0,0,7.541,4.661Zm0,6.016a2.514,2.514,0,1,1,2.514-2.514A2.518,2.518,0,0,1,7.541,10.677Z" fill="#fff"/>
-                                                            <circle id="Ellipse_13" data-name="Ellipse 13" cx="0.19" cy="0.19" r="0.19" transform="translate(12.041 5.922)" fill="#fff"/>
-                                                            <path id="Path_1287" data-name="Path 1287" d="M12.231,5.427a.684.684,0,1,0,.684.684A.682.682,0,0,0,12.231,5.427Zm0,.989a.3.3,0,0,1-.3-.3.3.3,0,1,1,.61,0A.3.3,0,0,1,12.231,6.416Z" fill="#fff"/>
-                                                        </g>
-                                                    </g>
-                                                </g></SvgIcon>  Добавить фото обложки
-                                        </Button> : ""}
+                                        {this.state.profilePhoto ? <div>
+                                                <input
+                                                    accept="image/*"
+                                                    className={classes.input}
+                                                    id="contained-button-background"
+                                                    type="file"
+                                                    onChange={this.handleSendPhoto}
+                                                />
+                                            <label htmlFor="contained-button-background">
+                                                <Button variant="outlined"
+                                                        component={"span"}
+                                                        className={classes.buttonOblojka}
+                                                        classes={{root: classes.buttonFollow}}
+                                                        size="large"
+
+                                                >
+                                                    <SvgIcon viewBox="0 0 15 15"  classes={{root: classes.svgRootIconRight}}><defs>
+                                                        <clipPath id="clip-path-photo">
+                                                            <rect id="Rectangle_103" data-name="Rectangle 103" width="15" height="15" transform="translate(175 1484)" fill="#fff" stroke="#707070" stroke-width="1"/>
+                                                        </clipPath>
+                                                    </defs>
+                                                        <g id="Mask_Group_32" data-name="Mask Group 32" transform="translate(-175 -1484)" clip-path="url(#clip-path-photo)">
+                                                            <g id="photo-camera_2_" data-name="photo-camera (2)" transform="translate(175 1484)">
+                                                                <g id="Group_1651" data-name="Group 1651">
+                                                                    <path id="Path_1285" data-name="Path 1285" d="M12.989,3.474l-1.574-.008L9.907,1.216A.5.5,0,0,0,9.494.985H5.431a.5.5,0,0,0-.4.223L3.47,3.466l-1.459.008A2.019,2.019,0,0,0,0,5.485v6.5a2.033,2.033,0,0,0,2.011,2.027H12.989A2.033,2.033,0,0,0,15,11.988v-6.5A2.019,2.019,0,0,0,12.989,3.474Zm1.022,8.514a1.041,1.041,0,0,1-1.022,1.038H2.011A1.041,1.041,0,0,1,.989,11.988v-6.5A1.027,1.027,0,0,1,2.011,4.463H3.734a.5.5,0,0,0,.4-.223L5.7,1.982H9.231l1.5,2.242a.509.509,0,0,0,.4.223l1.846.016A1.027,1.027,0,0,1,14,5.485v6.5h.008Z" fill="#fff"/>
+                                                                    <path id="Path_1286" data-name="Path 1286" d="M7.541,4.661a3.5,3.5,0,1,0,3.5,3.5A3.505,3.505,0,0,0,7.541,4.661Zm0,6.016a2.514,2.514,0,1,1,2.514-2.514A2.518,2.518,0,0,1,7.541,10.677Z" fill="#fff"/>
+                                                                    <circle id="Ellipse_13" data-name="Ellipse 13" cx="0.19" cy="0.19" r="0.19" transform="translate(12.041 5.922)" fill="#fff"/>
+                                                                    <path id="Path_1287" data-name="Path 1287" d="M12.231,5.427a.684.684,0,1,0,.684.684A.682.682,0,0,0,12.231,5.427Zm0,.989a.3.3,0,0,1-.3-.3.3.3,0,1,1,.61,0A.3.3,0,0,1,12.231,6.416Z" fill="#fff"/>
+                                                                </g>
+                                                            </g>
+                                                        </g></SvgIcon>  Добавить фото обложки
+                                                </Button>
+                                            </label>
+                                            </div>
+                                             : ""}
 
                                     </div>
 
@@ -385,10 +441,16 @@ site	nodir.uz
                                     <div className={classes.profileHeadButtonBar}>
 
                                         <Button variant="outlined" className={classes.button}
-                                                classes={{root: classes.buttonFollow}} size="large">
+                                                classes={{root: classes.buttonFollow}} size="large"
+                                                onClick={()=>{
+                                                    this.props.history.push("/profile/followers");
+                                                }}>
                                             Подписчиков <span style={{marginLeft: 20, color: '#e35b1e'}}>{subscribersCount}</span> <dot className={classes.dot}></dot>
                                         </Button>
                                         <Button variant="outlined" className={classes.button}
+                                                onClick={()=>{
+                                                    this.props.history.push("/profile/following");
+                                                }}
                                                 classes={{root: classes.buttonFollow}}  size="large">
                                             Подписки <span style={{marginLeft: 20, color: '#e35b1e'}}>{subscriptionCount}</span> <dot className={classes.dot}></dot>
                                         </Button>
@@ -420,12 +482,28 @@ site	nodir.uz
                                 </Hidden>
 
                                 <Hidden only={['md', 'xl', 'lg']}>
-                                    <Button variant="outlined" className={classes.button}
-                                            classes={{root: classes.buttonFollowMobile, label:classes.buttonFollowMobileLabel}} color="secondary1" size="large">
+                                    <Button
+                                        variant="outlined"
+                                        className={classes.button}
+                                        classes={{root: classes.buttonFollowMobile, label:classes.buttonFollowMobileLabel}}
+                                        color="secondary1"
+                                        size="large"
+                                        onClick={()=>{
+                                            this.props.history.push("/profile/followers");
+                                        }}
+                                    >
                                         Подписчиков <span style={{marginLeft: 20, color: '#e35b1e', float:"right"}}>{subscribersCount}</span> <dot className={classes.dot}></dot>
                                     </Button>
-                                    <Button variant="outlined" className={classes.button}
-                                            classes={{root: classes.buttonFollowMobile, label:classes.buttonFollowMobileLabel}} color="secondary1" size="large">
+                                    <Button
+                                        variant="outlined"
+                                        className={classes.button}
+                                        classes={{root: classes.buttonFollowMobile, label:classes.buttonFollowMobileLabel}}
+                                        color="secondary1"
+                                        size="large"
+                                        onClick={()=>{
+                                            this.props.history.push("/profile/following");
+                                        }}
+                                    >
                                         Подписки <span style={{marginLeft: 20, color: '#e35b1e', float:"right"}}>{subscriptionCount}</span> <dot className={classes.dot}></dot>
                                     </Button>
 

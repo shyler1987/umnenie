@@ -264,7 +264,6 @@ class ProfileFollower extends Component {
 
     getUserMe = () => {
         axios.get(USER_ME).then(res => {
-            console.log(res);
             if (res.status === 200) {
                 this.setState({
                     subscribersCount: res.data.subscribersCount,
@@ -302,6 +301,7 @@ class ProfileFollower extends Component {
                     userImage={this.state.userImage}
                     userRegistryDate={this.state.userRegistryDate}
                     userType={this.state.userType}
+                    showLoadingBar={this.showLoadingBar}
                 />
                 <Loading
                     show={this.state.show}

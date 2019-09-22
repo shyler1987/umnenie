@@ -18,6 +18,8 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import ProfileHeadCover from '../tools/ProfileHeadCover'
+import axios from "axios";
+import {Link} from "react-router-dom";
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -93,7 +95,10 @@ const styles = theme => ({
 
 });
 
-const API_POLLS = "polls/list";
+const USER_ME = "profil/me";
+const USER_SUBSCRIBERS = "profil/subscribers";
+const USER_SUBSCRIPTIONS = "profil/subscriptions";
+const URL_CLICK = "profil/subscribe-to-user";
 
 
 class ProfileFollower extends Component {
@@ -101,63 +106,155 @@ class ProfileFollower extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            show: false
+            show: false,
+            activeButton: 0,
+            subscribersCount: 0,
+            subscriptionCount: 0,
+            social_networks: [],
+            userBackground: "",
+            userComments: "",
+            userFIO: "",
+            userId: null,
+            userImage: "",
+            userRegistryDate: null,
+            userType: null,
+            follower:[]
+        }
+
+
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        if(nextProps.match.path!==this.props.match.path){
+            this.setTypeComponent(nextProps.match.path);
         }
     }
 
+    clickButton = (user_id) => (e) =>{
+        e.preventDefault()
+        this.showLoading(true)
+        axios.post(URL_CLICK, {
+            user_id:user_id
+        }).then(res=>{
+            this.showLoading(false)
+            this.setState({
+                follower:res.data
+            })
+        }).catch(err=>{
+            this.showLoading(false)
+        });
+    }
+
+
+    setTypeComponent = (path) =>{
+        if(path==="/profile/followers"){
+            this.getFollow(USER_SUBSCRIBERS)
+            this.setState({
+                typeComponent:"followers",
+                title:"Подписчиков "
+            })
+        }
+        if(path==="/profile/following"){
+            this.getFollow(USER_SUBSCRIPTIONS)
+            this.setState({
+                typeComponent:"following",
+                title:"Подписки"
+            })
+        }
+    }
+
+    componentDidMount() {
+        this.setTypeComponent(this.props.match.path);
+        this.getUserMe();
+    }
+
+    getFollow = (url) =>{
+        axios.get(url).then(res => {
+            if (res.status === 200) {
+                this.setState({follower:res.data})
+            }
+
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
+    showLoading = (bool) =>{
+        this.setState({
+            show:bool
+        })
+    }
+
+    getUserMe = () => {
+        axios.get(USER_ME).then(res => {
+            if (res.status === 200) {
+                this.setState({
+                    subscribersCount: res.data.subscribersCount,
+                    subscriptionCount: res.data.subscriptionCount,
+                    social_networks: res.data.social_networks,
+                    userBackground: res.data.userBackground,
+                    userComments: res.data.userComments,
+                    userFIO: res.data.userFIO,
+                    userId: res.data.userId,
+                    userImage: res.data.userImage,
+                    userRegistryDate: res.data.userRegistryDate,
+                    userType: res.data.userType,
+                })
+            }
+
+        }).catch(err => {
+            console.log(err)
+        })
+    }
 
     render() {
         const {classes} = this.props;
         return (
             <div>
-                <ProfileHeadCover profilePhoto={false}/>
-
+                <ProfileHeadCover
+                    profilePhoto={true}
+                    subscribersCount={this.state.subscribersCount}
+                    subscriptionCount={this.state.subscriptionCount}
+                    social_networks={this.state.social_networks}
+                    userBackground={this.state.userBackground}
+                    userFIO={this.state.userFIO}
+                    userId={this.state.userId}
+                    userImage={this.state.userImage}
+                    userRegistryDate={this.state.userRegistryDate}
+                    userType={this.state.userType}
+                    showLoadingBar={this.showLoadingBar}
+                />
                 <Loading
                     show={this.state.show}
                     color="red"
                 />
                 <Container>
                     <Typography classes={{root:classes.titleHead}} >
-                        Подписки
+                        {this.state.title}
                     </Typography>
                     <Grid container spacing={0}>
                         <Grid md={12}>
 
                             <List>
-                                <Paper className={classes.paper}>
-                                    <ListItem>
-                                        <ListItemAvatar>
-                                            <Avatar src={selenaAvatar} />
-                                        </ListItemAvatar>
-                                        <ListItemText
-                                            classes={{primary:classes.textListItem, secondary:classes.textListItemSecondary}}
-                                            primary="Исидатэ Тайти"
-                                            secondary={'Бла '}
-                                        />
-                                        <ListItemSecondaryAction>
-                                            <Button variant="contained" color="secondary"
-                                                    className={classes.ListButton}>Подписаться</Button>
-                                        </ListItemSecondaryAction>
-                                    </ListItem>
-                                </Paper>
-                                <Paper className={classes.paper}>
-                                    <ListItem>
-                                        <ListItemAvatar>
-                                            <Avatar src={selenaAvatar} />
-                                        </ListItemAvatar>
-                                        <ListItemText
-                                            classes={{primary:classes.textListItem, secondary:classes.textListItemSecondary}}
-                                            primary="Исидатэ Тайти"
-                                            secondary={'Бла бла бла бла '}
-                                        />
-                                        <ListItemSecondaryAction>
-                                            <Button color="secondary" variant={"outlined"}
-                                                    className={classes.ListButtonInActive}>
-                                                Подписки
-                                            </Button>
-                                        </ListItemSecondaryAction>
-                                    </ListItem>
-                                </Paper>
+                                {this.state.follower.map((itemFollow, IndexKey) =>{
+                                    return (<Paper className={classes.paper}>
+                                        <ListItem>
+                                            <ListItemAvatar>
+                                                <Link to={"/profile/"+itemFollow.userName} ><Avatar src={itemFollow.avatar} /></Link>
+                                            </ListItemAvatar>
+                                            <ListItemText
+                                                classes={{primary:classes.textListItem, secondary:classes.textListItemSecondary}}
+                                                primary={itemFollow.userFIO}
+                                                secondary={itemFollow.userName}
+                                            />
+                                            <ListItemSecondaryAction>
+                                                <Button variant="contained" color="secondary" onClick={this.clickButton(itemFollow.user_id)}
+                                                        className={classes.ListButton}>Отписать</Button>
+                                            </ListItemSecondaryAction>
+                                        </ListItem>
+                                    </Paper>)
+                                })}
+
 
                             </List>
                         </Grid>
