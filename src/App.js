@@ -21,6 +21,7 @@ import StatisPage from "./components/pages/StatisPage";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import setUserData from './redux/actions/setUserData'
+import ProfileUser from "./components/pages/ProfileUser";
 const raleway = {};
 
 
@@ -206,9 +207,10 @@ class App extends Component {
                         <DashboardLayoutRoute exact path="/license" component={License}/>
                         <ProfileLayoutRoute exact path="/account/profile" component={Profile}/>
 
+                        <ProfileLayoutRoute exact path="/profile/:slug" component={ProfileUser}/>
                         <ProfileLayoutRoute exact path="/account/profilej" component={ProfileJuridic}/>
-                        <ProfileLayoutRoute exact path="/profile/followers" component={ProfileFollower}/>
-                        <ProfileLayoutRoute exact path="/profile/following" component={ProfileFollower}/>
+                        <ProfileLayoutRoute exact path="/account/followers" component={ProfileFollower}/>
+                        <ProfileLayoutRoute exact path="/account/following" component={ProfileFollower}/>
 
                         <DashboardLayoutRoute exact path="/account/registration" component={Registration}/>
                         <DashboardLayoutRoute exact path="/account/profile-edit" component={ProfileEdit}/>

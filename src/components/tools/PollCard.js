@@ -428,11 +428,7 @@ class PollCard extends Component {
         })
     }
 
-    oepnQrCode = () =>{
-        this.setState({
-            dialogopen:true
-        })
-    }
+
 
     render() {
         const {classes} = this.props;
@@ -823,7 +819,9 @@ class PollCard extends Component {
                             <IconButton
                                 aria-haspopup="true"
                                 color="inherit"
-                                onClick={this.oepnQrCode}
+                                onClick={()=>{
+                                    this.props.dialogOpenClick('qrcode')
+                                }}
                                 classes={{root: classes.imgIconsP}}
                             >
                                 <SvgIcon viewBox="0 0 14 14" classes={{root: classes.svgRootIcon}}>

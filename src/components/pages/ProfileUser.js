@@ -7,10 +7,10 @@ import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
-
+import InfiniteScroll from 'react-infinite-scroll-component';
 import PollCard from '../tools/PollCard'
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
-import ProfileHeadCover from "../tools/ProfileHeadCover";
+import ProfileHeadCover from "../tools/ProfileHeadCoverUser";
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import PropTypes from "prop-types";
 
@@ -173,22 +173,21 @@ const styles = theme => ({
 });
 
 
-const API_POLLS = "polls/list";
-
-const USER_ME = "profil/me";
-const MY_POLLS = "profil/my-polls";
-const MY_FOVRITES = "profil/my-favorites";
-const MY_DRAFTS = "profil/my-drafts";
-const MY_REFERAL = "profil/my-referalls";
+const USER_ME = "profil/user-info";
+const USER_POLLS = "polls/user-polls";
 
 
-class Profile extends Component {
+class ProfileUser extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             polls: [],
             show: false,
+            previous: null,
+            next: null,
+            count: 0,
+            hasMore: true,
             activeButton: 0,
             subscribersCount: 0,
             subscriptionCount: 0,
@@ -204,33 +203,10 @@ class Profile extends Component {
         };
     }
 
-    setActive = (index) => {
-        switch (index) {
-            case 0 :
-                this.getByUrl(MY_POLLS);
-                break;
-            case 1 :
-                this.getByUrl(MY_FOVRITES);
-                break;
-            case 2 :
-                this.getByUrl(MY_DRAFTS);
-                break;
-            case 3 :
-                this.getByUrl(MY_REFERAL);
-                break;
+    componentDidMount() {
 
-        }
-        this.setState({
-            activeButton: index
-        })
-    }
-
-    getClass = (index) => {
-
-        let activeButton = this.state.activeButton;
-        if (index === activeButton)
-            return 'buttonGroupActive'
-        return 'buttonGroup'
+        this.getUserMe();
+        this.fetchDataPollsScroll(USER_POLLS);
     }
 
     showLoadingBar = (bool) => {
@@ -239,31 +215,39 @@ class Profile extends Component {
         })
     }
 
-    componentDidMount() {
-
-        this.getUserMe();
-        this.getByUrl(MY_POLLS);
-    }
-
-    getByUrl = (url) => {
-        this.showLoadingBar(true)
-        axios.get(url).then(res => {
+    fetchDataPollsScroll = (url) => {
+        this.setState({
+            show: true
+        })
+        axios.post(url, {
+            username: this.props.match.params.slug
+        }).then(res => {
             if (res.status === 200 && res.data.count > 0) {
+                let polls = this.state.polls;
+                polls.push(...res.data.result);
                 this.setState({
-                    polls: res.data.result
+                    polls: polls,
+                    next: res.data.next,
+                    hasMore: res.data.next !== null ? true : false
                 })
-            }else{
-                this.setState({polls:[]})
             }
-            this.showLoadingBar(false)
+            this.setState({
+                show: false
+            })
+
         }).catch(err => {
-            this.showLoadingBar(false)
-            console.log(err);
+            this.setState({
+                show: false
+            })
         })
     }
 
+
+
     getUserMe = () => {
-        axios.get(USER_ME).then(res => {
+        axios.post(USER_ME, {
+            username: this.props.match.params.slug
+        }).then(res => {
             if (res.status === 200) {
                 this.setState({
                     subscribersCount: res.data.subscribersCount,
@@ -284,6 +268,15 @@ class Profile extends Component {
         })
     }
 
+
+    fetchData = ()=>{
+        this.fetchDataPollsScroll(this.state.next);
+    }
+
+    refresh = ()=>{
+        this.fetchDataPollsScroll(USER_POLLS);
+    }
+
     render() {
         const {
             classes,
@@ -302,6 +295,7 @@ class Profile extends Component {
                     userRegistryDate={this.state.userRegistryDate}
                     userType={this.state.userType}
                     showLoadingBar={this.showLoadingBar}
+
                 />
                 <Loading
                     show={this.state.show}
@@ -317,74 +311,59 @@ class Profile extends Component {
                             <Typography classes={{root: classes.textAbout}}>{this.state.userComments}</Typography>
                         </Grid>
                     </Grid>
-                    <Grid container spacing={0} style={{marginTop: 20}}>
-                        <Grid md={12} xs={12} sm={12}>
-                            {this.state.userType === 1 ? <React.Fragment>
-                                <ButtonGroup fullWidth aria-label="full width outlined button group"
-                                             classes={{root: classes.buttonGroup}}>
-                                    <Button onClick={() => {
-                                        this.setActive(0)
-                                    }} classes={{root: classes[this.getClass(0)]}}>Мои опросы</Button>
-                                    <Button onClick={() => {
-                                        this.setActive(1)
-                                    }} classes={{root: classes[this.getClass(1)]}}>Избранное</Button>
-
-                                    <Button onClick={() => {
-                                        this.setActive(2)
-                                    }} classes={{root: classes[this.getClass(2)]}}>Черновики</Button>
-                                </ButtonGroup>
-                            </React.Fragment> : <React.Fragment>
-                                <ButtonGroup fullWidth aria-label="full width outlined button group"
-                                             classes={{root: classes.buttonGroup}}>
-                                    <Button onClick={() => {
-                                        this.setActive(0)
-                                    }} classes={{root: classes[this.getClass(0)]}}>Мои опросы</Button>
-                                    <Button onClick={() => {
-                                        this.setActive(1)
-                                    }} classes={{root: classes[this.getClass(1)]}}>Избранное</Button>
-                                    <Button onClick={() => {
-                                        this.setActive(3)
-                                    }} classes={{root: classes[this.getClass(3)]}}>Реферальный</Button>
-                                    <Button onClick={() => {
-                                        this.setActive(2)
-                                    }} classes={{root: classes[this.getClass(2)]}}>Черновики</Button>
-                                </ButtonGroup>
-                            </React.Fragment>}
-
-                        </Grid>
-                    </Grid>
                 </Container>
 
                 <Container>
                     <Typography classes={{root: classes.titleHead}}>
                         {this.state.title}
                     </Typography>
-                    <ResponsiveMasonry
-                        columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
-                    >
-                        <Masonry
-                            columnsCount={3}
-                            gutter={"10px"}
+                    <InfiniteScroll
+                        dataLength={this.state.polls.length}
+                        next={this.fetchData}
+                        hasMore={this.state.hasMore}
+                        loader={<h4>Загрузка...</h4>}
+                        endMessage={
+                            <p style={{textAlign: 'center'}}>
+                                <b>Ура! Вы видели все это</b>
+                            </p>
+                        }
+                        // below props only if you need pull down functionality
+                        refreshFunction={this.refresh}
+                        pullDownToRefresh
+                        pullDownToRefreshContent={
+                            <h3 style={{textAlign: 'center'}}>&#8595; Потяните вниз, чтобы обновить</h3>
+                        }
+                        releaseToRefreshContent={
+                            <h3 style={{textAlign: 'center'}}>&#8593; Обновить</h3>
+                        }>
+                        <ResponsiveMasonry
+                            columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
                         >
-                            {this.state.polls.map((item, key) => {
-                                return (
-                                    <PollCard
-                                        key={key}
-                                        idPoll={item.pollId}
-                                        imagePoll={item.pollImage}
-                                        fullName={item.userName}
-                                        contentPoll={item.pollQuestion}
-                                        datePoll={item.pollEndDate}
-                                        avatarUrl={item.userImage}
-                                        pollType={item.pollType}
-                                        pollItems={item.items}
-                                        iconFovrite={true}
-                                        showLoading={this.showLoadingBar}
-                                    />
-                                );
-                            })}
-                        </Masonry>
-                    </ResponsiveMasonry>
+                            <Masonry
+                                columnsCount={3}
+                                gutter={"10px"}
+                            >
+                                {this.state.polls.map((item, key) => {
+                                    return (
+                                        <PollCard
+                                            key={key}
+                                            idPoll={item.pollId}
+                                            imagePoll={item.pollImage}
+                                            fullName={item.userName}
+                                            contentPoll={item.pollQuestion}
+                                            datePoll={item.pollEndDate}
+                                            avatarUrl={item.userImage}
+                                            pollType={item.pollType}
+                                            pollItems={item.items}
+                                            iconFovrite={true}
+                                            showLoading={this.showLoadingBar}
+                                            disableClickCard={true}
+                                        />
+                                    );
+                                })}
+                            </Masonry>
+                        </ResponsiveMasonry>
+                    </InfiniteScroll>
                 </Container>
 
             </div>
@@ -393,4 +372,4 @@ class Profile extends Component {
 
 }
 
-export default withStyles(styles)(Profile);
+export default withStyles(styles)(ProfileUser);

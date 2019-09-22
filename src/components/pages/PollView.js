@@ -12,7 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import TextField from '@material-ui/core/TextField';
-
+import {QRCode} from "react-qr-svg";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../media/style.css';
 import Button from '@material-ui/core/Button';
@@ -328,12 +328,25 @@ class PollView extends Component {
                 </ValidatorForm>
             </DialogContent>
         </React.Fragment>;
+        const QR_CODE = <React.Fragment>
+            <DialogContent>
+                <QRCode
+                    bgColor="#FFFFFF"
+                    fgColor="#000000"
+                    level="Q"
+                    style={{width: '100%', margin: '0px 10px 0px'}}
+                    value="some text"
+                />
+            </DialogContent>
+        </React.Fragment>;
+
 
         return (
             <div>
                 <Dialog onClose={this.handleClose} aria-labelledby="simple-dialog-title" open={this.state.dialogopen}>
 
                     {this.state.dialogType==='jalba' ? jalba : ""}
+                    {this.state.dialogType==='qrcode' ? QR_CODE : ""}
                 </Dialog>
                 <Snackbar
                     anchorOrigin={{
