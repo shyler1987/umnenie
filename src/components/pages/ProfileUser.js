@@ -220,7 +220,7 @@ class ProfileUser extends Component {
             show: true
         })
         axios.post(url, {
-            username: this.props.match.params.slug
+            username: this.props.match.params.username
         }).then(res => {
             if (res.status === 200 && res.data.count > 0) {
                 let polls = this.state.polls;
@@ -246,7 +246,7 @@ class ProfileUser extends Component {
 
     getUserMe = () => {
         axios.post(USER_ME, {
-            username: this.props.match.params.slug
+            username: this.props.match.params.username
         }).then(res => {
             if (res.status === 200) {
                 this.setState({
@@ -349,6 +349,7 @@ class ProfileUser extends Component {
                                             key={key}
                                             idPoll={item.pollId}
                                             imagePoll={item.pollImage}
+                                            propsCard={this.props.match.params}
                                             fullName={item.userFIO}
                                             username={item.userName}
                                             contentPoll={item.pollQuestion}
@@ -359,6 +360,7 @@ class ProfileUser extends Component {
                                             iconFovrite={true}
                                             showLoading={this.showLoadingBar}
                                             disableClickCard={true}
+
                                         />
                                     );
                                 })}

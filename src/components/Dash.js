@@ -138,6 +138,7 @@ class Dash extends Component {
                                     <PollCard
                                         key={key}
                                         userId={item.userId}
+                                        propsCard={this.props.match.params}
                                         idPoll={item.pollId}
                                         imagePoll={item.pollImage}
                                         fullName={item.userFIO}

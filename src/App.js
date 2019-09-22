@@ -207,7 +207,7 @@ class App extends Component {
                         <DashboardLayoutRoute exact path="/license" component={License}/>
                         <ProfileLayoutRoute exact path="/account/profile" component={Profile}/>
 
-                        <ProfileLayoutRoute exact path="/profile/:slug" component={ProfileUser}/>
+                        <ProfileLayoutRoute exact path="/profile/:username" component={ProfileUser}/>
                         <ProfileLayoutRoute exact path="/account/profilej" component={ProfileJuridic}/>
                         <ProfileLayoutRoute exact path="/account/followers" component={ProfileFollower}/>
                         <ProfileLayoutRoute exact path="/account/following" component={ProfileFollower}/>
@@ -217,7 +217,9 @@ class App extends Component {
                         <DashboardLayoutRoute exact path="/account/passchange" component={PasswordChange}/>
                         <DashboardLayoutRoute exact path="/polls/create" component={PollCreate}/>
                         <DashboardLayoutRoute exact path="/chat" component={ChatPage}/>
+                        <DashboardLayoutRoute exact path="/polls/:username/:id" component={PollView}/>
                         <DashboardLayoutRoute exact path="/polls/:id" component={PollView}/>
+
                         <DashboardLayoutRoute exact path="/statis/" component={StatisPage}/>
 
 

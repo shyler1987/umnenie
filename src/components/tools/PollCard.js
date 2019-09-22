@@ -87,24 +87,24 @@ const styles = theme => ({
             color: '#ec4956'
         },
         titleBar: {
-             background: 'linear-gradient(to bottom, rgba(33, 32, 32, 0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0, 0, 0, 0) 80%)'
+            background: 'linear-gradient(to bottom, rgba(33, 32, 32, 0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0, 0, 0, 0) 80%)'
             //background:'transparent'
         },
         GridListTileRoot: {
             height: 'auto',
             '&:hover': {
-                "& .imgTile":{
+                "& .imgTile": {
                     opacity: '.2',
                     cursor: 'pointer',
                 },
-                "& grid":{
+                "& grid": {
                     background: 'transparent'
                 },
-                "& .MuiGridListTileBar-root":{
+                "& .MuiGridListTileBar-root": {
                     background: 'transparent'
                 },
             },
-            '&:hover $tint':{
+            '&:hover $tint': {
                 background: '#e67043',
 
             }
@@ -112,7 +112,7 @@ const styles = theme => ({
 
         },
         Gridtile: {
-            
+
             cursor: 'pointer',
             '&:hover': {
                 backgroundColor: '#000 !important',
@@ -127,7 +127,7 @@ const styles = theme => ({
             position: 'absolute',
             alignItems: 'center',
             background: 'linear-gradient(to top, rgba(33, 32, 32, 0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0, 0, 0, 0) 80%)',
-           // background:'transparent'
+            // background:'transparent'
         },
         pollBottomCircle: {
             padding: '0px 10px 0px'
@@ -182,7 +182,7 @@ const styles = theme => ({
                 paddingRight: 9,
                 border: "1px solid #E6E6E6",
                 borderRadius: 5,
-                cursor:'ponter',
+                cursor: 'ponter',
                 "& dot": {
                     borderRadius: '50%',
                     width: 5,
@@ -225,7 +225,7 @@ const styles = theme => ({
             minWidth: 40,
             display: '-webkit-inline-box',
             //display: 'inline-flex'
-},
+        },
         cardContent: {
             color: "#2B2A29"
         },
@@ -262,11 +262,10 @@ const styles = theme => ({
             fontFamily: "'Source Sans Pro', sans-serif",
             fontWeight: 600
         },
-        disableCard:{
+        disableCard: {
             backgroundColor: '#e6e6e6',
             opacity: 0.55
         }
-
 
 
     })
@@ -275,6 +274,7 @@ const styles = theme => ({
 
 const API_VOICE = "/profil/answer-to-poll";
 const API_Like = "/profil/like-to-poll";
+
 class PollCard extends Component {
 
     constructor(props) {
@@ -289,7 +289,8 @@ class PollCard extends Component {
             pollAnswerCount,
             pollLikeCount,
             clickOtvet,
-            disableClickCard
+            disableClickCard,
+            propsCard
         } = this.props;
 
         this.state = {
@@ -303,6 +304,7 @@ class PollCard extends Component {
             show: false,
             dialogopen: false,
             pollItems: pollItems,
+            propsCard: propsCard,
             disableCard: disableCard === null ? false : disableCard,
             disableClickCard: disableClickCard === null ? false : disableClickCard,
             clickOtvet: clickOtvet === null ? false : clickOtvet,
@@ -335,6 +337,7 @@ class PollCard extends Component {
             pollAnswerCount,
             clickOtvet,
             disableClickCard,
+            propsCard,
 
         } = nextProps;
 
@@ -344,6 +347,7 @@ class PollCard extends Component {
             datePoll: datePoll,
             contentPoll: contentPoll,
             pollType: pollType,
+            propsCard: propsCard,
             imagePoll: imagePoll,
             idPoll: idPoll,
             pollItems: pollItems,
@@ -371,7 +375,7 @@ class PollCard extends Component {
         history.push('/statis')
     }
 
-    clickItem = (poll_id, item_id) => (e) =>{
+    clickItem = (poll_id, item_id) => (e) => {
         e.preventDefault();
         // if(this.props.clickOtvet===false){
         //     return;
@@ -385,32 +389,32 @@ class PollCard extends Component {
 
         this.props.showLoading(true);
         axios.post(API_VOICE, {
-            poll_item_id:item_id,
-            poll_id:poll_id
-        }).then(res=>{
-            if(res.status===202){
+            poll_item_id: item_id,
+            poll_id: poll_id
+        }).then(res => {
+            if (res.status === 202) {
                 this.setState({
-                    pollItems:res.data
+                    pollItems: res.data
                 })
             }
             this.props.showLoading(false);
-        }).catch(err=>{
+        }).catch(err => {
             this.props.showLoading(false);
         })
     }
 
-    likedClick = (poll_id)=> (e) => {
+    likedClick = (poll_id) => (e) => {
         this.props.showLoading(true);
         axios.post(API_Like, {
-            poll_id:poll_id
-        }).then(res=>{
-            if(res.status===202){
+            poll_id: poll_id
+        }).then(res => {
+            if (res.status === 202) {
                 this.setState({
-                    pollLikeCount:res.data.pollLikeCount
+                    pollLikeCount: res.data.pollLikeCount
                 })
             }
             this.props.showLoading(false);
-        }).catch(err=>{
+        }).catch(err => {
             this.props.showLoading(false);
         })
 
@@ -422,29 +426,29 @@ class PollCard extends Component {
     }
 
 
-    handleClose = () =>{
+    handleClose = () => {
         this.setState({
-            dialogopen:false
+            dialogopen: false
         })
     }
 
 
-
     render() {
         const {classes} = this.props;
-        let urlProfile = "/profile/"+this.props.username;
-        if(this.props.isAuthenticated ){
+        let urlProfile = "/profile/" + this.props.username;
+        if (this.props.isAuthenticated) {
 
         }
+        console.log(this.state.propsCard)
 
-        const cardContent = <Card className={this.state.disableCard ? classes.disableCard : ""} >
+        const cardContent = <Card className={this.state.disableCard ? classes.disableCard : ""}>
             <CardHeader
                 avatar={
-                   <Link to={urlProfile}>
-                       <Avatar aria-label="Recipe" src={this.state.avatarUrl}>
-                        R
+                    <Link to={urlProfile}>
+                        <Avatar aria-label="Recipe" src={this.state.avatarUrl}>
+                            R
                         </Avatar>
-                   </Link>
+                    </Link>
                 }
                 action={
                     <div>
@@ -537,7 +541,7 @@ class PollCard extends Component {
                 </Typography>
                 {this.state.pollType === 1 && this.state.answerText ?
                     <Typography component="p" classes={{root: classes.cardContentAnswers}}>
-                        Ответы {this.state.pollAnswerCount!==0 ? "("+this.state.pollAnswerCount+")" : ""}
+                        Ответы {this.state.pollAnswerCount !== 0 ? "(" + this.state.pollAnswerCount + ")" : ""}
                     </Typography> : ""}
 
             </CardContent>
@@ -565,7 +569,7 @@ class PollCard extends Component {
                                     >
 
                                         <figure className={classes.tint}>
-                                            <img src={item.image} className={classes.cardTileImg+' imgTile'}/>
+                                            <img src={item.image} className={classes.cardTileImg + ' imgTile'}/>
                                         </figure>
                                         <GridListTileBar
                                             title={item.option}
@@ -607,7 +611,7 @@ class PollCard extends Component {
                                                     <div className={classes.avatars}>
                                                         {item.avatars.map((avatarItem, key) => {
                                                             return (
-                                                                <span key={"avatar-"+key} className={classes.avatar}>
+                                                                <span key={"avatar-" + key} className={classes.avatar}>
                                                                 <img src={avatarItem}/>
                                                             </span>
                                                             );
@@ -694,12 +698,13 @@ class PollCard extends Component {
                         aria-label="Main mailbox folders"
                         subheader={
                             <ListSubheader component="div" id="nested-list-subheader">
-                                Ответы {this.state.pollAnswerCount!==0 ? "("+this.state.pollAnswerCount+")" : ""}
+                                Ответы {this.state.pollAnswerCount !== 0 ? "(" + this.state.pollAnswerCount + ")" : ""}
                             </ListSubheader>
                         }
                     >
                         {this.state.pollItems !== undefined ? this.state.pollItems.map((itemOption, Key) => {
-                            return (<ListItem key={"ListItem"+Key} classes={{root: classes.rootItem}} onClick={this.clickItem(this.props.idPoll, itemOption.id)}>
+                            return (<ListItem key={"ListItem" + Key} classes={{root: classes.rootItem}}
+                                              onClick={this.clickItem(this.props.idPoll, itemOption.id)}>
                                 <ListItemIcon classes={{root: classes.ListItemIconRoot}}>
                                     <CircularProgressbar
                                         value={itemOption.percent}
@@ -721,7 +726,7 @@ class PollCard extends Component {
                                     <div className={classes.avatars}>
                                         {itemOption.avatars.map((avatarItem, key) => {
                                             return (
-                                                <span  key={"ava-"+key}  className={classes.avatar}>
+                                                <span key={"ava-" + key} className={classes.avatar}>
                                                             <img src={avatarItem}/>
                                                         </span>
                                             );
@@ -824,7 +829,7 @@ class PollCard extends Component {
                             <IconButton
                                 aria-haspopup="true"
                                 color="inherit"
-                                onClick={()=>{
+                                onClick={() => {
                                     this.props.dialogOpenClick('qrcode')
                                 }}
                                 classes={{root: classes.imgIconsP}}
@@ -937,7 +942,7 @@ class PollCard extends Component {
                         {this.state.iconAnonced ? <IconButton
                             aria-haspopup="true"
                             color="inherit"
-                            onClick={()=>{
+                            onClick={() => {
                                 this.props.dialogOpenClick('jalba')
                             }}
                             classes={{root: classes.imgIconsP}}
@@ -964,7 +969,8 @@ class PollCard extends Component {
                 <Grid item md={6} sm={6} xs={6}>
 
                     {this.state.iconFovrite ? <React.Fragment>
-                        <div style={{textAlign: 'right', padding: 10}}><span style={{fontSize: 12}}>{this.state.pollLikeCount} </span>
+                        <div style={{textAlign: 'right', padding: 10}}><span
+                            style={{fontSize: 12}}>{this.state.pollLikeCount} </span>
                             <IconButton
                                 onClick={this.likedClick(this.props.idPoll)}
                                 aria-haspopup="true"
@@ -991,9 +997,22 @@ class PollCard extends Component {
                     value="some text"
                 />
             </Dialog>
-            <Link to={"/polls/" + this.state.idPoll} className={classes.clickCard}>
+            <Link
+                to={ this.state.propsCard.username!==undefined ?  "/polls/" +this.state.propsCard.username+"/" + this.state.idPoll : "/polls/"+ this.state.idPoll}
+                className={classes.clickCard}>
+                {cardContent}
+            </Link> </React.Fragment> : <React.Fragment>
+            <Dialog onClose={this.handleClose} aria-labelledby="dialogQR" open={this.state.dialogopen}>
+                <QRCode
+                    bgColor="#FFFFFF"
+                    fgColor="#000000"
+                    level="Q"
+                    style={{width: '65%', margin: '0px 10px 0px'}}
+                    value="some text"
+                />
+            </Dialog>
             {cardContent}
-            </Link> </React.Fragment> : cardContent
+        </React.Fragment>
 
     }
 }
@@ -1001,11 +1020,11 @@ class PollCard extends Component {
 //
 PollCard.propTypes = {
     classes: PropTypes.object.isRequired,
-    disableClickCard:PropTypes.bool,
+    disableClickCard: PropTypes.bool,
 };
 
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
     return {
         isAuthenticated: state.mainData.isAuthenticated,
         user: state.mainData.user,

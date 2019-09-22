@@ -130,11 +130,16 @@ class PollView extends Component {
         this.fetchPoll = this.fetchPoll.bind(this);
     }
 
-    PollNavigate = (url) => {
-        if (url !== null) {
-            this.props.history.push("/polls/" + url);
+    PollNavigate = (id) => {
+        if (id !== null) {
+            if(this.props.match.params.username!==undefined){
+                this.props.history.push("/polls/"+this.props.match.params.username + "/" + id);
+                this.fetchPoll(id);
+            }else{
+                this.props.history.push("/polls/" + id);
+                this.fetchPoll(id);
+            }
 
-            this.fetchPoll(url);
         }
     }
 
@@ -154,10 +159,14 @@ class PollView extends Component {
 
 
     fetchPoll = (id) => {
+        let url = API_POLLS + id;
+        if(this.props.match.params.username!==undefined){
+            url = API_POLLS +  id + "&username="+this.props.match.params.username;
+        }
         this.setState({
             show: true
         })
-        axios.get(API_POLLS + id).then(res => {
+        axios.get(url).then(res => {
             if (res.status === 200) {
                 this.setState({
                     polls: res.data.data
@@ -181,9 +190,7 @@ class PollView extends Component {
     }
 
     nextPollGet = () => {
-
         this.PollNavigate(this.state.polls.nextPoll);
-
     }
 
     prevPollGet = () => {
@@ -397,6 +404,7 @@ class PollView extends Component {
 
                                     <PollCard
                                         idPoll={this.state.polls.pollId}
+                                        propsCard={this.props.match.params}
                                         imagePoll={this.state.polls.pollImage}
                                         fullName={this.state.polls.userFIO}
                                         username={this.state.polls.userName}
