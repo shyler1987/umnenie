@@ -439,7 +439,7 @@ class PollCard extends Component {
         if (this.props.isAuthenticated) {
 
         }
-        console.log(this.state.propsCard)
+
 
         const cardContent = <Card className={this.state.disableCard ? classes.disableCard : ""}>
             <CardHeader

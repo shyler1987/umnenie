@@ -13,6 +13,8 @@ import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import ProfileHeadCover from "../tools/ProfileHeadCoverUser";
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import PropTypes from "prop-types";
+import MySnackbarContentWrapper from "../tools/MySnackbarContentWrapper";
+import Snackbar from "@material-ui/core/Snackbar";
 
 const styles = theme => ({
     root: {
@@ -177,6 +179,7 @@ const USER_ME = "profil/user-info";
 const USER_POLLS = "polls/user-polls";
 
 
+
 class ProfileUser extends Component {
 
     constructor(props) {
@@ -195,6 +198,7 @@ class ProfileUser extends Component {
             userBackground: "",
             userComments: "",
             userFIO: "",
+            isBlocked: null,
             userId: null,
             userImage: "",
             userRegistryDate: null,
@@ -257,6 +261,8 @@ class ProfileUser extends Component {
                     userComments: res.data.userComments,
                     userFIO: res.data.userFIO,
                     userId: res.data.userId,
+                    isBlocked: res.data.isBlocked,
+                    isFollow: res.data.isFollow,
                     userImage: res.data.userImage,
                     userRegistryDate: res.data.userRegistryDate,
                     userType: res.data.userType,
@@ -277,12 +283,15 @@ class ProfileUser extends Component {
         this.fetchDataPollsScroll(USER_POLLS);
     }
 
+
+
     render() {
         const {
             classes,
         } = this.props;
         return (
             <div>
+
                 <ProfileHeadCover
                     profilePhoto={true}
                     subscribersCount={this.state.subscribersCount}
@@ -291,6 +300,8 @@ class ProfileUser extends Component {
                     userBackground={this.state.userBackground}
                     userFIO={this.state.userFIO}
                     userId={this.state.userId}
+                    isBlocked={this.state.isBlocked}
+                    isFollow={this.state.isFollow}
                     userImage={this.state.userImage}
                     userRegistryDate={this.state.userRegistryDate}
                     userType={this.state.userType}

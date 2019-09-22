@@ -2,22 +2,19 @@ import React, {Component} from 'react';
 import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
-import 'react-loading-bar/dist/index.css'
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import {Link, NavLink, withRouter} from "react-router-dom";
-
-import CoverImage from '../../media/back.png';
-import selenaAvatar from '../../media/selenaAvatar.jpg';
 import Hidden from '@material-ui/core/Hidden';
 import Avatar from '@material-ui/core/Avatar';
-
-
-import { Provider } from 'react-redux'
+import {connect, Provider} from 'react-redux'
 import SvgIcon from '@material-ui/core/SvgIcon';
 import PropTypes from 'prop-types';
 import axios from "axios";
-
+import MySnackbarContentWrapper from "./MySnackbarContentWrapper";
+import Snackbar from "@material-ui/core/Snackbar";
+import Loading from 'react-loading-bar'
+import 'react-loading-bar/dist/index.css'
 
 
 const styles = theme => ({
@@ -237,63 +234,105 @@ const styles = theme => ({
 
 const API_POLLS = "polls/list";
 const API_USER_BACKGROUND = "profil/add-background";
-
+const USER_BLOKUSER = "profil/block-user";
+const USER_SUBSCRIBE = "profil/subscribe-in-info";
 class ProfileHeadCoverUser extends Component {
 
     constructor(props) {
         super(props);
-        const {profilePhoto, userBackground} = this.props;
-        console.log(userBackground)
+        const {profilePhoto, userBackground, userId, isBlocked, isFollow} = this.props;
+
         this.state = {
+            openSnakbar: false,
+            show:false,
+            isFollow:isFollow,
+            userId:userId===null ? false : userId,
+            isBlocked:isBlocked===null ? false : isBlocked,
             profilePhoto:profilePhoto===null ? false : profilePhoto,
             userBackground:userBackground===null ? "" : userBackground,
-            show: false
-        }
-        this.profileEdit=this.profileEdit.bind(this);
-    }
 
+        }
+    }
+    showLoadingBar = (bool) => {
+        this.setState({
+            show: bool
+        })
+    }
     componentWillReceiveProps(nextProps, nextContext) {
         if(this.props.userBackground!==nextProps.userBackground){
             this.setState({
-                userBackground:nextProps.userBackground
+                userBackground:nextProps.userBackground,
+
             })
         }
+        if(this.props.userId!==nextProps.userId){
+            this.setState({
+                userId:nextProps.userId,
+
+            })
+        }
+        if(this.props.isBlocked!==nextProps.isBlocked){
+            this.setState({
+                isBlocked:nextProps.isBlocked,
+
+            })
+        }
+        if(this.props.isFollow!==nextProps.isFollow){
+            this.setState({
+                isFollow:nextProps.isFollow,
+
+            })
+        }
+
+
     }
 
-    profileEdit=()=>{
-        this.props.history.push('/account/profile-edit/')
-    }
-
-
-    handleSendPhoto = (e) => {
-        this.sendToCommentFile(e.target.files[0]);
-    }
-
-    sendToCommentFile = (file) => {
-        this.props.showLoadingBar(true);
-        var bodyFormData = new FormData();
-        bodyFormData.append('user_image', file);
-        axios.post(
-            API_USER_BACKGROUND,
-            bodyFormData
-        ).then(res => {
-            if (res.status === 202) {
-                console.log(res.data.userBackground)
-
+    setFollow = () =>{
+        this.showLoadingBar(true);
+        axios.post(USER_SUBSCRIBE, {
+            user_id:this.state.userId
+        }).then(res=>{
+            if(res.status===201){
                 this.setState({
-                    userBackground:res.data.userBackground
+                    isFollow:res.data.status
                 })
-                this.forceUpdate()
             }
-            this.props.showLoadingBar(false);
-        }).catch(err => {
-            console.log(err)
-            this.props.showLoadingBar(false);
-
+            this.showLoadingBar(false);
+        }).catch(err=>{
+            this.showLoadingBar(false);
         })
     }
 
 
+    setBlockUser = () =>{
+        this.showLoadingBar(true);
+        axios.post(USER_BLOKUSER, {
+            user_id:this.state.userId
+        }).then(res=>{
+            if(res.status===201){
+                this.setState({
+                    isBlocked:res.data.status
+                })
+            }
+            this.showLoadingBar(false);
+        }).catch(err=>{
+            this.showLoadingBar(false);
+        })
+    }
+
+    closeSnakbar =() =>{
+        this.setState({
+            openSnakbar: false,
+        })
+    }
+
+    openSnakbar = (snakbarVariant, snakbarMessage) =>{
+        this.setState({
+            openSnakbar:true,
+            snakbarVariant:snakbarVariant,
+            snakbarMessage:snakbarMessage,
+        })
+    }
 
     render() {
         const {
@@ -373,10 +412,27 @@ class ProfileHeadCoverUser extends Component {
                 </a>
             </div>
         </React.Fragment>;
-
         return (
             <div>
-
+                <Loading
+                    show={this.state.show}
+                    color="red"
+                />
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    open={this.state.openSnakbar}
+                    autoHideDuration={6000}
+                    onClose={this.closeSnakbar}
+                >
+                    <MySnackbarContentWrapper
+                        onClose={this.closeSnakbar}
+                        variant={this.state.snakbarVariant}
+                        message={this.state.snakbarMessage}
+                    />
+                </Snackbar>
                 <div className={classes.timelineCover} style={{background: 'url('+this.state.userBackground+')'}}>
                     <Container>
                         <Grid
@@ -475,19 +531,28 @@ class ProfileHeadCoverUser extends Component {
 
                                 </Hidden>
 
-                                <Button variant="contained" size="medium"  color="secondary" classes={{root:classes.buttonLine}} onClick={()=>{this.profileEdit()}}>
-                                    Редактировать профиль
-                                </Button>
-                                {/*<Button variant="contained" size="medium"  color="secondary" classes={{root:classes.buttonLine}}>*/}
-                                {/*    Заблокировать*/}
-                                {/*</Button>*/}
+                                {this.props.isAuthenticated ? <React.Fragment>
+                                    <Button
+                                        variant={ "contained"}
+                                        size="medium"
+                                        color="secondary"
+                                        classes={{root:classes.buttonLine}}
+                                        onClick={this.setBlockUser}
+                                    >
+                                        {this.state.isBlocked ? "Заблокирован" : "Заблокировать"}
 
-                                {/*<Button variant="contained" size="medium" color="secondary" classes={{root:classes.buttonLine}}>*/}
-                                {/*    Написать*/}
-                                {/*</Button>*/}
-                                {/*<Button variant="contained" size="medium" color="secondary" classes={{root:classes.buttonLine}}>*/}
-                                {/*    Подписаться*/}
-                                {/*</Button>*/}
+                                    </Button>
+
+                                    <Button variant="contained" size="medium" color="secondary" classes={{root:classes.buttonLine}}>
+                                        Написать
+                                    </Button>
+                                    <Button
+                                        onClick={this.setFollow}
+                                        variant="contained" size="medium" color="secondary" classes={{root:classes.buttonLine}}>
+                                        {this.state.isFollow ? "Подписанный" :"Подписаться"}
+                                    </Button>
+                                </React.Fragment> : ""}
+
 
                             </Grid>
 
@@ -513,4 +578,11 @@ ProfileHeadCoverUser.propTypes = {
     userRegistryDate:PropTypes.string,
 };
 
-export default withStyles(styles)(withRouter(ProfileHeadCoverUser));
+function mapStateToProps(state) {
+    return {
+        isAuthenticated: state.mainData.isAuthenticated,
+        user: state.mainData.user,
+    }
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(withRouter(ProfileHeadCoverUser)));
