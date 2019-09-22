@@ -398,7 +398,10 @@ class PollView extends Component {
                                     <PollCard
                                         idPoll={this.state.polls.pollId}
                                         imagePoll={this.state.polls.pollImage}
-                                        fullName={this.state.polls.userName}
+                                        fullName={this.state.polls.userFIO}
+                                        username={this.state.polls.userName}
+
+                                        userId={this.state.userId}
                                         contentPoll={this.state.polls.pollQuestion}
                                         datePoll={this.state.polls.pollEndDate}
                                         avatarUrl={this.state.polls.userImage}

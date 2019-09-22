@@ -137,9 +137,11 @@ class Dash extends Component {
                                 return (
                                     <PollCard
                                         key={key}
+                                        userId={item.userId}
                                         idPoll={item.pollId}
                                         imagePoll={item.pollImage}
-                                        fullName={item.userName}
+                                        fullName={item.userFIO}
+                                        username={item.userName}
                                         contentPoll={item.pollQuestion}
                                         datePoll={item.pollEndDate}
                                         avatarUrl={item.userImage}

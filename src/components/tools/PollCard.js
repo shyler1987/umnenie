@@ -432,14 +432,19 @@ class PollCard extends Component {
 
     render() {
         const {classes} = this.props;
+        let urlProfile = "/profile/"+this.props.username;
+        if(this.props.isAuthenticated ){
 
+        }
 
         const cardContent = <Card className={this.state.disableCard ? classes.disableCard : ""} >
             <CardHeader
                 avatar={
-                    <Avatar aria-label="Recipe" src={this.state.avatarUrl}>
+                   <Link to={urlProfile}>
+                       <Avatar aria-label="Recipe" src={this.state.avatarUrl}>
                         R
-                    </Avatar>
+                        </Avatar>
+                   </Link>
                 }
                 action={
                     <div>
@@ -1003,6 +1008,7 @@ PollCard.propTypes = {
 function mapStateToProps(state){
     return {
         isAuthenticated: state.mainData.isAuthenticated,
+        user: state.mainData.user,
     }
 }
 
