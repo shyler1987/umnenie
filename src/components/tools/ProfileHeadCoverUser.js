@@ -456,7 +456,7 @@ class ProfileHeadCoverUser extends Component {
 
                                     <div className={classes.fotoBouttonContainer}>
 
-
+                                        {this.props.match.params.username}
                                     </div>
 
 
@@ -465,13 +465,13 @@ class ProfileHeadCoverUser extends Component {
                                         <Button variant="outlined" className={classes.button}
                                                 classes={{root: classes.buttonFollow}} size="large"
                                                 onClick={()=>{
-                                                    this.props.history.push("/account/followers");
+                                                    this.props.history.push("/profile/"+this.props.match.params.username+"/followers");
                                                 }}>
                                             Подписчиков <span style={{marginLeft: 20, color: '#e35b1e'}}>{subscribersCount}</span> <dot className={classes.dot}></dot>
                                         </Button>
                                         <Button variant="outlined" className={classes.button}
                                                 onClick={()=>{
-                                                    this.props.history.push("/account/following");
+                                                    this.props.history.push("/profile/"+this.props.match.params.username+"/following");
                                                 }}
                                                 classes={{root: classes.buttonFollow}}  size="large">
                                             Подписки <span style={{marginLeft: 20, color: '#e35b1e'}}>{subscriptionCount}</span> <dot className={classes.dot}></dot>

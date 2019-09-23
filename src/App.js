@@ -22,6 +22,8 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import setUserData from './redux/actions/setUserData'
 import ProfileUser from "./components/pages/ProfileUser";
+import UserFollowers from "./components/pages/user/UserFollowers";
+import UserFollowing from "./components/pages/user/UserFollowing";
 const raleway = {};
 
 
@@ -161,6 +163,7 @@ class App extends Component {
 
     fetchMe = () => {
         axios.get("profil/me").then(res=>{
+            console.log("app js")
             this.props.setUserData(res.data)
         }).catch(err=>{
             console.log(err);
@@ -207,6 +210,8 @@ class App extends Component {
                         <DashboardLayoutRoute exact path="/license" component={License}/>
                         <ProfileLayoutRoute exact path="/account/profile" component={Profile}/>
 
+                        <ProfileLayoutRoute exact path="/profile/:username/followers" component={UserFollowers}/>
+                        <ProfileLayoutRoute exact path="/profile/:username/following" component={UserFollowing}/>
                         <ProfileLayoutRoute exact path="/profile/:username" component={ProfileUser}/>
                         <ProfileLayoutRoute exact path="/account/profilej" component={ProfileJuridic}/>
                         <ProfileLayoutRoute exact path="/account/followers" component={ProfileFollower}/>
