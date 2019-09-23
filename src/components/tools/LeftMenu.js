@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { withRouter } from "react-router";
+import {withRouter} from "react-router";
 import Button from '@material-ui/core/Button';
 
 import Loading from 'react-loading-bar'
@@ -29,7 +29,7 @@ const styles = theme => ({
         overflow: 'hidden',
         fontWeight: 600,
         fontSize: 18,
-        color:'#000'
+        color: '#000'
 
         // backgroundColor: theme.palette.background.paper,
     },
@@ -109,7 +109,7 @@ const styles = theme => ({
         fontSize: 15,
     },
     avatarTitle: {},
-    input: {display:'none'},
+    input: {display: 'none'},
     CopyRight: {
         fontSize: 13,
         fontWeight: 400,
@@ -119,14 +119,21 @@ const styles = theme => ({
     rootTypography: {
         fontSize: 15,
     },
-    clickAvatar:{
+    clickAvatar: {
         display: 'inline-flex',
         justifyContent: 'center',
         alignContent: 'center',
         alignItems: 'center',
-        "&:hover":{
-            textDecoration:'none'
+        "&:hover": {
+            textDecoration: 'none'
         }
+    },
+    changePhoto: {
+        color: '#e0512a',
+
+        textDecoration: 'underline',
+
+        cursor: 'pointer'
     }
 
 });
@@ -138,23 +145,32 @@ class LeftMenu extends Component {
         const {userInfo} = this.props;
         this.state = {
             userImage: userInfo.userImage,
-            show:false
+            userFIO: userInfo.userFIO,
+            show: false
         }
+
     }
 
-    showLoadingBar = (bool) =>{
+    showLoadingBar = (bool) => {
         this.setState({
-            show:bool
+            show: bool
         })
     }
 
 
     componentWillReceiveProps(nextProps, nextContext) {
-        if(nextProps.userInfo.userImage!==this.state.userImage){
-            this.state = {
-                userImage: nextProps.userInfo.userImage
-            }
+        console.log(nextProps)
+        if (nextProps.userInfo.userImage !== this.state.userImage) {
+            this.setState({
+                userImage: nextProps.userInfo.userImage,
+            })
         }
+        if (nextProps.userInfo.userFIO !== this.state.userFIO) {
+            this.setState({
+                userFIO: nextProps.userInfo.userFIO
+            })
+        }
+        console.log()
     }
 
     handleSendPhoto = (e) => {
@@ -172,7 +188,7 @@ class LeftMenu extends Component {
             if (res.status === 202) {
 
                 this.setState({
-                    userImage:res.data.userImage
+                    userImage: res.data.userImage
                 })
                 this.forceUpdate()
             }
@@ -194,23 +210,25 @@ class LeftMenu extends Component {
                 />
                 <div className={classes.avatarWithTextRoot}>
                     <div className={classes.clickAvatar}>
-                        <Link to={""}><Avatar alt="Remy Sharp" src={this.state.userImage} className={classes.bigAvatar}/></Link>
+                        <Link to={""}><Avatar alt={this.state.userFIO} src={this.state.userImage}
+                                              className={classes.bigAvatar}/></Link>
                         <div style={{paddingLeft: 10}}>
-                            <Link to={""}><Typography classes={{root: classes.rootHead}} variant={"h5"}>Исидатэ Тайти</Typography></Link>
+                            <Link to={""}><Typography classes={{root: classes.rootHead}}
+                                                      variant={"h5"}>{this.state.userFIO}</Typography></Link>
 
 
-                                <label htmlFor="contained-button-avatar">
-                                    <input
-                                        accept="image/*"
-                                        className={classes.input}
-                                        id="contained-button-avatar"
-                                        type="file"
-                                        onChange={this.handleSendPhoto}
-                                    />
-                                    <a component={"span"} className={classes.rootLink}>
-                                        <Typography> Сменить фото профиля</Typography>
-                                    </a>
-                                </label>
+                            <label htmlFor="contained-button-avatar">
+                                <input
+                                    accept="image/*"
+                                    className={classes.input}
+                                    id="contained-button-avatar"
+                                    type="file"
+                                    onChange={this.handleSendPhoto}
+                                />
+                                <a component={"span"} className={classes.rootLink}>
+                                    <Typography classes={{root: classes.changePhoto}}> Сменить фото профиля</Typography>
+                                </a>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -263,10 +281,10 @@ class LeftMenu extends Component {
 
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
     return {
-        isAuthenticated:state.mainData.isAuthenticated,
-        userInfo:state.mainData.user
+        isAuthenticated: state.mainData.isAuthenticated,
+        userInfo: state.mainData.user
     }
 }
 

@@ -20,6 +20,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import { withRouter } from "react-router";
+import {
+    MuiPickersUtilsProvider,
+    KeyboardTimePicker,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 const styles = theme => ({
     root: {
@@ -181,15 +186,28 @@ const styles = theme => ({
     socSet: {
         fontSize: 15,
         fontWeight: 600
+    },
+    noPadding:{
+        paddingTop: '0px !important',
+        paddingBottom:  '0px !important'
     }
 
 
 });
-const names = [
-    'Все',
-    'Выберите категорию',
-
-    'Выберите категорию А',
+const NamesState = [
+    'userFIO',
+    'userName',
+    'userComments',
+    'userGender',
+    'facebook',
+    'telegram',
+    'twitter',
+    'site',
+    'org_name',
+    'factual_address',
+    'email',
+    'address',
+    'birthday',
 ];
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -242,6 +260,7 @@ class ProfileEdit extends Component {
     }
 
     handleChangeField = (e) => {
+        console.log(e.target.value)
         this.setState({[e.target.name]: e.target.value})
     }
 
@@ -350,6 +369,30 @@ subscribersCount	2
             }
         }).catch(err => {
             this.loadingBar(false)
+            if(err.response.status===422){
+                let errTextAll = "";
+                NamesState.map(item => {
+                    this.setState({
+                        [item + 'Error']: false,
+                        [item + 'ErrorText']: null
+                    });
+                })
+                if(err.response!==undefined){
+                    let erors = JSON.parse(err.response.data.message);
+                    Object.keys(erors).map(item => {
+                        let errText = "";
+                        erors[item].map(itemError => {
+                            errTextAll += itemError + ', ';
+                            errText += itemError + ', ';
+                        })
+                        this.setState({
+                            [item + 'Error']: true,
+                            [item + 'ErrorText']: errText,
+                        });
+
+                    });
+                }
+            }
         });
 
     }
@@ -469,30 +512,12 @@ subscribersCount	2
                                 <Grid container spacing={3} direction={"row"}>
                                     <Grid item md={12}>
                                         {this.state.userType === 2 ? <React.Fragment>
-                                            <TextField
-                                                name={"userName"}
-                                                value={this.state.userName}
-                                                onChange={this.handleChangeField}
-                                                margin="dense"
-                                                id="outlined-name"
-                                                fullWidth
-                                                placeholder={"Название бренда"}
-                                                className={classes.textField}
-                                                variant="outlined"
-                                                // InputProps={{
-                                                //     endAdornment: (
-                                                //         <InputAdornment position="end">
-                                                //             <a className={classes.editP}>
-                                                //                 <EditIcon style={{fontSize: 16, color: '#e0512a'}}/>
-                                                //                 Редактировать
-                                                //             </a>
-                                                //         </InputAdornment>
-                                                //     ),
-                                                // }}
-                                            />
-                                            <TextField
+
+                                            <TextValidator
                                                 name={"org_name"}
                                                 value={this.state.org_name}
+                                                validators={['required']}
+                                                errorMessages={['Это поле обязательно к заполнению']}
                                                 onChange={this.handleChangeField}
                                                 margin="dense"
                                                 id="outlined-name"
@@ -500,19 +525,13 @@ subscribersCount	2
                                                 placeholder={"Название организации"}
                                                 className={classes.textField}
                                                 variant="outlined"
-                                                // InputProps={{
-                                                //     endAdornment: (
-                                                //         <InputAdornment position="end">
-                                                //             <a className={classes.editP}>
-                                                //                 <EditIcon style={{fontSize: 16, color: '#e0512a'}}/>
-                                                //                 Редактировать
-                                                //             </a>
-                                                //         </InputAdornment>
-                                                //     ),
-                                                // }}
+                                                error={this.state.org_nameError}
+                                                helperText={this.state.org_nameErrorText}
                                             />
-                                            <TextField
+                                            <TextValidator
                                                 name={"email"}
+                                                validators={['required']}
+                                                errorMessages={['Это поле обязательно к заполнению']}
                                                 value={this.state.email}
                                                 onChange={this.handleChangeField}
                                                 margin="dense"
@@ -521,18 +540,10 @@ subscribersCount	2
                                                 placeholder={"Эл. адрес"}
                                                 className={classes.textField}
                                                 variant="outlined"
-                                                // InputProps={{
-                                                //     endAdornment: (
-                                                //         <InputAdornment position="end">
-                                                //             <a className={classes.editP}>
-                                                //                 <EditIcon style={{fontSize: 16, color: '#e0512a'}}/>
-                                                //                 Редактировать
-                                                //             </a>
-                                                //         </InputAdornment>
-                                                //     ),
-                                                // }}
+                                                error={this.state.emailError}
+                                                helperText={this.state.emailErrorText}
                                             />
-                                            <TextField
+                                            <TextValidator
                                                 name={"userName"}
                                                 value={this.state.userName}
                                                 onChange={this.handleChangeField}
@@ -542,22 +553,16 @@ subscribersCount	2
                                                 placeholder={"Имя пользователя"}
                                                 className={classes.textField}
                                                 variant="outlined"
-                                                // InputProps={{
-                                                //     endAdornment: (
-                                                //         <InputAdornment position="end">
-                                                //             <a className={classes.editP}>
-                                                //                 <EditIcon style={{fontSize: 16, color: '#e0512a'}}/>
-                                                //                 Редактировать
-                                                //             </a>
-                                                //         </InputAdornment>
-                                                //     ),
-                                                // }}
+                                                validators={['required']}
+                                                errorMessages={['Это поле обязательно к заполнению']}
+                                                error={this.state.userNameError}
+                                                helperText={this.state.userNameErrorText}
                                             />
                                         </React.Fragment> : ""}
 
 
                                         {this.state.userType === 1 ? <React.Fragment>
-                                            <TextField
+                                            <TextValidator
                                                 name={"userFIO"}
                                                 value={this.state.userFIO}
                                                 onChange={this.handleChangeField}
@@ -567,18 +572,12 @@ subscribersCount	2
                                                 placeholder={"И.Ф.О"}
                                                 className={classes.textField}
                                                 variant="outlined"
-                                                // InputProps={{
-                                                //     endAdornment: (
-                                                //         <InputAdornment position="end">
-                                                //             <a className={classes.editP}>
-                                                //                 <EditIcon style={{fontSize: 16, color: '#e0512a'}}/>
-                                                //                 Редактировать
-                                                //             </a>
-                                                //         </InputAdornment>
-                                                //     ),
-                                                // }}
+                                                validators={['required']}
+                                                errorMessages={['Это поле обязательно к заполнению']}
+                                                error={this.state.userFIOError}
+                                                helperText={this.state.userFIOErrorText}
                                             />
-                                            <TextField
+                                            <TextValidator
                                                 name={"userName"}
                                                 value={this.state.userName}
                                                 onChange={this.handleChangeField}
@@ -588,18 +587,12 @@ subscribersCount	2
                                                 placeholder={"Имя пользователя"}
                                                 className={classes.textField}
                                                 variant="outlined"
-                                                // InputProps={{
-                                                //     endAdornment: (
-                                                //         <InputAdornment position="end">
-                                                //             <a className={classes.editP}>
-                                                //                 <EditIcon style={{fontSize: 16, color: '#e0512a'}}/>
-                                                //                 Редактировать
-                                                //             </a>
-                                                //         </InputAdornment>
-                                                //     ),
-                                                // }}
+                                                validators={['required']}
+                                                errorMessages={['Это поле обязательно к заполнению']}
+                                                error={this.state.userNameError}
+                                                helperText={this.state.userNameErrorText}
                                             />
-                                            <TextField
+                                            <TextValidator
                                                 name={"email"}
                                                 value={this.state.email}
                                                 onChange={this.handleChangeField}
@@ -609,16 +602,10 @@ subscribersCount	2
                                                 placeholder={"Эл. адрес"}
                                                 className={classes.textField}
                                                 variant="outlined"
-                                                // InputProps={{
-                                                //     endAdornment: (
-                                                //         <InputAdornment position="end">
-                                                //             <a className={classes.editP}>
-                                                //                 <EditIcon style={{fontSize: 16, color: '#e0512a'}}/>
-                                                //                 Редактировать
-                                                //             </a>
-                                                //         </InputAdornment>
-                                                //     ),
-                                                // }}
+                                                validators={['required']}
+                                                errorMessages={['Это поле обязательно к заполнению']}
+                                                error={this.state.emailError}
+                                                helperText={this.state.emailErrorText}
                                             />
                                         </React.Fragment> : ""}
 
@@ -630,8 +617,10 @@ subscribersCount	2
                                     {this.state.userType === 1 ?
 
                                         <React.Fragment>
-                                            <Grid item md={6} sm={12} xs={12}>
-                                                <TextField
+                                            <Grid item md={6} sm={12} xs={12} className={classes.noPadding}>
+                                                <TextValidator
+                                                    validators={['required']}
+                                                    errorMessages={['Это поле обязательно к заполнению']}
                                                     name={"phone"}
                                                     value={this.state.phone}
                                                     onChange={this.handleChangeField}
@@ -650,10 +639,12 @@ subscribersCount	2
                                                             </InputAdornment>
                                                         ),
                                                     }}
+                                                    error={this.state.phoneError}
+                                                    helperText={this.state.phoneErrorText}
                                                 />
 
                                             </Grid>
-                                            <Grid item md={6} sm={12} xs={12}>
+                                            <Grid item md={6} sm={12} xs={12} className={classes.noPadding}>
                                                 <FormControl className={classes.formControl} margin="dense" fullWidth
                                                              variant="outlined">
                                                     {this.state.userGender === null ?
@@ -687,20 +678,28 @@ subscribersCount	2
                                                     </Select>
                                                 </FormControl>
                                             </Grid>
-                                            <Grid item md={6} sm={12} xs={12}>
+                                            <Grid item md={6} sm={12} xs={12} className={classes.noPadding}>
                                                 <TextField
                                                     name={"birthday"}
+                                                    type="date"
+                                                    format={'YYYY-MM-DD'}
                                                     value={this.state.birthday}
+                                                    InputLabelProps={{
+                                                        shrink: true,
+                                                    }}
                                                     onChange={this.handleChangeField}
                                                     margin="dense"
                                                     id="outlined-name"
+                                                    defaultValue={this.state.birthday}
                                                     fullWidth
                                                     placeholder={"Дата рождения"}
                                                     className={classes.textField}
                                                     variant="outlined"
+                                                    error={this.state.birthdayError}
+                                                    helperText={this.state.birthdayErrorText}
                                                 />
                                             </Grid>
-                                            <Grid item md={6} sm={12} xs={12}>
+                                            <Grid item md={6} sm={12} xs={12} className={classes.noPadding}>
                                                 <FormControl className={classes.formControl} margin="dense" fullWidth
                                                              variant="outlined">
                                                     {this.state.specialization_id.length === 0 ?
@@ -742,10 +741,10 @@ subscribersCount	2
 
                                             </Grid>
 
-                                            <Grid item md={12} sm={12} xs={12}>
-                                                <TextField
-                                                    name={"phone"}
-                                                    value={this.state.phone}
+                                            <Grid item md={12} sm={12} xs={12} className={classes.noPadding}>
+                                                <TextValidator
+                                                    name={"address"}
+                                                    value={this.state.address}
                                                     onChange={this.handleChangeField}
                                                     margin="dense"
                                                     id="outlined-name"
@@ -753,14 +752,20 @@ subscribersCount	2
                                                     placeholder={"Страна\Город"}
                                                     className={classes.textField}
                                                     variant="outlined"
+                                                    validators={['required']}
+                                                    errorMessages={['Это поле обязательно к заполнению']}
+                                                    error={this.state.addressError}
+                                                    helperText={this.state.addressErrorText}
                                                 />
                                             </Grid>
                                         </React.Fragment> : ""}
 
                                     {this.state.userType === 2 ? <React.Fragment>
                                         <Grid item md={6} sm={12} xs={12}>
-                                            <TextField
+                                            <TextValidator
                                                 name={"phone"}
+                                                validators={['required']}
+                                                errorMessages={['Это поле обязательно к заполнению']}
                                                 value={this.state.phone}
                                                 onChange={this.handleChangeField}
                                                 margin="dense"
@@ -778,6 +783,8 @@ subscribersCount	2
                                                         </InputAdornment>
                                                     ),
                                                 }}
+                                                error={this.state.phoneError}
+                                                helperText={this.state.phoneErrorText}
                                             />
                                             <TextField
                                                 onChange={this.handleChangeField}
@@ -789,6 +796,8 @@ subscribersCount	2
                                                 placeholder={"Страна\Город"}
                                                 className={classes.textField}
                                                 variant="outlined"
+                                                error={this.state.addressError}
+                                                helperText={this.state.addressErrorText}
                                             />
                                         </Grid>
                                         <Grid item md={6} sm={12} xs={12}>
@@ -828,7 +837,7 @@ subscribersCount	2
                                                 </Select>
                                             </FormControl>
                                             <TextField
-                                                name={"address"}
+                                                name={"factual_address"}
                                                 value={this.state.factual_address}
                                                 onChange={this.handleChangeField}
                                                 margin="dense"
@@ -837,6 +846,8 @@ subscribersCount	2
                                                 placeholder={"Фактические адреса"}
                                                 className={classes.textField}
                                                 variant="outlined"
+                                                error={this.state.factual_addressError}
+                                                helperText={this.state.factual_addressErrorText}
                                             />
 
                                         </Grid>
@@ -858,6 +869,8 @@ subscribersCount	2
                                                 placeholder={"http://"}
                                                 className={classes.textField}
                                                 variant="outlined"
+                                                error={this.state.siteError}
+                                                helperText={this.state.siteErrorText}
                                             />
                                         </div>
                                         <div className={classes.inlineText}>
@@ -872,6 +885,8 @@ subscribersCount	2
                                                 placeholder={"..."}
                                                 className={classes.textField}
                                                 variant="outlined"
+                                                error={this.state.facebookError}
+                                                helperText={this.state.facebookErrorText}
                                             />
                                         </div>
                                         <div className={classes.inlineText}>
@@ -886,6 +901,8 @@ subscribersCount	2
                                                 placeholder={"..."}
                                                 className={classes.textField}
                                                 variant="outlined"
+                                                error={this.state.telegramError}
+                                                helperText={this.state.telegramErrorText}
                                             />
                                         </div>
                                         <div className={classes.inlineText}>
@@ -900,6 +917,8 @@ subscribersCount	2
                                                 placeholder={"..."}
                                                 className={classes.textField}
                                                 variant="outlined"
+                                                error={this.state.twitterError}
+                                                helperText={this.state.twitterErrorText}
                                             />
                                         </div>
                                     </Grid>
@@ -920,6 +939,8 @@ subscribersCount	2
                                                 defaultValue="О себе"
                                                 className={classes.textField}
                                                 margin="normal"
+                                                error={this.state.userCommentsError}
+                                                helperText={this.state.userCommentsErrorText}
                                             />
                                         </React.Fragment> : ""}
                                         {this.state.userType === 2 ? <React.Fragment>
@@ -934,6 +955,8 @@ subscribersCount	2
                                                 defaultValue="О компании"
                                                 className={classes.textField}
                                                 margin="normal"
+                                                error={this.state.userCommentsError}
+                                                helperText={this.state.userCommentsErrorText}
                                             />
                                         </React.Fragment> : ""}
 

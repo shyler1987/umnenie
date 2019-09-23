@@ -245,7 +245,6 @@ class Registration extends Component {
                 });
             }
 
-            console.log(err)
         })
     }
 
