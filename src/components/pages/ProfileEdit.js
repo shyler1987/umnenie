@@ -661,7 +661,7 @@ subscribersCount	2
                                                         classes={{root: this.state.userGender === null ? classes.muiSeelctRoot : classes.muiSelectRootL}}
                                                         MenuProps={MenuProps}
                                                         renderValue={select => {
-                                                            let dd = ["Мужиское", "Женское"];
+                                                            let dd = ["Мужской", "Женский"];
                                                             return dd[select];
                                                         }}
                                                         input={<OutlinedInput name="speacial"
