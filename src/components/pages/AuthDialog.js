@@ -230,7 +230,7 @@ class AuthDialog extends Component {
                                         id="outlined-bare"
                                         name={"username"}
                                         onChange={this.handleChange}
-                                        placeholder={"Телефона или Почта"}
+                                        placeholder={"Логин"}
                                         InputProps={{
                                             classes: {
                                                 input: classes.outlinedIn,

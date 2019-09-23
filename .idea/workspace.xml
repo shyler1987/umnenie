@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3013fece-6add-4506-8dd7-e5be49d79bf2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/pages/ProfileEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ProfileEdit.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/AuthDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/AuthDialog.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -115,7 +115,7 @@
       <workItem from="1568949919514" duration="13047000" />
       <workItem from="1568969897359" duration="12761000" />
       <workItem from="1569001860442" duration="63240000" />
-      <workItem from="1569231596769" duration="18886000" />
+      <workItem from="1569231596769" duration="19413000" />
     </task>
     <servers />
   </component>
