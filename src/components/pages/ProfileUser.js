@@ -368,6 +368,7 @@ class ProfileUser extends Component {
                                             avatarUrl={item.userImage}
                                             pollType={item.pollType}
                                             pollItems={item.items}
+                                            disableCard={item.disableCard}
                                             iconFovrite={true}
                                             showLoading={this.showLoadingBar}
                                             disableClickCard={true}

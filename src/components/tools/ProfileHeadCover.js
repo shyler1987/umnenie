@@ -311,7 +311,7 @@ class ProfileHeadCover extends Component {
 
         const socialIcons =<React.Fragment>
             <div className={classes.socialIcons}>
-            <a href={social_networks.site}>
+            <a href={social_networks.site} target={"_blank"}>
                 <SvgIcon viewBox="0 0 15 15"  classes={{root: classes.svgRootIcon}}>
                     <defs>
                         <clipPath id="clip-path-web">
@@ -327,7 +327,7 @@ class ProfileHeadCover extends Component {
                     </g>
                 </SvgIcon>
             </a>
-            <a href={social_networks.telegram}>
+            <a href={social_networks.telegram} target={"_blank"}>
                 <SvgIcon viewBox="0 0 15 15"  classes={{root: classes.svgRootIcon}}>
                     <defs>
                         <clipPath id="clip-path-telegram">
@@ -341,7 +341,7 @@ class ProfileHeadCover extends Component {
                     </g>
                 </SvgIcon>
             </a>
-            <a href={social_networks.facebook}>
+            <a href={social_networks.facebook} target={"_blank"}>
                 <SvgIcon viewBox="0 0 15 15"  classes={{root: classes.svgRootIcon}}>
                     <defs>
                         <clipPath id="clip-path-facebook">
@@ -355,7 +355,7 @@ class ProfileHeadCover extends Component {
                     </g>
                 </SvgIcon>
             </a>
-            <a href={social_networks.twitter}>
+            <a href={social_networks.twitter} target={"_blank"}>
                 <SvgIcon viewBox="0 0 15 15"  classes={{root: classes.svgRootIcon}}>
                     <defs>
                         <clipPath id="clip-path-instagram">

@@ -441,7 +441,7 @@ class PollCard extends Component {
         }
 
 
-        const cardContent = <Card className={this.state.disableCard ? classes.disableCard : ""}>
+        const cardContent = <Card className={this.state.disableCard ?  "" : classes.disableCard}>
             <CardHeader
                 avatar={
                     <Link to={urlProfile}>

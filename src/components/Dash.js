@@ -149,6 +149,7 @@ class Dash extends Component {
                                         pollType={item.pollType}
                                         pollItems={item.items}
                                         CrownSvg={item.pollCrown}
+                                        disableCard={item.disableCard}
                                         like={item.like}
                                         iconFovrite={true}
                                         clickOtvet={false}

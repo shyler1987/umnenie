@@ -229,10 +229,7 @@ class UserFollowers extends Component {
                                                 primary={itemFollow.userFIO}
                                                 secondary={itemFollow.userName}
                                             />
-                                            <ListItemSecondaryAction>
-                                                <Button variant="contained" color="secondary" onClick={this.clickButton(itemFollow.user_id)}
-                                                        className={classes.ListButton}>Отписать</Button>
-                                            </ListItemSecondaryAction>
+
                                         </ListItem>
                                     </Paper>)
                                 })}

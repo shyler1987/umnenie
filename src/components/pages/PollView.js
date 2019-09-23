@@ -448,8 +448,7 @@ class PollView extends Component {
                             </Hidden>
                         </Grid>
 
-
-                        <Grid
+                        {this.state.polls.pollViewComment ? <Grid
                             direction={"row"}
                             container
                             justify={"center"}
@@ -611,9 +610,9 @@ class PollView extends Component {
 
 
                             </Grid>
+                        </Grid> : ""}
 
 
-                        </Grid>
                     </div> : ""}
 
 
