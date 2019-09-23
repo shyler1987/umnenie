@@ -3,14 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3013fece-6add-4506-8dd7-e5be49d79bf2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Dash.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dash.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/PollView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PollView.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/ProfileUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ProfileUser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/user/UserFollowers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/user/UserFollowers.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/user/UserFollowing.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/user/UserFollowing.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/PollCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/PollCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/ProfileHeadCoverUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/ProfileHeadCoverUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/ProfileEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ProfileEdit.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -122,7 +115,8 @@
       <workItem from="1568882325251" duration="4470000" />
       <workItem from="1568949919514" duration="13047000" />
       <workItem from="1568969897359" duration="12761000" />
-      <workItem from="1569001860442" duration="59780000" />
+      <workItem from="1569001860442" duration="63240000" />
+      <workItem from="1569231596769" duration="11035000" />
     </task>
     <servers />
   </component>
