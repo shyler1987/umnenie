@@ -159,7 +159,6 @@ class LeftMenu extends Component {
 
 
     componentWillReceiveProps(nextProps, nextContext) {
-        console.log(nextProps)
         if (nextProps.userInfo.userImage !== this.state.userImage) {
             this.setState({
                 userImage: nextProps.userInfo.userImage,
@@ -170,7 +169,6 @@ class LeftMenu extends Component {
                 userFIO: nextProps.userInfo.userFIO
             })
         }
-        console.log()
     }
 
     handleSendPhoto = (e) => {
