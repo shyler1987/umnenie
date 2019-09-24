@@ -241,8 +241,8 @@ const stateName = [
     'hashtags',
     'publications',
     'question',
-    'image',
-    'other_image'
+    'imageFile',
+    'variants_image'
 ]
 
 class PollCreate extends Component {
@@ -268,8 +268,8 @@ class PollCreate extends Component {
             hashtags: null,
             publications: null,
             question: null,
-            image: null,
-            other_image: []
+            imageFile: null,
+            variants_image: []
 
         };
     }
@@ -281,7 +281,7 @@ class PollCreate extends Component {
     }
     selectFile = (e) => {
         this.setState({
-            image: e.target.files[0]
+            imageFile: e.target.files[0]
         })
     }
 
@@ -322,7 +322,7 @@ class PollCreate extends Component {
     addVariant = () => {
 
         this.setState({
-            other_image: this.state.other_image.concat({
+            variants_image: this.state.variants_image.concat({
                 id: null,
                 variantNomer: null,
                 text: null,
@@ -334,27 +334,28 @@ class PollCreate extends Component {
     variantChange = (indexId) => (e) => {
         e.preventDefault();
         console.log(indexId);
-        let variants = this.state.other_image;
+        let variants = this.state.variants_image;
         variants[indexId].text = e.target.value;
         this.setState({
-            other_image: variants
+            variants_image: variants
         })
     }
     variantImage = (indexId) => (e) => {
         e.preventDefault();
-        let variants = this.state.other_image;
+        let variants = this.state.variants_image;
         variants[indexId].image = e.target.files[0];
         variants[indexId].imageUrl = URL.createObjectURL(e.target.files[0]);
         this.setState({
-            other_image: variants
+            variants_image: variants
         })
+
     }
 
     delVariant = (IndexID) => (e) => {
         e.preventDefault()
-        let variants = this.state.other_image.filter((item, indexItem) => indexItem !== IndexID);
+        let variants = this.state.variants_image.filter((item, indexItem) => indexItem !== IndexID);
         this.setState({
-            other_image: variants
+            variants_image: variants
         })
     }
 
@@ -368,41 +369,69 @@ class PollCreate extends Component {
 
 
     sendToServer = () => {
-        let data = {};
+        let data = {
+
+
+        };
+
+        const formData = new FormData();
+        formData.append('category_id', this.state.category_id);
+        formData.append('visibility', this.state.visibility);
+        formData.append('category_id', JSON.stringify(this.state.category_id));
+        formData.append('term', this.state.term);
+        formData.append('status', this.state.status);
+        formData.append('view_comment', this.state.view_comment);
+        formData.append('hashtags', this.state.hashtags);
+        formData.append('publications', this.state.publications);
+        formData.append('question', this.state.question);
+        formData.append('imageFile', this.state.imageFile);
+        this.state.variants_image.map((item, index)=>{
+            console.log(item.image)
+            formData.append('variants_image['+index+'][text]',item.text)
+            formData.append('variants_image['+index+'][image]', item.image)
+        })
+        // formData.append('variants_image', JSON.stringify(this.state.variants_image));
+
         stateName.map(item => {
             data[item] = this.state[item]
         })
         this.loadingBar(true)
-        axios.post(API_SAVE_POLL, data).then(res => {
+        axios.post(API_SAVE_POLL, formData, {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        }).then(res => {
             this.loadingBar(false)
             console.log(res)
         }).catch(err => {
             this.loadingBar(false)
-            console.log(err)
-            if (err.response.status === 422) {
-                let errTextAll = "";
-                stateName.map(item => {
-                    this.setState({
-                        [item + 'Error']: false,
-                        [item + 'ErrorText']: null
-                    });
-                })
-                if (err.response !== undefined) {
-                    let erors = JSON.parse(err.response.data.message);
-                    Object.keys(erors).map(item => {
-                        let errText = "";
-                        erors[item].map(itemError => {
-                            errTextAll += itemError + ', ';
-                            errText += itemError + ', ';
-                        })
+            if(err.response!==undefined){
+                if (err.response.status === 422) {
+                    let errTextAll = "";
+                    stateName.map(item => {
                         this.setState({
-                            [item + 'Error']: true,
-                            [item + 'ErrorText']: errText,
+                            [item + 'Error']: false,
+                            [item + 'ErrorText']: null
                         });
+                    })
+                    if (err.response !== undefined) {
+                        let erors = JSON.parse(err.response.data.message);
+                        Object.keys(erors).map(item => {
+                            let errText = "";
+                            erors[item].map(itemError => {
+                                errTextAll += itemError + ', ';
+                                errText += itemError + ', ';
+                            })
+                            this.setState({
+                                [item + 'Error']: true,
+                                [item + 'ErrorText']: errText,
+                            });
 
-                    });
+                        });
+                    }
                 }
             }
+
         })
     }
 
@@ -733,7 +762,7 @@ class PollCreate extends Component {
                                     ref="form1"
                                     onSubmit={this.sendToServer}
                                 >
-                                    {this.state.other_image.map((item, IndexItem) => {
+                                    {this.state.variants_image.map((item, IndexItem) => {
                                         return (<Grid container spacing={3} direction={"row"}>
                                             <Grid item md={2} sm={2} xs={2} classes={{root: classes.inlineTextVariant}}>
                                                 <Typography

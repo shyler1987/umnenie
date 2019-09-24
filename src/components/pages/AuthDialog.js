@@ -24,7 +24,9 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
+import {GoogleLogin} from 'react-google-login';
 
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 
 
 const styles = theme => ({
@@ -40,7 +42,7 @@ const styles = theme => ({
         flexWrap: 'wrap',
         justifyContent: 'baseline',
         overflow: 'hidden',
-        padding:"20px 20px 0px"
+        padding: "20px 20px 0px"
         // backgroundColor: theme.palette.background.paper,
     },
     fab: {
@@ -73,42 +75,39 @@ const styles = theme => ({
     copyright: {
         textAlign: 'left',
     },
-    svgRootIcon:{
-        height:'40.196px',
-        width:'40.196px',
+    svgRootIcon: {
+        height: '40.196px',
+        width: '40.196px',
     },
-    titleText:{
-        fontSize:15,
-        fontWeight:600
+    titleText: {
+        fontSize: 15,
+        fontWeight: 600
     },
-    fastAc:{
-        fontSize:15,
-        fontWeight:600,
-        textAlign:'center'
+    fastAc: {
+        fontSize: 15,
+        fontWeight: 600,
+        textAlign: 'center'
     },
-    textA:{
-        color:"#e35b1e", fontSize:13, textDecoration: 'underline', fontWeight: 600
+    textA: {
+        color: "#e35b1e", fontSize: 13, textDecoration: 'underline', fontWeight: 600
     },
-    iconBtn:{
+    iconBtn: {
         padding: 5
     },
-    loginBtn:{
-        marginTop:10
+    loginBtn: {
+        marginTop: 10
     },
-    outlinedIn:{
-        fontSize:15,
-        fontWeight:600
+    outlinedIn: {
+        fontSize: 15,
+        fontWeight: 600
     },
-    btnText:{
-
+    btnText: {},
+    white: {
+        color: "#ffffff"
     },
-    white:{
-        color:"#ffffff"
-    },
-    backdrop:{
+    backdrop: {
         backgroundColor: 'rgba(0, 0, 0, 0.8)'
     }
-
 
 
 });
@@ -127,7 +126,7 @@ const DialogTitle = withStyles(styles)((props: DialogTitleProps) => {
     const {children, classes, onClose} = props;
     return (
         <MuiDialogTitle disableTypography className={classes.rootDialog}>
-            <Typography classes={{root:classes.titleText}}>{children}</Typography>
+            <Typography classes={{root: classes.titleText}}>{children}</Typography>
 
         </MuiDialogTitle>
     );
@@ -142,35 +141,35 @@ class AuthDialog extends Component {
         this.state = {
             show: false,
             dialogBool: this.props.isAuth,
-            password:'',
-            username:'',
+            password: '',
+            username: '',
         }
-        this.checkAuth=this.checkAuth.bind(this);
+        this.checkAuth = this.checkAuth.bind(this);
     }
 
 
     handleClose = () => {
-       this.props.setIsAuth(false);
+        this.props.setIsAuth(false);
     }
 
-    handleChange = (e) =>{
+    handleChange = (e) => {
         this.setState({
-          [e.target.name]:e.target.value
+            [e.target.name]: e.target.value
         });
     }
 
-    setPropsSt = () =>{
+    setPropsSt = () => {
         this.props.setIsAuth(false);
         this.props.seTisAuthenticated(true);
     }
 
-    checkAuth (e){
+    checkAuth(e) {
         axios.post(API_URL, {
-                username:this.state.username,
-                password:this.state.password,
+            username: this.state.username,
+            password: this.state.password,
         })
             .then(response => {
-                if(response.status===200){
+                if (response.status === 200) {
                     localStorage.setItem('token', response.data.access_token);
                     this.props.setIsAuth(false);
                     this.props.seTisAuthenticated(true);
@@ -178,12 +177,85 @@ class AuthDialog extends Component {
 
                 }
             })
-            .catch(error=> {
+            .catch(error => {
                 console.log(error);
             });
         e.preventDefault();
 
     }
+
+    responseGoogle = (response) => (e) => {
+        e.preventDefault();
+        // this.setState({
+        //     show: false
+        // })
+        // const {t} = this.props;
+        // axios.post("user/google-login", {
+        //     accessToken: response.Zi.access_token,
+        // }).then(res => {
+        //     if (res.status === 200) {
+        //         localStorage.setItem('token', res.data.access_token);
+        //         this.props.setIsAuth(false);
+        //         this.props.setUserData({
+        //             full_name: res.data.full_name,
+        //             token: res.data.access_token,
+        //             img_user: res.data.img_user
+        //         });
+        //         this.props.seTisAuthenticated(true);
+        //
+        //     }
+        //     this.setState({
+        //         show: false
+        //     })
+        // }).catch(error => {
+        //     this.setState({
+        //         show: false,
+        //         snakbarOpen: true,
+        //         variant: "error",
+        //         message: t('errorLogin')
+        //     })
+        //
+        // });
+    }
+
+    responseFacebook = (response) => (e) => {
+        e.preventDefault();
+        const {t} = this.props;
+        this.setState({
+            show: true
+        })
+        // axios.post("user/facebook-login", {
+        //     accessToken: response.accessToken,
+        //     email: response.email,
+        //     name: response.name,
+        //     picture: response.picture,
+        //     userID: response.userID,
+        // }).then(res => {
+        //     if (res.status === 200) {
+        //         localStorage.setItem('token', res.data.access_token);
+        //         this.props.setIsAuth(false);
+        //         this.props.setUserData({
+        //             full_name: res.data.full_name,
+        //             token: res.data.access_token,
+        //             img_user: res.data.img_user
+        //         });
+        //         this.props.seTisAuthenticated(true);
+        //
+        //     }
+        //     this.setState({
+        //         show: false
+        //     })
+        // }).catch(error => {
+        //     console.log(error)
+        //     this.setState({
+        //         show: false,
+        //         snakbarOpen: true,
+        //         variant: "error",
+        //         message: t('errorLogin')
+        //     })
+        // });
+    }
+
 
     render() {
         const {classes} = this.props;
@@ -204,12 +276,13 @@ class AuthDialog extends Component {
                         }
                     }
                     }
-                    classes={{paper:classes.moper}}
+                    classes={{paper: classes.moper}}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
                     <div>
-                        <IconButton aria-label="Close"  onClick={this.handleClose} className={classes.closeButton}  classes={{root:classes.iconBtn}} >
+                        <IconButton aria-label="Close" onClick={this.handleClose} className={classes.closeButton}
+                                    classes={{root: classes.iconBtn}}>
                             <CloseIcon className={classes.white}/>
                         </IconButton>
                     </div>
@@ -266,7 +339,8 @@ class AuthDialog extends Component {
                                         }}
                                     />
 
-                                    <Button variant="contained" color="secondary" fullWidth classes={{root:classes.loginBtn}} type={"submit"}>
+                                    <Button variant="contained" color="secondary" fullWidth
+                                            classes={{root: classes.loginBtn}} type={"submit"}>
                                         Войти
                                     </Button>
 
@@ -278,58 +352,103 @@ class AuthDialog extends Component {
 
                                     >
                                         <Grid item md={6} sm={6} xs={6} style={{marginTop: 10, textAlign: 'left'}}>
-                                            <Link to={"/account/recovery"} onClick={this.handleClose}  className={classes.textA}>
+                                            <Link to={"/account/recovery"} onClick={this.handleClose}
+                                                  className={classes.textA}>
                                                 Забыли пароль?
                                             </Link>
                                         </Grid>
                                         <Grid item md={6} sm={6} xs={6} style={{marginTop: 10, textAlign: 'right'}}>
-                                            <Link to={"/account/registration"} onClick={this.handleClose} className={classes.textA}>
+                                            <Link to={"/account/registration"} onClick={this.handleClose}
+                                                  className={classes.textA}>
                                                 Регистрация
                                             </Link>
                                         </Grid>
                                         <Grid md={12} item>
-                                            <Typography classes={{root:classes.fastAc}}>
+                                            <Typography classes={{root: classes.fastAc}}>
                                                 Быстрый доступ с
                                             </Typography>
-                                            <div style={{textAlign:'center', paddingBottom: 20}}>
-                                                <IconButton classes={{root:classes.iconBtn}}>
-                                                    <SvgIcon viewBox="0 0 40.196 40.196"  classes={{root: classes.svgRootIcon}}>
-                                                        <g id="facebook_2_" data-name="facebook (2)" transform="translate(0)">
-                                                            <circle id="Ellipse_9" data-name="Ellipse 9" cx="20.098" cy="20.098" r="20.098" transform="translate(0 0)" fill="#3b5998"/>
-                                                            <path id="Path_1224" data-name="Path 1224" d="M49.416,34.851H45.83V47.989H40.4V34.851H37.812V30.233H40.4V27.246c0-2.137,1.015-5.483,5.482-5.483l4.025.017v4.482h-2.92A1.106,1.106,0,0,0,45.83,27.52v2.717h4.061Z" transform="translate(-24.265 -13.966)" fill="#fff"/>
-                                                        </g>
-                                                    </SvgIcon>
-                                                </IconButton>
-                                                <IconButton  classes={{root:classes.iconBtn}}>
-                                                    <SvgIcon viewBox="0 0 40.196 40.196"  classes={{root: classes.svgRootIcon}}>
+                                            <div style={{textAlign: 'center', paddingBottom: 20}}>
+
+                                                <FacebookLogin
+                                                    appId="915001862183484" //APP ID NOT CREATED YET
+                                                    fields="name,email,picture"
+                                                    callback={this.responseFacebook}
+                                                    autoLoad={true}
+                                                    render={renderProps => (
+                                                        <IconButton classes={{root: classes.iconBtn}}>
+                                                            <SvgIcon viewBox="0 0 40.196 40.196"
+                                                                     classes={{root: classes.svgRootIcon}}>
+                                                                <g id="facebook_2_" data-name="facebook (2)"
+                                                                   transform="translate(0)">
+                                                                    <circle id="Ellipse_9" data-name="Ellipse 9"
+                                                                            cx="20.098" cy="20.098" r="20.098"
+                                                                            transform="translate(0 0)" fill="#3b5998"/>
+                                                                    <path id="Path_1224" data-name="Path 1224"
+                                                                          d="M49.416,34.851H45.83V47.989H40.4V34.851H37.812V30.233H40.4V27.246c0-2.137,1.015-5.483,5.482-5.483l4.025.017v4.482h-2.92A1.106,1.106,0,0,0,45.83,27.52v2.717h4.061Z"
+                                                                          transform="translate(-24.265 -13.966)"
+                                                                          fill="#fff"/>
+                                                                </g>
+                                                            </SvgIcon>
+                                                        </IconButton>
+                                                    )}
+                                                />
+                                                <GoogleLogin
+                                                    clientId="2528528566-ck1t6l6v3r133486kcq4javve9buailq.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
+                                                    buttonText="LOGIN WITH GOOGLE"
+                                                    onSuccess={this.responseGoogle}
+                                                    onFailure={this.responseGoogle}
+                                                    scope={"openid"}
+                                                    responseType="access_token"
+                                                    render={renderProps => (
+                                                        <IconButton classes={{root: classes.iconBtn}}
+                                                                    onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                                                            <SvgIcon viewBox="0 0 18 18"
+                                                                     classes={{root: classes.svgRootIcon}}>
+                                                                <g fill="#000" fill-rule="evenodd">
+                                                                    <path
+                                                                        d="M9 3.48c1.69 0 2.83.73 3.48 1.34l2.54-2.48C13.46.89 11.43 0 9 0 5.48 0 2.44 2.02.96 4.96l2.91 2.26C4.6 5.05 6.62 3.48 9 3.48z"
+                                                                        fill="#EA4335"></path>
+                                                                    <path
+                                                                        d="M17.64 9.2c0-.74-.06-1.28-.19-1.84H9v3.34h4.96c-.1.83-.64 2.08-1.84 2.92l2.84 2.2c1.7-1.57 2.68-3.88 2.68-6.62z"
+                                                                        fill="#4285F4"></path>
+                                                                    <path
+                                                                        d="M3.88 10.78A5.54 5.54 0 0 1 3.58 9c0-.62.11-1.22.29-1.78L.96 4.96A9.008 9.008 0 0 0 0 9c0 1.45.35 2.82.96 4.04l2.92-2.26z"
+                                                                        fill="#FBBC05"></path>
+                                                                    <path
+                                                                        d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.84-2.2c-.76.53-1.78.9-3.12.9-2.38 0-4.4-1.57-5.12-3.74L.97 13.04C2.45 15.98 5.48 18 9 18z"
+                                                                        fill="#34A853"></path>
+                                                                    <path fill="none" d="M0 0h18v18H0z"></path>
+                                                                </g>
+                                                            </SvgIcon>
+                                                        </IconButton>
+                                                    )}
+                                                    icon={true}
+
+                                                />
+
+
+                                                <IconButton classes={{root: classes.iconBtn}}>
+                                                    <SvgIcon viewBox="0 0 40.196 40.196"
+                                                             classes={{root: classes.svgRootIcon}}>
                                                         <defs>
                                                             <clipPath id="clip-path-wk">
                                                                 <rect width="40.196" height="40.196" fill="none"/>
                                                             </clipPath>
                                                         </defs>
-                                                        <g id="Component_13_1" data-name="Component 13 – 1" transform="translate(0 0)" clip-path="url(#clip-path-wk)">
+                                                        <g id="Component_13_1" data-name="Component 13 – 1"
+                                                           transform="translate(0 0)" clip-path="url(#clip-path-wk)">
                                                             <g id="XMLID_11_" clip-path="url(#clip-path)">
-                                                                <path id="XMLID_11_2" data-name="XMLID_11_" d="M20.1,0A20.1,20.1,0,1,1,0,20.1,20.1,20.1,0,0,1,20.1,0Z" fill="#4d76a1"/>
+                                                                <path id="XMLID_11_2" data-name="XMLID_11_"
+                                                                      d="M20.1,0A20.1,20.1,0,1,1,0,20.1,20.1,20.1,0,0,1,20.1,0Z"
+                                                                      fill="#4d76a1"/>
                                                             </g>
-                                                            <path id="Path_1226" data-name="Path 1226" d="M30.851,53.848h1.577a1.331,1.331,0,0,0,.72-.315,1.154,1.154,0,0,0,.217-.693s-.031-2.117.952-2.428,2.212,2.046,3.53,2.95A2.5,2.5,0,0,0,39.6,53.9l3.524-.049s1.844-.114.969-1.563a11.777,11.777,0,0,0-2.62-3.032c-2.21-2.051-1.914-1.719.748-5.267,1.621-2.161,2.269-3.48,2.067-4.045-.193-.538-1.385-.4-1.385-.4l-3.968.025a.9.9,0,0,0-.512.09,1.112,1.112,0,0,0-.35.426,22.976,22.976,0,0,1-1.466,3.094c-1.767,3-2.473,3.159-2.762,2.973-.672-.434-.5-1.744-.5-2.675,0-2.908.441-4.12-.859-4.434a6.776,6.776,0,0,0-1.852-.184,8.553,8.553,0,0,0-3.293.337c-.451.221-.8.714-.588.742a1.781,1.781,0,0,1,1.171.589,3.829,3.829,0,0,1,.392,1.8s.234,3.423-.546,3.848c-.535.292-1.269-.3-2.844-3.026a25.3,25.3,0,0,1-1.417-2.936,1.179,1.179,0,0,0-.327-.442,1.644,1.644,0,0,0-.61-.246l-3.771.025s-.566.016-.774.262c-.185.219-.015.672-.015.672s2.952,6.907,6.295,10.387a9.054,9.054,0,0,0,6.546,2.981Z" transform="translate(-11.512 -24.935)" fill="#fff" fill-rule="evenodd"/>
+                                                            <path id="Path_1226" data-name="Path 1226"
+                                                                  d="M30.851,53.848h1.577a1.331,1.331,0,0,0,.72-.315,1.154,1.154,0,0,0,.217-.693s-.031-2.117.952-2.428,2.212,2.046,3.53,2.95A2.5,2.5,0,0,0,39.6,53.9l3.524-.049s1.844-.114.969-1.563a11.777,11.777,0,0,0-2.62-3.032c-2.21-2.051-1.914-1.719.748-5.267,1.621-2.161,2.269-3.48,2.067-4.045-.193-.538-1.385-.4-1.385-.4l-3.968.025a.9.9,0,0,0-.512.09,1.112,1.112,0,0,0-.35.426,22.976,22.976,0,0,1-1.466,3.094c-1.767,3-2.473,3.159-2.762,2.973-.672-.434-.5-1.744-.5-2.675,0-2.908.441-4.12-.859-4.434a6.776,6.776,0,0,0-1.852-.184,8.553,8.553,0,0,0-3.293.337c-.451.221-.8.714-.588.742a1.781,1.781,0,0,1,1.171.589,3.829,3.829,0,0,1,.392,1.8s.234,3.423-.546,3.848c-.535.292-1.269-.3-2.844-3.026a25.3,25.3,0,0,1-1.417-2.936,1.179,1.179,0,0,0-.327-.442,1.644,1.644,0,0,0-.61-.246l-3.771.025s-.566.016-.774.262c-.185.219-.015.672-.015.672s2.952,6.907,6.295,10.387a9.054,9.054,0,0,0,6.546,2.981Z"
+                                                                  transform="translate(-11.512 -24.935)" fill="#fff"
+                                                                  fill-rule="evenodd"/>
                                                         </g>
                                                     </SvgIcon>
                                                 </IconButton>
-                                                <IconButton  classes={{root:classes.iconBtn}}>
-                                                    <SvgIcon viewBox="0 0 40.196 40.196"  classes={{root: classes.svgRootIcon}}>
-                                                        <defs>
-                                                            <clipPath id="clip-path-gp">
-                                                                <rect width="40.196" height="40.196" fill="none"/>
-                                                            </clipPath>
-                                                        </defs>
-                                                        <g id="Component_12_1" data-name="Component 12 – 1" transform="translate(0 0)" clip-path="url(#clip-path-gp)">
-                                                            <circle id="XMLID_30_" cx="20.098" cy="20.098" r="20.098" fill="#dc4e41"/>
-                                                            <path id="Path_1229" data-name="Path 1229" d="M19.522,43.743a8.33,8.33,0,0,1,13.809-6.232c-.677.744-1.365,1.48-2.1,2.168a5.82,5.82,0,0,0-4.9-.958,5.234,5.234,0,1,0,3.525,9.848,4.579,4.579,0,0,0,2.691-3.137c-1.582-.032-3.165-.012-4.748-.056,0-.942-.008-1.879,0-2.821,2.639,0,5.282-.012,7.925.012A9.365,9.365,0,0,1,34.042,49.2a8.173,8.173,0,0,1-8.934,2.382A8.282,8.282,0,0,1,19.522,43.743Z" transform="translate(-12.525 -22.746)" fill="#fff"/>
-                                                            <path id="Path_1230" data-name="Path 1230" d="M74.828,48.668h2.354c0,.787.012,1.579.016,2.366.787.008,1.579.012,2.366.016v2.358L77.2,53.42c-.008.791-.012,1.579-.016,2.37-.787,0-1.575,0-2.358,0-.008-.791-.008-1.579-.016-2.366-.787-.008-1.579-.012-2.366-.016V51.049q1.181-.006,2.366-.016C74.812,50.247,74.82,49.455,74.828,48.668Z" transform="translate(-44.488 -31.232)" fill="#fff"/>
-                                                        </g>
-                                                    </SvgIcon>
-                                                </IconButton>
-
 
 
                                             </div>
@@ -357,8 +476,8 @@ function mapDispatch(dispatch) {
 function mapStateToProps(state) {
 
     return {
-        isAuth:state.mainData.isAuth,
-        user:state.mainData.user
+        isAuth: state.mainData.isAuth,
+        user: state.mainData.user
     };
 
 }
