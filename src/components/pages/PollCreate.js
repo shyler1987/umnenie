@@ -11,9 +11,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import LeftMenu from '../tools/LeftMenu';
 import Divider from '@material-ui/core/Divider';
-import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import {ValidatorForm, TextValidator, SelectValidator} from 'react-material-ui-form-validator';
 import {QRCode} from "react-qr-svg";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import {FilePond, registerPlugin} from "react-filepond";
@@ -50,6 +51,11 @@ const deadline = [
 const comment = [
     {id: 1, name: 'Разрешены'},
     {id: 2, name: 'Запрещены'},
+];
+
+const Type = [
+    {id: 1, name: 'Вид с выбором фоновой картинки'},
+    {id: 2, name: 'Вид с текстовым описанием'},
 ];
 
 
@@ -177,12 +183,14 @@ const styles = theme => ({
         fontSize: 15,
         fontWeight: 600,
         color: theme.palette.mainBlackColor,
+        lineHeight: 1.2,
 
     },
     muiSelectRootL: {
         textAlign: 'center',
         fontSize: 15,
         fontWeight: 600,
+        lineHeight: 1.2,
         color: theme.palette.mainBlackColor,
         "&::after": {
             content: "'▾'",
@@ -269,7 +277,11 @@ class PollCreate extends Component {
             publications: null,
             question: null,
             imageFile: null,
-            variants_image: []
+            variants_image: [],
+            hasErrorType: false,
+            hasErrorImage: false,
+            hasErrorCategory: false,
+            imagemain: null
 
         };
     }
@@ -281,7 +293,9 @@ class PollCreate extends Component {
     }
     selectFile = (e) => {
         this.setState({
-            imageFile: e.target.files[0]
+            imageFile: e.target.files[0],
+            hasErrorImage: false,
+            imagemain: URL.createObjectURL(e.target.files[0])
         })
     }
 
@@ -299,7 +313,7 @@ class PollCreate extends Component {
         })
     }
     handleChangeCategory = (event) => {
-        this.setState({category_id: event.target.value});
+        this.setState({category_id: event.target.value, hasErrorCategory: false});
 
     }
 
@@ -368,11 +382,15 @@ class PollCreate extends Component {
     }
 
 
-    sendToServer = () => {
-        let data = {
+    formSendServerPoll = () =>{
+        this.sendToServer(1)
+    }
+    formSendServerPollDraft = () =>{
+        this.sendToServer(2)
+    }
 
 
-        };
+    sendToServer = (status) => {
 
         const formData = new FormData();
         formData.append('category_id', this.state.category_id);
@@ -380,21 +398,23 @@ class PollCreate extends Component {
         formData.append('category_id', JSON.stringify(this.state.category_id));
         formData.append('term', this.state.term);
         formData.append('status', this.state.status);
+        formData.append('type', this.state.type);
         formData.append('view_comment', this.state.view_comment);
         formData.append('hashtags', this.state.hashtags);
         formData.append('publications', this.state.publications);
         formData.append('question', this.state.question);
         formData.append('imageFile', this.state.imageFile);
-        this.state.variants_image.map((item, index)=>{
+        formData.append('status', status);
+        this.state.variants_image.map((item, index) => {
             console.log(item.image)
-            formData.append('variants_image['+index+'][text]',item.text)
-            formData.append('variants_image['+index+'][image]', item.image)
+            formData.append('variants_image[' + index + '][text]', item.text)
+            formData.append('variants_image[' + index + '][image]', item.image)
         })
         // formData.append('variants_image', JSON.stringify(this.state.variants_image));
 
-        stateName.map(item => {
-            data[item] = this.state[item]
-        })
+        // stateName.map(item => {
+        //     data[item] = this.state[item]
+        // })
         this.loadingBar(true)
         axios.post(API_SAVE_POLL, formData, {
             headers: {
@@ -402,37 +422,40 @@ class PollCreate extends Component {
             }
         }).then(res => {
             this.loadingBar(false)
-            console.log(res)
         }).catch(err => {
             this.loadingBar(false)
-            if(err.response!==undefined){
+            if (err.response !== undefined) {
                 if (err.response.status === 422) {
-                    let errTextAll = "";
-                    stateName.map(item => {
-                        this.setState({
-                            [item + 'Error']: false,
-                            [item + 'ErrorText']: null
-                        });
-                    })
-                    if (err.response !== undefined) {
-                        let erors = JSON.parse(err.response.data.message);
-                        Object.keys(erors).map(item => {
-                            let errText = "";
-                            erors[item].map(itemError => {
-                                errTextAll += itemError + ', ';
-                                errText += itemError + ', ';
-                            })
-                            this.setState({
-                                [item + 'Error']: true,
-                                [item + 'ErrorText']: errText,
-                            });
-
-                        });
-                    }
+                    this.catchError(err.response)
                 }
             }
 
         })
+    }
+
+    catchError = (response) =>{
+        let errTextAll = "";
+        stateName.map(item => {
+            this.setState({
+                [item + 'Error']: false,
+                [item + 'ErrorText']: null
+            });
+        })
+        if (response !== undefined) {
+            let erors = JSON.parse(response.data.message);
+            Object.keys(erors).map(item => {
+                let errText = "";
+                erors[item].map(itemError => {
+                    errTextAll += itemError + ', ';
+                    errText += itemError + ', ';
+                })
+                this.setState({
+                    [item + 'Error']: true,
+                    [item + 'ErrorText']: errText,
+                });
+
+            });
+        }
     }
 
     sendToServerValidate = () => {
@@ -440,6 +463,23 @@ class PollCreate extends Component {
         stateName.map(item => {
             data[item] = this.state[item]
         })
+
+
+        if (this.state.category_id.length === 0) {
+            this.setState({hasErrorCategory: true})
+            return;
+        }
+
+        if (this.state.type === null) {
+            this.setState({hasErrorType: true})
+            return;
+        }
+
+        if (this.state.type === 2 && this.state.imageFile === null) {
+            this.setState({hasErrorImage: true})
+            return;
+        }
+
         this.loadingBar(true)
         axios.post(API_POLL_CREATE, data).then(res => {
             this.loadingBar(false)
@@ -449,28 +489,7 @@ class PollCreate extends Component {
         }).catch(err => {
             this.loadingBar(false)
             if (err.response.status === 422) {
-                let errTextAll = "";
-                stateName.map(item => {
-                    this.setState({
-                        [item + 'Error']: false,
-                        [item + 'ErrorText']: null
-                    });
-                })
-                if (err.response !== undefined) {
-                    let erors = JSON.parse(err.response.data.message);
-                    Object.keys(erors).map(item => {
-                        let errText = "";
-                        erors[item].map(itemError => {
-                            errTextAll += itemError + ', ';
-                            errText += itemError + ', ';
-                        })
-                        this.setState({
-                            [item + 'Error']: true,
-                            [item + 'ErrorText']: errText,
-                        });
-
-                    });
-                }
+                this.catchError(err.response)
             }
         })
     }
@@ -548,6 +567,9 @@ class PollCreate extends Component {
                                                         </MenuItem>
                                                     ))}
                                                 </Select>
+                                                {this.state.hasErrorCategory &&
+                                                <FormHelperText error={true}>Это поле обязательно к
+                                                    заполнению</FormHelperText>}
                                             </FormControl>
                                         </Grid>
 
@@ -556,7 +578,7 @@ class PollCreate extends Component {
                                     <Grid container spacing={3} direction={"row"}>
                                         <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
                                             <Typography
-                                                classes={{root: classes.titleFieldesetHeadKategory}}>Вапрос</Typography>
+                                                classes={{root: classes.titleFieldesetHeadKategory}}>Вопрос</Typography>
                                         </Grid>
                                         <Grid item md={9} sm={9} xs={9}>
                                             <TextField
@@ -572,6 +594,46 @@ class PollCreate extends Component {
                                                 error={this.state.questionError}
                                                 helperText="Введите ваши вопрос, например Какой любимый копозиция"
                                             />
+                                        </Grid>
+
+                                    </Grid>
+                                    <Grid container spacing={3} direction={"row"}>
+                                        <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
+                                            <Typography
+                                                classes={{root: classes.titleFieldesetHeadKategory}}>Тип:</Typography>
+                                        </Grid>
+                                        <Grid item md={9} sm={9} xs={9}>
+                                            <FormControl className={classes.formControl} margin="dense" fullWidth
+                                                         variant="outlined">
+                                                {this.state.type === null ?
+                                                    <InputLabel htmlFor="outlined-visibility"
+                                                                classes={{root: classes.inLabel}} shrink={false}>
+                                                        Выберите
+                                                    </InputLabel> : ""}
+                                                <Select
+                                                    classes={{root: classes.muiSeelctRoot}}
+                                                    name={"type"}
+                                                    onChange={this.handleChange}
+                                                    MenuProps={MenuProps}
+                                                    input={<OutlinedInput id="outlined-visibility"/>}
+                                                    IconComponent={() => {
+                                                        return "";
+                                                    }}
+                                                    value={this.state.type}
+                                                >
+                                                    {Type.map(item => (
+                                                        <MenuItem key={item.id + "srok"} value={item.id}>
+                                                            <ListItemText classes={{
+                                                                root: classes.listItemRoot,
+                                                                primary: classes.listItemPrimary
+                                                            }} primary={item.name}/>
+                                                        </MenuItem>
+                                                    ))}
+                                                </Select>
+                                                {this.state.hasErrorType &&
+                                                <FormHelperText error={true}>Это поле обязательно к
+                                                    заполнению</FormHelperText>}
+                                            </FormControl>
                                         </Grid>
 
                                     </Grid>
@@ -594,6 +656,12 @@ class PollCreate extends Component {
                                                     <AddAPhoto/>
                                                 </Button>
                                             </label>
+                                            <div>
+                                                {this.state.hasErrorImage &&
+                                                <FormHelperText error={true}>Это поле обязательно к
+                                                    заполнению</FormHelperText>}
+                                                <img style={{width: '100%'}} src={this.state.imagemain}/>
+                                            </div>
                                         </Grid>
 
                                     </Grid>
@@ -760,7 +828,7 @@ class PollCreate extends Component {
                                 <ValidatorForm
                                     fullWidth
                                     ref="form1"
-                                    onSubmit={this.sendToServer}
+                                    onSubmit={this.formSendServerPoll}
                                 >
                                     {this.state.variants_image.map((item, IndexItem) => {
                                         return (<Grid container spacing={3} direction={"row"}>
@@ -768,7 +836,7 @@ class PollCreate extends Component {
                                                 <Typography
                                                     classes={{root: classes.titleFieldesetHeadKategory}}>Вариант {item.variantNomer}</Typography>
                                             </Grid>
-                                            <Grid item md={7} sm={7} xs={7}>
+                                            <Grid item md={this.state.type === 2 && 10} sm={7} xs={7}>
                                                 <TextValidator
                                                     margin="dense"
                                                     id="outlined-name"
@@ -785,25 +853,28 @@ class PollCreate extends Component {
                                                 />
                                             </Grid>
                                             <Grid item md={3} sm={3} xs={3}>
-                                                <Button color={"secondary"} variant="contained"
-                                                        onClick={this.delVariant(IndexItem)}>
+                                                {this.state.type === 1 &&
+                                                <React.Fragment><Button color={"secondary"} variant="contained"
+                                                                        onClick={this.delVariant(IndexItem)}>
                                                     <Clear/>
                                                 </Button>
-                                                <input
-                                                    accept="image/*"
-                                                    className={classes.input}
-                                                    id={"contained-button-file" + IndexItem}
-                                                    onChange={this.variantImage(IndexItem)}
-                                                    type="file"
-                                                />
-                                                <label htmlFor={"contained-button-file" + IndexItem}
-                                                       style={{marginLeft: 5, marginTop: '.5rem'}}>
-                                                    <Button color={"secondary"} variant="contained" component="span"
-                                                            className={classes.button}><AddAPhoto/></Button>
-                                                </label>
-                                                <div>
-                                                    <img style={{width: '100%'}} src={item.imageUrl}/>
-                                                </div>
+                                                    <input
+                                                        accept="image/*"
+                                                        className={classes.input}
+                                                        id={"contained-button-file" + IndexItem}
+                                                        onChange={this.variantImage(IndexItem)}
+                                                        type="file"
+                                                    />
+                                                    <label htmlFor={"contained-button-file" + IndexItem}
+                                                           style={{marginLeft: 5, marginTop: '.5rem'}}>
+                                                        <Button color={"secondary"} variant="contained" component="span"
+                                                                className={classes.button}><AddAPhoto/></Button>
+                                                    </label>
+                                                    <div>
+                                                        <img style={{width: '100%'}} src={item.imageUrl}/>
+                                                    </div>
+                                                </React.Fragment>}
+
                                             </Grid>
 
                                         </Grid>);
@@ -835,7 +906,7 @@ class PollCreate extends Component {
 
                                     <Grid container spacing={3} direction={"row"}>
                                         <Grid item md={5}>
-                                            <Button color="primary" className={classes.button} type={"submit"}>
+                                            <Button color="primary" className={classes.button} onClick={this.formSendServerPollDraft}>
                                                 Сохранить как черновик
                                             </Button>
                                         </Grid>
