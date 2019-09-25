@@ -162,8 +162,9 @@ const routesGuest = [
 ];
 const routes = [
     {url: '/license', component: License},
-    {url: '/polls/:username/:id', component: PollView},
     {url: '/polls/edit/:id', component: PollCreate},
+    {url: '/polls/:username/:id', component: PollView},
+
     {url: '/polls/create', component: PollCreate},
     {url: '/polls/:id', component: PollView},
     {url: '/account/profile', component: Profile},

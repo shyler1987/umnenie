@@ -441,7 +441,7 @@ class PollCard extends Component {
         }
 
 
-        const cardContent = <Card className={this.state.disableCard ?  "" : classes.disableCard}>
+        const cardContent = <Card className={this.state.disableCard ? "" : classes.disableCard}>
             <CardHeader
                 avatar={
                     <Link to={urlProfile}>
@@ -517,7 +517,7 @@ class PollCard extends Component {
                                             color="inherit"
                                             classes={{root: classes.imgIconsPTOP}}
                                             onClick={() => {
-
+                                                this.props.history.push("/polls/edit/"+this.state.idPoll)
                                             }
                                             }
                                         >
@@ -998,7 +998,7 @@ class PollCard extends Component {
                 />
             </Dialog>
             <Link
-                to={ this.state.propsCard.username!==undefined ?  "/polls/" +this.state.propsCard.username+"/" + this.state.idPoll : "/polls/"+ this.state.idPoll}
+                to={this.state.propsCard.username !== undefined ? "/polls/" + this.state.propsCard.username + "/" + this.state.idPoll : "/polls/" + this.state.idPoll}
                 className={classes.clickCard}>
                 {cardContent}
             </Link> </React.Fragment> : <React.Fragment>

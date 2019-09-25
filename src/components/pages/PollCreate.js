@@ -28,6 +28,10 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import AddAPhoto from '@material-ui/icons/AddAPhoto'
 import Clear from '@material-ui/icons/Clear'
+import {Link, NavLink, withRouter} from "react-router-dom";
+import Snackbar from "@material-ui/core/Snackbar";
+import MySnackbarContentWrapper from "../tools/MySnackbarContentWrapper";
+
 
 registerPlugin(FilePondPluginImagePreview, FilePondPluginImageExifOrientation);
 const names = [
@@ -237,6 +241,7 @@ const styles = theme => ({
 const API_POLL_CREATE = "/profil/create-poll";
 const API_CATEGORY = "profil/categories";
 const API_SAVE_POLL = "profil/save-poll";
+const API_EDIT_POLL = "profil/save-poll-data?id=";
 
 const stateName = [
     'user_id',
@@ -265,6 +270,7 @@ class PollCreate extends Component {
             categorySelected: [],
             variants: [{variantNomer: 1}, {variantNomer: 2}, {variantNomer: 3}],
             showMoreActions: false,
+            openSnakbar:false,
 
             user_id: null,
             type: null,
@@ -325,6 +331,7 @@ class PollCreate extends Component {
 
     handleChange = (event) => {
         this.setState({[event.target.name]: event.target.value});
+        this.setState({hasErrorQuestion: false});
 
     }
 
@@ -379,19 +386,38 @@ class PollCreate extends Component {
 
     componentDidMount() {
         this.getCoategorys();
+        this.setState({submitTxt:"Создать опрос"})
+        if(this.props.match.params.id!==undefined){
+            this.setState({submitTxt:"Редактировать опрос"})
+            axios.get("/profil/edit-poll-data?id="+this.props.match.params.id).then(res=>{
+                if(res.status===200){
+                    Object.keys(res.data).map(item=>{
+                        this.setState({[item]:res.data[item]})
+                    })
+                }
+            })
+        }
     }
 
 
     formSendServerPoll = () =>{
-        this.sendToServer(1)
+        if(this.props.match.params.id!==undefined){
+            this.sendToServer(1, API_EDIT_POLL+this.props.match.params.id);
+            return;
+        }
+        this.sendToServer(1, API_SAVE_POLL);
     }
+
     formSendServerPollDraft = () =>{
-        this.sendToServer(2)
+        if(this.props.match.params.id!==undefined){
+            this.sendToServer(2, API_EDIT_POLL+this.props.match.params.id);
+            return;
+        }
+        this.sendToServer(2, API_SAVE_POLL);
     }
 
 
-    sendToServer = (status) => {
-
+    sendToServer = (status, url) => {
         const formData = new FormData();
         formData.append('category_id', this.state.category_id);
         formData.append('visibility', this.state.visibility);
@@ -416,12 +442,16 @@ class PollCreate extends Component {
         //     data[item] = this.state[item]
         // })
         this.loadingBar(true)
-        axios.post(API_SAVE_POLL, formData, {
+        axios.post(url, formData, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
         }).then(res => {
             this.loadingBar(false)
+            if(res.status===202){
+               this.props.history.push("/polls/edit/"+res.data.poll_id)
+            }
+            this.openSnakbar('success', "Успешно")
         }).catch(err => {
             this.loadingBar(false)
             if (err.response !== undefined) {
@@ -455,7 +485,9 @@ class PollCreate extends Component {
                 });
 
             });
+            this.openSnakbar('error', errTextAll)
         }
+
     }
 
     sendToServerValidate = () => {
@@ -470,6 +502,10 @@ class PollCreate extends Component {
             return;
         }
 
+        if (this.state.question === null) {
+            this.setState({hasErrorQuestion: true})
+            return;
+        }
         if (this.state.type === null) {
             this.setState({hasErrorType: true})
             return;
@@ -493,6 +529,19 @@ class PollCreate extends Component {
             }
         })
     }
+    closeSnakbar =() =>{
+        this.setState({
+            openSnakbar: false,
+        })
+    }
+
+    openSnakbar = (snakbarVariant, snakbarMessage) =>{
+        this.setState({
+            openSnakbar:true,
+            snakbarVariant:snakbarVariant,
+            snakbarMessage:snakbarMessage,
+        })
+    }
 
     render() {
 
@@ -504,9 +553,26 @@ class PollCreate extends Component {
                     show={this.state.show}
                     color="red"
                 />
+
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    open={this.state.openSnakbar}
+                    autoHideDuration={6000}
+                    onClose={this.closeSnakbar}
+                >
+                    <MySnackbarContentWrapper
+                        onClose={this.closeSnakbar}
+                        variant={this.state.snakbarVariant}
+                        message={this.state.snakbarMessage}
+                    />
+                </Snackbar>
+
                 {this.state.step === 1 ? <React.Fragment>
                     <Typography classes={{root: classes.titleHead}}>
-                        Создать опрос
+                        {this.state.submitTxt}
                     </Typography>
                     <Grid container spacing={2} direction={"row"}>
                         <Grid item md={3} sm={12} xs={12}>
@@ -582,7 +648,11 @@ class PollCreate extends Component {
                                         </Grid>
                                         <Grid item md={9} sm={9} xs={9}>
                                             <TextField
+
                                                 name={"question"}
+                                                validators={['required']}
+                                                errorMessages={['Это поле обязательно к заполнению']}
+                                                value={this.state.question}
                                                 onChange={this.handleChange}
                                                 margin="dense"
                                                 id="outlined-name"
@@ -817,7 +887,7 @@ class PollCreate extends Component {
                         </Grid>
                     </Grid></React.Fragment> : <React.Fragment>
                     <Typography classes={{root: classes.titleHead}}>
-                        Создать опрос
+                        {this.state.submitTxt}
                     </Typography>
                     <Grid container spacing={2} direction={"row"}>
                         <Grid item md={3} sm={12} xs={12}>
@@ -920,7 +990,7 @@ class PollCreate extends Component {
 
                                         <Grid item md={4}>
                                             <Button fullWidth variant="contained" color={"secondary"}
-                                                    type={"submit"}>Создать</Button>
+                                                    type={"submit"}>{this.state.submitTxt}</Button>
                                         </Grid>
                                     </Grid>
                                 </ValidatorForm>
@@ -934,4 +1004,4 @@ class PollCreate extends Component {
 
 }
 
-export default withStyles(styles)(PollCreate);
+export default withStyles(styles)(withRouter(PollCreate));

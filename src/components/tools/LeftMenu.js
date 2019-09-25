@@ -208,10 +208,10 @@ class LeftMenu extends Component {
                 />
                 <div className={classes.avatarWithTextRoot}>
                     <div className={classes.clickAvatar}>
-                        <Link to={""}><Avatar alt={this.state.userFIO} src={this.state.userImage}
+                        <Link to={"/account/profile"}><Avatar alt={this.state.userFIO} src={this.state.userImage}
                                               className={classes.bigAvatar}/></Link>
                         <div style={{paddingLeft: 10}}>
-                            <Link to={""}><Typography classes={{root: classes.rootHead}}
+                            <Link to={"/account/profile"}><Typography classes={{root: classes.rootHead}}
                                                       variant={"h5"}>{this.state.userFIO}</Typography></Link>
 
 
