@@ -341,7 +341,9 @@ class PollCreate extends Component {
         })
     }
     addVariant = () => {
-
+        if(this.state.variants_image.length === 6){
+            return;
+        }
         this.setState({
             variants_image: this.state.variants_image.concat({
                 id: null,
@@ -908,9 +910,9 @@ class PollCreate extends Component {
                                         return (<Grid container spacing={3} direction={"row"}>
                                             <Grid item md={2} sm={2} xs={2} classes={{root: classes.inlineTextVariant}}>
                                                 <Typography
-                                                    classes={{root: classes.titleFieldesetHeadKategory}}>Вариант {item.variantNomer}</Typography>
+                                                    classes={{root: classes.titleFieldesetHeadKategory}}>Вариант</Typography>
                                             </Grid>
-                                            <Grid item md={this.state.type === 2 && 10} sm={7} xs={7}>
+                                            <Grid item md={7} sm={7} xs={7}>
                                                 <TextValidator
                                                     margin="dense"
                                                     id="outlined-name"
@@ -927,11 +929,12 @@ class PollCreate extends Component {
                                                 />
                                             </Grid>
                                             <Grid item md={3} sm={3} xs={3}>
-                                                {this.state.type === 1 &&
-                                                <React.Fragment><Button color={"secondary"} variant="contained"
-                                                                        onClick={this.delVariant(IndexItem)}>
+                                                <Button color={"secondary"} variant="contained"  style={{marginLeft: 5, marginTop: '.5rem'}}
+                                                        onClick={this.delVariant(IndexItem)}>
                                                     <Clear/>
                                                 </Button>
+                                                {this.state.type === 1 &&
+                                                <React.Fragment>
                                                     <input
                                                         accept="image/*"
                                                         className={classes.input}
