@@ -149,9 +149,23 @@ const outerTheme = createMuiTheme({
 });
 
 
+const routesGuest = [
+    {url: '/polls/:username/:id', component: PollView},
+    {url: '/polls/:id', component: PollView},
+    {url: '/account/recovery', component: RecoveryPassword},
+    {url: '/license', component: License},
+    {url: '/profile/:username/followers', component: UserFollowers},
+    {url: '/profile/:username/following', component: UserFollowers},
+    {url: '/profile/:username', component: ProfileUser},
+    {url: '/account/registration', component: Registration},
+    {url: '/statis/', component: StatisPage},
+];
 const routes = [
-    {url: '/polls/create', component: PollCreate},
+    {url: '/license', component: License},
+    {url: '/polls/:username/:id', component: PollView},
     {url: '/polls/edit/:id', component: PollCreate},
+    {url: '/polls/create', component: PollCreate},
+    {url: '/polls/:id', component: PollView},
     {url: '/account/profile', component: Profile},
     {url: '/account/profile', component: Profile},
     {url: '/account/followers', component: ProfileFollower},
@@ -218,22 +232,21 @@ class App extends Component {
                 <Router>
                     <Switch>
                         <DashboardLayoutRoute exact path="/" component={Test}/>
-                        <DashboardLayoutRoute exact path="/account/recovery" component={RecoveryPassword}/>
-                        <DashboardLayoutRoute exact path="/license" component={License}/>
-                        <ProfileLayoutRoute exact path="/profile/:username/followers" component={UserFollowers}/>
-                        <ProfileLayoutRoute exact path="/profile/:username/following" component={UserFollowing}/>
-                        <ProfileLayoutRoute exact path="/profile/:username" component={ProfileUser}/>
-                        <DashboardLayoutRoute exact path="/account/registration" component={Registration}/>
-                        <DashboardLayoutRoute exact path="/statis/" component={StatisPage}/>
 
-                        {this.props.isAuthenticated && routes.map(routeItem => {
+                        {this.props.isAuthenticated ? routes.map(routeItem => {
                             return <DashboardLayoutRoute
                                         exact path={routeItem.url}
                                         component={routeItem.component}
                                     />
-                        })}
-                        <DashboardLayoutRoute exact path="/polls/:username/:id" component={PollView}/>
-                        <DashboardLayoutRoute exact path="/polls/:id" component={PollView}/>
+                        }) :
+                            routesGuest.map(routeItem => {
+                                return <DashboardLayoutRoute
+                                    exact path={routeItem.url}
+                                    component={routeItem.component}
+                                />
+                            })
+                        }
+
                         {/*<DashboardLayoutRoute exact path={"*"} exact component={PageNotFound}/>*/}
 
                     </Switch>
