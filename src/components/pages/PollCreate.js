@@ -387,8 +387,10 @@ class PollCreate extends Component {
     componentDidMount() {
         this.getCoategorys();
         this.setState({submitTxt:"Создать опрос"})
+        this.setState({submitTxtD:"Создать"})
         if(this.props.match.params.id!==undefined){
             this.setState({submitTxt:"Редактировать опрос"})
+            this.setState({submitTxtD:"Сохранить"})
             axios.get("/profil/edit-poll-data?id="+this.props.match.params.id).then(res=>{
                 if(res.status===200){
                     Object.keys(res.data).map(item=>{
@@ -433,6 +435,7 @@ class PollCreate extends Component {
         formData.append('status', status);
         this.state.variants_image.map((item, index) => {
             console.log(item.image)
+            formData.append('variants_image[' + index + '][id]', item.id)
             formData.append('variants_image[' + index + '][text]', item.text)
             formData.append('variants_image[' + index + '][image]', item.image)
         })
@@ -862,6 +865,7 @@ class PollCreate extends Component {
                                                 <TextField
                                                     margin="dense"
                                                     name={"hashtags"}
+                                                    value={this.state.hashtags}
                                                     onChange={this.handleChange}
                                                     id="outlined-name"
                                                     fullWidth
@@ -990,7 +994,7 @@ class PollCreate extends Component {
 
                                         <Grid item md={4}>
                                             <Button fullWidth variant="contained" color={"secondary"}
-                                                    type={"submit"}>{this.state.submitTxt}</Button>
+                                                    type={"submit"}>{this.state.submitTxtD}</Button>
                                         </Grid>
                                     </Grid>
                                 </ValidatorForm>

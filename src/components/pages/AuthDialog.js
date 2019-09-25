@@ -185,7 +185,10 @@ class AuthDialog extends Component {
     }
 
     responseGoogle = (response) => (e) => {
+
         e.preventDefault();
+        console.log(response)
+
         // this.setState({
         //     show: false
         // })
@@ -393,7 +396,7 @@ class AuthDialog extends Component {
                                                     )}
                                                 />
                                                 <GoogleLogin
-                                                    clientId="2528528566-ck1t6l6v3r133486kcq4javve9buailq.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
+                                                    clientId="939525112273-06jnkcnpajcl8aik9rjnl4v7fda128vo.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
                                                     buttonText="LOGIN WITH GOOGLE"
                                                     onSuccess={this.responseGoogle}
                                                     onFailure={this.responseGoogle}
