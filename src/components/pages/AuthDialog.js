@@ -184,9 +184,8 @@ class AuthDialog extends Component {
 
     }
 
-    responseGoogle = (response) => (e) => {
-
-        e.preventDefault();
+    responseGoogle = (response)  => {
+        console.log("ssssssss")
         console.log(response)
 
         // this.setState({

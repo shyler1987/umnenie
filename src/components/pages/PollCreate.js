@@ -522,7 +522,7 @@ class PollCreate extends Component {
             return;
         }
 
-        if (this.state.type === 2 && this.state.imageFile === null) {
+        if (this.state.type === 2 && this.state.imageFile === null && this.state.mainimage===null) {
             this.setState({hasErrorImage: true})
             return;
         }
