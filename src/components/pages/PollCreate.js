@@ -270,7 +270,7 @@ class PollCreate extends Component {
             categorySelected: [],
             variants: [{variantNomer: 1}, {variantNomer: 2}, {variantNomer: 3}],
             showMoreActions: false,
-            openSnakbar:false,
+            openSnakbar: false,
 
             user_id: null,
             type: null,
@@ -283,7 +283,13 @@ class PollCreate extends Component {
             publications: null,
             question: null,
             imageFile: null,
-            variants_image: [],
+            variants_image: [{
+                id: null,
+                variantNomer: null,
+                text: null,
+                image: null,
+                imageUrl: null,
+            }],
             hasErrorType: false,
             hasErrorImage: false,
             hasErrorCategory: false,
@@ -341,7 +347,7 @@ class PollCreate extends Component {
         })
     }
     addVariant = () => {
-        if(this.state.variants_image.length === 6){
+        if (this.state.variants_image.length === 6) {
             return;
         }
         this.setState({
@@ -388,15 +394,15 @@ class PollCreate extends Component {
 
     componentDidMount() {
         this.getCoategorys();
-        this.setState({submitTxt:"Создать опрос"})
-        this.setState({submitTxtD:"Создать"})
-        if(this.props.match.params.id!==undefined){
-            this.setState({submitTxt:"Редактировать опрос"})
-            this.setState({submitTxtD:"Сохранить"})
-            axios.get("/profil/edit-poll-data?id="+this.props.match.params.id).then(res=>{
-                if(res.status===200){
-                    Object.keys(res.data).map(item=>{
-                        this.setState({[item]:res.data[item]})
+        this.setState({submitTxt: "Создать опрос"})
+        this.setState({submitTxtD: "Создать"})
+        if (this.props.match.params.id !== undefined) {
+            this.setState({submitTxt: "Редактировать опрос"})
+            this.setState({submitTxtD: "Сохранить"})
+            axios.get("/profil/edit-poll-data?id=" + this.props.match.params.id).then(res => {
+                if (res.status === 200) {
+                    Object.keys(res.data).map(item => {
+                        this.setState({[item]: res.data[item]})
                     })
                 }
             })
@@ -404,17 +410,17 @@ class PollCreate extends Component {
     }
 
 
-    formSendServerPoll = () =>{
-        if(this.props.match.params.id!==undefined){
-            this.sendToServer(1, API_EDIT_POLL+this.props.match.params.id);
+    formSendServerPoll = () => {
+        if (this.props.match.params.id !== undefined) {
+            this.sendToServer(1, API_EDIT_POLL + this.props.match.params.id);
             return;
         }
         this.sendToServer(1, API_SAVE_POLL);
     }
 
-    formSendServerPollDraft = () =>{
-        if(this.props.match.params.id!==undefined){
-            this.sendToServer(2, API_EDIT_POLL+this.props.match.params.id);
+    formSendServerPollDraft = () => {
+        if (this.props.match.params.id !== undefined) {
+            this.sendToServer(2, API_EDIT_POLL + this.props.match.params.id);
             return;
         }
         this.sendToServer(2, API_SAVE_POLL);
@@ -453,8 +459,8 @@ class PollCreate extends Component {
             }
         }).then(res => {
             this.loadingBar(false)
-            if(res.status===202){
-               this.props.history.push("/polls/edit/"+res.data.poll_id)
+            if (res.status === 202) {
+                this.props.history.push("/polls/edit/" + res.data.poll_id)
             }
             this.openSnakbar('success', "Успешно")
         }).catch(err => {
@@ -468,7 +474,7 @@ class PollCreate extends Component {
         })
     }
 
-    catchError = (response) =>{
+    catchError = (response) => {
         let errTextAll = "";
         stateName.map(item => {
             this.setState({
@@ -534,17 +540,17 @@ class PollCreate extends Component {
             }
         })
     }
-    closeSnakbar =() =>{
+    closeSnakbar = () => {
         this.setState({
             openSnakbar: false,
         })
     }
 
-    openSnakbar = (snakbarVariant, snakbarMessage) =>{
+    openSnakbar = (snakbarVariant, snakbarMessage) => {
         this.setState({
-            openSnakbar:true,
-            snakbarVariant:snakbarVariant,
-            snakbarMessage:snakbarMessage,
+            openSnakbar: true,
+            snakbarVariant: snakbarVariant,
+            snakbarMessage: snakbarMessage,
         })
     }
 
@@ -929,7 +935,8 @@ class PollCreate extends Component {
                                                 />
                                             </Grid>
                                             <Grid item md={3} sm={3} xs={3}>
-                                                <Button color={"secondary"} variant="contained"  style={{marginLeft: 5, marginTop: '.5rem'}}
+                                                <Button color={"secondary"} variant="contained"
+                                                        style={{marginLeft: 5, marginTop: '.5rem'}}
                                                         onClick={this.delVariant(IndexItem)}>
                                                     <Clear/>
                                                 </Button>
@@ -983,7 +990,8 @@ class PollCreate extends Component {
 
                                     <Grid container spacing={3} direction={"row"}>
                                         <Grid item md={5}>
-                                            <Button color="primary" className={classes.button} onClick={this.formSendServerPollDraft}>
+                                            <Button color="primary" className={classes.button}
+                                                    onClick={this.formSendServerPollDraft}>
                                                 Сохранить как черновик
                                             </Button>
                                         </Grid>
