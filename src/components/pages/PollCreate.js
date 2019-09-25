@@ -393,9 +393,9 @@ class PollCreate extends Component {
     sendToServer = (status) => {
 
         const formData = new FormData();
-        // formData.append('category_id', this.state.category_id);
+        formData.append('category_id', this.state.category_id);
         formData.append('visibility', this.state.visibility);
-        formData.append('category_id', JSON.stringify(this.state.category_id));
+        // formData.append('category_id', JSON.stringify(this.state.category_id));
         formData.append('term', this.state.term);
         formData.append('status', this.state.status);
         formData.append('type', this.state.type);
