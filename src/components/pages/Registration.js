@@ -416,8 +416,8 @@ class Registration extends Component {
                                     </ValidatorForm>
                                     <div>
                                         <Typography classes={{root: classes.textP}}>Все права защищены. Используя сайт,
-                                            вы обязуетесь выполнять условия <a href={"#"} className={classes.textA}>Пользовательского
-                                                соглашения.</a></Typography>
+                                            вы обязуетесь выполнять условия <Link to={"/license"} className={classes.textA}>Пользовательского
+                                                соглашения.</Link></Typography>
 
                                     </div>
                                 </Grid>

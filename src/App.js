@@ -158,13 +158,13 @@ const routesGuest = [
     {url: '/profile/:username/following', component: UserFollowers},
     {url: '/profile/:username', component: ProfileUser},
     {url: '/account/registration', component: Registration},
-    {url: '/statis/', component: StatisPage},
+    {url: '/statis/:id', component: StatisPage},
 ];
 const routes = [
     {url: '/license', component: License},
     {url: '/polls/edit/:id', component: PollCreate},
     {url: '/polls/:username/:id', component: PollView},
-
+    {url: '/statis/:id', component: StatisPage},
     {url: '/polls/create', component: PollCreate},
     {url: '/polls/:id', component: PollView},
     {url: '/account/profile', component: Profile},
@@ -173,12 +173,16 @@ const routes = [
     {url: '/account/following', component: ProfileFollower},
     {url: '/account/profile-edit', component: ProfileEdit},
     {url: '/account/passchange', component: PasswordChange},
+    {url: '/account/recovery/:token', component: RecoveryPassword},
+    {url: '/account/recovery', component: RecoveryPassword},
     {url: '/chat', component: ChatPage},
 
 ];
 class App extends Component {
     constructor(props) {
         super(props);
+
+
 
 
     }

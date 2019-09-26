@@ -89,14 +89,26 @@ const styles = theme => ({
 const API_PROFILE = "profil/restore-password";
 
 
-class RecoveryPassword extends Component {
+class RecoveryPasswordConfirm extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            show:false
+            show:false,
+            password: '',
+            retry_password: '',
         }
     }
+
+    componentDidMount() {
+        ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
+            if (value !== this.state.user.password) {
+                return false;
+            }
+            return true;
+        });
+    }
+
     handleChange = (e) => {
         this.setState({
             [e.target.name]:e.target.value
@@ -138,13 +150,34 @@ class RecoveryPassword extends Component {
                                         <TextValidator
                                             fullWidth
                                             id="outlined-bare"
-                                            placeholder={"Номер телефона или почты"}
+                                            placeholder={"Пароль"}
                                             className={classes.textField}
                                             margin="normal"
-                                            name={"mail"}
+                                            name={"password"}
+                                            onChange={this.handleChange}
+                                            variant="outlined"
+                                            type={"password"}
+                                            validators={['required']}
+                                            errorMessages={['Это поле обязательно к заполнению']}
+                                            inputProps={{
+                                                style: {
+                                                    height:40,
+                                                    padding: '0 14px',
+                                                },
+                                            }}
+                                        />
+
+                                        <TextValidator
+                                            fullWidth
+                                            id="outlined-bare"
+                                            placeholder={"Подтвердите новый пароль"}
+                                            className={classes.textField}
+                                            margin="normal"
+                                            name={"retry_password"}
                                             onChange={this.handleChange}
                                             variant="outlined"
                                             validators={['required']}
+                                            type={"password"}
                                             errorMessages={['Это поле обязательно к заполнению']}
                                             inputProps={{
                                                 style: {
@@ -219,4 +252,4 @@ class RecoveryPassword extends Component {
 
 }
 
-export default withStyles(styles)(RecoveryPassword);
+export default withStyles(styles)(RecoveryPasswordConfirm);

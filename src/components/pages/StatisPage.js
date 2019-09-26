@@ -20,6 +20,7 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import axios from 'axios'
 
 const BorderLinearProgress = withStyles({
     root: {
@@ -122,7 +123,7 @@ const styles = theme => ({
     paperStatisBoxCounter: {
         display: 'flex',
         padding: "0px 10px 0px",
-        height: 85,
+        height: 95,
         color: theme.palette.text.secondary,
         justifyContent: 'center',
         alignItems: 'center',
@@ -247,12 +248,28 @@ const styles = theme => ({
         width: '100%',
         marginTop: theme.spacing(3),
         overflowX: 'auto',
-    }
+    },
+    likesContioner: {
+        display: 'inline-block', textAlign: 'center'
+    },
+    listItemRoot: {
+        marginTop: 0,
+        marginBottom: 0,
+    },
+    listItemPrimary: {
+        fontFamily: "'Source Sans Pro', sans-serif",
+        color: '#2B2A29',
+        fontSize: 15,
+        textAlign: 'center',
+        fontWeight: 600,
+        lineHeight: 1
+    },
 
 
 });
 
-const API_POLLS = "polls/list";
+const API_STATIS = "polls/statistic?id=";
+const API_POLL_ITEM = "polls/poll-item-names?id=";
 
 
 class StatisPage extends Component {
@@ -261,13 +278,65 @@ class StatisPage extends Component {
         super(props);
         this.state = {
             show: false,
-            selected: []
+            selected: [],
+            items:[],
+            youthList: [],
+            cityList: [],
+            proffStatus: [],
+            gender: [],
+            likeCount: 0,
+            totalAnswerCount: 0,
+            chatCount: 0,
+            shareCount: 0,
+            qrCount: 0,
         }
+
     }
+
+    getAllStatis = () => {
+        axios.get(API_STATIS + this.props.match.params.id).then(res => {
+            if (res.status === 200) {
+                Object.keys(res.data).map(item => {
+                    this.setState({[item]: res.data[item]})
+                })
+            }
+        }).catch(err => {
+
+        })
+    }
+
+    getAllStatisItemName = () => {
+        axios.get(API_POLL_ITEM + this.props.match.params.id).then(res => {
+            if (res.status === 200) {
+
+                    this.setState({items: res.data})
+
+            }
+        }).catch(err => {
+
+        })
+    }
+    getAllStatisItem = (item_id) => {
+        axios.get(API_STATIS + this.props.match.params.id + "&item="+item_id).then(res => {
+            if (res.status === 200) {
+                Object.keys(res.data).map(item => {
+                    this.setState({[item]: res.data[item]})
+                })
+            }
+        }).catch(err => {
+
+        })
+    }
+
+    componentDidMount() {
+        this.getAllStatisItemName();
+        this.getAllStatis();
+    }
+
 
     handleChange = (event) => {
         this.setState({selected: event.target.value});
-
+         this.getAllStatisItem(event.target.value);
     }
 
     render() {
@@ -280,7 +349,7 @@ class StatisPage extends Component {
                     show={this.state.show}
                     color="red"
                 />
-                <Typography classes={{root: classes.titleHead}}>Статистика (357)</Typography>
+                <Typography classes={{root: classes.titleHead}}>Статистика</Typography>
                 <Grid container spacing={1} direction={"row"}>
                     <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
                         <Typography classes={{root: classes.titleFieldesetHead}}>Варианты ответов:</Typography>
@@ -289,26 +358,21 @@ class StatisPage extends Component {
                         <FormControl className={classes.formControl} fullWidth variant="outlined">
                             <Select
                                 placeholder={"Выберите категорию"}
-                                multiple
                                 value={this.state.selected}
                                 onChange={this.handleChange}
                                 MenuProps={MenuProps}
                                 input={<BootstrapInput name="age" id="age-customized-select"/>}
                                 // input={<Input id="select-multiple" />}
-                                renderValue={selected => {
-                                    if (selected.length === 0) {
-                                        return <em>Placeholder</em>;
-                                    }
-
-                                    return selected.join(', ');
-                                }}
-                                value={this.state.selected}
-
 
                             >
-                                {names.map(name => (
-                                    <MenuItem key={name} value={name}>
-                                        <ListItemText primary={name}/>
+                                {this.state.items.map(item => (
+                                    <MenuItem key={item.item_id+"_dd"} value={item.item_id}>
+                                        <ListItemText
+                                            classes={{
+                                                root: classes.listItemRoot,
+                                                primary: classes.listItemPrimary
+                                            }}
+                                            primary={item.itemTitle}/>
                                     </MenuItem>
                                 ))}
                             </Select>
@@ -328,13 +392,10 @@ class StatisPage extends Component {
                                         <Grid sm={5} xs={5} md={9}>
                                             <div style={{padding: '8px 8px 8px'}}>
                                                 <PieChart
-                                                    data={[
-                                                        {title: '25-34', value: 300, color: '#3E4DD5'},
-                                                        {title: '18-24', value: 100, color: '#81BB29'},
-                                                        {title: '45-54', value: 100, color: '#E05022'},
-                                                        {title: 'Младше 18', value: 100, color: '#EF7F1A'},
-
-                                                    ]}
+                                                    data={this.state.youthList.map(item => {
+                                                        return {title: item.youth, value: item.protsent, color: item.color};
+                                                    })
+                                                    }
                                                 />
                                             </div>
                                         </Grid>
@@ -342,17 +403,16 @@ class StatisPage extends Component {
                                 </Grid>
                                 <Grid md={10} sm={12} xs={12}>
                                     <div style={{padding: 10}}>
-                                        <Typography classes={{root: classes.lineStatisP}}>25-34 <span
-                                            style={{color: "#3E4DD5"}}>300</span></Typography>
-                                        <Divider/>
-                                        <Typography classes={{root: classes.lineStatisP}}>18-24 <span
-                                            style={{color: "#81BB29"}}>100</span></Typography>
-                                        <Divider/>
-                                        <Typography classes={{root: classes.lineStatisP}}>45-54 <span
-                                            style={{color: "#E05022"}}>100</span></Typography>
-                                        <Divider/>
-                                        <Typography classes={{root: classes.lineStatisP}}>Младше 18<span
-                                            style={{color: "#EF7F1A"}}>100</span></Typography>
+                                        {this.state.youthList.map((item, indexx) => {
+                                            return (
+                                                <div>
+                                                    <Typography classes={{root: classes.lineStatisP}}>{item.youth} <span
+                                                        style={{color: item.color}}>{item.value}</span></Typography>
+                                                    {indexx!== (this.state.youthList.length-1) && <Divider/>}
+
+                                                </div>
+                                            );
+                                        })}
 
                                     </div>
                                 </Grid>
@@ -366,19 +426,20 @@ class StatisPage extends Component {
                         <Grid container spacing={1} alignItems="center" direction={"row"}>
                             <Grid md={3} sm={3} xs={3} item>
                                 <Paper classes={{root: classes.paperStatisBoxCounter}}>
-                                    <div style={{display: 'inline-block'}}>
+                                    <div className={classes.likesContioner}>
                                         <SvgIcon viewBox="0 0 14 14" classes={{root: classes.svgRoot}}>
                                             <path id="Path_1236" data-name="Path 1236"
                                                   d="M12.979,1.914a3.526,3.526,0,0,0-5.63.405A5.368,5.368,0,0,0,7,2.884a5.363,5.363,0,0,0-.348-.565,3.526,3.526,0,0,0-5.63-.405A4.244,4.244,0,0,0,0,4.733a5.2,5.2,0,0,0,1.431,3.41,31.865,31.865,0,0,0,3.582,3.347c.542.462,1.1.939,1.7,1.461l.018.016a.41.41,0,0,0,.54,0l.018-.016c.6-.522,1.157-1,1.7-1.461a31.861,31.861,0,0,0,3.582-3.347A5.2,5.2,0,0,0,14,4.733,4.244,4.244,0,0,0,12.979,1.914ZM8.454,10.865c-.467.4-.948.808-1.454,1.248-.507-.441-.987-.85-1.455-1.248C2.7,8.44.82,6.839.82,4.733a3.425,3.425,0,0,1,.817-2.276A2.738,2.738,0,0,1,3.719,1.52,2.765,2.765,0,0,1,5.982,2.794,4.863,4.863,0,0,1,6.61,4.042a.41.41,0,0,0,.78,0,4.863,4.863,0,0,1,.628-1.249,2.707,2.707,0,0,1,4.345-.337,3.425,3.425,0,0,1,.817,2.276C13.18,6.839,11.3,8.44,8.454,10.865Z"
                                                   transform="translate(0 -0.699)"></path>
                                         </SvgIcon>
-                                        <Typography classes={{root: classes.typoCount}}>235</Typography>
+                                        <Typography
+                                            classes={{root: classes.typoCount}}>{this.state.likeCount}</Typography>
                                     </div>
                                 </Paper>
                             </Grid>
                             <Grid md={3} sm={3} xs={3} item>
                                 <Paper classes={{root: classes.paperStatisBoxCounter}}>
-                                    <div style={{display: 'inline-block'}}>
+                                    <div className={classes.likesContioner}>
                                         <SvgIcon viewBox="0 0 14 14" classes={{root: classes.svgRoot}}>
                                             <defs>
                                                 <clipPath id="clip-path2">
@@ -453,13 +514,14 @@ class StatisPage extends Component {
                                                 </g>
                                             </g>
                                         </SvgIcon>
-                                        <Typography classes={{root: classes.typoCount}}>235</Typography>
+                                        <Typography
+                                            classes={{root: classes.typoCount}}>{this.state.qrCount}</Typography>
                                     </div>
                                 </Paper>
                             </Grid>
                             <Grid md={3} sm={3} xs={3} item>
                                 <Paper classes={{root: classes.paperStatisBoxCounter}}>
-                                    <div style={{display: 'inline-block'}}>
+                                    <div className={classes.likesContioner}>
                                         <SvgIcon viewBox="0 0 14 14" classes={{root: classes.svgRoot}}>
                                             <defs>
                                                 <clipPath id="clip-path1">
@@ -484,13 +546,14 @@ class StatisPage extends Component {
                                             </g>
 
                                         </SvgIcon>
-                                        <Typography classes={{root: classes.typoCount}}>235</Typography>
+                                        <Typography
+                                            classes={{root: classes.typoCount}}>{this.state.shareCount}</Typography>
                                     </div>
                                 </Paper>
                             </Grid>
                             <Grid md={3} sm={3} xs={3} item>
                                 <Paper classes={{root: classes.paperStatisBoxCounter}}>
-                                    <div style={{display: 'inline-block'}}>
+                                    <div className={classes.likesContioner}>
                                         <SvgIcon viewBox="0 0 14 14" classes={{root: classes.svgRoot}}>
                                             <defs>
                                                 <clipPath id="clip-path">
@@ -510,7 +573,8 @@ class StatisPage extends Component {
                                             </g>
 
                                         </SvgIcon>
-                                        <Typography classes={{root: classes.typoCount}}>235</Typography>
+                                        <Typography
+                                            classes={{root: classes.typoCount}}>{this.state.chatCount}</Typography>
                                     </div>
                                 </Paper>
                             </Grid>
@@ -523,20 +587,24 @@ class StatisPage extends Component {
                                 <Grid md={3} sm={3} xs={3} item>
                                     <div style={{padding: '8px 8px 8px'}}>
                                         <PieChart
-                                            data={[
-                                                {title: 'Специалист', value: 37, color: '#EE7F1A'},
-                                                {title: 'Не специалист', value: 63, color: '#E05022'},
-
-                                            ]}
+                                            data={this.state.proffStatus.map(item => {
+                                                return {title: item.profiTitle, value: item.protsent, color: item.color};
+                                            })
+                                            }
                                         />
                                     </div>
                                 </Grid>
                                 <Grid md={9} sm={9} xs={9} item>
-                                    <Typography classes={{root: classes.lineStatisP}}>Специалист <span
-                                        style={{color: "#EE7F1A"}}>37%</span></Typography>
-                                    <Divider/>
-                                    <Typography classes={{root: classes.lineStatisP}}>Не специалист <span
-                                        style={{color: "#EE7F1A"}}>63%</span></Typography>
+                                    {this.state.proffStatus.map((item, indexx) => {
+                                        return (
+                                          <div>
+                                            <Typography classes={{root: classes.lineStatisP}}>{item.profiTitle} <span
+                                                style={{color: item.color}}>{item.protsent}%</span></Typography>
+                                                {indexx!== (this.state.proffStatus.length-1) && <Divider/>}
+                                            </div>
+                                        );
+                                    })
+                                    }
                                 </Grid>
                             </Grid>
                         </Paper>
@@ -547,20 +615,23 @@ class StatisPage extends Component {
                                 <Grid md={3} sm={3} xs={3} item>
                                     <div style={{padding: '8px 8px 8px'}}>
                                         <PieChart
-                                            data={[
-                                                {title: 'Мужчина', value: 37, color: '#EE7F1A'},
-                                                {title: 'Женщина', value: 63, color: '#E05022'},
-
-                                            ]}
+                                            data={this.state.gender.map(item => {
+                                                return {title: item.genderTitle, value: item.protsent, color: item.color};
+                                            })
+                                            }
                                         />
                                     </div>
                                 </Grid>
                                 <Grid md={9} sm={9} xs={9} item>
-                                    <Typography classes={{root: classes.lineStatisP}}>Мужчина <span
-                                        style={{color: "#EE7F1A"}}>37%</span></Typography>
-                                    <Divider/>
-                                    <Typography classes={{root: classes.lineStatisP}}>Женщина <span
-                                        style={{color: "#E05022"}}>63%</span></Typography>
+                                    {this.state.gender.map((item, indexx) => {
+                                        return (<div>
+                                                <Typography classes={{root: classes.lineStatisP}}>{item.genderTitle} <span
+                                                    style={{color: item.color}}>{item.protsent}%</span></Typography>
+                                                {indexx!== (this.state.gender.length-1) && <Divider/>}
+                                            </div>
+                                            );
+                                        })
+                                    }
                                 </Grid>
                             </Grid>
                         </Paper>
@@ -575,117 +646,26 @@ class StatisPage extends Component {
                         <Paper className={classes.progressBarPoper}>
                             <Table className={classes.table}>
                                 <TableBody>
-                                    <TableRow key={1}>
-                                        <TableCell component="th" style={{width: '25%'}}>
-                                            <Typography classes={{root: classes.rootLineText}}> Тюмень</Typography>
-                                        </TableCell>
-                                        <TableCell component="th" classes={{root: classes.lineSize}}>
-                                            <BorderLinearProgress
-                                                className={classes.margin}
-                                                classes={{barColorPrimary: classes.lineBarColor1}}
-                                                variant="determinate"
-                                                value={10}
-                                            />
-                                        </TableCell>
-                                        <TableCell component="th" style={{width: '5%'}}>
-                                            <Typography classes={{root: classes.rootLineText}}> 1255</Typography>
-
-                                        </TableCell>
-                                    </TableRow>
-
-                                    <TableRow key={1}>
-                                        <TableCell component="th" scope="row" style={{width: '25%'}}>
-                                            <Typography classes={{root: classes.rootLineText}}> Казань</Typography>
-                                        </TableCell>
-                                        <TableCell component="th" scope="row" classes={{root: classes.lineSize}}>
-                                            <BorderLinearProgress
-                                                className={classes.margin}
-                                                classes={{barColorPrimary: classes.lineBarColor2}}
-                                                variant="determinate"
-                                                value={80}
-                                            />
-                                        </TableCell>
-                                        <TableCell component="th" scope="row" style={{width: '5%'}}>
-                                            <Typography classes={{root: classes.rootLineText}}> 1255</Typography>
-
-                                        </TableCell>
-                                    </TableRow>
-
-                                    <TableRow key={1}>
-                                        <TableCell component="th" scope="row" style={{width: '25%'}}>
-                                            <Typography
-                                                classes={{root: classes.rootLineText}}> Екатеринбург</Typography>
-
-                                        </TableCell>
-                                        <TableCell component="th" scope="row" classes={{root: classes.lineSize}}>
-                                            <BorderLinearProgress
-                                                className={classes.margin}
-                                                classes={{barColorPrimary: classes.lineBarColor3}}
-                                                variant="determinate"
-                                                value={10}
-
-                                            />
-                                        </TableCell>
-                                        <TableCell component="th" scope="row" style={{width: '5%'}}>
-                                            <Typography classes={{root: classes.rootLineText}}> 1255</Typography>
-
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow key={1}>
-                                        <TableCell component="th" scope="row" style={{width: '5%'}}>
-                                            <Typography classes={{root: classes.rootLineText}}> Челябинск</Typography>
-
-                                        </TableCell>
-                                        <TableCell component="th" scope="row" classes={{root: classes.lineSize}}>
-                                            <BorderLinearProgress
-                                                className={classes.margin}
-                                                classes={{barColorPrimary: classes.lineBarColor4}}
-                                                variant="determinate"
-                                                value={30}
-                                            />
-                                        </TableCell>
-                                        <TableCell component="th" scope="row" style={{width: '5%'}}>
-                                            <Typography classes={{root: classes.rootLineText}}> 1255</Typography>
-
-                                        </TableCell>
-                                    </TableRow>
-
-                                    <TableRow key={1}>
-                                        <TableCell component="th" scope="row" style={{width: '25%'}}>
-                                            <Typography classes={{root: classes.rootLineText}}> Уфа</Typography>
-
-                                        </TableCell>
-                                        <TableCell component="th" scope="row" classes={{root: classes.lineSize}}>
-                                            <BorderLinearProgress
-                                                className={classes.margin}
-                                                classes={{barColorPrimary: classes.lineBarColor5}}
-                                                variant="determinate"
-                                                value={30}
-                                            />
-                                        </TableCell>
-                                        <TableCell component="th" scope="row" style={{width: '5%'}}>
-                                            <Typography classes={{root: classes.rootLineText}}> 1255</Typography>
-
-                                        </TableCell>
-                                    </TableRow>
-
-                                    <TableRow key={1}>
-                                        <TableCell component="th" scope="row" style={{width: '25%'}}>
-                                            <Typography classes={{root: classes.rootLineText}}> Пермь</Typography>
-
-                                        </TableCell>
-                                        <TableCell component="th" scope="row" classes={{root: classes.lineSize}}>
-                                            <BorderLinearProgress
-                                                className={classes.margin}
-                                                classes={{barColorPrimary: classes.lineBarColor6}}
-                                                variant="determinate"
-                                                value={30}
-                                            />
-                                        </TableCell>
-                                        <TableCell component="th" scope="row" style={{width: '5%'}}>
-                                            <Typography classes={{root: classes.rootLineText}}> 1255</Typography>
-                                        </TableCell>
-                                    </TableRow>
+                                    {this.state.cityList.map(item => {
+                                        return (<TableRow key={1}>
+                                            <TableCell component="th" style={{width: '25%'}}>
+                                                <Typography
+                                                    classes={{root: classes.rootLineText}}> {item.cityname}</Typography>
+                                            </TableCell>
+                                            <TableCell component="th" classes={{root: classes.lineSize}}>
+                                                <BorderLinearProgress
+                                                    className={classes.margin}
+                                                    classes={{barColorPrimary: {backgroundColor: item.color}}}
+                                                    variant="determinate"
+                                                    value={10}
+                                                />
+                                            </TableCell>
+                                            <TableCell component="th" style={{width: '5%'}}>
+                                                <Typography
+                                                    classes={{root: classes.rootLineText}}> {item.count}</Typography>
+                                            </TableCell>
+                                        </TableRow>);
+                                    })}
 
                                 </TableBody>
                             </Table>

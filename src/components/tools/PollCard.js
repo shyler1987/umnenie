@@ -372,7 +372,7 @@ class PollCard extends Component {
     changeRoute(e) {
         e.preventDefault();
         const {history} = this.props;
-        history.push('/statis')
+        history.push('/statis/'+this.state.idPoll)
     }
 
     clickItem = (poll_id, item_id) => (e) => {
