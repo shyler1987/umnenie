@@ -380,7 +380,7 @@ class Profile extends Component {
                                         avatarUrl={item.userImage}
                                         pollType={item.pollType}
                                         pollItems={item.items}
-
+                                        iconEdit={true}
                                         iconFovrite={true}
                                         showLoading={this.showLoadingBar}
                                     />

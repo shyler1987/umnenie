@@ -14,32 +14,17 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import LeftMenu from '../tools/LeftMenu';
 import Divider from '@material-ui/core/Divider';
-import {ValidatorForm, TextValidator, SelectValidator} from 'react-material-ui-form-validator';
-import {QRCode} from "react-qr-svg";
-import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
-import {FilePond, registerPlugin} from "react-filepond";
-import "filepond/dist/filepond.min.css";
-import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+
 import FormControl from '@material-ui/core/FormControl';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import SvgIcon from '@material-ui/core/SvgIcon';
 import AddAPhoto from '@material-ui/icons/AddAPhoto'
 import Clear from '@material-ui/icons/Clear'
-import {Link, NavLink, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import Snackbar from "@material-ui/core/Snackbar";
 import MySnackbarContentWrapper from "../tools/MySnackbarContentWrapper";
 
-
-registerPlugin(FilePondPluginImagePreview, FilePondPluginImageExifOrientation);
-const names = [
-    'Все',
-    'Выберите категорию',
-
-    'Выберите категорию А',
-];
 
 const visiblity = [
     {id: 1, name: 'Виден всем'},
@@ -325,6 +310,7 @@ class PollCreate extends Component {
         })
     }
     handleChangeCategory = (event) => {
+        console.log(event.target.value)
         this.setState({category_id: event.target.value, hasErrorCategory: false});
 
     }
@@ -404,8 +390,10 @@ class PollCreate extends Component {
                     Object.keys(res.data).map(item => {
                         this.setState({[item]: res.data[item]})
                     })
+                    this.setState({category_id:this.state.category_id.map(Number)})
                 }
             })
+
         }
     }
 
@@ -522,7 +510,7 @@ class PollCreate extends Component {
             return;
         }
 
-        if (this.state.type === 2 && this.state.imageFile === null && this.state.mainimage===null) {
+        if (this.state.type === 2 && this.state.imageFile === null && this.state.mainimage === null) {
             this.setState({hasErrorImage: true})
             return;
         }
@@ -673,7 +661,7 @@ class PollCreate extends Component {
                                                 className={classes.textField}
                                                 variant="outlined"
                                                 error={this.state.questionError}
-                                                helperText="Введите ваши вопрос, например Какой любимый копозиция"
+                                                helperText="Введите ваши вопрос, например Какой любимый композиция"
                                             />
                                         </Grid>
 
@@ -936,7 +924,13 @@ class PollCreate extends Component {
                                             </Grid>
                                             <Grid item md={3} sm={3} xs={3}>
                                                 <Button color={"secondary"} variant="contained"
-                                                        style={{marginLeft: 5, marginTop: '.5rem'}}
+                                                        style={{
+                                                            marginLeft: '5px',
+
+                                                            marginTop: '0.5rem',
+
+                                                            marginBottom: '.5rem'
+                                                        }}
                                                         onClick={this.delVariant(IndexItem)}>
                                                     <Clear/>
                                                 </Button>

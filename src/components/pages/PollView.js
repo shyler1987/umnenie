@@ -340,9 +340,9 @@ class PollView extends Component {
                 <QRCode
                     bgColor="#FFFFFF"
                     fgColor="#000000"
-                    level="Q"
-                    style={{width: '100%', margin: '0px 10px 0px'}}
-                    value="some text"
+                    level="H"
+                    style={{ margin: '0px 10px 0px'}}
+                    value={"http://creators.uz"+this.props.match.url}
                 />
             </DialogContent>
         </React.Fragment>;
@@ -350,7 +350,12 @@ class PollView extends Component {
 
         return (
             <div>
-                <Dialog onClose={this.handleClose} aria-labelledby="simple-dialog-title" open={this.state.dialogopen}>
+                <Dialog
+                    onClose={this.handleClose}
+                    aria-labelledby="simple-dialog-title"
+                    fullWidth={true}
+                    maxWidth={"xs"}
+                    open={this.state.dialogopen}>
 
                     {this.state.dialogType==='jalba' ? jalba : ""}
                     {this.state.dialogType==='qrcode' ? QR_CODE : ""}

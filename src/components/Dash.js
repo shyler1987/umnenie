@@ -125,7 +125,7 @@ class Dash extends Component {
                 <Typography classes={{root:classes.titleHead} }>
                     Опрос
                 </Typography>
-
+                {this.state.polls.length===0 && <h2>Ничего не найдено</h2>}
                 <InfiniteScroll
                     dataLength={this.state.polls.length}
                     next={this.fetchData}
@@ -154,7 +154,7 @@ class Dash extends Component {
                             gutter={"10px"}
                             gutterTop={"0px"}
                         >
-                            {this.state.polls.length===0 && <h2>Ничего не найдено</h2>}
+
                             {this.state.polls.map((item, key) => {
                                 return (
                                     <PollCard

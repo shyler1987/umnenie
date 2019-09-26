@@ -27,6 +27,8 @@ import {bindActionCreators} from "redux";
 import {GoogleLogin} from 'react-google-login';
 
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import Snackbar from "@material-ui/core/Snackbar";
+import MySnackbarContentWrapper from "../tools/MySnackbarContentWrapper";
 
 
 const styles = theme => ({
@@ -143,6 +145,7 @@ class AuthDialog extends Component {
             dialogBool: this.props.isAuth,
             password: '',
             username: '',
+            openSnakbar: false,
         }
         this.checkAuth = this.checkAuth.bind(this);
     }
@@ -185,39 +188,48 @@ class AuthDialog extends Component {
     }
 
     responseGoogle = (response)  => {
-        console.log("ssssssss")
-        console.log(response)
 
-        // this.setState({
+
+        console.log(response)
+        // if(response.Zi!==undefined) {  this.setState({
         //     show: false
-        // })
-        // const {t} = this.props;
-        // axios.post("user/google-login", {
-        //     accessToken: response.Zi.access_token,
-        // }).then(res => {
-        //     if (res.status === 200) {
-        //         localStorage.setItem('token', res.data.access_token);
-        //         this.props.setIsAuth(false);
-        //         this.props.setUserData({
-        //             full_name: res.data.full_name,
-        //             token: res.data.access_token,
-        //             img_user: res.data.img_user
-        //         });
-        //         this.props.seTisAuthenticated(true);
+        // }); return;}
+        axios.post("account/google", {
+            accessToken: response.Zi.access_token,
+        }).then(res => {
+            this.openSnakbar('success', "Success")
+            if (res.status === 200) {
+
+                localStorage.setItem('token', res.data.access_token);
+                this.props.setIsAuth(false);
+                this.props.seTisAuthenticated(true);
+                this.props.setUserData(res.data)
         //
-        //     }
-        //     this.setState({
-        //         show: false
-        //     })
-        // }).catch(error => {
-        //     this.setState({
-        //         show: false,
-        //         snakbarOpen: true,
-        //         variant: "error",
-        //         message: t('errorLogin')
-        //     })
-        //
-        // });
+            }
+            this.setState({
+                show: false
+            })
+        }).catch(error => {
+            this.setState({
+                show: false,
+
+            })
+            this.openSnakbar('error', "error")
+        });
+    }
+
+    closeSnakbar = () => {
+        this.setState({
+            openSnakbar: false,
+        })
+    }
+
+    openSnakbar = (snakbarVariant, snakbarMessage) => {
+        this.setState({
+            openSnakbar: true,
+            snakbarVariant: snakbarVariant,
+            snakbarMessage: snakbarMessage,
+        })
     }
 
     responseFacebook = (response) => (e) => {
@@ -267,6 +279,21 @@ class AuthDialog extends Component {
                     show={this.state.show}
                     color="red"
                 />
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    open={this.state.openSnakbar}
+                    autoHideDuration={6000}
+                    onClose={this.closeSnakbar}
+                >
+                    <MySnackbarContentWrapper
+                        onClose={this.closeSnakbar}
+                        variant={this.state.snakbarVariant}
+                        message={this.state.snakbarMessage}
+                    />
+                </Snackbar>
                 <Dialog
                     open={this.props.isAuth}
                     onClose={this.handleClose}
@@ -342,7 +369,7 @@ class AuthDialog extends Component {
                                     />
 
                                     <Button variant="contained" color="secondary" fullWidth
-                                            classes={{root: classes.loginBtn}} type={"submit"}>
+                                            classes={{root: classes.loginBtn}} type={"submit"} disabled={this.state.show}>
                                         Войти
                                     </Button>
 
