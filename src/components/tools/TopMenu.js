@@ -158,6 +158,12 @@ const styles = theme => ({
             width: '20%',
         },
     },
+    home:{
+        marginRight:20,
+        "&:focus":{
+            outline:0
+        }
+    }
 
 });
 
@@ -226,7 +232,7 @@ const LOGOUT = "profil/logout";
 
                     {!this.state.isSerachOpen ?
                         <div className={classes.LogoDiv}>
-                        <Link to={'/'} style={{marginRight:20}} >
+                        <Link to={'/'} className={classes.home} >
                             <img src={logo} alt="logo"  width="150" />
                         </Link> </div> : ""}
 
