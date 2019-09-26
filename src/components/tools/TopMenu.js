@@ -176,6 +176,7 @@ const LOGOUT = "profil/logout";
          this.state = {
              isSerachOpen:false,
              show:false,
+             search:"",
          }
      }
 
@@ -213,6 +214,18 @@ const LOGOUT = "profil/logout";
          })
      }
 
+     onSubmit = (event) =>{
+         event.preventDefault()
+         if(this.state.search!==""){
+             this.props.history.push("/search/"+this.state.search)
+         }
+
+     }
+
+
+     handleChange = (event) =>{
+         this.setState({[event.target.name]:event.target.value})
+     }
 
      render(){
          const {classes} = this.props;
@@ -239,31 +252,40 @@ const LOGOUT = "profil/logout";
 
                     {this.state.isSerachOpen ?
                         <div className={classes.searchM}>
+                            <form onSubmit={this.onSubmit}>
                             <div className={classes.searchIcon}>
                                 <SearchIcon/>
                             </div>
                             <InputBase
                                 placeholder="Поиск"
+                                name={"search"}
+                                onChange={this.handleChange}
                                 classes={{
                                     root: classes.inputRoot,
                                     input: classes.inputInput,
                                 }}
                                 inputProps={{'aria-label': 'search'}}
                             />
+                            </form>
+
                         </div> : ""}
 
                         <div className={classes.search}>
-                            <div className={classes.searchIcon}>
-                                <SearchIcon/>
-                            </div>
-                            <InputBase
-                                placeholder="Поиск"
-                                classes={{
-                                    root: classes.inputRoot,
-                                    input: classes.inputInput,
-                                }}
-                                inputProps={{'aria-label': 'search'}}
-                            />
+                            <form onSubmit={this.onSubmit}>
+                                <div className={classes.searchIcon}>
+                                    <SearchIcon/>
+                                </div>
+                                <InputBase
+                                    placeholder="Поиск"
+                                    name={"search"}
+                                    onChange={this.handleChange}
+                                    classes={{
+                                        root: classes.inputRoot,
+                                        input: classes.inputInput,
+                                    }}
+                                    inputProps={{'aria-label': 'search'}}
+                                />
+                            </form>
                         </div>
 
                         <div className={classes.grow}/>

@@ -34,6 +34,7 @@ const styles = theme => ({
 });
 
 const API_POLLS = "polls/list";
+const API_POLLS_SEARCH = "polls/search?search=";
 
 
 class Dash extends Component {
@@ -64,36 +65,55 @@ class Dash extends Component {
                     hasMore:res.data.next!==null? true : false
                 })
             }
+            if(res.status===204){
+                this.setState({
+                    polls:[],
+                    hasMore:false
+                })
+            }
             this.setState({
                 show:false
             })
 
         }).catch(err => {
             this.setState({
-                show:false
+                show:false,
+                hasMore:false
             })
         })
     }
 
 
-    componentDidMount() {
-        this.fetchDataPollsScroll(API_POLLS);
-    }
+        componentDidMount() {
+            if(this.props.match.params.search!==undefined){
+                this.setState({polls:[]})
+                this.fetchDataPollsScroll(API_POLLS_SEARCH+this.props.match.params.search);
+                return;
+            }
+            this.fetchDataPollsScroll(API_POLLS);
+        }
 
-    fetchData = ()=>{
-        this.fetchDataPollsScroll(this.state.next);
-    }
+        componentWillReceiveProps(nextProps, nextContext) {
+            if(nextProps.match.params.search!==undefined){
+                this.setState({polls:[]})
+                this.fetchDataPollsScroll(API_POLLS_SEARCH+nextProps.match.params.search);
+            }
+        }
 
-    refresh = ()=>{
-        this.fetchDataPollsScroll(API_POLLS);
-    }
-    showLoadingBar = (bool) =>{
-        this.setState({
-            show:bool
-        })
-    }
-    render() {
-        const {classes} = this.props;
+        fetchData = ()=>{
+            this.fetchDataPollsScroll(this.state.next);
+        }
+
+        refresh = ()=>{
+            this.fetchDataPollsScroll(API_POLLS);
+        }
+        showLoadingBar = (bool) =>{
+            this.setState({
+                show:bool
+            })
+        }
+        render() {
+            const {classes} = this.props;
         return (
             <div>
                 <FloatActionButtun/>
@@ -111,20 +131,21 @@ class Dash extends Component {
                     next={this.fetchData}
                     hasMore={this.state.hasMore}
                     loader={<h4>Загрузка...</h4>}
-                    endMessage={
-                        <p style={{textAlign: 'center'}}>
-                            <b>Ура! Вы видели все это</b>
-                        </p>
-                    }
+                    // endMessage={
+                    //     <p style={{textAlign: 'center'}}>
+                    //         <b>Ура! Вы видели все это</b>
+                    //     </p>
+                    // }
                     // below props only if you need pull down functionality
-                    refreshFunction={this.refresh}
-                    pullDownToRefresh
-                    pullDownToRefreshContent={
-                        <h3 style={{textAlign: 'center'}}>&#8595; Потяните вниз, чтобы обновить</h3>
-                    }
-                    releaseToRefreshContent={
-                        <h3 style={{textAlign: 'center'}}>&#8593; Обновить</h3>
-                    }>
+                    // refreshFunction={this.refresh}
+                    // pullDownToRefresh
+                    // pullDownToRefreshContent={
+                    //     <h3 style={{textAlign: 'center'}}>&#8595; Потяните вниз, чтобы обновить</h3>
+                    // }
+                    // releaseToRefreshContent={
+                    //     <h3 style={{textAlign: 'center'}}>&#8593; Обновить</h3>
+                    // }
+                    >
                     <ResponsiveMasonry
                         columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
                     >

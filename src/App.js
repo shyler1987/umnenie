@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Switch, withRouter} from 'react-router-d
 import DashboardLayoutRoute from './layouts/DashboardLayout';
 import {createMuiTheme} from '@material-ui/core/styles';
 import {ThemeProvider} from '@material-ui/styles';
-import Test from './components/Dash'
+import Dash from './components/Dash'
 import RecoveryPassword from './components/pages/RecoveryPassword'
 import axios from "axios"
 import Profile from "./components/pages/Profile";
@@ -151,6 +151,7 @@ const outerTheme = createMuiTheme({
 
 
 const routesGuest = [
+    {url: '/search/:search', component: Dash, layout:'dashboard'},
     {url: '/polls/:username/:id', component: PollView, layout:'dashboard'},
     {url: '/polls/:id', component: PollView, layout:'dashboard'},
     {url: '/account/recovery/:token', component: RecoveryPasswordConfirm, layout:'dashboard'},
@@ -165,6 +166,7 @@ const routesGuest = [
 
 ];
 const routes = [
+    {url: '/search/:search', component: Dash, layout:'dashboard'},
     {url: '/license', component: License, layout:'dashboard'},
     {url: '/polls/edit/:id', component: PollCreate, layout:'dashboard'},
     {url: '/polls/:username/:id', component: PollView, layout:'dashboard'},
@@ -242,7 +244,7 @@ class App extends Component {
             <ThemeProvider theme={outerTheme}>
                 <Router>
                     <Switch>
-                        <DashboardLayoutRoute exact path="/" component={Test}/>
+                        <DashboardLayoutRoute exact path="/" component={Dash}/>
 
                         {this.props.isAuthenticated ? routes.map(routeItem => {
                                 if(routeItem.layout==='Profile'){
