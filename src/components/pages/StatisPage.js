@@ -278,7 +278,7 @@ class StatisPage extends Component {
         super(props);
         this.state = {
             show: false,
-            selected: [],
+            selected: -1,
             items:[],
             youthList: [],
             cityList: [],
@@ -336,7 +336,11 @@ class StatisPage extends Component {
 
     handleChange = (event) => {
         this.setState({selected: event.target.value});
-         this.getAllStatisItem(event.target.value);
+        if(event.target.value===-1){
+            this.getAllStatis();
+            return;
+        }
+        this.getAllStatisItem(event.target.value);
     }
 
     render() {
@@ -365,6 +369,14 @@ class StatisPage extends Component {
                                 // input={<Input id="select-multiple" />}
 
                             >
+                                <MenuItem key={"1_dd"} value={-1}>
+                                    <ListItemText
+                                        classes={{
+                                            root: classes.listItemRoot,
+                                            primary: classes.listItemPrimary
+                                        }}
+                                        primary={"Все"}/>
+                                </MenuItem>
                                 {this.state.items.map(item => (
                                     <MenuItem key={item.item_id+"_dd"} value={item.item_id}>
                                         <ListItemText

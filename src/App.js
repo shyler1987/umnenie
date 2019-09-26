@@ -14,6 +14,7 @@ import License from "./components/pages/License";
 import ProfileJuridic from "./components/pages/ProfileJuridic";
 import ProfileEdit from "./components/pages/ProfileEdit";
 import PasswordChange from "./components/pages/PasswordChange";
+import RecoveryPasswordConfirm from "./components/pages/RecoveryPasswordConfirm";
 import PollCreate from "./components/pages/PollCreate";
 import ChatPage from "./components/pages/ChatPage";
 import Registration from "./components/pages/Registration";
@@ -150,32 +151,37 @@ const outerTheme = createMuiTheme({
 
 
 const routesGuest = [
-    {url: '/polls/:username/:id', component: PollView},
-    {url: '/polls/:id', component: PollView},
-    {url: '/account/recovery', component: RecoveryPassword},
-    {url: '/license', component: License},
-    {url: '/profile/:username/followers', component: UserFollowers},
-    {url: '/profile/:username/following', component: UserFollowers},
-    {url: '/profile/:username', component: ProfileUser},
-    {url: '/account/registration', component: Registration},
-    {url: '/statis/:id', component: StatisPage},
+    {url: '/polls/:username/:id', component: PollView, layout:'dashboard'},
+    {url: '/polls/:id', component: PollView, layout:'dashboard'},
+    {url: '/account/recovery/:token', component: RecoveryPasswordConfirm, layout:'dashboard'},
+    {url: '/account/recovery', component: RecoveryPassword, layout:'dashboard'},
+
+    {url: '/license', component: License, layout:'dashboard'},
+    {url: '/profile/:username/followers', component: UserFollowers, layout:'Profile'},
+    {url: '/profile/:username/following', component: UserFollowers, layout:'Profile'},
+    {url: '/profile/:username', component: ProfileUser, layout:'Profile'},
+    {url: '/account/registration', component: Registration, layout:'dashboard'},
+    {url: '/statis/:id', component: StatisPage, layout:'dashboard'},
+
 ];
 const routes = [
-    {url: '/license', component: License},
-    {url: '/polls/edit/:id', component: PollCreate},
-    {url: '/polls/:username/:id', component: PollView},
-    {url: '/statis/:id', component: StatisPage},
-    {url: '/polls/create', component: PollCreate},
-    {url: '/polls/:id', component: PollView},
-    {url: '/account/profile', component: Profile},
-    {url: '/account/profile', component: Profile},
-    {url: '/account/followers', component: ProfileFollower},
-    {url: '/account/following', component: ProfileFollower},
-    {url: '/account/profile-edit', component: ProfileEdit},
-    {url: '/account/passchange', component: PasswordChange},
-    {url: '/account/recovery/:token', component: RecoveryPassword},
-    {url: '/account/recovery', component: RecoveryPassword},
-    {url: '/chat', component: ChatPage},
+    {url: '/license', component: License, layout:'dashboard'},
+    {url: '/polls/edit/:id', component: PollCreate, layout:'dashboard'},
+    {url: '/polls/:username/:id', component: PollView, layout:'dashboard'},
+    {url: '/statis/:id', component: StatisPage, layout:'dashboard'},
+    {url: '/polls/create', component: PollCreate, layout:'dashboard'},
+    {url: '/polls/:id', component: PollView, layout:'dashboard'},
+    {url: '/account/profile', component: Profile, layout:'Profile'},
+
+    {url: '/account/followers', component: ProfileFollower, layout:'Profile'},
+    {url: '/account/following', component: ProfileFollower, layout:'Profile'},
+    {url: '/account/profile-edit', component: ProfileEdit, layout:'dashboard'},
+    {url: '/account/passchange', component: PasswordChange, layout:'dashboard'},
+    {url: '/profile/:username/followers', component: UserFollowers, layout:'Profile'},
+    {url: '/profile/:username/following', component: UserFollowers, layout:'Profile'},
+    {url: '/profile/:username', component: ProfileUser, layout:'Profile'},
+    {url: '/account/recovery', component: RecoveryPassword, layout:'dashboard'},
+    {url: '/chat', component: ChatPage, layout:'dashboard'},
 
 ];
 class App extends Component {
@@ -239,12 +245,24 @@ class App extends Component {
                         <DashboardLayoutRoute exact path="/" component={Test}/>
 
                         {this.props.isAuthenticated ? routes.map(routeItem => {
-                            return <DashboardLayoutRoute
+                                if(routeItem.layout==='Profile'){
+                                    return <ProfileLayoutRoute
                                         exact path={routeItem.url}
                                         component={routeItem.component}
                                     />
+                                }
+                                return <DashboardLayoutRoute
+                                    exact path={routeItem.url}
+                                    component={routeItem.component}
+                                />
                         }) :
                             routesGuest.map(routeItem => {
+                                if(routeItem.layout==='Profile'){
+                                    return <ProfileLayoutRoute
+                                    exact path={routeItem.url}
+                                    component={routeItem.component}
+                                    />
+                                }
                                 return <DashboardLayoutRoute
                                     exact path={routeItem.url}
                                     component={routeItem.component}

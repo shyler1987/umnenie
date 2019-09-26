@@ -456,7 +456,7 @@ class ProfileHeadCoverUser extends Component {
 
                                     <div className={classes.fotoBouttonContainer}>
 
-                                        {this.props.match.params.username}
+
                                     </div>
 
 
