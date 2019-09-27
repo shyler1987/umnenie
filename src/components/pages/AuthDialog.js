@@ -459,7 +459,11 @@ class AuthDialog extends Component {
 
                                                 />
                                                 <VK apiId={7149957}>
-                                                    <Auth onAuth={this.responseVk}/>
+                                                    <Auth  options={{
+                                                        onAuth: user => {
+                                                            console.log(user);
+                                                        },
+                                                    }}/>
                                                 </VK>
                                                 {/*<VkLogin*/}
                                                 {/*    appId="7149957"*/}
