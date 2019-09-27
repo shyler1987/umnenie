@@ -25,10 +25,12 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {GoogleLogin} from 'react-google-login';
+import VK, { Auth } from "react-vk";
 
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import Snackbar from "@material-ui/core/Snackbar";
 import MySnackbarContentWrapper from "../tools/MySnackbarContentWrapper";
+
 
 
 const styles = theme => ({
@@ -186,7 +188,9 @@ class AuthDialog extends Component {
         e.preventDefault();
 
     }
-
+    responseVk = (response) => {
+        console.log(response);
+    }
     responseGoogle = (response)  => {
 
 
@@ -454,6 +458,14 @@ class AuthDialog extends Component {
                                                     icon={true}
 
                                                 />
+                                                <VK apiId={7149957}>
+                                                    <Auth onAuth={this.responseVk}/>
+                                                </VK>
+                                                {/*<VkLogin*/}
+                                                {/*    appId="7149957"*/}
+                                                {/*    autoLoad={true}*/}
+                                                {/*    fields="name,email,picture"*/}
+                                                {/*    callback={this.responseVk} />*/}
 
 
                                                 <IconButton classes={{root: classes.iconBtn}}>

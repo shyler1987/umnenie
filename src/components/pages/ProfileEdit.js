@@ -627,6 +627,7 @@ subscribersCount	2
                                                     margin="dense"
                                                     id="outlined-name"
                                                     fullWidth
+                                                    disabled
                                                     placeholder={"Телефон"}
                                                     className={classes.textField}
                                                     variant="outlined"
