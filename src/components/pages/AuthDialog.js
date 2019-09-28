@@ -32,7 +32,6 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MySnackbarContentWrapper from "../tools/MySnackbarContentWrapper";
 
 
-
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -162,17 +161,19 @@ class AuthDialog extends Component {
         });
     }
 
-    vkLogin = (secret_key, mid) =>{
+    vkLogin = (secret_key, mid) => {
         console.log(secret_key, mid)
-        axios.post("/account/vk-login", {secret_key:secret_key, mid:mid}).then(res=>{
+        axios.post("/account/vk-login", {secret_key: secret_key, mid: mid}).then(res => {
             console.log(res)
         })
     }
 
 
-    handleVkResponse = (res) =>{
+    handleVkResponse = (res) => {
         console.log(res);
-        this.vkLogin('mriDHRK8z5J8bIz5hv93', res.session.mid)
+        if (res.session !== null) {
+            this.vkLogin('mriDHRK8z5J8bIz5hv93', res.session.mid)
+        }
     }
 
 
@@ -183,6 +184,9 @@ class AuthDialog extends Component {
 
     checkAuth = (e) => {
         e.preventDefault();
+        this.setState({
+            show: true
+        })
         axios.post(API_URL, {
             username: this.state.username,
             password: this.state.password,
@@ -195,19 +199,26 @@ class AuthDialog extends Component {
                     this.props.setUserData(response.data)
 
                 }
+                this.setState({
+                    show: false
+                })
             })
             .catch(error => {
                 console.log(error);
+                this.setState({
+                    show: false
+                })
             });
-        e.preventDefault();
 
     }
     responseVk = (response) => {
         console.log(response);
     }
-    responseGoogle = (response)  => {
+    responseGoogle = (response) => {
 
-
+        this.setState({
+            show: true
+        })
         console.log(response)
         // if(response.Zi!==undefined) {  this.setState({
         //     show: false
@@ -222,7 +233,8 @@ class AuthDialog extends Component {
                 this.props.setIsAuth(false);
                 this.props.seTisAuthenticated(true);
                 this.props.setUserData(res.data)
-        //
+
+                //
             }
             this.setState({
                 show: false
@@ -347,7 +359,7 @@ class AuthDialog extends Component {
                                         validators={['required']}
                                         errorMessages={['Это поле обязательно к заполнению']}
                                         autoComplete='off'
-
+                                        value={this.state.username}
                                         fullWidth
                                         id="outlined-bare"
                                         name={"username"}
@@ -371,6 +383,7 @@ class AuthDialog extends Component {
                                         validators={['required']}
                                         errorMessages={['Это поле обязательно к заполнению']}
                                         fullWidth
+                                        value={this.state.password}
                                         placeholder={"Пароль"}
                                         name={"password"}
                                         type={"password"}
@@ -390,8 +403,9 @@ class AuthDialog extends Component {
                                         }}
                                     />
 
-                                    <Button variant="contained" color="secondary" fullWidth
-                                            classes={{root: classes.loginBtn}} type={"submit"} disabled={this.state.show}>
+                                    <Button variant="contained" color="secondary" fullWidth disabled={this.state.show}
+                                            classes={{root: classes.loginBtn}} type={"submit"}
+                                            disabled={this.state.show}>
                                         Войти
                                     </Button>
 
@@ -430,7 +444,8 @@ class AuthDialog extends Component {
                                                 autoLoad={false}
                                                 disableMobileRedirect={true}
                                                 render={renderProps => (
-                                                    <IconButton classes={{root: classes.iconBtn}}  onClick={renderProps.onClick}>
+                                                    <IconButton classes={{root: classes.iconBtn}}
+                                                                onClick={renderProps.onClick}>
                                                         <SvgIcon viewBox="0 0 40.196 40.196"
                                                                  classes={{root: classes.svgRootIcon}}>
                                                             <g id="facebook_2_" data-name="facebook (2)"
@@ -456,7 +471,8 @@ class AuthDialog extends Component {
                                                 responseType="access_token"
                                                 render={renderProps => (
                                                     <IconButton classes={{root: classes.iconBtn}}
-                                                                onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                                                                onClick={renderProps.onClick}
+                                                                disabled={renderProps.disabled}>
                                                         <SvgIcon viewBox="0 0 18 18"
                                                                  classes={{root: classes.svgRootIcon}}>
                                                             <g fill="#000" fill-rule="evenodd">
@@ -480,13 +496,14 @@ class AuthDialog extends Component {
                                                 icon={true}
 
                                             />
-                                            <VkAuth apiId="7149957"  callback={this.handleVkResponse} style={{backgroundColor: 'Transparent',
-                                                backgroundRepeat:'no-repeat',
+                                            <VkAuth apiId="7149957" callback={this.handleVkResponse} style={{
+                                                backgroundColor: 'Transparent',
+                                                backgroundRepeat: 'no-repeat',
                                                 border: 'none',
-                                                cursor:'pointer',
+                                                cursor: 'pointer',
                                                 overflow: 'hidden',
-                                                outline:'none',
-                                                padding:0
+                                                outline: 'none',
+                                                padding: 0
                                             }}>
 
                                                 <IconButton classes={{root: classes.iconBtn}}>

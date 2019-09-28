@@ -406,6 +406,12 @@ class PollCard extends Component {
     }
 
     likedClick = (poll_id) => (e) => {
+        e.preventDefault();
+        if(this.props.isAuthenticated===false){
+            this.props.setIsAuth(true)
+            return;
+        }
+
         this.props.showLoading(true);
         axios.post(API_Like, {
             poll_id: poll_id
