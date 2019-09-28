@@ -370,6 +370,7 @@ class ProfileUser extends Component {
                                             pollItems={item.items}
                                             disableCard={item.disableCard}
                                             iconFovrite={true}
+                                            iconEdit={item.edit}
                                             showLoading={this.showLoadingBar}
                                             disableClickCard={true}
 
