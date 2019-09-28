@@ -433,6 +433,11 @@ class PollCard extends Component {
         e.preventDefault();
     }
 
+    editPath = (e) => {
+        e.preventDefault()
+        this.props.history.push("/polls/edit/"+this.state.idPoll);
+    }
+
 
     handleClose = () => {
         this.setState({
@@ -524,10 +529,7 @@ class PollCard extends Component {
                                             aria-haspopup="true"
                                             color="inherit"
                                             classes={{root: classes.imgIconsPTOP}}
-                                            onClick={() => {
-                                                this.props.history.push("/polls/edit/"+this.state.idPoll)
-                                            }
-                                            }
+                                            onClick={this.editPath}
                                         >
                                             <SvgIcon viewBox="0 0 15 15" classes={{root: classes.svgRootIcon}}>
                                                 <path id="Path_1222" data-name="Path 1222"
@@ -705,7 +707,7 @@ class PollCard extends Component {
                         aria-label="Main mailbox folders"
                         subheader={
                             <ListSubheader component="div" id="nested-list-subheader">
-                                Ответы {this.state.pollAnswerCount !== 0 ? "(" + this.state.pollAnswerCount + ")" : ""}
+                                Ответы {this.state.pollAnswerCount !== undefined ? "(" + this.state.pollAnswerCount + ")" : ""}
                             </ListSubheader>
                         }
                     >
@@ -792,7 +794,7 @@ class PollCard extends Component {
                                         marginLeft: 5
                                     }}>{itemOption.percent}%
                                     </div>
-                                    <dot className={classes.dot}></dot>
+                                    <span className={classes.dot}></span>
                                 </ListItemIcon>
 
                             </ListItem>)

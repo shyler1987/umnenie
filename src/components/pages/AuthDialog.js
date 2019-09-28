@@ -220,9 +220,9 @@ class AuthDialog extends Component {
             show: true
         })
         console.log(response)
-        // if(response.Zi!==undefined) {  this.setState({
-        //     show: false
-        // }); return;}
+        if(response.Zi===undefined) {  this.setState({
+            show: false
+        }); return;}
         axios.post("account/google", {
             accessToken: response.Zi.access_token,
         }).then(res => {

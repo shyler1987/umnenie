@@ -210,7 +210,7 @@ class App extends Component {
     }
 
     componentWillMount() {
-        axios.defaults.baseURL = "http://api.foundrising.uz/v1/";
+        axios.defaults.baseURL = "https://api.foundrising.uz/v1/";
         axios.interceptors.request.use(function (config) {
 
             if (localStorage.getItem('token') !== null) {

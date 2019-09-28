@@ -163,6 +163,7 @@ class Dash extends Component {
                                         propsCard={this.props.match.params}
                                         idPoll={item.pollId}
                                         imagePoll={item.pollImage}
+                                        pollAnswerCount={item.pollAnswerCount}
                                         fullName={item.userFIO}
                                         username={item.userName}
                                         contentPoll={item.pollQuestion}
@@ -172,6 +173,7 @@ class Dash extends Component {
                                         pollItems={item.items}
                                         CrownSvg={item.pollCrown}
                                         disableCard={item.disableCard}
+                                        iconEdit={item.edit}
                                         like={item.like}
                                         iconFovrite={true}
                                         clickOtvet={false}
