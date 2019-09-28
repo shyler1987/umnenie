@@ -3,7 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="3013fece-6add-4506-8dd7-e5be49d79bf2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Dash.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dash.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/pages/AuthDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/AuthDialog.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/PollCreate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PollCreate.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tools/PollCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/PollCard.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -171,7 +176,9 @@
       <workItem from="1569506982640" duration="26000" />
       <workItem from="1569510548001" duration="8151000" />
       <workItem from="1569561981599" duration="1472000" />
-      <workItem from="1569581084852" duration="1611000" />
+      <workItem from="1569581084852" duration="2329000" />
+      <workItem from="1569604122881" duration="4023000" />
+      <workItem from="1569664031350" duration="3460000" />
     </task>
     <servers />
   </component>

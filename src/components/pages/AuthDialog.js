@@ -7,6 +7,7 @@ import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
 import TextField from '@material-ui/core/TextField';
 import {Link} from "react-router-dom";
+import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -25,8 +26,7 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {GoogleLogin} from 'react-google-login';
-import VK, { Auth } from "react-vk";
-
+import VkAuth from 'react-vk-auth';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import Snackbar from "@material-ui/core/Snackbar";
 import MySnackbarContentWrapper from "../tools/MySnackbarContentWrapper";
@@ -149,7 +149,6 @@ class AuthDialog extends Component {
             username: '',
             openSnakbar: false,
         }
-        this.checkAuth = this.checkAuth.bind(this);
     }
 
 
@@ -163,12 +162,27 @@ class AuthDialog extends Component {
         });
     }
 
-    setPropsSt = () => {
-        this.props.setIsAuth(false);
-        this.props.seTisAuthenticated(true);
+    vkLogin = (secret_key, mid) =>{
+        console.log(secret_key, mid)
+        axios.post("/account/vk-login", {secret_key:secret_key, mid:mid}).then(res=>{
+            console.log(res)
+        })
     }
 
-    checkAuth(e) {
+
+    handleVkResponse = (res) =>{
+        console.log(res);
+        this.vkLogin('mriDHRK8z5J8bIz5hv93', res.session.mid)
+    }
+
+
+    // setPropsSt = () => {
+    //     this.props.setIsAuth(false);
+    //     this.props.seTisAuthenticated(true);
+    // }
+
+    checkAuth = (e) => {
+        e.preventDefault();
         axios.post(API_URL, {
             username: this.state.username,
             password: this.state.password,
@@ -328,8 +342,10 @@ class AuthDialog extends Component {
                             alignItems="flex-start"
                         >
                             <Grid item md={12} xs={12} sm={12}>
-                                <form fullWidth onSubmit={this.checkAuth}>
-                                    <TextField
+                                <ValidatorForm fullWidth onSubmit={this.checkAuth}>
+                                    <TextValidator
+                                        validators={['required']}
+                                        errorMessages={['Это поле обязательно к заполнению']}
                                         autoComplete='off'
 
                                         fullWidth
@@ -351,7 +367,9 @@ class AuthDialog extends Component {
                                             },
                                         }}
                                     />
-                                    <TextField
+                                    <TextValidator
+                                        validators={['required']}
+                                        errorMessages={['Это поле обязательно к заполнению']}
                                         fullWidth
                                         placeholder={"Пароль"}
                                         name={"password"}
@@ -377,100 +395,99 @@ class AuthDialog extends Component {
                                         Войти
                                     </Button>
 
-                                    <Grid
-                                        container
-                                        direction="row"
-                                        justify="center"
-                                        alignItems="flex-start"
 
-                                    >
-                                        <Grid item md={6} sm={6} xs={6} style={{marginTop: 10, textAlign: 'left'}}>
-                                            <Link to={"/account/recovery"} onClick={this.handleClose}
-                                                  className={classes.textA}>
-                                                Забыли пароль?
-                                            </Link>
-                                        </Grid>
-                                        <Grid item md={6} sm={6} xs={6} style={{marginTop: 10, textAlign: 'right'}}>
-                                            <Link to={"/account/registration"} onClick={this.handleClose}
-                                                  className={classes.textA}>
-                                                Регистрация
-                                            </Link>
-                                        </Grid>
-                                        <Grid md={12} item>
-                                            <Typography classes={{root: classes.fastAc}}>
-                                                Быстрый доступ с
-                                            </Typography>
-                                            <div style={{textAlign: 'center', paddingBottom: 20}}>
+                                </ValidatorForm>
+                                <Grid
+                                    container
+                                    direction="row"
+                                    justify="center"
+                                    alignItems="flex-start"
 
-                                                <FacebookLogin
-                                                    appId="915001862183484" //APP ID NOT CREATED YET
-                                                    fields="name,email,picture"
-                                                    callback={this.responseFacebook}
-                                                    autoLoad={true}
-                                                    render={renderProps => (
-                                                        <IconButton classes={{root: classes.iconBtn}}>
-                                                            <SvgIcon viewBox="0 0 40.196 40.196"
-                                                                     classes={{root: classes.svgRootIcon}}>
-                                                                <g id="facebook_2_" data-name="facebook (2)"
-                                                                   transform="translate(0)">
-                                                                    <circle id="Ellipse_9" data-name="Ellipse 9"
-                                                                            cx="20.098" cy="20.098" r="20.098"
-                                                                            transform="translate(0 0)" fill="#3b5998"/>
-                                                                    <path id="Path_1224" data-name="Path 1224"
-                                                                          d="M49.416,34.851H45.83V47.989H40.4V34.851H37.812V30.233H40.4V27.246c0-2.137,1.015-5.483,5.482-5.483l4.025.017v4.482h-2.92A1.106,1.106,0,0,0,45.83,27.52v2.717h4.061Z"
-                                                                          transform="translate(-24.265 -13.966)"
-                                                                          fill="#fff"/>
-                                                                </g>
-                                                            </SvgIcon>
-                                                        </IconButton>
-                                                    )}
-                                                />
-                                                <GoogleLogin
-                                                    clientId="939525112273-06jnkcnpajcl8aik9rjnl4v7fda128vo.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
-                                                    buttonText="LOGIN WITH GOOGLE"
-                                                    onSuccess={this.responseGoogle}
-                                                    onFailure={this.responseGoogle}
-                                                    scope={"openid"}
-                                                    responseType="access_token"
-                                                    render={renderProps => (
-                                                        <IconButton classes={{root: classes.iconBtn}}
-                                                                    onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                                                            <SvgIcon viewBox="0 0 18 18"
-                                                                     classes={{root: classes.svgRootIcon}}>
-                                                                <g fill="#000" fill-rule="evenodd">
-                                                                    <path
-                                                                        d="M9 3.48c1.69 0 2.83.73 3.48 1.34l2.54-2.48C13.46.89 11.43 0 9 0 5.48 0 2.44 2.02.96 4.96l2.91 2.26C4.6 5.05 6.62 3.48 9 3.48z"
-                                                                        fill="#EA4335"></path>
-                                                                    <path
-                                                                        d="M17.64 9.2c0-.74-.06-1.28-.19-1.84H9v3.34h4.96c-.1.83-.64 2.08-1.84 2.92l2.84 2.2c1.7-1.57 2.68-3.88 2.68-6.62z"
-                                                                        fill="#4285F4"></path>
-                                                                    <path
-                                                                        d="M3.88 10.78A5.54 5.54 0 0 1 3.58 9c0-.62.11-1.22.29-1.78L.96 4.96A9.008 9.008 0 0 0 0 9c0 1.45.35 2.82.96 4.04l2.92-2.26z"
-                                                                        fill="#FBBC05"></path>
-                                                                    <path
-                                                                        d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.84-2.2c-.76.53-1.78.9-3.12.9-2.38 0-4.4-1.57-5.12-3.74L.97 13.04C2.45 15.98 5.48 18 9 18z"
-                                                                        fill="#34A853"></path>
-                                                                    <path fill="none" d="M0 0h18v18H0z"></path>
-                                                                </g>
-                                                            </SvgIcon>
-                                                        </IconButton>
-                                                    )}
-                                                    icon={true}
+                                >
+                                    <Grid item md={6} sm={6} xs={6} style={{marginTop: 10, textAlign: 'left'}}>
+                                        <Link to={"/account/recovery"} onClick={this.handleClose}
+                                              className={classes.textA}>
+                                            Забыли пароль?
+                                        </Link>
+                                    </Grid>
+                                    <Grid item md={6} sm={6} xs={6} style={{marginTop: 10, textAlign: 'right'}}>
+                                        <Link to={"/account/registration"} onClick={this.handleClose}
+                                              className={classes.textA}>
+                                            Регистрация
+                                        </Link>
+                                    </Grid>
+                                    <Grid md={12} item>
+                                        <Typography classes={{root: classes.fastAc}}>
+                                            Быстрый доступ с
+                                        </Typography>
+                                        <div style={{textAlign: 'center', paddingBottom: 20}}>
 
-                                                />
-                                                <VK apiId={7149957}>
-                                                    <Auth  options={{
-                                                        onAuth: user => {
-                                                            console.log(user);
-                                                        },
-                                                    }}/>
-                                                </VK>
-                                                {/*<VkLogin*/}
-                                                {/*    appId="7149957"*/}
-                                                {/*    autoLoad={true}*/}
-                                                {/*    fields="name,email,picture"*/}
-                                                {/*    callback={this.responseVk} />*/}
+                                            <FacebookLogin
+                                                appId="723645781395049" //APP ID NOT CREATED YET
+                                                fields="name,email,picture"
+                                                callback={this.responseFacebook}
+                                                autoLoad={false}
+                                                autoLoad={false}
+                                                disableMobileRedirect={true}
+                                                render={renderProps => (
+                                                    <IconButton classes={{root: classes.iconBtn}}  onClick={renderProps.onClick}>
+                                                        <SvgIcon viewBox="0 0 40.196 40.196"
+                                                                 classes={{root: classes.svgRootIcon}}>
+                                                            <g id="facebook_2_" data-name="facebook (2)"
+                                                               transform="translate(0)">
+                                                                <circle id="Ellipse_9" data-name="Ellipse 9"
+                                                                        cx="20.098" cy="20.098" r="20.098"
+                                                                        transform="translate(0 0)" fill="#3b5998"/>
+                                                                <path id="Path_1224" data-name="Path 1224"
+                                                                      d="M49.416,34.851H45.83V47.989H40.4V34.851H37.812V30.233H40.4V27.246c0-2.137,1.015-5.483,5.482-5.483l4.025.017v4.482h-2.92A1.106,1.106,0,0,0,45.83,27.52v2.717h4.061Z"
+                                                                      transform="translate(-24.265 -13.966)"
+                                                                      fill="#fff"/>
+                                                            </g>
+                                                        </SvgIcon>
+                                                    </IconButton>
+                                                )}
+                                            />
+                                            <GoogleLogin
+                                                clientId="939525112273-06jnkcnpajcl8aik9rjnl4v7fda128vo.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
+                                                buttonText="LOGIN WITH GOOGLE"
+                                                onSuccess={this.responseGoogle}
+                                                onFailure={this.responseGoogle}
+                                                scope={"openid"}
+                                                responseType="access_token"
+                                                render={renderProps => (
+                                                    <IconButton classes={{root: classes.iconBtn}}
+                                                                onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                                                        <SvgIcon viewBox="0 0 18 18"
+                                                                 classes={{root: classes.svgRootIcon}}>
+                                                            <g fill="#000" fill-rule="evenodd">
+                                                                <path
+                                                                    d="M9 3.48c1.69 0 2.83.73 3.48 1.34l2.54-2.48C13.46.89 11.43 0 9 0 5.48 0 2.44 2.02.96 4.96l2.91 2.26C4.6 5.05 6.62 3.48 9 3.48z"
+                                                                    fill="#EA4335"></path>
+                                                                <path
+                                                                    d="M17.64 9.2c0-.74-.06-1.28-.19-1.84H9v3.34h4.96c-.1.83-.64 2.08-1.84 2.92l2.84 2.2c1.7-1.57 2.68-3.88 2.68-6.62z"
+                                                                    fill="#4285F4"></path>
+                                                                <path
+                                                                    d="M3.88 10.78A5.54 5.54 0 0 1 3.58 9c0-.62.11-1.22.29-1.78L.96 4.96A9.008 9.008 0 0 0 0 9c0 1.45.35 2.82.96 4.04l2.92-2.26z"
+                                                                    fill="#FBBC05"></path>
+                                                                <path
+                                                                    d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.84-2.2c-.76.53-1.78.9-3.12.9-2.38 0-4.4-1.57-5.12-3.74L.97 13.04C2.45 15.98 5.48 18 9 18z"
+                                                                    fill="#34A853"></path>
+                                                                <path fill="none" d="M0 0h18v18H0z"></path>
+                                                            </g>
+                                                        </SvgIcon>
+                                                    </IconButton>
+                                                )}
+                                                icon={true}
 
+                                            />
+                                            <VkAuth apiId="7149957"  callback={this.handleVkResponse} style={{backgroundColor: 'Transparent',
+                                                backgroundRepeat:'no-repeat',
+                                                border: 'none',
+                                                cursor:'pointer',
+                                                overflow: 'hidden',
+                                                outline:'none',
+                                                padding:0
+                                            }}>
 
                                                 <IconButton classes={{root: classes.iconBtn}}>
                                                     <SvgIcon viewBox="0 0 40.196 40.196"
@@ -494,13 +511,13 @@ class AuthDialog extends Component {
                                                         </g>
                                                     </SvgIcon>
                                                 </IconButton>
+                                            </VkAuth>
 
 
-                                            </div>
-                                        </Grid>
-
+                                        </div>
                                     </Grid>
-                                </form>
+
+                                </Grid>
                             </Grid>
 
 

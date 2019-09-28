@@ -338,6 +338,7 @@ class PollCard extends Component {
             clickOtvet,
             disableClickCard,
             propsCard,
+            disableCard
 
         } = nextProps;
 
@@ -364,6 +365,7 @@ class PollCard extends Component {
             QrCode: QrCode === null ? false : QrCode,
             answerText: answerText === null ? false : answerText,
             cellHeight: cellHeight === null ? 180 : cellHeight,
+            disableCard: disableCard === null ? false : disableCard,
             disableClickCard: disableClickCard === null ? false : disableClickCard,
 
         });
@@ -377,14 +379,14 @@ class PollCard extends Component {
 
     clickItem = (poll_id, item_id) => (e) => {
         e.preventDefault();
-        // if(this.props.clickOtvet===false){
-        //     return;
-        // }
-        //
-        // if(this.props.isAuthenticated===false){
-        //     this.props.setIsAuth(true);
-        //     return;
-        // }
+        if(this.props.clickOtvet===false){
+            return;
+        }
+
+        if(this.props.isAuthenticated===false){
+            this.props.setIsAuth(true);
+            return;
+        }
 
 
         this.props.showLoading(true);
@@ -564,7 +566,6 @@ class PollCard extends Component {
                                             tile: classes.Gridtile
                                         }}
                                         onClick={this.clickItem(this.props.idPoll, item.id)}
-                                        //cols={1}
                                         cols={this.state.pollItems.length % 2 && (this.state.pollItems.length - 1) === Key ? 2 : 1}
                                     >
 

@@ -218,7 +218,16 @@ const styles = theme => ({
         fontWeight: 600,
         lineHeight: 1
     },
-
+    vk_class:{
+        "&button":{
+            backgroundColor: 'Transparent',
+            backgroundRepeat:'no-repeat',
+            border: 'none',
+            cursor:'pointer',
+            overflow: 'hidden',
+            outline:'none'
+        }
+    }
 
 });
 
