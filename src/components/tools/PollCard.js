@@ -445,6 +445,17 @@ class PollCard extends Component {
         })
     }
 
+    countClick = (url) =>{
+        this.props.showLoading(true);
+        axios.post(url, {id:this.state.idPoll}).then(res=>{
+            if(res.status===202){
+
+            }
+            this.props.showLoading(false);
+        }).catch(err=>{
+            this.props.showLoading(false);
+        })
+    }
 
     render() {
         const {classes} = this.props;
@@ -838,6 +849,7 @@ class PollCard extends Component {
                                 aria-haspopup="true"
                                 color="inherit"
                                 onClick={() => {
+                                    this.countClick("polls/qr-code");
                                     this.props.dialogOpenClick('qrcode')
                                 }}
                                 classes={{root: classes.imgIconsP}}
@@ -922,6 +934,10 @@ class PollCard extends Component {
                         {this.state.iconShare ? <IconButton
                             aria-haspopup="true"
                             color="inherit"
+                            onClick={() => {
+                                this.countClick("polls/share-link");
+                                this.props.dialogOpenClick('share')
+                            }}
                             classes={{root: classes.imgIconsP}}
                         >
                             <SvgIcon viewBox="0 0 14 14" classes={{root: classes.svgRootIcon}}>

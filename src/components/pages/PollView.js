@@ -14,7 +14,9 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import {QRCode} from "react-qr-svg";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../media/style.css';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 import Button from '@material-ui/core/Button';
+import LinkIcon from '@material-ui/icons/Link';
 import {Link} from "react-router-dom";
 import Hidden from '@material-ui/core/Hidden';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -28,6 +30,7 @@ import MySnackbarContentWrapper from "../tools/MySnackbarContentWrapper";
 import Snackbar from '@material-ui/core/Snackbar';
 
 import {Swipeable} from 'react-swipeable'
+import TextField from "@material-ui/core/TextField";
 
 const styles = theme => ({
     root: {
@@ -299,6 +302,15 @@ class PollView extends Component {
         })
     }
 
+    clickToClipboard = (txt) => (e) =>{
+        e.preventDefault();
+        var textField = document.createElement('textarea')
+        textField.innerText = 'foo bar baz'
+        document.body.appendChild(textField)
+        textField.select()
+        document.execCommand('copy')
+        textField.remove()
+    }
 
     render() {
         const {classes} = this.props;
@@ -346,6 +358,35 @@ class PollView extends Component {
             </DialogContent>
         </React.Fragment>;
 
+        const SHARE_LINK = <React.Fragment>
+            <DialogContent>
+                <TextField
+                    id="standard-multiline-flexible"
+                    fullWidth
+                    name={"text"}
+                    ref="input"
+                    value={"http://creators.uz"+this.props.match.url}
+                    variant="outlined"
+                    className={classes.textField}
+                    margin={"denses"}
+                    InputProps={
+                        {
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <CopyToClipboard text={"http://creators.uz"+this.props.match.url}>
+                                    <IconButton  classes={{root: classes.fileSendIcon}}>
+                                            <LinkIcon/>
+                                        </IconButton>
+                                    </CopyToClipboard>
+                                </InputAdornment>
+                            ),
+                        }
+                    }
+
+                />
+            </DialogContent>
+        </React.Fragment>;
+
 
         return (
             <div>
@@ -356,8 +397,9 @@ class PollView extends Component {
                     maxWidth={"xs"}
                     open={this.state.dialogopen}>
 
-                    {this.state.dialogType==='jalba' ? jalba : ""}
-                    {this.state.dialogType==='qrcode' ? QR_CODE : ""}
+                    {this.state.dialogType==='jalba' && jalba }
+                    {this.state.dialogType==='qrcode' && QR_CODE}
+                    {this.state.dialogType==='share' && SHARE_LINK}
                 </Dialog>
                 <Snackbar
                     anchorOrigin={{
