@@ -116,7 +116,7 @@ class ChatProfileItem extends Component {
             show: false,
             chatUserShow:this.props.chatUserShow,
             messages:[],
-            text:null,
+            text:"",
             to:null,
             userName:null,
             userFio:null,
@@ -170,7 +170,7 @@ class ChatProfileItem extends Component {
             if(res.status===202){
                 this.setState({
                     messages:res.data.activeMessages,
-                    text:null
+                    text:""
                 })
                 this.messageBox.current.scrollIntoView({behavior: 'smooth', block: 'start'})
 
