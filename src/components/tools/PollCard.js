@@ -606,8 +606,7 @@ class PollCard extends Component {
                                                                 },
 
                                                                 full: {
-                                                                    symbol: <img src={check} width={8}
-                                                                                 height={6.13}/>,
+                                                                    symbol: ' ',
                                                                     trailColor: '#d6d6d6',
                                                                     color: '#fff'
                                                                 },
