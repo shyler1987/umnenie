@@ -304,6 +304,7 @@ class ChatProfileItem extends Component {
                             fullWidth
                             multiline
                             name={"text"}
+                            value={this.state.text}
                             onChange={this.handleChange}
                             variant="outlined"
                             className={classes.textField}
