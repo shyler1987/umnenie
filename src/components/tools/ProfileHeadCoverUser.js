@@ -236,6 +236,8 @@ const API_POLLS = "polls/list";
 const API_USER_BACKGROUND = "profil/add-background";
 const USER_BLOKUSER = "profil/block-user";
 const USER_SUBSCRIBE = "profil/subscribe-in-info";
+const USER_CHAT = "/profil/chat-create";
+
 class ProfileHeadCoverUser extends Component {
 
     constructor(props) {
@@ -258,6 +260,19 @@ class ProfileHeadCoverUser extends Component {
             show: bool
         })
     }
+
+    messageTo = () =>{
+        this.showLoadingBar(true)
+        axios.post(USER_CHAT, {to:this.props.userId}).then(res=>{
+            this.showLoadingBar(false);
+            if(res.status===202){
+                this.props.history.push('/chat/'+res.data.chat_id);
+            }
+        }).catch(err=>{
+            this.showLoadingBar(false);
+        })
+    }
+
     componentWillReceiveProps(nextProps, nextContext) {
         if(this.props.userBackground!==nextProps.userBackground){
             this.setState({
@@ -543,7 +558,7 @@ class ProfileHeadCoverUser extends Component {
 
                                     </Button>
 
-                                    <Button variant="contained" size="medium" color="secondary" classes={{root:classes.buttonLine}}>
+                                    <Button onClick={this.messageTo} variant="contained" size="medium" color="secondary" classes={{root:classes.buttonLine}}>
                                         Написать
                                     </Button>
                                     <Button

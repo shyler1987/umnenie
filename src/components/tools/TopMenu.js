@@ -17,7 +17,6 @@ import setIsAuth from '../../redux/actions/setIsAuth'
 import {connect} from "react-redux";
 import Button from '@material-ui/core/Button';
 import AuthDialog from "../pages/AuthDialog";
-import Grid from "../pages/Registration";
 import axios from "axios";
 import seTisAuthenticated from "../../redux/actions/seTisAuthenticated";
 import setUserData from "../../redux/actions/setUserData";

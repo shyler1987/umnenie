@@ -11,7 +11,6 @@ import 'react-loading-bar/dist/index.css'
 import Grid from '@material-ui/core/Grid';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import TextField from '@material-ui/core/TextField';
 import {QRCode} from "react-qr-svg";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../media/style.css';

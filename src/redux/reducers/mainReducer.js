@@ -15,10 +15,8 @@ export default function mainReducer(state=initData, action) {
     switch (action.type) {
         case "IN_AUTH" :
             return {...state, isAuth:action.payload};
-        break;
         case "IS_AUTHENTICATED" :
             return {...state, isAuthenticated:action.payload};
-        break;
         case "USER_DATA" :
             return {
                 ...state, user: {
@@ -32,7 +30,6 @@ export default function mainReducer(state=initData, action) {
                 }
             };
 
-            break;
 
         default :
             return state;

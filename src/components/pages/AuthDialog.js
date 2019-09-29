@@ -147,9 +147,16 @@ class AuthDialog extends Component {
             password: '',
             username: '',
             openSnakbar: false,
+            isLoaded: false,
+            isProcessing: false,
         }
     }
-
+    componentDidMount() {
+        // eslint-disable-next-line no-unused-expressions
+        document.getElementById('vk-sdk') ? this.sdkLoaded(): null;
+        this.asyncInit();
+        this.loadSdkAsync();
+    }
 
     handleClose = () => {
         this.props.setIsAuth(false);
@@ -169,9 +176,49 @@ class AuthDialog extends Component {
     }
 
 
+    // customClick = () =>{
+    //     VK.Auth.login(function(response) {
+    //        console.log(response);
+    //     });
+    // }
+
+    asyncInit() {
+        const  apiId  = 7149957;
+        window.vkAsyncInit = () => {
+            window.VK.init({ apiId });
+            this.setState({ isLoaded: true });
+        };
+    }
+
+    sdkLoaded() {
+        this.setState({ isLoaded: true });
+    }
+
+    loadSdkAsync() {
+        const el = document.createElement('script');
+        el.type = 'text/javascript';
+        el.src = 'https://vk.com/js/api/openapi.js?';
+        el.async = true;
+        el.id = 'vk-sdk';
+        document.getElementsByTagName('head')[0].appendChild(el);
+    }
+    checkLoginState = (response) => {
+        this.setState({ isProcessing: false });
+        console.log(window.VK.users.get())
+       console.log(response)
+    };
+
+    handleClick = () => {
+        if (!this.state.isLoaded || this.state.isProcessing || this.props.disabled) {
+            return;
+        }
+        this.setState({ isProcessing: true });
+        window.VK.Auth.login(this.checkLoginState);
+    };
     handleVkResponse = (res) => {
         console.log(res);
         if (res.session !== null) {
+            // md5("mriDHRK8z5J8bIz5hv93" + res.session.mid)
             this.vkLogin('mriDHRK8z5J8bIz5hv93', res.session.mid)
         }
     }
@@ -300,6 +347,16 @@ class AuthDialog extends Component {
         // });
     }
 
+    vkAuth = () =>{
+        let ddd= window.open(
+            "http://oauth.vk.com/authorize?client_id=7149957&redirect_uri=https://localhost:3000/vk-auth&response_type=code",
+            'example', 'width=0,height=0'
+        )
+        console.log(ddd.location);
+
+
+    }
+
 
     render() {
         const {classes} = this.props;
@@ -354,6 +411,7 @@ class AuthDialog extends Component {
                             alignItems="flex-start"
                         >
                             <Grid item md={12} xs={12} sm={12}>
+                                <Button onClick={this.vkAuth}>TEST</Button>
                                 <ValidatorForm fullWidth onSubmit={this.checkAuth}>
                                     <TextValidator
                                         validators={['required']}
@@ -496,39 +554,40 @@ class AuthDialog extends Component {
                                                 icon={true}
 
                                             />
-                                            <VkAuth apiId="7149957" callback={this.handleVkResponse} style={{
-                                                backgroundColor: 'Transparent',
-                                                backgroundRepeat: 'no-repeat',
-                                                border: 'none',
-                                                cursor: 'pointer',
-                                                overflow: 'hidden',
-                                                outline: 'none',
-                                                padding: 0
-                                            }}>
+                                            {/*<VkAuth apiId="7149957" callback={this.handleVkResponse}*/}
+                                            {/*        style={{*/}
+                                            {/*    backgroundColor: 'Transparent',*/}
+                                            {/*    backgroundRepeat: 'no-repeat',*/}
+                                            {/*    border: 'none',*/}
+                                            {/*    cursor: 'pointer',*/}
+                                            {/*    overflow: 'hidden',*/}
+                                            {/*    outline: 'none',*/}
+                                            {/*    padding: 0*/}
+                                            {/*}}>*/}
 
-                                                <IconButton classes={{root: classes.iconBtn}}>
-                                                    <SvgIcon viewBox="0 0 40.196 40.196"
-                                                             classes={{root: classes.svgRootIcon}}>
-                                                        <defs>
-                                                            <clipPath id="clip-path-wk">
-                                                                <rect width="40.196" height="40.196" fill="none"/>
-                                                            </clipPath>
-                                                        </defs>
-                                                        <g id="Component_13_1" data-name="Component 13 – 1"
-                                                           transform="translate(0 0)" clip-path="url(#clip-path-wk)">
-                                                            <g id="XMLID_11_" clip-path="url(#clip-path)">
-                                                                <path id="XMLID_11_2" data-name="XMLID_11_"
-                                                                      d="M20.1,0A20.1,20.1,0,1,1,0,20.1,20.1,20.1,0,0,1,20.1,0Z"
-                                                                      fill="#4d76a1"/>
-                                                            </g>
-                                                            <path id="Path_1226" data-name="Path 1226"
-                                                                  d="M30.851,53.848h1.577a1.331,1.331,0,0,0,.72-.315,1.154,1.154,0,0,0,.217-.693s-.031-2.117.952-2.428,2.212,2.046,3.53,2.95A2.5,2.5,0,0,0,39.6,53.9l3.524-.049s1.844-.114.969-1.563a11.777,11.777,0,0,0-2.62-3.032c-2.21-2.051-1.914-1.719.748-5.267,1.621-2.161,2.269-3.48,2.067-4.045-.193-.538-1.385-.4-1.385-.4l-3.968.025a.9.9,0,0,0-.512.09,1.112,1.112,0,0,0-.35.426,22.976,22.976,0,0,1-1.466,3.094c-1.767,3-2.473,3.159-2.762,2.973-.672-.434-.5-1.744-.5-2.675,0-2.908.441-4.12-.859-4.434a6.776,6.776,0,0,0-1.852-.184,8.553,8.553,0,0,0-3.293.337c-.451.221-.8.714-.588.742a1.781,1.781,0,0,1,1.171.589,3.829,3.829,0,0,1,.392,1.8s.234,3.423-.546,3.848c-.535.292-1.269-.3-2.844-3.026a25.3,25.3,0,0,1-1.417-2.936,1.179,1.179,0,0,0-.327-.442,1.644,1.644,0,0,0-.61-.246l-3.771.025s-.566.016-.774.262c-.185.219-.015.672-.015.672s2.952,6.907,6.295,10.387a9.054,9.054,0,0,0,6.546,2.981Z"
-                                                                  transform="translate(-11.512 -24.935)" fill="#fff"
-                                                                  fill-rule="evenodd"/>
-                                                        </g>
-                                                    </SvgIcon>
-                                                </IconButton>
-                                            </VkAuth>
+                                            {/*    <IconButton classes={{root: classes.iconBtn}}>*/}
+                                            {/*        <SvgIcon viewBox="0 0 40.196 40.196"*/}
+                                            {/*                 classes={{root: classes.svgRootIcon}}>*/}
+                                            {/*            <defs>*/}
+                                            {/*                <clipPath id="clip-path-wk">*/}
+                                            {/*                    <rect width="40.196" height="40.196" fill="none"/>*/}
+                                            {/*                </clipPath>*/}
+                                            {/*            </defs>*/}
+                                            {/*            <g id="Component_13_1" data-name="Component 13 – 1"*/}
+                                            {/*               transform="translate(0 0)" clip-path="url(#clip-path-wk)">*/}
+                                            {/*                <g id="XMLID_11_" clip-path="url(#clip-path)">*/}
+                                            {/*                    <path id="XMLID_11_2" data-name="XMLID_11_"*/}
+                                            {/*                          d="M20.1,0A20.1,20.1,0,1,1,0,20.1,20.1,20.1,0,0,1,20.1,0Z"*/}
+                                            {/*                          fill="#4d76a1"/>*/}
+                                            {/*                </g>*/}
+                                            {/*                <path id="Path_1226" data-name="Path 1226"*/}
+                                            {/*                      d="M30.851,53.848h1.577a1.331,1.331,0,0,0,.72-.315,1.154,1.154,0,0,0,.217-.693s-.031-2.117.952-2.428,2.212,2.046,3.53,2.95A2.5,2.5,0,0,0,39.6,53.9l3.524-.049s1.844-.114.969-1.563a11.777,11.777,0,0,0-2.62-3.032c-2.21-2.051-1.914-1.719.748-5.267,1.621-2.161,2.269-3.48,2.067-4.045-.193-.538-1.385-.4-1.385-.4l-3.968.025a.9.9,0,0,0-.512.09,1.112,1.112,0,0,0-.35.426,22.976,22.976,0,0,1-1.466,3.094c-1.767,3-2.473,3.159-2.762,2.973-.672-.434-.5-1.744-.5-2.675,0-2.908.441-4.12-.859-4.434a6.776,6.776,0,0,0-1.852-.184,8.553,8.553,0,0,0-3.293.337c-.451.221-.8.714-.588.742a1.781,1.781,0,0,1,1.171.589,3.829,3.829,0,0,1,.392,1.8s.234,3.423-.546,3.848c-.535.292-1.269-.3-2.844-3.026a25.3,25.3,0,0,1-1.417-2.936,1.179,1.179,0,0,0-.327-.442,1.644,1.644,0,0,0-.61-.246l-3.771.025s-.566.016-.774.262c-.185.219-.015.672-.015.672s2.952,6.907,6.295,10.387a9.054,9.054,0,0,0,6.546,2.981Z"*/}
+                                            {/*                      transform="translate(-11.512 -24.935)" fill="#fff"*/}
+                                            {/*                      fill-rule="evenodd"/>*/}
+                                            {/*            </g>*/}
+                                            {/*        </SvgIcon>*/}
+                                            {/*    </IconButton>*/}
+                                            {/*</VkAuth>*/}
 
 
                                         </div>

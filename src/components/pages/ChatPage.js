@@ -8,8 +8,6 @@ import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
 import {Link} from "react-router-dom";
 import LeftMenu from '../tools/LeftMenu';
-
-
 import ChatProfileItem from '../tools/ChatProfileItem'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -17,8 +15,6 @@ import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import { useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const styles = theme => ({
         root: {
@@ -40,8 +36,20 @@ const styles = theme => ({
                     borderRadius: 50
                 }
             },
+        },
+        listItemActive: {
+            alignItems: 'center',
+            color: '#e05023',
+            "&:hover": {
+                cursor: 'pointer',
 
-
+                "& img": {
+                    border: 2,
+                    borderStyle: 'solid',
+                    borderColor: theme.palette.YellowColor,
+                    borderRadius: 50
+                }
+            },
         },
         dvider: {
             marginLeft: 12
@@ -84,6 +92,7 @@ const styles = theme => ({
 
 
 const API_POLLS = "polls/list";
+const CHAT_LIST = "profil/chat-list";
 
 
 class ChatPage extends Component {
@@ -91,7 +100,7 @@ class ChatPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            polls: [],
+            chat_list: [],
             show: false,
             chatUserShow:false
         };
@@ -100,27 +109,24 @@ class ChatPage extends Component {
     submit = (values, pristineValues) => {
         // get all values and pristineValues on form submission
     }
-
-    componentDidMount() {
+    showLoadingBar = (bool) => {
         this.setState({
-            show: true
+            show: bool
         })
-        axios.get(API_POLLS).then(res => {
-            if (res.status === 200 && res.data.count > 0) {
+    }
+    componentDidMount() {
 
+       this.showLoadingBar(true);
+        axios.get(CHAT_LIST).then(res => {
+            if (res.status === 200 ) {
                 this.setState({
-                    polls: res.data.result
-
+                    chat_list: res.data.chatList
                 })
             }
-            this.setState({
-                show: false
-            })
+            this.showLoadingBar(false);
 
         }).catch(err => {
-            this.setState({
-                show: false
-            })
+            this.showLoadingBar(false);
             console.log(err);
         })
     }
@@ -137,8 +143,15 @@ class ChatPage extends Component {
         })
     }
 
+    chatRouteChange = (chat_id) => (e) =>{
+        e.preventDefault();
+        this.props.history.push('/chat/'+chat_id);
+        this.setState({chatUserShow:true})
+    }
+
     render() {
         const {classes} = this.props;
+        const now_chat_id=    this.props.match.params.chat_id;
         return (
             <div>
                 <Loading
@@ -159,66 +172,30 @@ class ChatPage extends Component {
                                 <Grid item md={4} sm={12} xs={12} style={{borderRight: '1px solid #eee'}} className={this.state.chatUserShow ? classes.contentPageOnMobile : classes.contentPageOnDesc }>
 
                                     <List className={classes.root}>
+                                        {this.state.chat_list.map((item, In)=>{
 
-                                        <ListItem alignItems="flex-start" classes={{root: classes.listItem}} button onClick={this.getChats}>
-                                            <ListItemAvatar>
-                                                <Link to={"/"}> <Avatar alt="Никита Макаренко"
-                                                                        src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"/>
-                                                </Link>
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                primary="Никита Макаренко"
-                                                classes={{primary: classes.titleFieldesetHead}}
-                                            />
-                                        </ListItem>
-                                        <Divider component="li" classes={{root: classes.dividerCustom}}/>
-                                        <ListItem alignItems="flex-start" classes={{root: classes.listItem}} button onClick={this.getChats}>
-                                            <ListItemAvatar>
-                                                <Link to={"/"}>
-                                                    <Avatar
-                                                        alt="Никита Макаренко"
-                                                        classes={{root: classes.avatarChat}}
-                                                        src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"
-                                                    />
-                                                </Link>
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                primary="Никита Макаренко"
-                                                classes={{primary: classes.titleFieldesetHead}}
-                                            />
-                                        </ListItem>
-                                        <Divider component="li" classes={{root: classes.dividerCustom}}/>
-                                        <ListItem alignItems="flex-start" classes={{root: classes.listItem}} button onClick={this.getChats} >
-                                            <ListItemAvatar>
-                                                <Link to={"/"}> <Avatar alt="Никита Макаренко"
-                                                                        src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"/>
-                                                </Link>
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                primary="Никита Макаренко"
-                                                classes={{primary: classes.titleFieldesetHead}}
-                                            />
-                                        </ListItem>
-                                        <Divider component="li" classes={{root: classes.dividerCustom}}/>
-                                        <ListItem alignItems="flex-start" classes={{root: classes.listItem}} button onClick={this.getChats}>
-                                            <ListItemAvatar>
-                                                <Link to={"/"}> <Avatar alt="Никита Макаренко"
-                                                                        src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"/>
-                                                </Link>
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                primary="Никита Макаренко"
-                                                classes={{primary: classes.titleFieldesetHead}}
-                                            />
-                                        </ListItem>
-                                        <Divider component="li" classes={{root: classes.dividerCustom}}/>
-
-
+                                            return  (
+                                                <div key={In+"1"}>
+                                                    <ListItem key={item.chat_id} onClick={this.chatRouteChange(item.chat_id)} alignItems="flex-start" classes={{root: now_chat_id===item.chat_id ? classes.listItemActive : classes.listItem }} button>
+                                                        <ListItemAvatar>
+                                                            <Link to={"/profile/"+item.userName}> <Avatar alt={item.userFIO}
+                                                                                    src={item.userImage}/>
+                                                            </Link>
+                                                        </ListItemAvatar>
+                                                        <ListItemText
+                                                            primary={item.userFIO}
+                                                            classes={{primary: classes.titleFieldesetHead}}
+                                                        />
+                                                    </ListItem>
+                                                    <Divider component="li" classes={{root: classes.dividerCustom}}/>
+                                                </div>
+                                            );
+                                        })}
                                     </List>
 
                                 </Grid>
                                 <Grid item md={8} sm={12} xs={12}>
-                                    <ChatProfileItem chatUserShow={this.state.chatUserShow} backTo={this.backToChatsList}/>
+                                    <ChatProfileItem chatUserShow={this.state.chatUserShow} backTo={this.backToChatsList} chat_id={this.props.match.params.chat_id}/>
                                 </Grid>
 
                             </Grid>

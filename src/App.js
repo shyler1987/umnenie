@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Switch, withRouter} from 'react-router-dom';
+import {BrowserRouter as Router, Switch} from 'react-router-dom';
 import DashboardLayoutRoute from './layouts/DashboardLayout';
 import {createMuiTheme} from '@material-ui/core/styles';
 import {ThemeProvider} from '@material-ui/styles';
@@ -11,7 +11,6 @@ import ProfileLayoutRoute from "./layouts/ProfileLayout";
 import ProfileFollower from "./components/pages/ProfileFollower";
 import PollView from "./components/pages/PollView";
 import License from "./components/pages/License";
-import ProfileJuridic from "./components/pages/ProfileJuridic";
 import ProfileEdit from "./components/pages/ProfileEdit";
 import PasswordChange from "./components/pages/PasswordChange";
 import RecoveryPasswordConfirm from "./components/pages/RecoveryPasswordConfirm";
@@ -23,43 +22,43 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import setUserData from './redux/actions/setUserData'
 import ProfileUser from "./components/pages/ProfileUser";
+import PageNotFound from "./components/pages/PageNotFound";
 import UserFollowers from "./components/pages/user/UserFollowers";
 import UserFollowing from "./components/pages/user/UserFollowing";
-const raleway = {};
 
 
-const styles = theme => ({
-
-    cssOutlinedInput: {
-        '&$cssFocused $notchedOutline': {
-            //borderColor: `#e35b1e !important`,
-            borderWidth: 1,
-            borderStyle: 'solid',
-            borderColor: 'rgba(0, 0, 0, 0.23)'
-        },
-        "&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline": {
-            borderColor: 'rgba(0, 0, 0, 0.23)'
-        },
-    },
-
-    cssFocused: {
-        borderColor: `#e35b1e !important`,
-    },
-
-    notchedOutline: {
-        borderWidth: 1,
-        borderStyle: 'solid',
-        borderColor: 'rgba(0, 0, 0, 0.23)',
-        "&:hover": {
-            borderWidth: 1,
-            borderStyle: 'solid',
-            borderColor: 'rgba(0, 0, 0, 0.23)',
-        }
-
-    },
-
-
-});
+// const styles = theme => ({
+//
+//     cssOutlinedInput: {
+//         '&$cssFocused $notchedOutline': {
+//             //borderColor: `#e35b1e !important`,
+//             borderWidth: 1,
+//             borderStyle: 'solid',
+//             borderColor: 'rgba(0, 0, 0, 0.23)'
+//         },
+//         "&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline": {
+//             borderColor: 'rgba(0, 0, 0, 0.23)'
+//         },
+//     },
+//
+//     cssFocused: {
+//         borderColor: `#e35b1e !important`,
+//     },
+//
+//     notchedOutline: {
+//         borderWidth: 1,
+//         borderStyle: 'solid',
+//         borderColor: 'rgba(0, 0, 0, 0.23)',
+//         "&:hover": {
+//             borderWidth: 1,
+//             borderStyle: 'solid',
+//             borderColor: 'rgba(0, 0, 0, 0.23)',
+//         }
+//
+//     },
+//
+//
+// });
 
 const outerTheme = createMuiTheme({
     typography: {
@@ -86,8 +85,8 @@ const outerTheme = createMuiTheme({
 
             //outline: none
         },
-        MuiPaper:{
-            elevation1:{
+        MuiPaper: {
+            elevation1: {
                 border: '1px solid #e6e6e6',
                 boxShadow: 'unset'
             }
@@ -151,60 +150,59 @@ const outerTheme = createMuiTheme({
 
 
 const routesGuest = [
-    {url: '/search/:search', component: Dash, layout:'dashboard'},
-    {url: '/polls/:username/:id', component: PollView, layout:'dashboard'},
-    {url: '/polls/:id', component: PollView, layout:'dashboard'},
-    {url: '/account/recovery/:token', component: RecoveryPasswordConfirm, layout:'dashboard'},
-    {url: '/account/recovery', component: RecoveryPassword, layout:'dashboard'},
+    {url: '/search/:search', component: Dash, layout: 'dashboard'},
+    {url: '/polls/:id', component: PollView, layout: 'dashboard'},
+    {url: '/polls/:username/:id', component: PollView, layout: 'dashboard'},
 
-    {url: '/license', component: License, layout:'dashboard'},
-    {url: '/profile/:username/followers', component: UserFollowers, layout:'Profile'},
-    {url: '/profile/:username/following', component: UserFollowers, layout:'Profile'},
-    {url: '/profile/:username', component: ProfileUser, layout:'Profile'},
-    {url: '/account/registration', component: Registration, layout:'dashboard'},
-    {url: '/statis/:id', component: StatisPage, layout:'dashboard'},
+    {url: '/account/recovery/:token', component: RecoveryPasswordConfirm, layout: 'dashboard'},
+    {url: '/account/recovery', component: RecoveryPassword, layout: 'dashboard'},
+
+    {url: '/license', component: License, layout: 'dashboard'},
+    {url: '/profile/:username/followers', component: UserFollowers, layout: 'Profile'},
+    {url: '/profile/:username/following', component: UserFollowing, layout: 'Profile'},
+    {url: '/profile/:username', component: ProfileUser, layout: 'Profile'},
+    {url: '/account/registration', component: Registration, layout: 'dashboard'},
+    {url: '/statis/:id', component: StatisPage, layout: 'dashboard'},
 
 ];
 const routes = [
-    {url: '/search/:search', component: Dash, layout:'dashboard'},
-    {url: '/license', component: License, layout:'dashboard'},
-    {url: '/polls/edit/:id', component: PollCreate, layout:'dashboard'},
-    {url: '/polls/:username/:id', component: PollView, layout:'dashboard'},
-    {url: '/statis/:id', component: StatisPage, layout:'dashboard'},
-    {url: '/polls/create', component: PollCreate, layout:'dashboard'},
-    {url: '/polls/:id', component: PollView, layout:'dashboard'},
-    {url: '/account/profile', component: Profile, layout:'Profile'},
+    {url: '/search/:search', component: Dash, layout: 'dashboard'},
+    {url: '/license', component: License, layout: 'dashboard'},
+    {url: '/polls/edit/:id', component: PollCreate, layout: 'dashboard'},
+    {url: '/polls/:username/:id', component: PollView, layout: 'dashboard'},
+    {url: '/statis/:id', component: StatisPage, layout: 'dashboard'},
+    {url: '/polls/create', component: PollCreate, layout: 'dashboard'},
+    {url: '/polls/:id', component: PollView, layout: 'dashboard'},
+    {url: '/account/profile', component: Profile, layout: 'Profile'},
 
-    {url: '/account/followers', component: ProfileFollower, layout:'Profile'},
-    {url: '/account/following', component: ProfileFollower, layout:'Profile'},
-    {url: '/account/profile-edit', component: ProfileEdit, layout:'dashboard'},
-    {url: '/account/passchange', component: PasswordChange, layout:'dashboard'},
-    {url: '/profile/:username/followers', component: UserFollowers, layout:'Profile'},
-    {url: '/profile/:username/following', component: UserFollowers, layout:'Profile'},
-    {url: '/profile/:username', component: ProfileUser, layout:'Profile'},
-    {url: '/account/recovery', component: RecoveryPassword, layout:'dashboard'},
-    {url: '/chat', component: ChatPage, layout:'dashboard'},
+    {url: '/account/followers', component: ProfileFollower, layout: 'Profile'},
+    {url: '/account/following', component: ProfileFollower, layout: 'Profile'},
+    {url: '/account/profile-edit', component: ProfileEdit, layout: 'dashboard'},
+    {url: '/account/passchange', component: PasswordChange, layout: 'dashboard'},
+    {url: '/profile/:username/followers', component: UserFollowers, layout: 'Profile'},
+    {url: '/profile/:username/following', component: UserFollowers, layout: 'Profile'},
+    {url: '/profile/:username', component: ProfileUser, layout: 'Profile'},
+    {url: '/account/recovery', component: RecoveryPassword, layout: 'dashboard'},
+    {url: '/chat', component: ChatPage, layout: 'dashboard'},
+    {url: '/chat/:chat_id', component: ChatPage, layout: 'dashboard'},
 
 ];
+
 class App extends Component {
     constructor(props) {
         super(props);
-
-
-
-
     }
+
     componentDidMount() {
-        if(localStorage.getItem('token')!==null){
+        if (localStorage.getItem('token') !== null) {
             this.fetchMe();
         }
     }
 
     fetchMe = () => {
-        axios.get("profil/me").then(res=>{
-            console.log("app js")
+        axios.get("profil/me").then(res => {
             this.props.setUserData(res.data)
-        }).catch(err=>{
+        }).catch(err => {
             console.log(err);
         })
     }
@@ -212,7 +210,6 @@ class App extends Component {
     componentWillMount() {
         axios.defaults.baseURL = "https://api.foundrising.uz/v1/";
         axios.interceptors.request.use(function (config) {
-
             if (localStorage.getItem('token') !== null) {
                 config.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
             }
@@ -231,7 +228,7 @@ class App extends Component {
             if (error.response.status === 401) {
                 localStorage.removeItem('token')
                 window.location.replace('/');
-               // window.location.replace('/auth/login');
+                // window.location.replace('/auth/login');
             }
             return Promise.reject(error);
         });
@@ -247,7 +244,22 @@ class App extends Component {
                         <DashboardLayoutRoute exact path="/" component={Dash}/>
 
                         {this.props.isAuthenticated ? routes.map(routeItem => {
-                                if(routeItem.layout==='Profile'){
+                                if (routeItem.layout === 'Profile') {
+                                    return <ProfileLayoutRoute
+                                        exact path={routeItem.url}
+                                        key={routeItem.url}
+
+                                        component={routeItem.component}
+                                    />
+                                }
+                                return <DashboardLayoutRoute
+                                    exact path={routeItem.url}
+                                    key={routeItem.url}
+                                    component={routeItem.component}
+                                />
+                            }) :
+                            routesGuest.map(routeItem => {
+                                if (routeItem.layout === 'Profile') {
                                     return <ProfileLayoutRoute
                                         exact path={routeItem.url}
                                         component={routeItem.component}
@@ -257,22 +269,10 @@ class App extends Component {
                                     exact path={routeItem.url}
                                     component={routeItem.component}
                                 />
-                        }) :
-                            routesGuest.map(routeItem => {
-                                if(routeItem.layout==='Profile'){
-                                    return <ProfileLayoutRoute
-                                    exact path={routeItem.url}
-                                    component={routeItem.component}
-                                    />
-                                }
-                                return <DashboardLayoutRoute
-                                    exact path={routeItem.url}
-                                    component={routeItem.component}
-                                />
                             })
                         }
 
-                        {/*<DashboardLayoutRoute exact path={"*"} exact component={PageNotFound}/>*/}
+                        <DashboardLayoutRoute exact path={"*"} exact component={PageNotFound}/>
 
                     </Switch>
                 </Router>
@@ -281,6 +281,7 @@ class App extends Component {
     }
 
 }
+
 function mapStateToProps(state) {
     return {
         isAuthenticated: state.mainData.isAuthenticated,
@@ -293,7 +294,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps) (App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 
 

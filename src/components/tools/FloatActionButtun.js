@@ -1,7 +1,5 @@
 import AddIcon from '@material-ui/icons/Add';
-import { green } from '@material-ui/core/colors';
 import Fab from '@material-ui/core/Fab';
-import {Link} from "react-router-dom";
 import React, {Component} from 'react';
 import {withStyles} from '@material-ui/styles';
 import { withRouter } from "react-router";
@@ -27,13 +25,12 @@ const styles = theme => ({
 });
 
 class FloatActionButtun extends Component{
-    constructor(props){
-        super(props)
-    }
+
 
     onRouteChange = () =>{
         this.props.history.push('/polls/create');
     }
+
     render() {
         const {classes} = this.props;
         return(

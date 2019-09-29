@@ -8,7 +8,6 @@ import 'react-loading-bar/dist/index.css'
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import CoverImage from '../../media/back.jpg';
-import selenaAvatar from '../../media/selenaAvatar.jpg';
 import Avatar from '@material-ui/core/Avatar';
 
 import List from '@material-ui/core/List';

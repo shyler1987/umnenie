@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/styles';
 import 'react-loading-bar/dist/index.css'
@@ -10,16 +9,16 @@ import '../../media/style.css';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import ArrowBack from '@material-ui/icons/ArrowBack'
 import IconButton from '@material-ui/core/IconButton';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import axios from 'axios'
+import Loading from 'react-loading-bar'
+import 'react-loading-bar/dist/index.css'
 
 const styles = theme => ({
         multlineInput: {
@@ -106,19 +105,93 @@ const styles = theme => ({
     })
 ;
 
-
+const API_URL_ACTIVE = "profil/chat-messages?chat_id=";
+const API_URL_SEND_TXT = "profil/chat-send-text";
+const API_URL_SEND_FILE = "profil/chat-send-file";
 class ChatProfileItem extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             show: false,
-            chatUserShow:this.props.chatUserShow
-        };
+            chatUserShow:this.props.chatUserShow,
+            messages:[],
+            text:null,
+            to:null,
+            userName:null,
+            userFio:null,
+            userAvatar:null,
+        }
+    }
+    handleSendPhoto = (e) => {
+        this.sendToCommentFile(e.target.files[0]);
     }
 
-    submit = (values, pristineValues) => {
-        // get all values and pristineValues on form submission
+    sendToCommentFile = (file) => {
+        this.showLoadingBar(true);
+        var bodyFormData = new FormData();
+        bodyFormData.append('chat_image', file);
+        bodyFormData.append('to', this.state.to);
+        bodyFormData.append('chat_id', this.props.chat_id);
+        axios.post(
+            API_URL_SEND_FILE,
+            bodyFormData
+        ).then(res => {
+            if (res.status === 202) {
+                this.setState({
+                    messages:res.data.activeMessages,
+                })
+            }
+            this.showLoadingBar(false);
+        }).catch(err => {
+            this.showLoadingBar(false);
+        })
+    }
+
+
+    submit = (e) => {
+        e.preventDefault();
+        this.showLoadingBar(true)
+
+        axios.post(API_URL_SEND_TXT, {
+            to:this.state.to,
+            text:this.state.text,
+            chat_id:this.props.chat_id,
+        }).then(res=>{
+            this.showLoadingBar(false)
+            if(res.status===202){
+                this.setState({
+                    messages:res.data.activeMessages,
+                    text:null
+                })
+            }
+
+        }).catch(err=>{
+            this.showLoadingBar(false)
+
+        })
+    }
+    componentDidMount() {
+        this.getActiveMessages(this.props.chat_id);
+    }
+
+    getActiveMessages = (chat_id) =>{
+        this.showLoadingBar(true)
+        axios.get(API_URL_ACTIVE+chat_id).then(res=>{
+            if(res.status===200){
+                this.setState({
+                    to:res.data.to,
+                    userName:res.data.userName,
+                    userFio:res.data.userFio,
+                    userAvatar:res.data.userAvatar,
+                    messages:res.data.activeMessages,
+                })
+            }
+            this.showLoadingBar(false)
+        }).catch(err=>{
+            this.showLoadingBar(false)
+
+        })
     }
 
     backTo = () =>{
@@ -126,10 +199,21 @@ class ChatProfileItem extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        console.log(nextProps)
         this.setState({
             chatUserShow:nextProps.chatUserShow
         })
+        if(this.props.chat_id!==nextProps.chat_id){
+            this.getActiveMessages(nextProps.chat_id);
+        }
+    }
+    showLoadingBar = (bool) => {
+        this.setState({
+            show: bool
+        })
+    }
+
+    handleChange = (e) =>{
+        this.setState({[e.target.name]:e.target.value});
     }
 
     render() {
@@ -137,6 +221,10 @@ class ChatProfileItem extends Component {
         return (
 
             <div className={this.state.chatUserShow ? classes.contentPageOnMobile : classes.contentPage}>
+                <Loading
+                    show={this.state.show}
+                    color="red"
+                />
                 <List className={classes.root}>
                     <ListItem  disableGutters={true} onClick={this.backTo}>
                         <ListItemIcon classes={{root:classes.showBackOnMobile}}>
@@ -145,139 +233,78 @@ class ChatProfileItem extends Component {
                             </IconButton>
                         </ListItemIcon>
                         <ListItemAvatar>
-
-                            <Avatar alt="Remy Sharp" src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1" />
+                            <Link to={this.state.userName}>
+                            <Avatar alt={this.state.userFio} src={this.state.userAvatar} />
+                            </Link>
                         </ListItemAvatar>
                         <ListItemText
-                            primary="Dilshod Tursimatov"
+                            primary={this.state.userFio}
                         />
                     </ListItem>
                 </List>
                 <div className={classes.scrollable}>
-                    <div className="d-flex justify-content-start itemChat">
-                        <div className="img_cont_msg">
-                            <Link to={"/"}> <img
-                                src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"
-                                className="rounded-circle user_img_msg"/></Link>
-                        </div>
-                        <div className="msg_cotainer">
-                            Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте
-                            окно
-                            чата Всегда
-                            буду рад ответить Вам.
-                            <div className="msg_time">8:40</div>
-                        </div>
-                    </div>
-                    <div className="d-flex justify-content-start itemChat">
-                        <div className="img_cont_msg">
-                            <Link to={"/"}> <img
-                                src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"
-                                className="rounded-circle user_img_msg"/></Link>
-                        </div>
-                        <div className="msg_cotainer">
-                            Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте
-                            окно
-                            чата Всегда
-                            буду рад ответить Вам.
-                            <div className="msg_time">8:40</div>
-                        </div>
-                    </div>
+                    {this.state.messages.map((item, Ind)=>{
+                        //*
+                        // avatar	http://umnenie.foundrising.uz/uploads/user/foto/2_1569130464.jpg
+                        // user_name	Beshimov Nodirjon
+                        // user_link	http://api.foundrising.uz/v1/polls/user-profil?user_id=2
+                        // date_cr	2019-09-29 19:05:12
+                        // file	null
+                        // text	test
+                        // *//
+                        if(item.my_sms ===0){
+                            return (
+                                <div className="d-flex justify-content-start itemChat">
+                                    <div className="img_cont_msg">
+                                        <Link to={"/profile/"+item.userName}> <img
+                                            src={item.userAvatar} alt={item.userFIO}
+                                            className="rounded-circle user_img_msg"/></Link>
+                                    </div>
+                                    <div className="msg_cotainer">
+                                        {item.text!==null && item.text}
+                                        {item.file!==null && <img style={{width:'100%'}} src={item.file} />}
+                                        <div className="msg_time">{item.date_cr}</div>
+                                    </div>
+                                </div>
+                            );
+                        }
 
+                        if(item.my_sms ===1){
+                            return (
+                                <div className="d-flex justify-content-end itemChat">
+                                    <div className="msg_cotainer_send">
+                                        {item.text!==null && item.text}
+                                        {item.file!==null && <img style={{width:'100%'}} src={item.file} />}
+                                        <div className="msg_time_send">{item.date_cr}</div>
+                                    </div>
+                                    <div className="img_cont_msg">
+                                        <Link to={"/profile/"+item.userName}><img
+                                            src={item.userAvatar} alt={item.userFIO}
+                                            className="rounded-circle user_img_msg"/></Link>
+                                    </div>
+                                </div>
+                            );
+                        }
 
-                    <div className="d-flex justify-content-end itemChat">
-                        <div className="msg_cotainer_send">
-                            Hi Maryam i am good tnx how about you?
-                            <div className="msg_time_send">8:55</div>
-                        </div>
-                        <div className="img_cont_msg">
-                            <Link to={"/"}> <img
-                                src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"
-                                className="rounded-circle user_img_msg"/></Link>
-                        </div>
-                    </div>
-                    <div className="d-flex justify-content-start itemChat">
-                        <div className="img_cont_msg">
-                            <Link to={"/"}> <img
-                                src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"
-                                className="rounded-circle user_img_msg"/></Link>
-                        </div>
-                        <div className="msg_cotainer">
-                            Здраствуйте! Я могу вам чем-то помочь? Если не нужна, то закройте
-                            окно
-                            чата Всегда
-                            буду рад ответить Вам.
-                            <div className="msg_time">8:40</div>
-                        </div>
-                    </div>
-                    <div className="d-flex justify-content-end itemChat">
-                        <div className="msg_cotainer_send">
-                            Hi Maryam i am good tnx how about you?
-                            <div className="msg_time_send">8:55</div>
-                        </div>
-                        <div className="img_cont_msg">
-                            <Link to={"/"}> <img
-                                src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"
-                                className="rounded-circle user_img_msg"/></Link>
-                        </div>
-                    </div>
-                    <div className="d-flex justify-content-end itemChat">
-                        <div className="msg_cotainer_send">
-                            Hi Maryam i am good tnx how about you?
-                            <div className="msg_time_send">8:55</div>
-                        </div>
-                        <div className="img_cont_msg">
-                            <Link to={"/"}> <img
-                                src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"
-                                className="rounded-circle user_img_msg"/></Link>
-                        </div>
-                    </div>
-                    <div className="d-flex justify-content-end itemChat">
-                        <div className="msg_cotainer_send">
-                            Hi Maryam i am good tnx how about you?
-                            <div className="msg_time_send">8:55</div>
-                        </div>
-                        <div className="img_cont_msg">
-                            <Link to={"/"}> <img
-                                src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"
-                                className="rounded-circle user_img_msg"/></Link>
-                        </div>
-                    </div>
-                    <div className="d-flex justify-content-end itemChat">
-                        <div className="msg_cotainer_send">
-                            Hi Maryam i am good tnx how about you?
-                            <div className="msg_time_send">8:55</div>
-                        </div>
-                        <div className="img_cont_msg">
-                            <Link to={"/"}> <img
-                                src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"
-                                className="rounded-circle user_img_msg"/></Link>
-                        </div>
-                    </div>
-                    <div className="d-flex justify-content-end itemChat">
-                        <div className="msg_cotainer_send">
-                            Hi Maryam i am good tnx how about you?
-                            <div className="msg_time_send">8:55</div>
-                        </div>
-                        <div className="img_cont_msg">
-                            <Link to={"/"}> <img
-                                src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"
-                                className="rounded-circle user_img_msg"/></Link>
-                        </div>
-                    </div>
+                    })}
 
                 </div>
                 <br/>
+                <form onSubmit={this.submit}>
                 <Grid
                     direction={"row"}
                     container
                     spacing={2}
                     style={{padding: 10}}
                 >
+
                     <Grid item md={9} sm={9} xs={9}>
                         <TextField
                             id="standard-multiline-flexible"
                             fullWidth
                             multiline
+                            name={"text"}
+                            onChange={this.handleChange}
                             variant="outlined"
                             className={classes.textField}
                             InputProps={
@@ -291,8 +318,9 @@ class ChatProfileItem extends Component {
                                                 accept="image/*"
                                                 className={classes.input}
                                                 id="contained-button-file"
-                                                multiple
                                                 type="file"
+                                                onChange={this.handleSendPhoto}
+
                                             />
                                             <label htmlFor="contained-button-file"
                                                    className={classes.labelCommentFile}>
@@ -327,11 +355,11 @@ class ChatProfileItem extends Component {
                         />
                     </Grid>
                     <Grid item md={3} sm={3} xs={3}>
-                        <Button variant="contained" color="secondary" fullWidth
+                        <Button variant="contained" type={"submit"} color="secondary" fullWidth
                                 className={classes.sectionDesktop}>
                             Отправить
                         </Button>
-                        <Button variant="contained" color="secondary" fullWidth
+                        <Button variant="contained" color="secondary"  type={"submit"}  fullWidth
                                 className={classes.sectionMobile}>
                             <SvgIcon viewBox="0 0 16 16"
                                      classes={{root: classes.svgRootP}}>
@@ -357,7 +385,10 @@ class ChatProfileItem extends Component {
                     </Grid>
 
 
+
+
                 </Grid>
+                </form>
             </div>
 
         );

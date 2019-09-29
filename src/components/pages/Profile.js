@@ -12,7 +12,6 @@ import PollCard from '../tools/PollCard'
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import ProfileHeadCover from "../tools/ProfileHeadCover";
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import PropTypes from "prop-types";
 
 const styles = theme => ({
     root: {
@@ -173,7 +172,6 @@ const styles = theme => ({
 });
 
 
-const API_POLLS = "polls/list";
 
 const USER_ME = "profil/me";
 const MY_POLLS = "profil/my-polls";
