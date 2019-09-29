@@ -122,9 +122,15 @@ class ChatProfileItem extends Component {
             userFio:null,
             userAvatar:null,
         }
+        this.messageBox = React.createRef();
+        this.messagesEnd = React.createRef();
     }
     handleSendPhoto = (e) => {
         this.sendToCommentFile(e.target.files[0]);
+    }
+
+    scrollToBottom = () => {
+        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
     }
 
     sendToCommentFile = (file) => {
@@ -141,6 +147,8 @@ class ChatProfileItem extends Component {
                 this.setState({
                     messages:res.data.activeMessages,
                 })
+                this.scrollToBottom();
+                this.messageBox.current.scrollIntoView({behavior: 'smooth', block: 'start'})
             }
             this.showLoadingBar(false);
         }).catch(err => {
@@ -164,6 +172,8 @@ class ChatProfileItem extends Component {
                     messages:res.data.activeMessages,
                     text:null
                 })
+                this.messageBox.current.scrollIntoView({behavior: 'smooth', block: 'start'})
+
             }
 
         }).catch(err=>{
@@ -186,7 +196,9 @@ class ChatProfileItem extends Component {
                     userAvatar:res.data.userAvatar,
                     messages:res.data.activeMessages,
                 })
+
             }
+            // this.scrollToBottom();
             this.showLoadingBar(false)
         }).catch(err=>{
             this.showLoadingBar(false)
@@ -197,7 +209,9 @@ class ChatProfileItem extends Component {
     backTo = () =>{
         this.props.backTo(false);
     }
-
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
             chatUserShow:nextProps.chatUserShow
@@ -288,9 +302,13 @@ class ChatProfileItem extends Component {
 
                     })}
 
+                    <div style={{ float:"left", clear: "both" }}
+                         ref={(el) => { this.messagesEnd = el; }}>
+                    </div>
+
                 </div>
                 <br/>
-                <form onSubmit={this.submit}>
+                <form onSubmit={this.submit} ref={this.messageBox}>
                 <Grid
                     direction={"row"}
                     container
