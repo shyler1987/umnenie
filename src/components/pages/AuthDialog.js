@@ -290,8 +290,7 @@ class AuthDialog extends Component {
     }
 
     responseFacebook = (response) => {
-        console.log(response)
-        const {t} = this.props;
+
         this.setState({
             show: true
         })
@@ -317,7 +316,7 @@ class AuthDialog extends Component {
                 show: false,
                 snakbarOpen: true,
                 variant: "error",
-                message: t('errorLogin')
+                message:"error"
             })
         });
     }
