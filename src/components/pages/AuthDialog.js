@@ -309,9 +309,7 @@ class AuthDialog extends Component {
         })
     }
 
-    responseFacebook = (response) => (e) => {
-
-        e.preventDefault();
+    responseFacebook = (response) => {
         console.log(response)
         const {t} = this.props;
         this.setState({
