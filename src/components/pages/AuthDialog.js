@@ -315,36 +315,32 @@ class AuthDialog extends Component {
         this.setState({
             show: true
         })
-        // axios.post("user/facebook-login", {
-        //     accessToken: response.accessToken,
-        //     email: response.email,
-        //     name: response.name,
-        //     picture: response.picture,
-        //     userID: response.userID,
-        // }).then(res => {
-        //     if (res.status === 200) {
-        //         localStorage.setItem('token', res.data.access_token);
-        //         this.props.setIsAuth(false);
-        //         this.props.setUserData({
-        //             full_name: res.data.full_name,
-        //             token: res.data.access_token,
-        //             img_user: res.data.img_user
-        //         });
-        //         this.props.seTisAuthenticated(true);
-        //
-        //     }
-        //     this.setState({
-        //         show: false
-        //     })
-        // }).catch(error => {
-        //     console.log(error)
-        //     this.setState({
-        //         show: false,
-        //         snakbarOpen: true,
-        //         variant: "error",
-        //         message: t('errorLogin')
-        //     })
-        // });
+        axios.post("/account/facebook", {
+            accessToken: response.accessToken,
+            email: response.email,
+            name: response.name,
+            picture: response.picture,
+            userID: response.userID,
+        }).then(res => {
+            if (res.status === 200) {
+                localStorage.setItem('token', res.data.access_token);
+                this.props.setIsAuth(false);
+                this.props.seTisAuthenticated(true);
+                this.props.setUserData(res.data)
+
+            }
+            this.setState({
+                show: false
+            })
+        }).catch(error => {
+            console.log(error)
+            this.setState({
+                show: false,
+                snakbarOpen: true,
+                variant: "error",
+                message: t('errorLogin')
+            })
+        });
     }
 
     vkAuth = () =>{
@@ -554,40 +550,40 @@ class AuthDialog extends Component {
                                                 icon={true}
 
                                             />
-                                            {/*<VkAuth apiId="7149957" callback={this.handleVkResponse}*/}
-                                            {/*        style={{*/}
-                                            {/*    backgroundColor: 'Transparent',*/}
-                                            {/*    backgroundRepeat: 'no-repeat',*/}
-                                            {/*    border: 'none',*/}
-                                            {/*    cursor: 'pointer',*/}
-                                            {/*    overflow: 'hidden',*/}
-                                            {/*    outline: 'none',*/}
-                                            {/*    padding: 0*/}
-                                            {/*}}>*/}
+                                            <VkAuth apiId="7149957" callback={this.handleVkResponse}
+                                                    style={{
+                                                backgroundColor: 'Transparent',
+                                                backgroundRepeat: 'no-repeat',
+                                                border: 'none',
+                                                cursor: 'pointer',
+                                                overflow: 'hidden',
+                                                outline: 'none',
+                                                padding: 0
+                                            }}>
 
-                                            {/*    <IconButton classes={{root: classes.iconBtn}}>*/}
-                                            {/*        <SvgIcon viewBox="0 0 40.196 40.196"*/}
-                                            {/*                 classes={{root: classes.svgRootIcon}}>*/}
-                                            {/*            <defs>*/}
-                                            {/*                <clipPath id="clip-path-wk">*/}
-                                            {/*                    <rect width="40.196" height="40.196" fill="none"/>*/}
-                                            {/*                </clipPath>*/}
-                                            {/*            </defs>*/}
-                                            {/*            <g id="Component_13_1" data-name="Component 13 – 1"*/}
-                                            {/*               transform="translate(0 0)" clip-path="url(#clip-path-wk)">*/}
-                                            {/*                <g id="XMLID_11_" clip-path="url(#clip-path)">*/}
-                                            {/*                    <path id="XMLID_11_2" data-name="XMLID_11_"*/}
-                                            {/*                          d="M20.1,0A20.1,20.1,0,1,1,0,20.1,20.1,20.1,0,0,1,20.1,0Z"*/}
-                                            {/*                          fill="#4d76a1"/>*/}
-                                            {/*                </g>*/}
-                                            {/*                <path id="Path_1226" data-name="Path 1226"*/}
-                                            {/*                      d="M30.851,53.848h1.577a1.331,1.331,0,0,0,.72-.315,1.154,1.154,0,0,0,.217-.693s-.031-2.117.952-2.428,2.212,2.046,3.53,2.95A2.5,2.5,0,0,0,39.6,53.9l3.524-.049s1.844-.114.969-1.563a11.777,11.777,0,0,0-2.62-3.032c-2.21-2.051-1.914-1.719.748-5.267,1.621-2.161,2.269-3.48,2.067-4.045-.193-.538-1.385-.4-1.385-.4l-3.968.025a.9.9,0,0,0-.512.09,1.112,1.112,0,0,0-.35.426,22.976,22.976,0,0,1-1.466,3.094c-1.767,3-2.473,3.159-2.762,2.973-.672-.434-.5-1.744-.5-2.675,0-2.908.441-4.12-.859-4.434a6.776,6.776,0,0,0-1.852-.184,8.553,8.553,0,0,0-3.293.337c-.451.221-.8.714-.588.742a1.781,1.781,0,0,1,1.171.589,3.829,3.829,0,0,1,.392,1.8s.234,3.423-.546,3.848c-.535.292-1.269-.3-2.844-3.026a25.3,25.3,0,0,1-1.417-2.936,1.179,1.179,0,0,0-.327-.442,1.644,1.644,0,0,0-.61-.246l-3.771.025s-.566.016-.774.262c-.185.219-.015.672-.015.672s2.952,6.907,6.295,10.387a9.054,9.054,0,0,0,6.546,2.981Z"*/}
-                                            {/*                      transform="translate(-11.512 -24.935)" fill="#fff"*/}
-                                            {/*                      fill-rule="evenodd"/>*/}
-                                            {/*            </g>*/}
-                                            {/*        </SvgIcon>*/}
-                                            {/*    </IconButton>*/}
-                                            {/*</VkAuth>*/}
+                                                <IconButton classes={{root: classes.iconBtn}}>
+                                                    <SvgIcon viewBox="0 0 40.196 40.196"
+                                                             classes={{root: classes.svgRootIcon}}>
+                                                        <defs>
+                                                            <clipPath id="clip-path-wk">
+                                                                <rect width="40.196" height="40.196" fill="none"/>
+                                                            </clipPath>
+                                                        </defs>
+                                                        <g id="Component_13_1" data-name="Component 13 – 1"
+                                                           transform="translate(0 0)" clip-path="url(#clip-path-wk)">
+                                                            <g id="XMLID_11_" clip-path="url(#clip-path)">
+                                                                <path id="XMLID_11_2" data-name="XMLID_11_"
+                                                                      d="M20.1,0A20.1,20.1,0,1,1,0,20.1,20.1,20.1,0,0,1,20.1,0Z"
+                                                                      fill="#4d76a1"/>
+                                                            </g>
+                                                            <path id="Path_1226" data-name="Path 1226"
+                                                                  d="M30.851,53.848h1.577a1.331,1.331,0,0,0,.72-.315,1.154,1.154,0,0,0,.217-.693s-.031-2.117.952-2.428,2.212,2.046,3.53,2.95A2.5,2.5,0,0,0,39.6,53.9l3.524-.049s1.844-.114.969-1.563a11.777,11.777,0,0,0-2.62-3.032c-2.21-2.051-1.914-1.719.748-5.267,1.621-2.161,2.269-3.48,2.067-4.045-.193-.538-1.385-.4-1.385-.4l-3.968.025a.9.9,0,0,0-.512.09,1.112,1.112,0,0,0-.35.426,22.976,22.976,0,0,1-1.466,3.094c-1.767,3-2.473,3.159-2.762,2.973-.672-.434-.5-1.744-.5-2.675,0-2.908.441-4.12-.859-4.434a6.776,6.776,0,0,0-1.852-.184,8.553,8.553,0,0,0-3.293.337c-.451.221-.8.714-.588.742a1.781,1.781,0,0,1,1.171.589,3.829,3.829,0,0,1,.392,1.8s.234,3.423-.546,3.848c-.535.292-1.269-.3-2.844-3.026a25.3,25.3,0,0,1-1.417-2.936,1.179,1.179,0,0,0-.327-.442,1.644,1.644,0,0,0-.61-.246l-3.771.025s-.566.016-.774.262c-.185.219-.015.672-.015.672s2.952,6.907,6.295,10.387a9.054,9.054,0,0,0,6.546,2.981Z"
+                                                                  transform="translate(-11.512 -24.935)" fill="#fff"
+                                                                  fill-rule="evenodd"/>
+                                                        </g>
+                                                    </SvgIcon>
+                                                </IconButton>
+                                            </VkAuth>
 
 
                                         </div>
