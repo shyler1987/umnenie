@@ -8,6 +8,7 @@ import 'react-loading-bar/dist/index.css'
 import TextField from '@material-ui/core/TextField';
 import {Link} from "react-router-dom";
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import {withRouter} from "react-router-dom";
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -153,9 +154,7 @@ class AuthDialog extends Component {
     }
     componentDidMount() {
         // eslint-disable-next-line no-unused-expressions
-        document.getElementById('vk-sdk') ? this.sdkLoaded(): null;
-        this.asyncInit();
-        this.loadSdkAsync();
+
     }
 
     handleClose = () => {
@@ -168,59 +167,44 @@ class AuthDialog extends Component {
         });
     }
 
-    vkLogin = (secret_key, mid) => {
-        console.log(secret_key, mid)
-        axios.post("/account/vk-login", {secret_key: secret_key, mid: mid}).then(res => {
-            console.log(res)
+    vkLogin = (session) => {
+        this.setState({
+            show: true
+        })
+        let data = {};
+        Object.keys(session).map(key=>{
+            data[key]=session[key];
+        })
+        axios.post("/account/vk-login", data).then(res => {
+            if (res.status === 200) {
+                localStorage.setItem('token', res.data.access_token);
+                this.props.setIsAuth(false);
+                this.props.seTisAuthenticated(true);
+                this.props.setUserData(res.data)
+            }
+            this.setState({
+                show: false
+            })
+        }).catch(err=>{
+            this.setState({
+                show: false
+            })
         })
     }
 
-
-    // customClick = () =>{
-    //     VK.Auth.login(function(response) {
-    //        console.log(response);
-    //     });
-    // }
-
-    asyncInit() {
-        const  apiId  = 7149957;
-        window.vkAsyncInit = () => {
-            window.VK.init({ apiId });
-            this.setState({ isLoaded: true });
-        };
-    }
-
-    sdkLoaded() {
-        this.setState({ isLoaded: true });
-    }
-
-    loadSdkAsync() {
-        const el = document.createElement('script');
-        el.type = 'text/javascript';
-        el.src = 'https://vk.com/js/api/openapi.js?';
-        el.async = true;
-        el.id = 'vk-sdk';
-        document.getElementsByTagName('head')[0].appendChild(el);
-    }
-    checkLoginState = (response) => {
-        this.setState({ isProcessing: false });
-        // console.log(window.VK.users.get())
-       console.log(response)
-    };
-
-    handleClick = () => {
-        if (!this.state.isLoaded || this.state.isProcessing || this.props.disabled) {
-            return;
-        }
-        this.setState({ isProcessing: true });
-        window.VK.Auth.login(this.checkLoginState);
-    };
     handleVkResponse = (res) => {
-        console.log(res);
-        if (res.session !== null) {
-            // md5("mriDHRK8z5J8bIz5hv93" + res.session.mid)
-            this.vkLogin('mriDHRK8z5J8bIz5hv93', res.session.mid)
+
+        if (res.status === "connected") {
+            this.vkLogin( res.session)
         }
+        if (res.status === "not_authorized") {
+
+        }
+
+        if (res.status === "unknown") {
+
+        }
+
     }
 
 
@@ -258,15 +242,11 @@ class AuthDialog extends Component {
             });
 
     }
-    responseVk = (response) => {
-        console.log(response);
-    }
-    responseGoogle = (response) => {
 
+    responseGoogle = (response) => {
         this.setState({
             show: true
         })
-        console.log(response)
         if(response.Zi===undefined) {  this.setState({
             show: false
         }); return;}
@@ -327,7 +307,6 @@ class AuthDialog extends Component {
                 this.props.setIsAuth(false);
                 this.props.seTisAuthenticated(true);
                 this.props.setUserData(res.data)
-
             }
             this.setState({
                 show: false
@@ -341,16 +320,6 @@ class AuthDialog extends Component {
                 message: t('errorLogin')
             })
         });
-    }
-
-    vkAuth = () =>{
-        let ddd= window.open(
-            "http://oauth.vk.com/authorize?client_id=7149957&redirect_uri=https://localhost:3000/vk-auth&response_type=code",
-            'example', 'width=0,height=0'
-        )
-        console.log(ddd.location);
-
-
     }
 
 
@@ -407,7 +376,6 @@ class AuthDialog extends Component {
                             alignItems="flex-start"
                         >
                             <Grid item md={12} xs={12} sm={12}>
-                                <Button onClick={this.handleClick}>TEST</Button>
                                 <ValidatorForm fullWidth onSubmit={this.checkAuth}>
                                     <TextValidator
                                         validators={['required']}
@@ -617,4 +585,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, mapDispatch)(withStyles(styles)(AuthDialog));
+export default connect(mapStateToProps, mapDispatch)(withStyles(styles)(withRouter(AuthDialog)));
