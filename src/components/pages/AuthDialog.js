@@ -204,7 +204,7 @@ class AuthDialog extends Component {
     }
     checkLoginState = (response) => {
         this.setState({ isProcessing: false });
-        console.log(window.VK.users.get())
+        // console.log(window.VK.users.get())
        console.log(response)
     };
 
@@ -310,7 +310,9 @@ class AuthDialog extends Component {
     }
 
     responseFacebook = (response) => (e) => {
+
         e.preventDefault();
+        console.log(response)
         const {t} = this.props;
         this.setState({
             show: true
@@ -411,7 +413,7 @@ class AuthDialog extends Component {
                             alignItems="flex-start"
                         >
                             <Grid item md={12} xs={12} sm={12}>
-                                <Button onClick={this.vkAuth}>TEST</Button>
+                                <Button onClick={this.handleClick}>TEST</Button>
                                 <ValidatorForm fullWidth onSubmit={this.checkAuth}>
                                     <TextValidator
                                         validators={['required']}
