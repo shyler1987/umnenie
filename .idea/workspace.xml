@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="3013fece-6add-4506-8dd7-e5be49d79bf2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/AuthDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/AuthDialog.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tools/FloatActionButtun.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/FloatActionButtun.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tools/LeftMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/LeftMenu.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -177,7 +179,7 @@
       <workItem from="1569682480664" duration="10069000" />
       <workItem from="1569728744718" duration="599000" />
       <workItem from="1569759966473" duration="15156000" />
-      <workItem from="1569823474161" duration="12292000" />
+      <workItem from="1569823474161" duration="12739000" />
     </task>
     <servers />
   </component>

@@ -251,7 +251,7 @@ class LeftMenu extends Component {
                         </ListItem>
                     </Paper>
                     <Paper className={classes.papeRoot}>
-                        <ListItem button component={NavLink} to={"/polls/create"} classes={{root: classes.ListItemRoot}}
+                        <ListItem button component={NavLink} to={"/poll/create"} classes={{root: classes.ListItemRoot}}
                                   activeClassName={classes.ListItemRootActive}>
                             <ListItemText
                                 classes={{primary: classes.itemTitle}}

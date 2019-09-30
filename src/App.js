@@ -168,10 +168,12 @@ const routesGuest = [
 const routes = [
     {url: '/search/:search', component: Dash, layout: 'dashboard'},
     {url: '/license', component: License, layout: 'dashboard'},
-    {url: '/polls/edit/:id', component: PollCreate, layout: 'dashboard'},
     {url: '/polls/:username/:id', component: PollView, layout: 'dashboard'},
+    {url: '/poll/create', component: PollCreate, layout: 'dashboard'},
+    {url: '/polls/edit/:id', component: PollCreate, layout: 'dashboard'},
+
     {url: '/statis/:id', component: StatisPage, layout: 'dashboard'},
-    {url: '/polls/create', component: PollCreate, layout: 'dashboard'},
+
     {url: '/polls/:id', component: PollView, layout: 'dashboard'},
     {url: '/account/profile', component: Profile, layout: 'Profile'},
 

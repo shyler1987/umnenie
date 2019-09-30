@@ -28,7 +28,7 @@ class FloatActionButtun extends Component{
 
 
     onRouteChange = () =>{
-        this.props.history.push('/polls/create');
+        this.props.history.push('/poll/create');
     }
 
     render() {
