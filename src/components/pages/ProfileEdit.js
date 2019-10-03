@@ -8,7 +8,6 @@ import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
 import {Link} from "react-router-dom";
 import InputAdornment from '@material-ui/core/InputAdornment';
-import EditIcon from '@material-ui/icons/Edit'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -25,6 +24,8 @@ import {
     KeyboardTimePicker,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
+import moment from 'moment'
+import DateFnsUtils from '@date-io/date-fns';
 import {bindActionCreators} from "redux";
 import setTitle from "../../redux/actions/setTitleAction";
 import {connect} from "react-redux";
@@ -249,6 +250,7 @@ class ProfileEdit extends Component {
             spetsializatsiya: [],
             category: [],
             selectedKategoriya: [],
+            birthday: new Date(),
         };
 
 
@@ -260,6 +262,12 @@ class ProfileEdit extends Component {
 
     handleChange = (event) => {
         this.setState({category_id: event.target.value});
+    }
+
+    handleChangeDate = (e) => {
+        this.setState({
+            birthday:moment(e).format('MM-DD-YYYY')
+        })
     }
 
     handleChangeField = (e) => {
@@ -630,6 +638,24 @@ class ProfileEdit extends Component {
                                                 </FormControl>
                                             </Grid>
                                             <Grid item md={6} sm={12} xs={12} className={classes.noPadding}>
+                                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                                    <KeyboardDatePicker
+                                                        disableToolbar
+                                                        variant="inline"
+                                                        format="MM/dd/yyyy"
+                                                        margin="dense"
+                                                        id="date-picker-inline"
+                                                        inputVariant="outlined"
+                                                        fullWidth
+                                                        onChange={this.handleChangeDate}
+                                                        value={this.state.birthday}
+                                                        name={"birthday"}
+
+                                                        KeyboardButtonProps={{
+                                                            'aria-label': 'change date',
+                                                        }}
+                                                    />
+                                                </MuiPickersUtilsProvider>
                                                 <TextField
                                                     name={"birthday"}
                                                     type="date"

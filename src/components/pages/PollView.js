@@ -33,7 +33,6 @@ import {Swipeable} from 'react-swipeable'
 import TextField from "@material-ui/core/TextField";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import setIsAuth from "../../redux/actions/setIsAuth";
 import setTitle from "../../redux/actions/setTitleAction";
 
 const styles = theme => ({

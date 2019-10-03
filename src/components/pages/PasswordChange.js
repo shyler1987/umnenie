@@ -6,19 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
-import {Link} from "react-router-dom";
-
-import selenaAvatar from '../../media/selenaAvatar.jpg';
-import Avatar from '@material-ui/core/Avatar';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import EditIcon from '@material-ui/icons/Edit'
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 import CloseIcon from '@material-ui/icons/Close';

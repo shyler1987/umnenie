@@ -1,14 +1,8 @@
 import React, {Component} from 'react';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
-import axios from 'axios';
-import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
-import AddIcon from '@material-ui/icons/Add';
-import { green } from '@material-ui/core/colors';
-import Fab from '@material-ui/core/Fab';
 import FloatActionButtun from "../tools/FloatActionButtun";
 
 const styles = theme => ({
