@@ -1,6 +1,7 @@
 const initData = {
-    isAuth:false,
-    isAuthenticated:localStorage.getItem('token')!==null ? true : false,
+    title: "UMNENIE",
+    isAuth: false,
+    isAuthenticated: localStorage.getItem('token') !== null ? true : false,
     user: {
         userFIO: null,
         userName: null,
@@ -11,12 +12,14 @@ const initData = {
     },
 };
 
-export default function mainReducer(state=initData, action) {
+export default function mainReducer(state = initData, action) {
     switch (action.type) {
         case "IN_AUTH" :
-            return {...state, isAuth:action.payload};
+            return {...state, isAuth: action.payload};
+        case "TITLE" :
+            return {...state, title: action.payload};
         case "IS_AUTHENTICATED" :
-            return {...state, isAuthenticated:action.payload};
+            return {...state, isAuthenticated: action.payload};
         case "USER_DATA" :
             return {
                 ...state, user: {
@@ -34,5 +37,5 @@ export default function mainReducer(state=initData, action) {
         default :
             return state;
     }
-    
+
 }

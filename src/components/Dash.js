@@ -9,6 +9,9 @@ import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
 import FloatActionButtun from "./tools/FloatActionButtun";
 import InfiniteScroll from 'react-infinite-scroll-component';
+import {bindActionCreators} from "redux";
+import setTitle from "../redux/actions/setTitleAction";
+import {connect} from "react-redux";
 
 
 const styles = theme => ({
@@ -87,10 +90,13 @@ class Dash extends Component {
         componentDidMount() {
             if(this.props.match.params.search!==undefined){
                 this.setState({polls:[]})
+                this.props.setTitle("Поиск опросов");
                 this.fetchDataPollsScroll(API_POLLS_SEARCH+this.props.match.params.search);
                 return;
             }
             this.fetchDataPollsScroll(API_POLLS);
+            this.props.setTitle("Главная");
+
         }
 
         componentWillReceiveProps(nextProps, nextContext) {
@@ -163,6 +169,7 @@ class Dash extends Component {
                                         propsCard={this.props.match.params}
                                         idPoll={item.pollId}
                                         imagePoll={item.pollImage}
+                                        pollLikeCount={item.pollLikeCount}
                                         pollAnswerCount={item.pollAnswerCount}
                                         fullName={item.userFIO}
                                         username={item.userName}
@@ -194,5 +201,13 @@ class Dash extends Component {
     }
 
 }
+function mapDispatch(dispatch) {
+    return bindActionCreators({setTitle}, dispatch);
+}
 
-export default withStyles(styles)(Dash);
+function mapStateToProps(state) {
+    return {
+    };
+
+}
+export default connect(mapStateToProps, mapDispatch)(withStyles(styles)(Dash));

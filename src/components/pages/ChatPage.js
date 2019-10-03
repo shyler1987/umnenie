@@ -15,6 +15,9 @@ import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import setTitle from "../../redux/actions/setTitleAction";
 
 const styles = theme => ({
         root: {
@@ -129,6 +132,8 @@ class ChatPage extends Component {
             this.showLoadingBar(false);
             console.log(err);
         })
+        this.props.setTitle("Чат");
+
     }
 
     getChats = (profile_id) => {
@@ -210,5 +215,14 @@ class ChatPage extends Component {
     }
 
 }
+function mapDispatch(dispatch) {
+    return bindActionCreators({setTitle}, dispatch);
+}
 
-export default withStyles(styles)(ChatPage);
+function mapStateToProps(state) {
+    return {
+    };
+
+}
+
+export default connect(mapStateToProps, mapDispatch)(withStyles(styles)(ChatPage));

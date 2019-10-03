@@ -24,6 +24,9 @@ import Snackbar from '@material-ui/core/Snackbar';
 import CloseIcon from '@material-ui/icons/Close';
 import LeftMenu from '../tools/LeftMenu';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import {bindActionCreators} from "redux";
+import setTitle from "../../redux/actions/setTitleAction";
+import {connect} from "react-redux";
 
 const styles = theme => ({
     root: {
@@ -214,6 +217,10 @@ class PasswordChange extends Component {
         })
     }
 
+    componentDidMount() {
+        this.props.setTitle("Сменить пароль");
+
+    }
 
     render() {
         const {classes} = this.props;
@@ -326,4 +333,16 @@ class PasswordChange extends Component {
 
 }
 
-export default withStyles(styles)(PasswordChange);
+function mapDispatch(dispatch) {
+    return bindActionCreators({setTitle}, dispatch);
+}
+
+function mapStateToProps(state) {
+    return {
+    };
+
+}
+
+
+
+export default  connect(mapStateToProps, mapDispatch)(withStyles(styles)(PasswordChange));

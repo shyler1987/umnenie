@@ -25,6 +25,9 @@ import {
     KeyboardTimePicker,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
+import {bindActionCreators} from "redux";
+import setTitle from "../../redux/actions/setTitleAction";
+import {connect} from "react-redux";
 
 const styles = theme => ({
     root: {
@@ -287,60 +290,6 @@ class ProfileEdit extends Component {
             this.loadingBar(false)
         })
     }
-    /*
-    userId	2
-userFIO	Beshimov Nodir
-userName	nodir
-userImage	http://umnenie.foundrising.uz/uploads/user/foto/2_1569130464.jpg
-userBackground	http://umnenie.foundrising.uz/uploads/user/logo/2_1569128849.jpg
-userType	1
-userTypeName	Физическое лицо
-userRegistryDate	08.08.2019
-userComments	man bu dastur orqali ozimni vaqtimni tejash niyatim bor
-userGender	Мужской
-social_networks	{…}
-facebook	facebook.com
-telegram	telegram.org
-twitter	twitter.com
-site	nodir.uz
-email	nodir@gmail.com
-category_id	1,2
-categoryNames	Sport,Musiqa,
-phone	+998 97 726-33-66
-address	Tashkent
-specialization_id	1,2
-specializationNames	Dasturlash,Tibbiyot,
-verified	0
-profi_status	1
-birthday	21.07.2011
-mobile_phone
-expire_at	1569309343
-access_token	YFyIVuZGUkgY3YlQPPWbhy_I_WFFmD-2
-subscriptionCount	1
-subscribersCount	2
-    * */
-
-    /**
-     *
-     * {"JSON":{"userId":4,"userFIO":"Samad TextTile","userName":"sanjar",
-     * "userImage":"http://umnenie.foundrising.uz/img/no_user.jpg",
-     * "userBackground":"http://umnenie.foundrising.uz/uploads/user/logo/4.jpg",
-     * "userType":2,"userTypeName":"Юридическое лицо",
-     * "userRegistryDate":"08.08.2019",
-     * "userComments":"Davronbek zor bola","userGender":"Женский",
-     * "social_networks":{"site":"sanjar.uz"},"facebook":"","telegram":"","twitter":""
-     * ,"site":"sanjar.uz","org_name":"Samad TextTile",
-     * "factual_address":"Toshkent viloyati, Zangiota tumani",
-     * "mobile_phone":"+998 71 124-59-68",
-     * "email":"sanjar@gmail.com",
-     * "category_id":null,"categoryNames":"","phone":"+998 91 656-96-56","address":"Jizzax",
-     * "specialization_id":null,"specializationNames":"","verified":0,
-     * "profi_status":0,"birthday":"08.08.1970","expire_at":1569324434,
-     * "access_token":"s28FieASo2XmGBHWKthVBhG2ZtkDgaBC"
-     * ,"subscriptionCount":0,"subscribersCount":0},"Response payload":{"EDITOR_CONFIG":{"text":"{\"userId\":4,\"userFIO\":\"Samad TextTile\",\"userName\":\"sanjar\",\"userImage\":\"http://umnenie.foundrising.uz/img/no_user.jpg\",\"userBackground\":\"http://umnenie.foundrising.uz/uploads/user/logo/4.jpg\",\"userType\":2,\"userTypeName\":\"Юридическое лицо\",\"userRegistryDate\":\"08.08.2019\",\"userComments\":\"Davronbek zor bola\",\"userGender\":\"Женский\",\"social_networks\":{\"site\":\"sanjar.uz\"},\"facebook\":\"\",\"telegram\":\"\",\"twitter\":\"\",\"site\":\"sanjar.uz\",\"org_name\":\"Samad TextTile\",\"factual_address\":\"Toshkent viloyati, Zangiota tumani\",\"mobile_phone\":\"+998 71 124-59-68\",\"email\":\"sanjar@gmail.com\",\"category_id\":null,\"categoryNames\":\"\",\"phone\":\"+998 91 656-96-56\",\"address\":\"Jizzax\",\"specialization_id\":null,\"specializationNames\":\"\",\"verified\":0,\"profi_status\":0,\"birthday\":\"08.08.1970\",\"expire_at\":1569324434,\"access_token\":\"s28FieASo2XmGBHWKthVBhG2ZtkDgaBC\",\"subscriptionCount\":0,\"subscribersCount\":0}","mode":"application/json"}}}
-     *
-     *
-     * */
 
     editUser = () => {
         let userData = {
@@ -432,6 +381,7 @@ subscribersCount	2
         this.getSpecial();
         this.getCoategorys();
         this.fetchMe();
+        this.props.setTitle("Редактировать профиль");
     }
 
     onSubmitForm = () => {
@@ -982,4 +932,15 @@ subscribersCount	2
 
 }
 
-export default withStyles(styles)(withRouter(ProfileEdit));
+
+function mapDispatch(dispatch) {
+    return bindActionCreators({setTitle}, dispatch);
+}
+
+function mapStateToProps(state) {
+    return {
+    };
+
+}
+
+export default connect(mapStateToProps, mapDispatch)(withStyles(styles)(withRouter(ProfileEdit)));

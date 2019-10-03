@@ -31,6 +31,10 @@ import Snackbar from '@material-ui/core/Snackbar';
 
 import {Swipeable} from 'react-swipeable'
 import TextField from "@material-ui/core/TextField";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import setIsAuth from "../../redux/actions/setIsAuth";
+import setTitle from "../../redux/actions/setTitleAction";
 
 const styles = theme => ({
     root: {
@@ -189,6 +193,8 @@ class PollView extends Component {
 
     componentDidMount() {
         this.fetchPoll(this.state.idPoll);
+        this.props.setTitle("Просмотр опроса");
+
     }
 
     nextPollGet = () => {
@@ -526,7 +532,7 @@ class PollView extends Component {
                                     <br/>
                                     <br/>
                                     <br/>
-                                    <Grid
+                                    {this.props.isAuthenticated && <Grid
                                         container
                                         justify={"center"}
                                         alignItems={"stretch"}
@@ -649,7 +655,8 @@ class PollView extends Component {
                                             </Paper>
                                         </Grid>
 
-                                    </Grid>
+                                    </Grid>}
+
 
 
                                 </Paper>
@@ -668,4 +675,16 @@ class PollView extends Component {
 
 }
 
-export default withStyles(styles)(withRouter(PollView));
+function mapDispatch(dispatch) {
+    return bindActionCreators({setTitle}, dispatch);
+}
+function mapStateToProps(state) {
+    return {
+        isAuthenticated: state.mainData.isAuthenticated,
+        user: state.mainData.user,
+    }
+}
+
+
+
+export default connect(mapStateToProps, mapDispatch)(withStyles(styles)(withRouter(PollView)));

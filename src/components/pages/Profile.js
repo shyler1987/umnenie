@@ -12,6 +12,9 @@ import PollCard from '../tools/PollCard'
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import ProfileHeadCover from "../tools/ProfileHeadCover";
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import {bindActionCreators} from "redux";
+import setTitle from "../../redux/actions/setTitleAction";
+import {connect} from "react-redux";
 
 const styles = theme => ({
     root: {
@@ -275,6 +278,8 @@ class Profile extends Component {
                     userRegistryDate: res.data.userRegistryDate,
                     userType: res.data.userType,
                 })
+                this.props.setTitle(res.data.userFIO);
+
             }
 
         }).catch(err => {
@@ -394,4 +399,16 @@ class Profile extends Component {
 
 }
 
-export default withStyles(styles)(Profile);
+function mapDispatch(dispatch) {
+    return bindActionCreators({setTitle}, dispatch);
+}
+
+function mapStateToProps(state) {
+    return {
+    };
+
+}
+
+
+
+export default  connect(mapStateToProps, mapDispatch)(withStyles(styles)(Profile));

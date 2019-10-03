@@ -179,10 +179,11 @@ const routes = [
 
     {url: '/account/followers', component: ProfileFollower, layout: 'Profile'},
     {url: '/account/following', component: ProfileFollower, layout: 'Profile'},
+
     {url: '/account/profile-edit', component: ProfileEdit, layout: 'dashboard'},
     {url: '/account/passchange', component: PasswordChange, layout: 'dashboard'},
     {url: '/profile/:username/followers', component: UserFollowers, layout: 'Profile'},
-    {url: '/profile/:username/following', component: UserFollowers, layout: 'Profile'},
+    {url: '/profile/:username/following'    , component: UserFollowing, layout: 'Profile'},
     {url: '/profile/:username', component: ProfileUser, layout: 'Profile'},
     {url: '/account/recovery', component: RecoveryPassword, layout: 'dashboard'},
     {url: '/chat', component: ChatPage, layout: 'dashboard'},
@@ -193,6 +194,7 @@ const routes = [
 class App extends Component {
     constructor(props) {
         super(props);
+        document.title = this.props.title;
     }
 
     componentDidMount() {
@@ -210,6 +212,7 @@ class App extends Component {
     }
 
     componentWillMount() {
+
         axios.defaults.baseURL = "https://api.foundrising.uz/v1/";
         axios.interceptors.request.use(function (config) {
             if (localStorage.getItem('token') !== null) {
@@ -235,6 +238,11 @@ class App extends Component {
             return Promise.reject(error);
         });
 
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevProps.title!== this.props.title){
+            document.title =this.props.title
+        }
     }
 
     render() {
@@ -287,7 +295,8 @@ class App extends Component {
 function mapStateToProps(state) {
     return {
         isAuthenticated: state.mainData.isAuthenticated,
-        user: state.mainData.user
+        user: state.mainData.user,
+        title: state.mainData.title,
     }
 }
 

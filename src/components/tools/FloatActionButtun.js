@@ -3,6 +3,9 @@ import Fab from '@material-ui/core/Fab';
 import React, {Component} from 'react';
 import {withStyles} from '@material-ui/styles';
 import { withRouter } from "react-router";
+import {bindActionCreators} from "redux";
+import setIsAuth from "../../redux/actions/setIsAuth";
+import {connect} from "react-redux";
 
 const styles = theme => ({
     fab:{
@@ -28,7 +31,11 @@ class FloatActionButtun extends Component{
 
 
     onRouteChange = () =>{
-        this.props.history.push('/poll/create');
+        if(this.props.isAuthenticated){
+            this.props.history.push('/poll/create');
+        }else{
+            this.props.setIsAuth(true);
+        }
     }
 
     render() {
@@ -44,4 +51,17 @@ class FloatActionButtun extends Component{
 
 }
 
-export  default withStyles(styles)( withRouter(FloatActionButtun));
+
+function mapStateToProps(state) {
+    return {
+        isAuthenticated: state.mainData.isAuthenticated,
+        user: state.mainData.user,
+    }
+}
+
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({setIsAuth}, dispatch)
+}
+
+
+export  default connect(mapStateToProps, matchDispatchToProps)(withStyles(styles)( withRouter(FloatActionButtun)));

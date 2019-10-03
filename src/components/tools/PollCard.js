@@ -338,6 +338,7 @@ class PollCard extends Component {
             clickOtvet,
             disableClickCard,
             propsCard,
+            pollLikeCount,
             disableCard
 
         } = nextProps;
@@ -350,6 +351,7 @@ class PollCard extends Component {
             pollType: pollType,
             propsCard: propsCard,
             imagePoll: imagePoll,
+            pollLikeCount: pollLikeCount,
             idPoll: idPoll,
             pollItems: pollItems,
             iconStatis: iconStatis === null ? false : iconStatis,
@@ -931,7 +933,8 @@ class PollCard extends Component {
                                 </SvgIcon>
 
                             </IconButton> : ""}
-                        {this.state.iconShare ? <IconButton
+                        {this.state.iconShare ?
+                            <IconButton
                             aria-haspopup="true"
                             color="inherit"
                             onClick={() => {
@@ -963,7 +966,8 @@ class PollCard extends Component {
                                 </g>
                             </SvgIcon>
                         </IconButton> : ""}
-                        {this.state.iconAnonced ? <IconButton
+                        {this.props.isAuthenticated && this.state.iconAnonced &&
+                            <IconButton
                             aria-haspopup="true"
                             color="inherit"
                             onClick={() => {
@@ -987,7 +991,7 @@ class PollCard extends Component {
                                     </g>
                                 </g>
                             </g>
-                        </SvgIcon> </IconButton> : ""}
+                        </SvgIcon> </IconButton>}
                     </div>
                 </Grid>
                 <Grid item md={6} sm={6} xs={6}>

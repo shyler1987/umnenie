@@ -24,7 +24,9 @@ import Clear from '@material-ui/icons/Clear'
 import {withRouter} from "react-router-dom";
 import Snackbar from "@material-ui/core/Snackbar";
 import MySnackbarContentWrapper from "../tools/MySnackbarContentWrapper";
-
+import setTitle from '../../redux/actions/setTitleAction'
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
 
 const visiblity = [
     {id: 1, name: 'Виден всем'},
@@ -269,10 +271,10 @@ class PollCreate extends Component {
             user_id: null,
             type: null,
             category_id: [],
-            visibility: null,
-            term: null,
+            visibility: 1,
+            term: 4,
             status: null,
-            view_comment: null,
+            view_comment: 1,
             hashtags: null,
             publications: null,
             question: null,
@@ -390,8 +392,10 @@ class PollCreate extends Component {
     componentDidMount() {
         this.getCoategorys();
         this.setState({submitTxt: "Создать опрос"})
+        this.props.setTitle("Создать опрос");
         this.setState({submitTxtD: "Создать"})
         if (this.props.match.params.id !== undefined) {
+            this.props.setTitle("Редактировать опрос");
             this.setState({submitTxt: "Редактировать опрос"})
             this.setState({submitTxtD: "Сохранить"})
             axios.get("/profil/edit-poll-data?id=" + this.props.match.params.id).then(res => {
@@ -404,6 +408,7 @@ class PollCreate extends Component {
             })
 
         }
+
     }
 
 
@@ -607,7 +612,6 @@ class PollCreate extends Component {
                                                         Выберите категорию
                                                     </InputLabel> : ""}
                                                 <Select
-                                                    multiple
                                                     classes={{root: classes.muiSeelctRoot}}
                                                     classes={{root: this.state.category_id.length === 0 ? classes.muiSeelctRoot : classes.muiSelectRootL}}
                                                     value={this.state.category_id}
@@ -622,12 +626,9 @@ class PollCreate extends Component {
                                                                           id="outlined-kategory-select"/>}
                                                     renderValue={selected => {
                                                         if (this.state.category.length > 0) {
-                                                            let nn = [];
-                                                            selected.map(item => {
-                                                                nn.push(this.state.category.find(it => it.id == item).name);
-                                                            });
-                                                            return nn.join(", ");
+                                                            return this.state.category.find(it => it.id == selected).name
                                                         }
+                                                        return "";
                                                     }}
                                                     error={this.state.category_idError}
                                                     helperText={this.state.category_idErrorText}
@@ -1022,4 +1023,16 @@ class PollCreate extends Component {
 
 }
 
-export default withStyles(styles)(withRouter(PollCreate));
+function mapDispatch(dispatch) {
+    return bindActionCreators({setTitle}, dispatch);
+}
+
+function mapStateToProps(state) {
+    return {
+    };
+
+}
+
+
+
+export default  connect(mapStateToProps, mapDispatch)(withStyles(styles)(withRouter(PollCreate)));

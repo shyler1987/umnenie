@@ -17,6 +17,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ProfileHeadCoverUser from '../../tools/ProfileHeadCoverUser'
 import axios from "axios";
 import {Link} from "react-router-dom";
+import {bindActionCreators} from "redux";
+import setTitle from "../../../redux/actions/setTitleAction";
+import {connect} from "react-redux";
 
 
 const styles = theme => ({
@@ -182,6 +185,8 @@ class UserFollowers extends Component {
                     userRegistryDate: res.data.userRegistryDate,
                     userType: res.data.userType,
                 })
+                this.props.setTitle("Подписчиков -" + res.data.userFIO);
+
             }
 
         }).catch(err => {
@@ -243,4 +248,17 @@ class UserFollowers extends Component {
         );
     }
 }
-export default withStyles(styles)(UserFollowers);
+
+function mapDispatch(dispatch) {
+    return bindActionCreators({setTitle}, dispatch);
+}
+
+function mapStateToProps(state) {
+    return {
+    };
+
+}
+
+
+
+export default  connect(mapStateToProps, mapDispatch)(withStyles(styles)(UserFollowers));

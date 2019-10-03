@@ -15,6 +15,9 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import PropTypes from "prop-types";
 import MySnackbarContentWrapper from "../tools/MySnackbarContentWrapper";
 import Snackbar from "@material-ui/core/Snackbar";
+import {bindActionCreators} from "redux";
+import setTitle from "../../redux/actions/setTitleAction";
+import {connect} from "react-redux";
 
 const styles = theme => ({
     root: {
@@ -267,6 +270,7 @@ class ProfileUser extends Component {
                     userRegistryDate: res.data.userRegistryDate,
                     userType: res.data.userType,
                 })
+                this.props.setTitle(res.data.userFIO)
             }
 
         }).catch(err => {
@@ -388,4 +392,17 @@ class ProfileUser extends Component {
 
 }
 
-export default withStyles(styles)(ProfileUser);
+
+function mapDispatch(dispatch) {
+    return bindActionCreators({setTitle}, dispatch);
+}
+
+function mapStateToProps(state) {
+    return {
+    };
+
+}
+
+
+
+export default  connect(mapStateToProps, mapDispatch)(withStyles(styles)(ProfileUser));
