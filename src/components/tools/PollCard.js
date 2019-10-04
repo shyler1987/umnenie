@@ -29,7 +29,8 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import '../../media/style.css';
 import {CircularProgressbar} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import {QRCode} from "react-qr-svg";
+// import {QRCode} from "react-qr-svg";
+import { QRCode } from 'react-qrcode-logo';
 import check from '../../media/icons/check.svg'
 
 import {Progress} from 'react-sweet-progress';
@@ -1038,6 +1039,8 @@ class PollCard extends Component {
                     style={{width: '65%', margin: '0px 10px 0px'}}
                     value="some text"
                 />
+
+
             </Dialog>
             {cardContent}
         </React.Fragment>

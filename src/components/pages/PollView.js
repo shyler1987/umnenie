@@ -11,7 +11,8 @@ import 'react-loading-bar/dist/index.css'
 import Grid from '@material-ui/core/Grid';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import {QRCode} from "react-qr-svg";
+// import {QRCode} from "react-qr-svg";
+import { QRCode } from 'react-qrcode-logo';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../media/style.css';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
@@ -34,7 +35,7 @@ import TextField from "@material-ui/core/TextField";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import setTitle from "../../redux/actions/setTitleAction";
-
+import logoQr from '../../media/logo_q.png'
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -353,13 +354,18 @@ class PollView extends Component {
         </React.Fragment>;
         const QR_CODE = <React.Fragment>
             <DialogContent>
+                {/*<QRCode*/}
+                {/*    bgColor="#FFFFFF"*/}
+                {/*    fgColor="#000000"*/}
+                {/*    level="H"*/}
+                {/*    style={{ margin: '0px 10px 0px'}}*/}
+                {/*    value={"http://creators.uz"+this.props.match.url}*/}
+                {/*/>*/}
                 <QRCode
-                    bgColor="#FFFFFF"
-                    fgColor="#000000"
-                    level="H"
-                    style={{ margin: '0px 10px 0px'}}
-                    value={"http://creators.uz"+this.props.match.url}
-                />
+                    logoImage={logoQr}
+                    size={250}
+                    logoWidth={80}
+                    value={"https://creators.uz"+this.props.match.url} />
             </DialogContent>
         </React.Fragment>;
 
@@ -398,7 +404,7 @@ class PollView extends Component {
                 <Dialog
                     onClose={this.handleClose}
                     aria-labelledby="simple-dialog-title"
-                    fullWidth={true}
+
                     maxWidth={"xs"}
                     open={this.state.dialogopen}>
 

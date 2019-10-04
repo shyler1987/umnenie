@@ -186,6 +186,7 @@ class Dash extends Component {
                                         clickOtvet={false}
                                         disableClickCard={true}
                                         showLoading={this.showLoadingBar}
+                                        isVouted={item.isVouted}
                                     />
                                 );
                             })}
