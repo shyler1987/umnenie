@@ -563,10 +563,10 @@ class PollCard extends Component {
                 <Typography component="p" classes={{root: classes.cardContentText}}>
                     {this.state.contentPoll}
                 </Typography>
-                {this.state.pollType === 1 && this.state.answerText ?
+                {this.state.pollType === 1 &&
                     <Typography component="p" classes={{root: classes.cardContentAnswers}}>
                         Ответы {this.state.pollAnswerCount !== 0 ? "(" + this.state.pollAnswerCount + ")" : ""}
-                    </Typography> : ""}
+                    </Typography>}
 
             </CardContent>
             <CardMedia
