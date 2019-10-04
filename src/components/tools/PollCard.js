@@ -32,6 +32,7 @@ import 'react-circular-progressbar/dist/styles.css';
 // import {QRCode} from "react-qr-svg";
 import { QRCode } from 'react-qrcode-logo';
 import check from '../../media/icons/check.svg'
+import checkInLine from '../../media/icons/checkinline.svg'
 
 import {Progress} from 'react-sweet-progress';
 import "react-sweet-progress/lib/style.css";
@@ -620,12 +621,13 @@ class PollCard extends Component {
                                                                 },
 
                                                                 full: {
-                                                                    symbol: ' ',
+                                                                    symbol:  <img src={check} width={8}
+                                                                                  height={6.13}/>,
                                                                     trailColor: '#d6d6d6',
                                                                     color: '#fff'
                                                                 },
                                                             }}
-                                                            status={item.percent === 100 ? "full" : "default"}
+                                                            status={item.isVoutedMe === true ? "full" : "default"}
                                                         />
                                                     </div>
                                                 </Grid>
@@ -728,18 +730,27 @@ class PollCard extends Component {
                             return (<ListItem key={"ListItem" + Key} classes={{root: classes.rootItem}}
                                               onClick={this.clickItem(this.props.idPoll, itemOption.id)}>
                                 <ListItemIcon classes={{root: classes.ListItemIconRoot}}>
-                                    <CircularProgressbar
-                                        value={itemOption.percent}
-                                        text={``}
-                                        className={classes.CircularProgressbar}
+
+                                    <Progress
+                                        type="circle"
+                                        percent={itemOption.percent}
+                                        width={30}
                                         strokeWidth={10}
-                                        styles={
-                                            {
-                                                path: {
-                                                    stroke: `rgba(222, 98, 42, 100)`,
-                                                }
-                                            }
-                                        }
+                                        theme={{
+                                            default: {
+                                                symbol: ' ',
+                                                trailColor: '#d6d6d6',
+                                                color: '#e67043'
+                                            },
+
+                                            full: {
+                                                symbol:  <img src={checkInLine} width={8}
+                                                              height={6.13}/>,
+                                                trailColor: '#d6d6d6',
+                                                color: '#e67043'
+                                            },
+                                        }}
+                                        status={itemOption.isVoutedMe === true ? "full" : "default"}
                                     />
                                 </ListItemIcon>
                                 <ListItemText classes={{primary: classes.ListItemTextRoot}}
