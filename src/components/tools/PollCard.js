@@ -407,7 +407,8 @@ class PollCard extends Component {
         }).then(res => {
             if (res.status === 202) {
                 this.setState({
-                    pollItems: res.data
+                    pollItems: res.data.pollItems,
+                    isVouted: res.data.isVouted,
                 })
             }
             this.props.showLoading(false);
