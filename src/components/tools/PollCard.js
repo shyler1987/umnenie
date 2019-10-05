@@ -387,12 +387,9 @@ class PollCard extends Component {
 
     clickItem = (poll_id, item_id) => (e) => {
         e.preventDefault();
-        console.log(this.state.isVouted)
-
         if(this.props.clickOtvet===false){
             return;
         }
-
         if(this.state.isVouted){
             return;
         }
@@ -614,7 +611,7 @@ class PollCard extends Component {
                                             }}
 
                                         />
-                                        <div className={classes.cardBar}>
+                                        {this.state.isVouted && <div className={classes.cardBar}>
                                             <Grid container spacing={0}>
                                                 <Grid item xs={3} sm={3} xs={3}>
                                                     <div className={classes.pollBottomCircle}>
@@ -717,7 +714,7 @@ class PollCard extends Component {
 
                                                 </Grid>
                                             </Grid>
-                                        </div>
+                                        </div> }
                                     </GridListTile>);
                             }) : ""
                         }
@@ -739,6 +736,7 @@ class PollCard extends Component {
                         {this.state.pollItems !== undefined ? this.state.pollItems.map((itemOption, Key) => {
                             return (<ListItem key={"ListItem" + Key} classes={{root: classes.rootItem}}
                                               onClick={this.clickItem(this.props.idPoll, itemOption.id)}>
+                                {this.state.isVouted &&
                                 <ListItemIcon classes={{root: classes.ListItemIconRoot}}>
 
                                     <Progress
@@ -762,9 +760,10 @@ class PollCard extends Component {
                                         }}
                                         status={itemOption.isVoutedMe === true ? "full" : "default"}
                                     />
-                                </ListItemIcon>
+                                </ListItemIcon>}
                                 <ListItemText classes={{primary: classes.ListItemTextRoot}}
                                               primary={itemOption.option}/>
+                                {this.state.isVouted && <>
                                 <ListItemIcon classes={{root: classes.avatarsContainer}}>
                                     <div className={classes.avatars}>
                                         {itemOption.avatars.map((avatarItem, key) => {
@@ -821,15 +820,16 @@ class PollCard extends Component {
                                                 </span>
                                     </div>
                                 </ListItemIcon>
-                                <ListItemIcon>
-                                    <div style={{
-                                        textAlign: 'center',
-                                        color: "#dc5b2b",
-                                        marginLeft: 5
-                                    }}>{itemOption.percent}%
-                                    </div>
-                                    <span className={classes.dot}></span>
-                                </ListItemIcon>
+                                     <ListItemIcon>
+                                        <div style={{
+                                            textAlign: 'center',
+                                            color: "#dc5b2b",
+                                            marginLeft: 5
+                                        }}>{itemOption.percent}%
+                                        </div>
+                                        <span className={classes.dot}></span>
+                                    </ListItemIcon> </>}
+
 
                             </ListItem>)
                         }) : ""}
