@@ -442,7 +442,7 @@ class PollCreate extends Component {
         formData.append('question', this.state.question);
         formData.append('imageFile', this.state.imageFile);
         formData.append('status', status);
-        formData.append('referal_id', this.props.match.params.id!==undefined ? this.props.match.params.id : null);
+        formData.append('referal_id', this.props.match.params.referal_id!==undefined ? this.props.match.params.referal_id : null);
         this.state.variants_image.map((item, index) => {
             console.log(item.image)
             formData.append('variants_image[' + index + '][id]', item.id)
