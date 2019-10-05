@@ -17,6 +17,11 @@ import { Provider } from 'react-redux'
 import SvgIcon from '@material-ui/core/SvgIcon';
 import PropTypes from 'prop-types';
 import axios from "axios";
+import IconButton from "@material-ui/core/IconButton";
+import Dialog from "@material-ui/core/Dialog";
+import {QRCode} from "react-qrcode-logo";
+import logoQr from "../../media/logo_q.png";
+import DialogContent from "@material-ui/core/DialogContent";
 
 
 
@@ -221,7 +226,10 @@ const styles = theme => ({
     },
     svgRootIcon:{
         width: 20,
-        height: 20
+        height: 20,
+        '&:hover': {
+           cursor:'pointer'
+        },
     },
     svgRootIconRight:{
         width: 20,
@@ -243,7 +251,6 @@ class ProfileHeadCover extends Component {
     constructor(props) {
         super(props);
         const {profilePhoto, userBackground} = this.props;
-        console.log(userBackground)
         this.state = {
             profilePhoto:profilePhoto===null ? false : profilePhoto,
             userBackground:userBackground===null ? "" : userBackground,
@@ -255,7 +262,9 @@ class ProfileHeadCover extends Component {
     componentWillReceiveProps(nextProps, nextContext) {
         if(this.props.userBackground!==nextProps.userBackground){
             this.setState({
-                userBackground:nextProps.userBackground
+                userBackground:nextProps.userBackground,
+                userId:nextProps.userId,
+                userType:nextProps.userType
             })
         }
     }
@@ -292,7 +301,17 @@ class ProfileHeadCover extends Component {
 
         })
     }
+    dialogOpenClick = () =>{
+        this.setState({
+            dialogopen:true
+        })
+    }
 
+    handleClose = () =>{
+        this.setState({
+            dialogopen:false
+        })
+    }
 
 
     render() {
@@ -308,9 +327,86 @@ class ProfileHeadCover extends Component {
             userImage,
             userRegistryDate,
         } = this.props;
-
+        console.log(this.state.userType)
         const socialIcons =<React.Fragment>
             <div className={classes.socialIcons}>
+                {this.state.userType===2 &&
+                    <SvgIcon onClick={this.dialogOpenClick} viewBox="0 0 14 14" classes={{root: classes.svgRootIcon}}>
+                        <defs>
+                            <clipPath id="clip-path-qrcode">
+                                <rect id="Rectangle_72" data-name="Rectangle 72" width="14"
+                                      height="14" transform="translate(234 1407)" fill="#fff"
+                                      stroke="#707070" stroke-width="1"/>
+                            </clipPath>
+                        </defs>
+                        <g id="Mask_Group_22" data-name="Mask Group 22"
+                           transform="translate(-234 -1407)" clip-path="url(#clip-path-qrcode)">
+                            <g id="qr-code_4_" data-name="qr-code (4)"
+                               transform="translate(234 1407)">
+                                <g id="Group_1538" data-name="Group 1538">
+                                    <g id="Group_1537" data-name="Group 1537">
+                                        <path id="Path_1237" data-name="Path 1237"
+                                              d="M5.879,0H.41A.41.41,0,0,0,0,.41V5.879a.41.41,0,0,0,.41.41H5.879a.41.41,0,0,0,.41-.41V.41A.41.41,0,0,0,5.879,0Zm-.41,5.469H.82V.82H5.469Z"/>
+                                    </g>
+                                </g>
+                                <g id="Group_1540" data-name="Group 1540">
+                                    <g id="Group_1539" data-name="Group 1539">
+                                        <path id="Path_1238" data-name="Path 1238"
+                                              d="M3.965,1.914H2.324a.41.41,0,0,0-.41.41V3.965a.41.41,0,0,0,.41.41H3.965a.41.41,0,0,0,.41-.41V2.324A.41.41,0,0,0,3.965,1.914Zm-.41,1.641h-.82v-.82h.82Z"/>
+                                    </g>
+                                </g>
+                                <g id="Group_1542" data-name="Group 1542">
+                                    <g id="Group_1541" data-name="Group 1541">
+                                        <path id="Path_1239" data-name="Path 1239"
+                                              d="M13.59,0H8.121a.41.41,0,0,0-.41.41V5.879a.41.41,0,0,0,.41.41H13.59a.41.41,0,0,0,.41-.41V.41A.41.41,0,0,0,13.59,0Zm-.41,5.469H8.531V.82H13.18Z"/>
+                                    </g>
+                                </g>
+                                <g id="Group_1544" data-name="Group 1544">
+                                    <g id="Group_1543" data-name="Group 1543">
+                                        <path id="Path_1240" data-name="Path 1240"
+                                              d="M11.676,1.914H10.035a.41.41,0,0,0-.41.41V3.965a.41.41,0,0,0,.41.41h1.641a.41.41,0,0,0,.41-.41V2.324A.41.41,0,0,0,11.676,1.914Zm-.41,1.641h-.82v-.82h.82Z"/>
+                                    </g>
+                                </g>
+                                <g id="Group_1546" data-name="Group 1546">
+                                    <g id="Group_1545" data-name="Group 1545">
+                                        <path id="Path_1241" data-name="Path 1241"
+                                              d="M5.879,7.711H.41a.41.41,0,0,0-.41.41V13.59A.41.41,0,0,0,.41,14H5.879a.41.41,0,0,0,.41-.41V8.121A.41.41,0,0,0,5.879,7.711Zm-.41,5.469H.82V8.531H5.469Z"/>
+                                    </g>
+                                </g>
+                                <g id="Group_1548" data-name="Group 1548">
+                                    <g id="Group_1547" data-name="Group 1547">
+                                        <path id="Path_1242" data-name="Path 1242"
+                                              d="M3.965,9.625H2.324a.41.41,0,0,0-.41.41v1.641a.41.41,0,0,0,.41.41H3.965a.41.41,0,0,0,.41-.41V10.035A.41.41,0,0,0,3.965,9.625Zm-.41,1.641h-.82v-.82h.82Z"/>
+                                    </g>
+                                </g>
+                                <g id="Group_1550" data-name="Group 1550">
+                                    <g id="Group_1549" data-name="Group 1549">
+                                        <path id="Path_1243" data-name="Path 1243"
+                                              d="M13.59,11.556H11.266V10.035a.41.41,0,0,0-.82,0v1.931a.41.41,0,0,0,.41.41H13.18v.8H10.855a.41.41,0,0,0,0,.82H13.59a.41.41,0,0,0,.41-.41V11.967A.41.41,0,0,0,13.59,11.556Z"/>
+                                    </g>
+                                </g>
+                                <g id="Group_1552" data-name="Group 1552">
+                                    <g id="Group_1551" data-name="Group 1551">
+                                        <path id="Path_1244" data-name="Path 1244"
+                                              d="M13.59,7.711a.41.41,0,0,0-.41.41v1.914a.41.41,0,0,0,.82,0V8.121A.41.41,0,0,0,13.59,7.711Z"/>
+                                    </g>
+                                </g>
+                                <g id="Group_1554" data-name="Group 1554">
+                                    <g id="Group_1553" data-name="Group 1553">
+                                        <path id="Path_1245" data-name="Path 1245"
+                                              d="M10.035,7.711H8.121a.41.41,0,0,0-.41.41v1.914a.41.41,0,0,0,.82,0v-1.5h1.5a.41.41,0,0,0,0-.82Z"/>
+                                    </g>
+                                </g>
+                                <g id="Group_1556" data-name="Group 1556">
+                                    <g id="Group_1555" data-name="Group 1555">
+                                        <path id="Path_1246" data-name="Path 1246"
+                                              d="M8.121,11.556a.41.41,0,0,0-.41.41V13.59a.41.41,0,0,0,.82,0V11.967A.41.41,0,0,0,8.121,11.556Z"/>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </SvgIcon>
+}
             <a href={social_networks.site} target={"_blank"}>
                 <SvgIcon viewBox="0 0 15 15"  classes={{root: classes.svgRootIcon}}>
                     <defs>
@@ -376,7 +472,20 @@ class ProfileHeadCover extends Component {
 
         return (
             <div>
+                <Dialog
+                    onClose={this.handleClose}
+                    aria-labelledby="simple-dialog-title"
 
+                    maxWidth={"xs"}
+                    open={this.state.dialogopen}>
+                    <DialogContent>
+                        <QRCode
+                            logoImage={logoQr}
+                            size={250}
+                            logoWidth={80}
+                            value={"https://creators.uz/poll/create/"+this.state.userId} />
+                    </DialogContent>
+                </Dialog>
                 <div className={classes.timelineCover} style={{background: 'url('+this.state.userBackground+')'}}>
                     <Container>
                         <Grid

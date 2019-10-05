@@ -270,7 +270,7 @@ class PollCreate extends Component {
 
             user_id: null,
             type: null,
-            category_id: [],
+            category_id: null,
             visibility: 1,
             term: 4,
             status: null,
@@ -321,7 +321,6 @@ class PollCreate extends Component {
         })
     }
     handleChangeCategory = (event) => {
-        console.log(event.target.value)
         this.setState({category_id: event.target.value, hasErrorCategory: false});
 
     }
@@ -403,7 +402,7 @@ class PollCreate extends Component {
                     Object.keys(res.data).map(item => {
                         this.setState({[item]: res.data[item]})
                     })
-                    this.setState({category_id:this.state.category_id.map(Number)})
+                    // this.setState({category_id:this.state.category_id.map(Number)})
                 }
             })
 
@@ -510,7 +509,7 @@ class PollCreate extends Component {
         })
 
 
-        if (this.state.category_id.length === 0) {
+        if (this.state.category_id === null) {
             this.setState({hasErrorCategory: true})
             return;
         }
@@ -606,14 +605,14 @@ class PollCreate extends Component {
                                         <Grid item md={9} sm={9} xs={9}>
                                             <FormControl className={classes.formControl} margin="dense" fullWidth
                                                          variant="outlined">
-                                                {this.state.category_id.length === 0 ?
+                                                {this.state.category_id === null ?
                                                     <InputLabel htmlFor="outlined-category"
                                                                 classes={{root: classes.inLabel}} shrink={false}>
                                                         Выберите категорию
                                                     </InputLabel> : ""}
                                                 <Select
                                                     classes={{root: classes.muiSeelctRoot}}
-                                                    classes={{root: this.state.category_id.length === 0 ? classes.muiSeelctRoot : classes.muiSelectRootL}}
+                                                    classes={{root: this.state.category_id === null ? classes.muiSeelctRoot : classes.muiSelectRootL}}
                                                     value={this.state.category_id}
                                                     onChange={this.handleChangeCategory}
                                                     MenuProps={MenuProps}
@@ -625,6 +624,7 @@ class PollCreate extends Component {
                                                     input={<OutlinedInput name="category"
                                                                           id="outlined-kategory-select"/>}
                                                     renderValue={selected => {
+                                                        // console.log(selected)
                                                         if (this.state.category.length > 0) {
                                                             return this.state.category.find(it => it.id == selected).name
                                                         }

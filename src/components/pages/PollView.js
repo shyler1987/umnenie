@@ -354,13 +354,6 @@ class PollView extends Component {
         </React.Fragment>;
         const QR_CODE = <React.Fragment>
             <DialogContent>
-                {/*<QRCode*/}
-                {/*    bgColor="#FFFFFF"*/}
-                {/*    fgColor="#000000"*/}
-                {/*    level="H"*/}
-                {/*    style={{ margin: '0px 10px 0px'}}*/}
-                {/*    value={"http://creators.uz"+this.props.match.url}*/}
-                {/*/>*/}
                 <QRCode
                     logoImage={logoQr}
                     size={250}
