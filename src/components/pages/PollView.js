@@ -447,7 +447,7 @@ class PollView extends Component {
                             <Hidden smDown>
                                 <Grid item md={1}>
                                     <Link onClick={() => {
-                                        this.PollNavigate(this.state.polls.prevPoll)
+                                        this.PollNavigate(this.state.polls.nextPoll)
                                     }}>
                                         <Paper classes={{root: classes.arrowButton}}>
                                             <KeyboardArrowLeft/>
@@ -495,7 +495,7 @@ class PollView extends Component {
                             <Hidden smDown>
                                 <Grid item md={1}>
                                     <Link onClick={() => {
-                                        this.PollNavigate(this.state.polls.nextPoll)
+                                        this.PollNavigate(this.state.polls.prevPoll)
                                     }}>
                                         <Paper classes={{root: classes.arrowButton}}>
                                             <KeyboardArrowRight/>
