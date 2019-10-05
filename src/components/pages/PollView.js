@@ -481,6 +481,7 @@ class PollView extends Component {
                                         iconStatis={this.state.polls.viewStatistic}
                                         isVouted={this.state.polls.isVouted}
                                         iconEdit={this.state.polls.edit}
+                                        disableCard={this.state.polls.disableCard}
                                         QrCode={true}
                                         answerText={true}
                                         cellHeight={200}
