@@ -184,7 +184,7 @@ const styles = theme => ({
                 paddingRight: 9,
                 border: "1px solid #E6E6E6",
                 borderRadius: 5,
-                cursor: 'ponter',
+                cursor: 'pointer',
                 "& dot": {
                     borderRadius: '50%',
                     width: 5,
