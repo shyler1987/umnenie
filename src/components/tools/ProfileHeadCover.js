@@ -327,7 +327,6 @@ class ProfileHeadCover extends Component {
             userImage,
             userRegistryDate,
         } = this.props;
-        console.log(this.state.userType)
         const socialIcons =<React.Fragment>
             <div className={classes.socialIcons}>
                 {this.state.userType===2 &&
