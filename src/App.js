@@ -231,8 +231,8 @@ class App extends Component {
             if (error.response.status === undefined)
                 return Promise.reject(error);
             if (error.response.status === 401) {
-                localStorage.removeItem('token')
-                window.location.replace('/');
+                // localStorage.removeItem('token')
+                // window.location.replace('/');
                 // window.location.replace('/auth/login');
             }
             return Promise.reject(error);
@@ -258,7 +258,6 @@ class App extends Component {
                                     return <ProfileLayoutRoute
                                         exact path={routeItem.url}
                                         key={routeItem.url}
-
                                         component={routeItem.component}
                                     />
                                 }

@@ -292,7 +292,8 @@ class PollCard extends Component {
             pollLikeCount,
             clickOtvet,
             disableClickCard,
-            propsCard
+            propsCard,
+            isVouted,
         } = this.props;
 
         this.state = {
@@ -323,6 +324,7 @@ class PollCard extends Component {
             liked: like,
             pollAnswerCount: pollAnswerCount,
             pollLikeCount: pollLikeCount,
+            isVouted: isVouted === null ? false : isVouted,
 
         }
 
@@ -341,12 +343,14 @@ class PollCard extends Component {
             disableClickCard,
             propsCard,
             pollLikeCount,
-            disableCard
+            disableCard,
+            isVouted,
 
         } = nextProps;
 
         this.setState({
             avatarUrl: avatarUrl,
+            isVouted: isVouted === null ? false : isVouted,
             fullName: fullName,
             datePoll: datePoll,
             contentPoll: contentPoll,
@@ -383,7 +387,13 @@ class PollCard extends Component {
 
     clickItem = (poll_id, item_id) => (e) => {
         e.preventDefault();
+        console.log(this.state.isVouted)
+
         if(this.props.clickOtvet===false){
+            return;
+        }
+
+        if(this.state.isVouted){
             return;
         }
 

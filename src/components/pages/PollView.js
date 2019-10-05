@@ -465,7 +465,6 @@ class PollView extends Component {
                                         imagePoll={this.state.polls.pollImage}
                                         fullName={this.state.polls.userFIO}
                                         username={this.state.polls.userName}
-
                                         userId={this.state.userId}
                                         contentPoll={this.state.polls.pollQuestion}
                                         datePoll={this.state.polls.pollEndDate}
@@ -479,7 +478,8 @@ class PollView extends Component {
                                         iconComment={true}
                                         iconShare={true}
                                         iconAnonced={true}
-                                        iconStatis={true}
+                                        iconStatis={this.state.polls.viewStatistic}
+                                        isVouted={this.state.polls.isVouted}
                                         iconEdit={this.state.polls.edit}
                                         QrCode={true}
                                         answerText={true}

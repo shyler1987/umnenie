@@ -377,6 +377,7 @@ class ProfileUser extends Component {
                                             iconEdit={item.edit}
                                             showLoading={this.showLoadingBar}
                                             disableClickCard={true}
+                                            isVouted={item.isVouted}
 
                                         />
                                     );

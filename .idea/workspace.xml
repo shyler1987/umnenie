@@ -3,6 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="3013fece-6add-4506-8dd7-e5be49d79bf2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/PollView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PollView.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/ProfileUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ProfileUser.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/tools/PollCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/PollCard.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -191,7 +195,9 @@
       <workItem from="1570082761875" duration="12973000" />
       <workItem from="1570166121621" duration="602000" />
       <workItem from="1570189331376" duration="7157000" />
-      <workItem from="1570205888125" duration="1696000" />
+      <workItem from="1570205888125" duration="3998000" />
+      <workItem from="1570251567453" duration="15000" />
+      <workItem from="1570253426017" duration="1221000" />
     </task>
     <servers />
   </component>
