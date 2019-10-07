@@ -30,7 +30,7 @@ import '../../media/style.css';
 import {CircularProgressbar} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 // import {QRCode} from "react-qr-svg";
-import { QRCode } from 'react-qrcode-logo';
+import {QRCode} from 'react-qrcode-logo';
 import check from '../../media/icons/check.svg'
 import checkInLine from '../../media/icons/checkinline.svg'
 
@@ -267,7 +267,8 @@ const styles = theme => ({
         disableCard: {
             backgroundColor: '#e6e6e6',
             opacity: 0.55
-        }
+        },
+
 
 
     })
@@ -382,19 +383,19 @@ class PollCard extends Component {
     changeRoute(e) {
         e.preventDefault();
         const {history} = this.props;
-        history.push('/statis/'+this.state.idPoll)
+        history.push('/statis/' + this.state.idPoll)
     }
 
     clickItem = (poll_id, item_id) => (e) => {
         e.preventDefault();
-        if(this.props.clickOtvet===false){
+        if (this.props.clickOtvet === false) {
             return;
         }
-        if(this.state.isVouted){
+        if (this.state.isVouted) {
             return;
         }
 
-        if(this.props.isAuthenticated===false){
+        if (this.props.isAuthenticated === false) {
             this.props.setIsAuth(true);
             return;
         }
@@ -419,7 +420,7 @@ class PollCard extends Component {
 
     likedClick = (poll_id) => (e) => {
         e.preventDefault();
-        if(this.props.isAuthenticated===false){
+        if (this.props.isAuthenticated === false) {
             this.props.setIsAuth(true)
             return;
         }
@@ -447,7 +448,7 @@ class PollCard extends Component {
 
     editPath = (e) => {
         e.preventDefault()
-        this.props.history.push("/polls/edit/"+this.state.idPoll);
+        this.props.history.push("/polls/edit/" + this.state.idPoll);
     }
 
 
@@ -457,14 +458,14 @@ class PollCard extends Component {
         })
     }
 
-    countClick = (url) =>{
+    countClick = (url) => {
         this.props.showLoading(true);
-        axios.post(url, {id:this.state.idPoll}).then(res=>{
-            if(res.status===202){
+        axios.post(url, {id: this.state.idPoll}).then(res => {
+            if (res.status === 202) {
 
             }
             this.props.showLoading(false);
-        }).catch(err=>{
+        }).catch(err => {
             this.props.showLoading(false);
         })
     }
@@ -573,9 +574,9 @@ class PollCard extends Component {
                     {this.state.contentPoll}
                 </Typography>
                 {this.state.pollType === 1 &&
-                    <Typography component="p" classes={{root: classes.cardContentAnswers}}>
-                        Ответы {this.state.pollAnswerCount !== 0 ? "(" + this.state.pollAnswerCount + ")" : ""}
-                    </Typography>}
+                <Typography component="p" classes={{root: classes.cardContentAnswers}}>
+                    Ответы {this.state.pollAnswerCount !== 0 ? "(" + this.state.pollAnswerCount + ")" : ""}
+                </Typography>}
 
             </CardContent>
             <CardMedia
@@ -612,13 +613,13 @@ class PollCard extends Component {
                                             }}
 
                                         />
-                                        {this.state.isVouted && <div className={classes.cardBar}>
+                                        <div className={classes.cardBar}>
                                             <Grid container spacing={0}>
                                                 <Grid item xs={3} sm={3} xs={3}>
                                                     <div className={classes.pollBottomCircle}>
                                                         <Progress
                                                             type="circle"
-                                                            percent={item.percent}
+                                                            percent={this.state.isVouted && item.percent}
                                                             width={30}
                                                             strokeWidth={10}
                                                             theme={{
@@ -629,8 +630,8 @@ class PollCard extends Component {
                                                                 },
 
                                                                 full: {
-                                                                    symbol:  <img src={check} width={8}
-                                                                                  height={6.13}/>,
+                                                                    symbol: <img src={check} width={8}
+                                                                                 height={6.13}/>,
                                                                     trailColor: '#d6d6d6',
                                                                     color: '#fff'
                                                                 },
@@ -710,12 +711,12 @@ class PollCard extends Component {
                                                 <Grid item xs={3} sm={3} xs={3}
                                                       classes={{root: classes.percentPcontainer}}>
                                                     <Typography className={classes.procentP}>
-                                                        {item.percent}%
+                                                        {this.state.isVouted && item.percent + '%'}
                                                     </Typography>
 
                                                 </Grid>
                                             </Grid>
-                                        </div> }
+                                        </div>
                                     </GridListTile>);
                             }) : ""
                         }
@@ -737,12 +738,12 @@ class PollCard extends Component {
                         {this.state.pollItems !== undefined ? this.state.pollItems.map((itemOption, Key) => {
                             return (<ListItem key={"ListItem" + Key} classes={{root: classes.rootItem}}
                                               onClick={this.clickItem(this.props.idPoll, itemOption.id)}>
-                                {this.state.isVouted &&
+
                                 <ListItemIcon classes={{root: classes.ListItemIconRoot}}>
 
                                     <Progress
                                         type="circle"
-                                        percent={itemOption.percent}
+                                        percent={this.state.isVouted && itemOption.percent}
                                         width={30}
                                         strokeWidth={10}
                                         theme={{
@@ -753,18 +754,18 @@ class PollCard extends Component {
                                             },
 
                                             full: {
-                                                symbol:  <img src={checkInLine} width={8}
-                                                              height={6.13}/>,
+                                                symbol: <img src={checkInLine} width={8}
+                                                             height={6.13}/>,
                                                 trailColor: '#d6d6d6',
                                                 color: '#e67043'
                                             },
                                         }}
                                         status={itemOption.isVoutedMe === true ? "full" : "default"}
                                     />
-                                </ListItemIcon>}
+                                </ListItemIcon>
                                 <ListItemText classes={{primary: classes.ListItemTextRoot}}
                                               primary={itemOption.option}/>
-                                {this.state.isVouted && <>
+
                                 <ListItemIcon classes={{root: classes.avatarsContainer}}>
                                     <div className={classes.avatars}>
                                         {itemOption.avatars.map((avatarItem, key) => {
@@ -821,15 +822,15 @@ class PollCard extends Component {
                                                 </span>
                                     </div>
                                 </ListItemIcon>
-                                     <ListItemIcon>
-                                        <div style={{
-                                            textAlign: 'center',
-                                            color: "#dc5b2b",
-                                            marginLeft: 5
-                                        }}>{itemOption.percent}%
-                                        </div>
-                                        <span className={classes.dot}></span>
-                                    </ListItemIcon> </>}
+                                <ListItemIcon>
+                                    <div style={{
+                                        textAlign: 'center',
+                                        color: "#dc5b2b",
+                                        marginLeft: 5
+                                    }}>{this.state.isVouted && itemOption.percent + '%'}
+                                    </div>
+                                    <span className={classes.dot}></span>
+                                </ListItemIcon>
 
 
                             </ListItem>)
@@ -958,39 +959,39 @@ class PollCard extends Component {
                             </IconButton> : ""}
                         {this.state.iconShare ?
                             <IconButton
-                            aria-haspopup="true"
-                            color="inherit"
-                            onClick={() => {
-                                this.countClick("polls/share-link");
-                                this.props.dialogOpenClick('share')
-                            }}
-                            classes={{root: classes.imgIconsP}}
-                        >
-                            <SvgIcon viewBox="0 0 14 14" classes={{root: classes.svgRootIcon}}>
-                                <defs>
-                                    <clipPath id="clip-path-share">
-                                        <rect id="Rectangle_48" data-name="Rectangle 48" width="14" height="14"
-                                              transform="translate(224 1409)" fill="#fff" stroke="#707070"
-                                              stroke-width="1"/>
-                                    </clipPath>
-                                </defs>
-                                <g id="Mask_Group_3" data-name="Mask Group 3" transform="translate(-224 -1409)"
-                                   clip-path="url(#clip-path-share)">
-                                    <g id="upload" transform="translate(224 1409.513)">
-                                        <g id="Group_1046" data-name="Group 1046" transform="translate(0 0)">
-                                            <path id="Path_1220" data-name="Path 1220"
-                                                  d="M13.6,5.87a.4.4,0,0,0-.4.4V9.919a1.8,1.8,0,0,1-1.8,1.8H2.6a1.8,1.8,0,0,1-1.8-1.8V6.211a.4.4,0,0,0-.8,0V9.919a2.6,2.6,0,0,0,2.6,2.6h8.8a2.6,2.6,0,0,0,2.6-2.6V6.271A.4.4,0,0,0,13.6,5.87Z"
-                                                  transform="translate(0 0.456)"/>
-                                            <path id="Path_1221" data-name="Path 1221"
-                                                  d="M4.154,3.675,6.02,1.809V9.947a.4.4,0,0,0,.8,0V1.809L8.688,3.675a.4.4,0,0,0,.282.119.387.387,0,0,0,.282-.119.4.4,0,0,0,0-.567L6.7.558A.406.406,0,0,0,6.421.439a.388.388,0,0,0-.282.119L3.59,3.107a.4.4,0,0,0,.565.567Z"
-                                                  transform="translate(0.579 -0.439)"/>
+                                aria-haspopup="true"
+                                color="inherit"
+                                onClick={() => {
+                                    this.countClick("polls/share-link");
+                                    this.props.dialogOpenClick('share')
+                                }}
+                                classes={{root: classes.imgIconsP}}
+                            >
+                                <SvgIcon viewBox="0 0 14 14" classes={{root: classes.svgRootIcon}}>
+                                    <defs>
+                                        <clipPath id="clip-path-share">
+                                            <rect id="Rectangle_48" data-name="Rectangle 48" width="14" height="14"
+                                                  transform="translate(224 1409)" fill="#fff" stroke="#707070"
+                                                  stroke-width="1"/>
+                                        </clipPath>
+                                    </defs>
+                                    <g id="Mask_Group_3" data-name="Mask Group 3" transform="translate(-224 -1409)"
+                                       clip-path="url(#clip-path-share)">
+                                        <g id="upload" transform="translate(224 1409.513)">
+                                            <g id="Group_1046" data-name="Group 1046" transform="translate(0 0)">
+                                                <path id="Path_1220" data-name="Path 1220"
+                                                      d="M13.6,5.87a.4.4,0,0,0-.4.4V9.919a1.8,1.8,0,0,1-1.8,1.8H2.6a1.8,1.8,0,0,1-1.8-1.8V6.211a.4.4,0,0,0-.8,0V9.919a2.6,2.6,0,0,0,2.6,2.6h8.8a2.6,2.6,0,0,0,2.6-2.6V6.271A.4.4,0,0,0,13.6,5.87Z"
+                                                      transform="translate(0 0.456)"/>
+                                                <path id="Path_1221" data-name="Path 1221"
+                                                      d="M4.154,3.675,6.02,1.809V9.947a.4.4,0,0,0,.8,0V1.809L8.688,3.675a.4.4,0,0,0,.282.119.387.387,0,0,0,.282-.119.4.4,0,0,0,0-.567L6.7.558A.406.406,0,0,0,6.421.439a.388.388,0,0,0-.282.119L3.59,3.107a.4.4,0,0,0,.565.567Z"
+                                                      transform="translate(0.579 -0.439)"/>
+                                            </g>
                                         </g>
                                     </g>
-                                </g>
-                            </SvgIcon>
-                        </IconButton> : ""}
+                                </SvgIcon>
+                            </IconButton> : ""}
                         {this.props.isAuthenticated && this.state.iconAnonced &&
-                            <IconButton
+                        <IconButton
                             aria-haspopup="true"
                             color="inherit"
                             onClick={() => {
