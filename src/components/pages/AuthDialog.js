@@ -484,7 +484,7 @@ class AuthDialog extends Component {
                                                 )}
                                             />
                                             <GoogleLogin
-                                                clientId="939525112273-06jnkcnpajcl8aik9rjnl4v7fda128vo.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
+                                                clientId="322177236738-7a4anlgugmkc4k28ktpt2gmn21npslvi.apps.googleusercontent.com"
                                                 buttonText="LOGIN WITH GOOGLE"
                                                 onSuccess={this.responseGoogle}
                                                 onFailure={this.responseGoogle}
