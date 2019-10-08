@@ -656,25 +656,6 @@ class ProfileEdit extends Component {
                                                         }}
                                                     />
                                                 </MuiPickersUtilsProvider>
-                                                <TextField
-                                                    name={"birthday"}
-                                                    type="date"
-                                                    format={'YYYY-MM-DD'}
-                                                    value={this.state.birthday}
-                                                    InputLabelProps={{
-                                                        shrink: true,
-                                                    }}
-                                                    onChange={this.handleChangeField}
-                                                    margin="dense"
-                                                    id="outlined-name"
-                                                    defaultValue={this.state.birthday}
-                                                    fullWidth
-                                                    placeholder={"Дата рождения"}
-                                                    className={classes.textField}
-                                                    variant="outlined"
-                                                    error={this.state.birthdayError}
-                                                    helperText={this.state.birthdayErrorText}
-                                                />
                                             </Grid>
                                             <Grid item md={6} sm={12} xs={12} className={classes.noPadding}>
                                                 <FormControl className={classes.formControl} margin="dense" fullWidth
