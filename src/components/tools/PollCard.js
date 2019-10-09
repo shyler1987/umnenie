@@ -389,6 +389,7 @@ class PollCard extends Component {
     clickItem = (poll_id, item_id) => (e) => {
         e.preventDefault();
         if (this.props.clickOtvet === false) {
+            this.props.history.push('/polls/'+poll_id);
             return;
         }
         if (this.state.isVouted) {

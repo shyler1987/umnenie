@@ -386,6 +386,7 @@ class Profile extends Component {
                                         iconEdit={item.edit}
                                         iconFovrite={true}
                                         isVouted={item.isVouted}
+                                        clickOtvet={false}
                                         showLoading={this.showLoadingBar}
                                     />
                                 );
