@@ -29,7 +29,13 @@ import DateFnsUtils from '@date-io/date-fns';
 import {bindActionCreators} from "redux";
 import setTitle from "../../redux/actions/setTitleAction";
 import {connect} from "react-redux";
-
+import { BeatLoader } from 'react-spinners';
+import { css } from '@emotion/core';
+const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+`;
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -397,6 +403,7 @@ class ProfileEdit extends Component {
     }
 
     render() {
+
         const {classes} = this.props;
         return (
             <div>
@@ -413,12 +420,18 @@ class ProfileEdit extends Component {
                         <LeftMenu/>
                     </Grid>
                     <Grid item md={9}>
-                        <ValidatorForm
+
+                        {/*<Circle color={"#e0512a"}/>*/}
+
+                         <ValidatorForm
                             fullWidth
                             ref="form"
                             onSubmit={this.onSubmitForm}
                         >
                             <Paper classes={{root: classes.poperContent}}>
+                                {this.state.userType===undefined && <div style={{textAlign: 'center',marginTop: 40}}><BeatLoader size={15} margin={"2px"} color={"#e0512a"}/></div>}
+                                {this.state.userType!==undefined && <>
+
                                 <Typography classes={{root: classes.titleFieldesetHead}}>Личная информация</Typography>
                                 <Grid container spacing={3} direction={"row"}>
                                     <Grid item md={3} sm={3} xs={3} classes={{root: classes.inlineText}}>
@@ -927,8 +940,10 @@ class ProfileEdit extends Component {
                                             изменения</Button>
                                     </Grid>
                                 </Grid>
+                                </>}
                             </Paper>
                         </ValidatorForm>
+
                     </Grid>
                 </Grid>
 
