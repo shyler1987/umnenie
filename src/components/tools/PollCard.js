@@ -113,12 +113,20 @@ const styles = theme => ({
 
 
         },
+
         Gridtile: {
 
             cursor: 'pointer',
             '&:hover': {
                 backgroundColor: '#000 !important',
             },
+        },
+
+        GridListTileRootDisabled: {
+            height: 'auto',
+        },
+        GridtileDisabled: {
+
         },
         cardBar: {
             left: 0,
@@ -595,8 +603,8 @@ class PollCard extends Component {
                                     <GridListTile
                                         key={"SubItem" + Key}
                                         classes={{
-                                            root: classes.GridListTileRoot,
-                                            tile: classes.Gridtile
+                                            root: this.state.disableCard ? classes.GridListTileRoot : classes.GridListTileRootDisabled,
+                                            tile: this.state.disableCard ? classes.Gridtile : classes.GridtileDisabled
                                         }}
                                         onClick={this.clickItem(this.props.idPoll, item.id)}
                                         cols={this.state.pollItems.length % 2 && (this.state.pollItems.length - 1) === Key ? 2 : 1}
@@ -848,6 +856,7 @@ class PollCard extends Component {
                         {this.state.iconComment ? <IconButton
                             aria-haspopup="true"
                             color="inherit"
+                            disabled={!this.state.disableCard}
                             classes={{root: classes.imgIconsP}}
                             onClick={this.props.commentClick}
                         >
@@ -875,6 +884,7 @@ class PollCard extends Component {
                             <IconButton
                                 aria-haspopup="true"
                                 color="inherit"
+                                disabled={!this.state.disableCard}
                                 onClick={() => {
                                     this.countClick("polls/qr-code");
                                     this.props.dialogOpenClick('qrcode')
@@ -962,6 +972,7 @@ class PollCard extends Component {
                             <IconButton
                                 aria-haspopup="true"
                                 color="inherit"
+                                disabled={!this.state.disableCard}
                                 onClick={() => {
                                     this.countClick("polls/share-link");
                                     this.props.dialogOpenClick('share')
@@ -995,6 +1006,8 @@ class PollCard extends Component {
                         <IconButton
                             aria-haspopup="true"
                             color="inherit"
+                            disabled={!this.state.disableCard}
+
                             onClick={() => {
                                 this.props.dialogOpenClick('jalba')
                             }}
@@ -1027,6 +1040,7 @@ class PollCard extends Component {
                             <IconButton
                                 onClick={this.likedClick(this.props.idPoll)}
                                 aria-haspopup="true"
+                                disabled={!this.state.disableCard}
                                 color="inherit"
                                 classes={{root: classes.imgIconsP}}
                             > {this.state.liked ? <FovriteIcon classes={{root: classes.fovriteRed}}/> :
