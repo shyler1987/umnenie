@@ -18,6 +18,7 @@ import LeftMenu from '../tools/LeftMenu';
 import ListItemText from '@material-ui/core/ListItemText';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import ruLocale from "date-fns/locale/ru";
 import { withRouter } from "react-router";
 import {
     MuiPickersUtilsProvider,
@@ -272,7 +273,7 @@ class ProfileEdit extends Component {
 
     handleChangeDate = (e) => {
         this.setState({
-            birthday:moment(e).format('MM-DD-YYYY')
+            birthday:e
         })
     }
 
@@ -322,7 +323,7 @@ class ProfileEdit extends Component {
             category_id: this.state.category_id,
             address: this.state.address,
             specialization_id: this.state.specialization_id,
-            birthday: this.state.birthday,
+            birthday: moment(this.state.birthday).format('MM-DD-YYYY'),
         }
         this.loadingBar(true)
         axios.post("profil/edit-profile", userData).then(res => {
@@ -651,11 +652,13 @@ class ProfileEdit extends Component {
                                                 </FormControl>
                                             </Grid>
                                             <Grid item md={6} sm={12} xs={12} className={classes.noPadding}>
-                                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                                <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
                                                     <KeyboardDatePicker
-                                                        disableToolbar
+                                                        // disableToolbar
+                                                        autoOk
+
                                                         variant="inline"
-                                                        format="MM/dd/yyyy"
+                                                        format="MM-dd-yyyy"
                                                         margin="dense"
                                                         id="date-picker-inline"
                                                         inputVariant="outlined"
@@ -663,7 +666,6 @@ class ProfileEdit extends Component {
                                                         onChange={this.handleChangeDate}
                                                         value={this.state.birthday}
                                                         name={"birthday"}
-
                                                         KeyboardButtonProps={{
                                                             'aria-label': 'change date',
                                                         }}
