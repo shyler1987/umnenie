@@ -656,7 +656,6 @@ class ProfileEdit extends Component {
                                                     <KeyboardDatePicker
                                                         // disableToolbar
                                                         autoOk
-
                                                         variant="inline"
                                                         format="MM-dd-yyyy"
                                                         margin="dense"

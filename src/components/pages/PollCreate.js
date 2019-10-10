@@ -718,7 +718,7 @@ class PollCreate extends Component {
 
                                     </Grid>
                                     <Grid container spacing={3} direction={"row"}>
-                                        <Grid item md={8} sm={8} xs={8} classes={{root: classes.inlineText}}>
+                                        <Grid item md={8} sm={8} xs={8} classes={{root: classes.inlineTextVariant}}>
                                             <Typography classes={{root: classes.titleFile}}>Основное
                                                 фото</Typography>
                                         </Grid>
