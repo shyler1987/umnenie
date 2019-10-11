@@ -11,7 +11,12 @@ import Button from '@material-ui/core/Button';
 import {Link} from "react-router-dom";
 import Divider from '@material-ui/core/Divider';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
-
+import {withRouter} from "react-router-dom";
+import setIsAuth from '../../redux/actions/setIsAuth'
+import seTisAuthenticated from '../../redux/actions/seTisAuthenticated'
+import setUserData from '../../redux/actions/setUserData'
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -86,7 +91,9 @@ const styles = theme => ({
 
 });
 
-const API_PROFILE = "profil/restore-password";
+const API_CHANGE_PSWD = "account/change-password";
+const API_PROFILE_RECOVERY_SMS = "account/restore-password";
+const API_PROFILE_RECOVERY_SMS_CHECK = "/account/check-code";
 
 
 class RecoveryPassword extends Component {
@@ -94,7 +101,9 @@ class RecoveryPassword extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            show:false
+            show:false,
+            step:1,
+            accessToken:null
         }
     }
     handleChange = (e) => {
@@ -103,13 +112,63 @@ class RecoveryPassword extends Component {
         })
     }
 
+    componentDidMount() {
+        ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
+            if (value !== this.state.user.password) {
+                return false;
+            }
+            return true;
+        });
+    }
+
     onSubmit = () =>{
-        axios.post(API_PROFILE, {email:this.state.mail}).then(res=>{
-            console.log(res)
+        axios.post(API_PROFILE_RECOVERY_SMS, {phone:this.state.phone}).then(res=>{
+            if(res.status===201){
+                this.setState({
+                    step:2,
+                })
+            }
         }).catch(err=>{
             console.log(err)
         })
     }
+
+
+    onSubmitCheck = () =>{
+        axios.post(API_PROFILE_RECOVERY_SMS_CHECK, {sms_code:this.state.sms_code}).then(res=>{
+            if(res.status===201){
+                this.setState({
+                    step:3,
+                    accessToken:res.data.access_token
+                })
+            }
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
+
+    onSubmitChangePassword = () =>{
+        axios.post(API_CHANGE_PSWD,
+            {
+                password:this.state.password,
+                retry_password:this.state.retry_password,
+                access_token:this.state.accessToken,
+            },
+
+            ).then(res=>{
+            if (res.status === 202) {
+                localStorage.setItem('token', res.data.access_token);
+                this.props.setIsAuth(false);
+                this.props.seTisAuthenticated(true);
+                this.props.setUserData(res.data);
+                this.props.history.push("/");
+            }
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
+
+
 
     render() {
         const {classes} = this.props;
@@ -134,14 +193,15 @@ class RecoveryPassword extends Component {
                                 style={{minHeight:500}}
                             >
                                 <Grid item md={4} style={{padding: '0px 20px 0px'}}>
-                                    <ValidatorForm onSubmit={this.onSubmit} fullWidth>
+                                    {this.state.step===1 && <ValidatorForm onSubmit={this.onSubmit} fullWidth>
                                         <TextValidator
                                             fullWidth
                                             id="outlined-bare"
-                                            placeholder={"Номер телефона или почты"}
+                                            placeholder={"Номер телефона"}
                                             className={classes.textField}
                                             margin="normal"
-                                            name={"mail"}
+                                            name={"phone"}
+                                            value={this.state.phone}
                                             onChange={this.handleChange}
                                             variant="outlined"
                                             validators={['required']}
@@ -162,7 +222,7 @@ class RecoveryPassword extends Component {
 
                                         >
                                             <Grid item md={4}>
-                                                <Button  color="primary" variant={"outlined"} fullWidth classes={{outlinedPrimary:classes.outlinedPrimary}}>
+                                                <Button  color="primary" onClick={this.props.history.goBack} variant={"outlined"} fullWidth classes={{outlinedPrimary:classes.outlinedPrimary}}>
                                                     Назад
                                                 </Button>
                                             </Grid>
@@ -173,7 +233,109 @@ class RecoveryPassword extends Component {
                                             </Grid>
 
                                         </Grid>
-                                    </ValidatorForm>
+                                    </ValidatorForm>}
+
+                                    {this.state.step===2 && <ValidatorForm onSubmit={this.onSubmitCheck} fullWidth>
+                                        <TextValidator
+                                            fullWidth
+                                            id="outlined-bare"
+                                            placeholder={"Код подтверждения"}
+                                            className={classes.textField}
+                                            margin="normal"
+                                            name={"sms_code"}
+                                            value={this.state.sms_code}
+                                            onChange={this.handleChange}
+                                            variant="outlined"
+                                            validators={['required']}
+                                            errorMessages={['Это поле обязательно к заполнению']}
+                                            inputProps={{
+                                                style: {
+                                                    height:40,
+                                                    padding: '0 14px',
+                                                },
+                                            }}
+                                        />
+                                        <Grid
+                                            container
+                                            direction="row"
+                                            justify="center"
+                                            alignItems="flex-start"
+                                            spacing={2}
+
+                                        >
+                                            <Grid item md={4}>
+                                                <Button  color="primary" onClick={this.props.history.goBack} variant={"outlined"} fullWidth classes={{outlinedPrimary:classes.outlinedPrimary}}>
+                                                    Назад
+                                                </Button>
+                                            </Grid>
+                                            <Grid item md={8}>
+                                                <Button variant="contained" color="secondary" fullWidth classes={{label:classes.muiBtnLabel}} type={"submit"}>Проверка код</Button>
+                                            </Grid>
+
+                                        </Grid>
+                                    </ValidatorForm>}
+
+                                    {this.state.step===3 &&
+                                    <ValidatorForm onSubmit={this.onSubmitChangePassword} fullWidth>
+                                        <TextValidator
+                                            fullWidth
+                                            id="outlined-bare"
+                                            placeholder={"Пароль"}
+                                            className={classes.textField}
+                                            margin="normal"
+                                            name={"password"}
+                                            value={this.state.password}
+                                            onChange={this.handleChange}
+                                            variant="outlined"
+                                            type={"password"}
+                                            validators={['required']}
+                                            errorMessages={['Это поле обязательно к заполнению']}
+                                            inputProps={{
+                                                style: {
+                                                    height:40,
+                                                    padding: '0 14px',
+                                                },
+                                            }}
+                                        />
+
+                                        <TextValidator
+                                            fullWidth
+                                            id="outlined-bare"
+                                            placeholder={"Подтвердите новый пароль"}
+                                            className={classes.textField}
+                                            margin="normal"
+                                            value={this.state.retry_password}
+                                            name={"retry_password"}
+                                            onChange={this.handleChange}
+                                            variant="outlined"
+                                            validators={['required']}
+                                            type={"password"}
+                                            errorMessages={['Это поле обязательно к заполнению']}
+                                            inputProps={{
+                                                style: {
+                                                    height:40,
+                                                    padding: '0 14px',
+                                                },
+                                            }}
+                                        />
+                                        <Grid
+                                            container
+                                            direction="row"
+                                            justify="center"
+                                            alignItems="flex-start"
+                                            spacing={2}
+
+                                        >
+
+                                            <Grid item md={12}>
+                                                <Button variant="contained" color="secondary" fullWidth classes={{label:classes.muiBtnLabel}} type={"submit"}>
+                                                    Сохранить
+                                                </Button>
+                                            </Grid>
+
+                                        </Grid>
+                                    </ValidatorForm>}
+
                                     <div>
                                         <Typography classes={{root:classes.textP}}>Все права защищены. Используя сайт, вы обязуетесь выполнять условия <Link to={"/license"} className={classes.textA}>Пользовательского
                                             соглашения.</Link></Typography>
@@ -219,4 +381,18 @@ class RecoveryPassword extends Component {
 
 }
 
-export default withStyles(styles)(RecoveryPassword);
+
+function mapDispatch(dispatch) {
+    return bindActionCreators({setIsAuth, seTisAuthenticated, setUserData}, dispatch);
+}
+
+function mapStateToProps(state) {
+
+    return {
+        isAuth: state.mainData.isAuth,
+        user: state.mainData.user
+    };
+
+}
+
+export default connect(mapStateToProps, mapDispatch)(withStyles(styles)(withRouter(RecoveryPassword)));

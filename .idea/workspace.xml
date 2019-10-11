@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3013fece-6add-4506-8dd7-e5be49d79bf2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/PollCreate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PollCreate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/ProfileEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ProfileEdit.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/RecoveryPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/RecoveryPassword.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -198,7 +197,9 @@
       <workItem from="1570268183624" duration="11099000" />
       <workItem from="1570455776679" duration="1298000" />
       <workItem from="1570537515676" duration="10842000" />
-      <workItem from="1570680231041" duration="3811000" />
+      <workItem from="1570680231041" duration="4999000" />
+      <workItem from="1570729264337" duration="3492000" />
+      <workItem from="1570773202521" duration="2426000" />
     </task>
     <servers />
   </component>
