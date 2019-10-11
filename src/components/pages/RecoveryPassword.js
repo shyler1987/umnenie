@@ -102,6 +102,8 @@ class RecoveryPassword extends Component {
         super(props);
         this.state = {
             show:false,
+            errorPhone:false,
+            errorSms_code:false,
             step:1,
             accessToken:null
         }
@@ -129,7 +131,11 @@ class RecoveryPassword extends Component {
                 })
             }
         }).catch(err=>{
-            console.log(err)
+            if(err.response.status===404){
+                this.setState({
+                    errorPhone:true
+                })
+            }
         })
     }
 
@@ -143,7 +149,11 @@ class RecoveryPassword extends Component {
                 })
             }
         }).catch(err=>{
-            console.log(err)
+            if(err.response.status===404){
+                this.setState({
+                    errorSms_code:true
+                })
+            }
         })
     }
 
@@ -201,6 +211,11 @@ class RecoveryPassword extends Component {
                                             className={classes.textField}
                                             margin="normal"
                                             name={"phone"}
+                                            error={this.state.errorPhone}
+                                            helperText={this.state.errorPhone && "Такая учетная запись не зарегистрирована в системе."}
+                                            FormHelperTextProps={{
+                                                error:true
+                                            }}
                                             value={this.state.phone}
                                             onChange={this.handleChange}
                                             variant="outlined"
@@ -242,6 +257,8 @@ class RecoveryPassword extends Component {
                                             placeholder={"Код подтверждения"}
                                             className={classes.textField}
                                             margin="normal"
+                                            error={this.state.errorSms_code}
+                                            helperText={this.state.errorSms_code && "Такая учетная запись не зарегистрирована в системе."}
                                             name={"sms_code"}
                                             value={this.state.sms_code}
                                             onChange={this.handleChange}
