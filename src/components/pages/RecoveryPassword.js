@@ -131,6 +131,7 @@ class RecoveryPassword extends Component {
                 })
             }
         }).catch(err=>{
+            if(err.response===undefined) return;
             if(err.response.status===404){
                 this.setState({
                     errorPhone:true
@@ -149,6 +150,7 @@ class RecoveryPassword extends Component {
                 })
             }
         }).catch(err=>{
+            if(err.response===undefined) return;
             if(err.response.status===404){
                 this.setState({
                     errorSms_code:true
@@ -174,6 +176,7 @@ class RecoveryPassword extends Component {
                 this.props.history.push("/");
             }
         }).catch(err=>{
+            if(err.response===undefined) return;
             console.log(err)
         })
     }
