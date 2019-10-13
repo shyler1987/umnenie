@@ -85,6 +85,11 @@ const styles = theme => ({
             width: '14px',
             height: '14px'
         },
+        svgRootIconCrown: {
+            width: '14px',
+            height: '14px',
+            margin:5
+        },
         fovriteRed: {
             color: '#ec4956'
         },
@@ -515,13 +520,8 @@ class PollCard extends Component {
                                                       fill="#2b2a29"/>
                                             </SvgIcon>
                                         </IconButton> : ""}
-                                    {this.state.CrownSvg ?
-                                        <IconButton
-                                            aria-haspopup="true"
-                                            color="inherit"
-                                            classes={{root: classes.imgIconsPTOP}}
-                                        >
-                                            <SvgIcon viewBox="0 0 15 15" classes={{root: classes.svgRootIcon}}>
+                                    {this.state.CrownSvg &&
+                                            <SvgIcon viewBox="0 0 15 15" classes={{root: classes.svgRootIconCrown}}>
                                                 <defs>
                                                     <clipPath id="clip-path-crown">
                                                         <rect id="Rectangle_100" data-name="Rectangle 100" width="15"
@@ -558,8 +558,7 @@ class PollCard extends Component {
                                                               transform="translate(0 1)" fill="#ef7f1a"/>
                                                     </g>
                                                 </g>
-                                            </SvgIcon>
-                                        </IconButton> : ""}
+                                            </SvgIcon>}
                                     {this.state.iconEdit ?
                                         <IconButton
                                             aria-haspopup="true"
