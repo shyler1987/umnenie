@@ -483,6 +483,7 @@ class PollView extends Component {
                                         dialogOpenClick={this.dialogOpen}
                                         clickOtvet={true}
                                         disableClickCard={false}
+                                        CrownSvg={this.state.polls.pollCrown}
                                     />
                                 </Swipeable>
                             </Grid>
