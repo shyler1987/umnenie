@@ -88,7 +88,16 @@ const styles = theme => ({
             [theme.breakpoints.down('md')]: {
                 display: 'none'
             }
+        },
+    CopyRight: {
+        fontSize: 13,
+        fontWeight: 400,
+        opacity: 0.45,
+        color: '#2b2a29',
+        [theme.breakpoints.up('sm')]: {
+            display:'none'
         }
+    },
 
     })
 ;
@@ -107,6 +116,8 @@ class ChatPage extends Component {
             show: false,
             chatUserShow:false
         };
+
+        this.toChatForm = React.createRef();
     }
 
     submit = (values, pristineValues) => {
@@ -133,6 +144,7 @@ class ChatPage extends Component {
             console.log(err);
         })
         this.props.setTitle("Чат");
+        this.toChatForm.current.scrollIntoView({behavior: 'smooth', block: 'start'})
 
     }
 
@@ -172,7 +184,7 @@ class ChatPage extends Component {
                         <LeftMenu/>
                     </Grid>
                     <Grid item md={9} sm={12} xs={12}>
-                        <Paper classes={{root: classes.poperContent}}>
+                        <Paper ref={this.toChatForm} classes={{root: classes.poperContent}}>
                             <Grid container spacing={3} direction={"row"}>
                                 <Grid item md={4} sm={12} xs={12} style={{borderRight: '1px solid #eee'}} className={this.state.chatUserShow ? classes.contentPageOnMobile : classes.contentPageOnDesc }>
 
@@ -206,6 +218,9 @@ class ChatPage extends Component {
                             </Grid>
 
                         </Paper>
+                        <Typography classes={{root: classes.CopyRight}} gutterBottom>
+                            © 2015-{(new Date().getFullYear())} UMNENIE
+                        </Typography>
                     </Grid>
                 </Grid>
 

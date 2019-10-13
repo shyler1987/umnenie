@@ -235,7 +235,9 @@ class AuthDialog extends Component {
                 })
             })
             .catch(error => {
-                console.log(error);
+                if(error.response.status===404){
+                    this.openSnakbar('error', "Логин или пароль введены неверно")
+                }
                 this.setState({
                     show: false
                 })
@@ -311,7 +313,6 @@ class AuthDialog extends Component {
                 show: false
             })
         }).catch(error => {
-            console.log(error)
             this.setState({
                 show: false,
                 snakbarOpen: true,

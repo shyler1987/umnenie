@@ -64,7 +64,8 @@ const MenuProps = {
     anchorOrigin: {
         vertical: "bottom",
         horizontal: "left",
-    }
+    },
+
 };
 
 const styles = theme => ({
@@ -229,7 +230,16 @@ const styles = theme => ({
             overflow: 'hidden',
             outline:'none'
         }
-    }
+    },
+    CopyRight: {
+        fontSize: 13,
+        fontWeight: 400,
+        opacity: 0.45,
+        color: '#2b2a29',
+        [theme.breakpoints.up('sm')]: {
+            display:'none'
+        }
+    },
 
 });
 
@@ -292,6 +302,7 @@ class PollCreate extends Component {
             imagemain: null
 
         };
+        this.ToCreateForm = React.createRef();
     }
 
     loadingBar = (bool) => {
@@ -407,6 +418,8 @@ class PollCreate extends Component {
             })
 
         }
+        this.ToCreateForm.current.scrollIntoView({behavior: 'smooth', block: 'start'})
+
 
     }
 
@@ -508,27 +521,29 @@ class PollCreate extends Component {
         stateName.map(item => {
             data[item] = this.state[item]
         })
-
+        let re_turn = true;
 
         if (this.state.category_id === null) {
             this.setState({hasErrorCategory: true})
-            return;
+            re_turn=false;
         }
 
         if (this.state.question === null) {
             this.setState({hasErrorQuestion: true})
-            return;
+            re_turn=false;
         }
         if (this.state.type === null) {
             this.setState({hasErrorType: true})
-            return;
+            re_turn=false;
         }
 
         if (this.state.type === 2 && this.state.imageFile === null && this.state.mainimage === null) {
             this.setState({hasErrorImage: true})
+            re_turn=false;
+        }
+        if(re_turn===false){
             return;
         }
-
         this.loadingBar(true)
         axios.post(API_POLL_CREATE, data).then(res => {
             this.loadingBar(false)
@@ -592,7 +607,7 @@ class PollCreate extends Component {
                             <LeftMenu/>
                         </Grid>
                         <Grid item md={9} sm={12} xs={12}>
-                            <Paper classes={{root: classes.poperContent}}>
+                            <Paper ref={this.ToCreateForm} classes={{root: classes.poperContent}}>
                                 <ValidatorForm
                                     fullWidth
                                     ref="form"
@@ -660,8 +675,8 @@ class PollCreate extends Component {
                                             <TextField
 
                                                 name={"question"}
-                                                validators={['required']}
-                                                errorMessages={['Это поле обязательно к заполнению']}
+                                                // validators={['required']}
+                                                // errorMessages={['Это поле обязательно к заполнению']}
                                                 value={this.state.question}
                                                 onChange={this.handleChange}
                                                 margin="dense"
@@ -671,8 +686,8 @@ class PollCreate extends Component {
                                                 placeholder={"..."}
                                                 className={classes.textField}
                                                 variant="outlined"
-                                                error={this.state.questionError}
-                                                helperText="Введите ваши вопрос, например Какой любимый композиция"
+                                                error={this.state.hasErrorQuestion}
+                                                helperText={this.state.hasErrorQuestion ? 'Это поле обязательно к заполнению' : "Введите ваши вопрос, например Какой любимый композиция"}
                                             />
                                         </Grid>
 
@@ -895,6 +910,9 @@ class PollCreate extends Component {
                                     </Grid>
                                 </ValidatorForm>
                             </Paper>
+                            <Typography classes={{root: classes.CopyRight}} gutterBottom>
+                                © 2015-{(new Date().getFullYear())} UMNENIE
+                            </Typography>
                         </Grid>
                     </Grid></React.Fragment> : <React.Fragment>
                     <Typography classes={{root: classes.titleHead}}>
@@ -1015,6 +1033,9 @@ class PollCreate extends Component {
                                     </Grid>
                                 </ValidatorForm>
                             </Paper>
+                            <Typography classes={{root: classes.CopyRight}} gutterBottom>
+                                © 2015-{(new Date().getFullYear())} UMNENIE
+                            </Typography>
                         </Grid>
                     </Grid>
                 </React.Fragment>}

@@ -29,7 +29,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import FloatActionButtun from "../tools/FloatActionButtun";
 import MySnackbarContentWrapper from "../tools/MySnackbarContentWrapper";
 import Snackbar from '@material-ui/core/Snackbar';
-
+import DocumentMeta from 'react-document-meta';
 import {Swipeable} from 'react-swipeable'
 import TextField from "@material-ui/core/TextField";
 import {connect} from "react-redux";
@@ -129,7 +129,9 @@ class PollView extends Component {
             show: false,
             openSnakbar: false,
             dialogopen: false,
-            idPoll: this.props.match.params.id
+            idPoll: this.props.match.params.id,
+            metaDesc:"",
+            metaTag:"",
         };
         this.commentAdd = React.createRef();
         this.PollNavigate = this.PollNavigate.bind(this);
@@ -175,7 +177,9 @@ class PollView extends Component {
         axios.get(url).then(res => {
             if (res.status === 200) {
                 this.setState({
-                    polls: res.data.data
+                    polls: res.data.data,
+                    metaTag: res.data.data.pollHashtags,
+                    metaDesc: res.data.data.pollQuestion
                 })
                 this.forceUpdate();
             }
@@ -308,6 +312,15 @@ class PollView extends Component {
         })
     }
 
+    onCopied = (text, bo) =>{
+        if(bo){
+            this.setState({
+                dialogopen:false,
+            })
+            this.openSnakbar('info', 'Ссылка скопирована в буфер обмена');
+        }
+    }
+
     clickToClipboard = (txt) => (e) =>{
         e.preventDefault();
         var textField = document.createElement('textarea')
@@ -377,7 +390,7 @@ class PollView extends Component {
                         {
                             endAdornment: (
                                 <InputAdornment position="end">
-                                    <CopyToClipboard text={"http://creators.uz"+this.props.match.url}>
+                                    <CopyToClipboard onCopy={this.onCopied} text={"http://creators.uz"+this.props.match.url}>
                                     <IconButton  classes={{root: classes.fileSendIcon}}>
                                             <LinkIcon/>
                                         </IconButton>
@@ -391,9 +404,18 @@ class PollView extends Component {
             </DialogContent>
         </React.Fragment>;
 
-
+        const meta = {
+            description: this.state.metaDesc,
+            meta: {
+                charset: 'utf-8',
+                name: {
+                    keywords: this.state.metaTag
+                }
+            }
+        };
         return (
             <div>
+                <DocumentMeta {...meta}/>
                 <Dialog
                     onClose={this.handleClose}
                     aria-labelledby="simple-dialog-title"

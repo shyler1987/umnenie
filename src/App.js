@@ -171,7 +171,7 @@ const routes = [
     {url: '/polls/:username/:id', component: PollView, layout: 'dashboard'},
     {url: '/poll/create', component: PollCreate, layout: 'dashboard'},
     {url: '/poll/create/:referal_id', component: PollCreate, layout: 'dashboard'},
-    {url: '/polls/edit/:id', component: PollCreate, layout: 'dashboard'},
+    {url: '/poll/edit/:id', component: PollCreate, layout: 'dashboard'},
 
     {url: '/statis/:id', component: StatisPage, layout: 'dashboard'},
 

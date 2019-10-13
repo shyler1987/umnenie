@@ -114,7 +114,10 @@ const styles = theme => ({
         fontSize: 13,
         fontWeight: 400,
         opacity: 0.45,
-        color: '#2b2a29'
+        color: '#2b2a29',
+        [theme.breakpoints.down('md')]: {
+            display:'none'
+        }
     },
     rootTypography: {
         fontSize: 15,
@@ -270,7 +273,7 @@ class LeftMenu extends Component {
                     </Paper>
                 </List>
                 <Typography classes={{root: classes.CopyRight}} gutterBottom>
-                    © 2015-2019 UMNENIE
+                    © 2015-{(new Date().getFullYear())} UMNENIE
                 </Typography>
             </div>
         );

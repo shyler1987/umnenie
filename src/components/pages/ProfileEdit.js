@@ -108,7 +108,8 @@ const styles = theme => ({
     },
     poperContent: {
         padding: 10,
-        minHeight: 850
+        minHeight: 850,
+        width:'100%'
     },
     inputHeight: {
         height: 100
@@ -201,7 +202,16 @@ const styles = theme => ({
     noPadding:{
         paddingTop: '0px !important',
         paddingBottom:  '0px !important'
-    }
+    },
+    CopyRight: {
+        fontSize: 13,
+        fontWeight: 400,
+        opacity: 0.45,
+        color: '#2b2a29',
+        [theme.breakpoints.up('sm')]: {
+            display:'none'
+        }
+    },
 
 
 });
@@ -260,6 +270,8 @@ class ProfileEdit extends Component {
             birthday: new Date(),
         };
 
+        this.ProfileEdit = React.createRef();
+
 
     }
 
@@ -268,17 +280,19 @@ class ProfileEdit extends Component {
     }
 
     handleChange = (event) => {
+        if(event.target.value.length===4) return;
         this.setState({category_id: event.target.value});
     }
 
     handleChangeDate = (e) => {
+
         this.setState({
             birthday:e
         })
     }
 
     handleChangeField = (e) => {
-        console.log(e.target.value)
+        if(e.target.value.length===4) return;
         this.setState({[e.target.name]: e.target.value})
     }
 
@@ -323,7 +337,7 @@ class ProfileEdit extends Component {
             category_id: this.state.category_id,
             address: this.state.address,
             specialization_id: this.state.specialization_id,
-            birthday: moment(this.state.birthday).format('MM-DD-YYYY'),
+            birthday: moment(this.state.birthday).format('DD-MM-YYYY'),
         }
         this.loadingBar(true)
         axios.post("profil/edit-profile", userData).then(res => {
@@ -397,6 +411,10 @@ class ProfileEdit extends Component {
         this.getCoategorys();
         this.fetchMe();
         this.props.setTitle("Редактировать профиль");
+        this.ProfileEdit.current.scrollIntoView({behavior: 'smooth', block: 'start'})
+
+    }
+    componentWillMount() {
     }
 
     onSubmitForm = () => {
@@ -420,18 +438,19 @@ class ProfileEdit extends Component {
                     <Grid item md={3} sm={12} xs={12}>
                         <LeftMenu/>
                     </Grid>
-                    <Grid item md={9}>
+                    <Grid item md={9} sm={12} xs={12}>
 
                         {/*<Circle color={"#e0512a"}/>*/}
 
-                         <ValidatorForm
-                            fullWidth
-                            ref="form"
-                            onSubmit={this.onSubmitForm}
-                        >
-                            <Paper classes={{root: classes.poperContent}}>
+
+                            <Paper ref={this.ProfileEdit} classes={{root: classes.poperContent}}>
                                 {this.state.userType===undefined && <div style={{textAlign: 'center',marginTop: 40}}><BeatLoader size={15} margin={"2px"} color={"#e0512a"}/></div>}
-                                {this.state.userType!==undefined && <>
+                                {this.state.userType !== undefined && <>
+                                <ValidatorForm
+                                    fullWidth
+                                    ref="form"
+                                    onSubmit={this.onSubmitForm}
+                                >
 
                                 <Typography classes={{root: classes.titleFieldesetHead}}>Личная информация</Typography>
                                 <Grid container spacing={3} direction={"row"}>
@@ -657,7 +676,7 @@ class ProfileEdit extends Component {
                                                         // disableToolbar
                                                         autoOk
                                                         variant="inline"
-                                                        format="MM-dd-yyyy"
+                                                        format="dd-MM-yyyy"
                                                         margin="dense"
                                                         id="date-picker-inline"
                                                         inputVariant="outlined"
@@ -941,10 +960,14 @@ class ProfileEdit extends Component {
                                             изменения</Button>
                                     </Grid>
                                 </Grid>
+                                </ValidatorForm>
                                 </>}
-                            </Paper>
-                        </ValidatorForm>
 
+                            </Paper>
+
+                        <Typography classes={{root: classes.CopyRight}} gutterBottom>
+                            © 2015-{(new Date().getFullYear())} UMNENIE
+                        </Typography>
                     </Grid>
                 </Grid>
 

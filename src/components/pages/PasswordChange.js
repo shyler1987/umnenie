@@ -117,7 +117,16 @@ const styles = theme => ({
         fontWeight: 600,
         fontSize:30,
         margin: '25px 5px 10px 0px'
-    }
+    },
+    CopyRight: {
+        fontSize: 13,
+        fontWeight: 400,
+        opacity: 0.45,
+        color: '#2b2a29',
+        [theme.breakpoints.up('sm')]: {
+            display:'none'
+        }
+    },
 
 
 });
@@ -139,6 +148,8 @@ class PasswordChange extends Component {
             show: false,
             snakbar: false,
         };
+
+        this.passChange = React.createRef();
     }
     handleClose =()=>{
         this.setState({
@@ -207,6 +218,8 @@ class PasswordChange extends Component {
 
     componentDidMount() {
         this.props.setTitle("Сменить пароль");
+        this.passChange.current.scrollIntoView({behavior: 'smooth', block: 'start'})
+
 
     }
 
@@ -250,7 +263,7 @@ class PasswordChange extends Component {
                             <LeftMenu/>
                         </Grid>
                         <Grid item md={9} sm={12} xs={12}>
-                            <Paper classes={{root: classes.poperContent}}>
+                            <Paper ref={this.passChange} classes={{root: classes.poperContent}}>
                                 <ValidatorForm onSubmit={this.submit}>
                                 <Grid container spacing={3} direction={"row"}>
                                     <Grid item md={12}>
@@ -311,6 +324,10 @@ class PasswordChange extends Component {
                                 </Grid>
                                 </ValidatorForm>
                             </Paper>
+
+                            <Typography classes={{root: classes.CopyRight}} gutterBottom>
+                                © 2015-{(new Date().getFullYear())} UMNENIE
+                            </Typography>
                         </Grid>
                     </Grid>
 

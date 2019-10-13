@@ -26,7 +26,7 @@ const useStyles1 = makeStyles(theme => ({
         backgroundColor: theme.palette.error.dark,
     },
     info: {
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: "#1976d2",
     },
     warning: {
         backgroundColor: amber[700],

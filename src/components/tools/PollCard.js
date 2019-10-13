@@ -113,14 +113,15 @@ const styles = theme => ({
             },
             '&:hover $tint': {
                 background: '#e67043',
-
+            },
+            [theme.breakpoints.down('md')]: {
+                '&:hover $tint': {
+                    background: 'transparent'
+                },
             }
-
-
         },
 
         Gridtile: {
-
             cursor: 'pointer',
             '&:hover': {
                 backgroundColor: '#000 !important',
@@ -465,7 +466,7 @@ class PollCard extends Component {
 
     editPath = (e) => {
         e.preventDefault()
-        this.props.history.push("/polls/edit/" + this.state.idPoll);
+        this.props.history.push("/poll/edit/" + this.state.idPoll);
     }
 
 
@@ -1042,7 +1043,7 @@ class PollCard extends Component {
                             <IconButton
                                 onClick={this.likedClick(this.props.idPoll)}
                                 aria-haspopup="true"
-                                disabled={!this.state.disableCard}
+                                // disabled={!this.state.disableCard}
                                 color="inherit"
                                 classes={{root: classes.imgIconsP}}
                             > {this.state.liked ? <FovriteIcon classes={{root: classes.fovriteRed}}/> :

@@ -571,7 +571,7 @@ class ProfileHeadCoverUser extends Component {
                                     <Avatar alt="Remy Sharp" src={userImage} className={classes.bigAvatar}/>
                                     <div className={classes.profileTitleBar}>
                                         <Typography variant="caption" display="block" classes={{root:classes.profileTitleDate}}>
-                                            {userRegistryDate}
+                                            {/*{userRegistryDate}*/}
                                         </Typography>
                                         <Typography   classes={{root:classes.profileTitle}}>{userFIO}</Typography>
                                     </div>
