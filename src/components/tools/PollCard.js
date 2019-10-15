@@ -309,6 +309,7 @@ class PollCard extends Component {
             disableClickCard,
             propsCard,
             isVouted,
+            userId,
         } = this.props;
 
         this.state = {
@@ -337,6 +338,7 @@ class PollCard extends Component {
             answerText: answerText === null ? false : answerText,
             cellHeight: cellHeight === null ? 180 : cellHeight,
             liked: like,
+            userId: userId,
             pollAnswerCount: pollAnswerCount,
             pollLikeCount: pollLikeCount,
             isVouted: isVouted === null ? false : isVouted,
@@ -360,6 +362,7 @@ class PollCard extends Component {
             pollLikeCount,
             disableCard,
             isVouted,
+            userId,
 
         } = nextProps;
 
@@ -374,6 +377,7 @@ class PollCard extends Component {
             imagePoll: imagePoll,
             pollLikeCount: pollLikeCount,
             idPoll: idPoll,
+            userId: userId,
             pollItems: pollItems,
             iconStatis: iconStatis === null ? false : iconStatis,
             clickOtvet: clickOtvet === null ? false : clickOtvet,
@@ -442,7 +446,6 @@ class PollCard extends Component {
             this.props.setIsAuth(true)
             return;
         }
-
         this.props.showLoading(true);
         axios.post(API_Like, {
             poll_id: poll_id
@@ -456,8 +459,6 @@ class PollCard extends Component {
         }).catch(err => {
             this.props.showLoading(false);
         })
-
-
         this.setState({
             liked: !this.state.liked
         });
@@ -490,7 +491,10 @@ class PollCard extends Component {
 
     render() {
         const {classes} = this.props;
-        let urlProfile = "/profile/" + this.props.username;
+        let urlProfile =  "/profile/" + this.props.username;
+        if(this.props.user.userId!==null && this.props.user.userId===this.state.userId){
+            urlProfile = '/account/profile';
+        }
         if (this.props.isAuthenticated) {
 
         }

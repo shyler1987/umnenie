@@ -379,6 +379,7 @@ class ProfileUser extends Component {
                                             disableClickCard={true}
                                             clickOtvet={false}
                                             isVouted={item.isVouted}
+                                            userId={item.userId}
                                         />
                                     );
                                 })}

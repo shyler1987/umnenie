@@ -475,7 +475,7 @@ class PollCreate extends Component {
         }).then(res => {
             this.loadingBar(false)
             if (res.status === 202) {
-                this.props.history.push("/polls/edit/" + res.data.poll_id)
+                this.props.history.push("/poll/edit/" + res.data.poll_id)
             }
             this.openSnakbar('success', "Успешно")
         }).catch(err => {

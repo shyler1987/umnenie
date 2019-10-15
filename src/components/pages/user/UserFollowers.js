@@ -222,10 +222,14 @@ class UserFollowers extends Component {
 
                             <List>
                                 {this.state.follower.map((itemFollow, IndexKey) =>{
+                                    let urlProfile =  "/profile/" + itemFollow.userName;
+                                    if(this.props.user.userId===itemFollow.user_id){
+                                        urlProfile = '/account/profile';
+                                    }
                                     return (<Paper className={classes.paper}>
                                         <ListItem>
                                             <ListItemAvatar>
-                                                <Link to={"/profile/"+itemFollow.userName} ><Avatar src={itemFollow.avatar} /></Link>
+                                                <Link to={urlProfile} ><Avatar src={itemFollow.avatar} /></Link>
                                             </ListItemAvatar>
                                             <ListItemText
                                                 classes={{primary:classes.textListItem, secondary:classes.textListItemSecondary}}
@@ -253,6 +257,7 @@ function mapDispatch(dispatch) {
 
 function mapStateToProps(state) {
     return {
+        user: state.mainData.user,
     };
 
 }

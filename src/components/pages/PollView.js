@@ -536,10 +536,14 @@ class PollView extends Component {
                                 </Typography>
                                 <Paper classes={{root: classes.noPad}}>
                                     {comments.items.map(itemComment => {
+                                        let url_User = `/profile/${itemComment.user_name}`;
+                                        if(this.props.user.userId!==null && this.props.user.userId===itemComment.user_id){
+                                            url_User = '/account/profile';
+                                        }
                                         return (<div
                                             className={itemComment.rtl === "left" ? "d-flex justify-content-start itemChat" : "d-flex justify-content-end itemChat"}>
                                             <div className="img_cont_msg">
-                                                <Link to={`/profile/${itemComment.user_name}`}><img
+                                                <Link to={url_User}><img
                                                     src={itemComment.avatar}
                                                     className="rounded-circle user_img_msg"/></Link>
                                             </div>

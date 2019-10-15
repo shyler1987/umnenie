@@ -7,7 +7,7 @@ const initData = {
         userName: null,
         userImage: null,
         access_token: null,
-        user_id: null,
+        userId: null,
         role: null
     },
 };
@@ -28,7 +28,7 @@ export default function mainReducer(state = initData, action) {
                     userName: action.payload.userName,
                     userImage: action.payload.userImage,
                     access_token: action.payload.access_token,
-                    user_id: action.payload.user_id,
+                    userId: action.payload.userId,
                     role: action.payload.role,
                 }
             };
