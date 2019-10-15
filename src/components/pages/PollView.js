@@ -539,7 +539,7 @@ class PollView extends Component {
                                         return (<div
                                             className={itemComment.rtl === "left" ? "d-flex justify-content-start itemChat" : "d-flex justify-content-end itemChat"}>
                                             <div className="img_cont_msg">
-                                                <Link to={itemComment.user_id}><img
+                                                <Link to={`/profile/${itemComment.user_name}`}><img
                                                     src={itemComment.avatar}
                                                     className="rounded-circle user_img_msg"/></Link>
                                             </div>

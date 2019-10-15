@@ -292,11 +292,12 @@ class ProfileEdit extends Component {
     }
 
     handleChangeField = (e) => {
-        if(e.target.value.length===4) return;
+
         this.setState({[e.target.name]: e.target.value})
     }
 
     handleChangeSpecial = (event) => {
+        if(event.target.value.length===4) return;
         this.setState({specialization_id: event.target.value});
 
     }
@@ -740,7 +741,7 @@ class ProfileEdit extends Component {
                                                     margin="dense"
                                                     id="outlined-name"
                                                     fullWidth
-                                                    placeholder={"Страна\Город"}
+                                                    placeholder={`Страна/Город`}
                                                     className={classes.textField}
                                                     variant="outlined"
                                                     validators={['required']}
@@ -784,7 +785,7 @@ class ProfileEdit extends Component {
                                                 margin="dense"
                                                 id="outlined-name"
                                                 fullWidth
-                                                placeholder={"Страна\Город"}
+                                                placeholder={`Страна/Город`}
                                                 className={classes.textField}
                                                 variant="outlined"
                                                 error={this.state.addressError}
