@@ -17,9 +17,11 @@ import setIsAuth from '../../redux/actions/setIsAuth'
 import {connect} from "react-redux";
 import Button from '@material-ui/core/Button';
 import AuthDialog from "../pages/AuthDialog";
+import ExitDialog from "../pages/ExitDialog";
 import axios from "axios";
 import seTisAuthenticated from "../../redux/actions/seTisAuthenticated";
 import setUserData from "../../redux/actions/setUserData";
+import setExitApp from "../../redux/actions/setExitApp";
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
 const styles = theme => ({
@@ -189,28 +191,30 @@ const LOGOUT = "profil/logout";
          this.props.setIsAuth(true);
      }
 
-     logOut = () =>{
-         this.setState({show:true})
-         axios.get(LOGOUT).then(res=>{
-             if(res.status===200){
-                 localStorage.removeItem("token");
-                 this.props.seTisAuthenticated(false);
-                 this.props.setUserData({
-                     userFIO: null,
-                     userName: null,
-                     userImage: null,
-                     access_token: null,
-                     user_id: null,
-                     role: null
-                 });
-                 this.props.history.push("/")
-             }
-             this.setState({show:false})
-
-         }).catch(err=>{
-             this.setState({show:false})
-            console.log(err)
-         })
+     logOut = (e) =>{
+         e.preventDefault();
+         this.props.setExitApp(true);
+         // this.setState({show:true})
+         // axios.get(LOGOUT).then(res=>{
+         //     if(res.status===200){
+         //         localStorage.removeItem("token");
+         //         this.props.seTisAuthenticated(false);
+         //         this.props.setUserData({
+         //             userFIO: null,
+         //             userName: null,
+         //             userImage: null,
+         //             access_token: null,
+         //             user_id: null,
+         //             role: null
+         //         });
+         //         this.props.history.push("/")
+         //     }
+         //     this.setState({show:false})
+         //
+         // }).catch(err=>{
+         //     this.setState({show:false})
+         //    console.log(err)
+         // })
      }
 
      onSubmit = (event) =>{
@@ -236,6 +240,7 @@ const LOGOUT = "profil/logout";
                 show={this.state.show}
                 color="red"
             />
+            <ExitDialog dialogBool={false}/>
             <AuthDialog dialogBool={false}/>
             <AppBar position="relative" classes={{root:classes.appBar}}>
                 <Container maxWidth="lg">
@@ -340,7 +345,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-     return bindActionCreators({setIsAuth, seTisAuthenticated, setUserData}, dispatch);
+     return bindActionCreators({setIsAuth, seTisAuthenticated, setUserData, setExitApp}, dispatch);
 }
 
 

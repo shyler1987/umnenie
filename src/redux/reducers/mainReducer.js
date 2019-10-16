@@ -1,6 +1,7 @@
 const initData = {
     title: "UMNENIE",
     isAuth: false,
+    isExitApp: false,
     isAuthenticated: localStorage.getItem('token') !== null ? true : false,
     user: {
         userFIO: null,
@@ -20,6 +21,9 @@ export default function mainReducer(state = initData, action) {
             return {...state, title: action.payload};
         case "IS_AUTHENTICATED" :
             return {...state, isAuthenticated: action.payload};
+        case "EXIT_APP" :
+            return {...state, isExitApp: action.payload};
+
         case "USER_DATA" :
             return {
                 ...state, user: {
