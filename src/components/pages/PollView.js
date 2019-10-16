@@ -112,7 +112,11 @@ const styles = theme => ({
     },
     textPaddingBottom:{
         paddingBottom: 5
-    }
+    },
+        commentUser:{
+            fontWeight: 600,
+            fontSize: 14
+        }
 }
 );
 const API_POLLS = "polls/item/?id=";
@@ -548,6 +552,7 @@ class PollView extends Component {
                                                     className="rounded-circle user_img_msg"/></Link>
                                             </div>
                                             <div className="msg_cotainer">
+                                                {itemComment.user_name !== null && <h5 className={classes.commentUser}>{itemComment.user_name}</h5>}
                                                 {itemComment.text !== null ? itemComment.text :
                                                     <img style={{width: '100%'}} src={itemComment.file}/>}
                                                 <div className="msg_time">{itemComment.date_cr}</div>
