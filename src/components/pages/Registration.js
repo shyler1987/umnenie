@@ -165,7 +165,10 @@ class Registration extends Component {
         super(props);
         this.state = {
             show: false,
-            personToggle: true
+            personToggle: true,
+            errorPhone:false,
+            errorSms_code:false,
+            step:1,
         }
     }
 
@@ -206,6 +209,34 @@ class Registration extends Component {
             this.regAction(data)
         }
     }
+
+    onSubmitFormViaSmsCode = () =>{
+        if(this.state.personToggle){
+            //fiz litsoi
+            const  data = {
+                type:1,
+                fio:this.state.fio,
+                phone:this.state.phone,
+                username:this.state.username,
+                password:this.state.password,
+                retry_password:this.state.retry_password,
+            };
+            this.regAction(data)
+        }else{
+            //yur litsoi
+            const  data = {
+                type:2,
+                org_name:this.state.org_name,
+                email:this.state.email,
+                username:this.state.username,
+                password:this.state.password,
+                retry_password:this.state.retry_password,
+            };
+            this.regAction(data)
+        }
+    }
+
+
 
 
     regAction = (data) => {
@@ -275,7 +306,7 @@ class Registration extends Component {
                             >
 
                                 <Grid item md={4} xs={12} sm={12}>
-                                    <ValidatorForm
+                                    {this.state.step===1 && <ValidatorForm
                                         fullWidth
                                         ref="form"
                                         onSubmit={this.onSubmitForm}
@@ -413,7 +444,54 @@ class Registration extends Component {
                                             </Grid>
 
                                         </Grid>
-                                    </ValidatorForm>
+                                    </ValidatorForm> }
+                                    {this.state.step===2 && <ValidatorForm
+                                        fullWidth
+                                        ref="form"
+                                        onSubmit={this.onSubmitFormViaSmsCode}
+                                        onError={errors => console.log(errors)}
+                                    >
+                                        <TextValidator
+                                            fullWidth
+                                            id="outlined-bare"
+                                            placeholder={"Код подтверждения"}
+                                            className={classes.textField}
+                                            margin="normal"
+                                            error={this.state.errorSms_code}
+                                            helperText={this.state.errorSms_code && "Такая учетная запись не зарегистрирована в системе."}
+                                            name={"sms_code"}
+                                            value={this.state.sms_code}
+                                            onChange={this.handleChange}
+                                            variant="outlined"
+                                            validators={['required']}
+                                            errorMessages={['Это поле обязательно к заполнению']}
+                                            inputProps={{
+                                                style: {
+                                                    height:40,
+                                                    padding: '0 14px',
+                                                },
+                                            }}
+                                        />
+                                        <Grid
+                                            container
+                                            direction="row"
+                                            justify="center"
+                                            alignItems="flex-start"
+
+                                        >
+
+                                            <Grid item md={12}>
+                                                <Button
+                                                    disabled={this.state.show}
+                                                    variant="contained" color="secondary" style={{marginTop: 10}} type={"submit"}
+                                                    classes={{root: classes.regBtns}} fullWidth>
+                                                    Зарегистрироваться
+                                                </Button>
+                                            </Grid>
+
+                                        </Grid>
+                                    </ValidatorForm> }
+
                                     <div>
                                         <Typography classes={{root: classes.textP}}>Все права защищены. Используя сайт,
                                             вы обязуетесь выполнять условия <Link to={"/license"} className={classes.textA}>Пользовательского

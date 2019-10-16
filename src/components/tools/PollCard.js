@@ -512,7 +512,7 @@ class PollCard extends Component {
                 action={
                     <div>
                                 <span className={classes.cardDateTitle}>
-                                    {this.state.iconStatis ?
+                                    {this.props.isAuthenticated &&
                                         <IconButton
                                             aria-haspopup="true"
                                             color="inherit"
@@ -524,7 +524,7 @@ class PollCard extends Component {
                                                       d="M13.975,13.828V4.453H10.459v9.375H9.287V0H5.771V13.828H4.6V6.8H1.084v7.031H0V15H15V13.828Zm-10.547,0H2.256V10.313H3.428Zm0-4.687H2.256V7.969H3.428Zm4.688,4.688H6.943V10.313H8.115Zm0-4.687H6.943V1.172H8.115ZM12.8,13.828H11.631V10.313H12.8Zm0-4.687H11.631V5.625H12.8Z"
                                                       fill="#2b2a29"/>
                                             </SvgIcon>
-                                        </IconButton> : ""}
+                                        </IconButton>}
                                     {this.state.CrownSvg &&
                                             <SvgIcon viewBox="0 0 15 15" classes={{root: classes.svgRootIconCrown}}>
                                                 <defs>
