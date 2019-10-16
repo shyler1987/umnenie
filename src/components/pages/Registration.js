@@ -31,12 +31,10 @@ const styles = theme => ({
         //minHeight:500
     },
     textField: {
-
-
         "&:hover": {
-            paddingTop: 25,
+            // paddingTop: 25,
             outline: '4px',
-            paddingBottom: 25,
+            // paddingBottom: 25,
         },
 
     },
@@ -44,9 +42,9 @@ const styles = theme => ({
     textFieldRoot: {
         paddingTop: 25,
         "&:focus": {
-            paddingTop: 25,
+            // paddingTop: 25,
             outline: '4px',
-            paddingBottom: 25,
+            // paddingBottom: 25,
         },
 
     },
@@ -149,6 +147,7 @@ const styles = theme => ({
 });
 
 const API_REGFISTRATION = "account/registry";
+const API_REGFISTRATION_SMS = "account/save-registry";
 
 const NamesState = [
     'phone',
@@ -211,29 +210,26 @@ class Registration extends Component {
     }
 
     onSubmitFormViaSmsCode = () =>{
-        if(this.state.personToggle){
-            //fiz litsoi
-            const  data = {
-                type:1,
-                fio:this.state.fio,
-                phone:this.state.phone,
-                username:this.state.username,
-                password:this.state.password,
-                retry_password:this.state.retry_password,
-            };
-            this.regAction(data)
-        }else{
-            //yur litsoi
-            const  data = {
-                type:2,
-                org_name:this.state.org_name,
-                email:this.state.email,
-                username:this.state.username,
-                password:this.state.password,
-                retry_password:this.state.retry_password,
-            };
-            this.regAction(data)
-        }
+        this.setState({show:true})
+        axios.post(API_REGFISTRATION_SMS, {
+            sms_code:this.state.sms_code
+        }).then(res=>{
+
+            this.setState({show:false})
+            if(res.status===201){
+                localStorage.setItem('token', res.data.access_token);
+                this.props.seTisAuthenticated(true);
+                this.props.setUserData(res.data)
+                this.props.history.push("/account/profile")
+            }
+
+        }).catch(err=>{
+            if(err.response.status===404){
+                this.setState({
+                    errorSms_code:true
+                })
+            }
+        })
     }
 
 
@@ -244,11 +240,10 @@ class Registration extends Component {
         axios.post(API_REGFISTRATION, data).then(res=>{
 
             this.setState({show:false})
-            if(res.status===201){
-                localStorage.setItem('token', res.data.data.access_token);
-                this.props.seTisAuthenticated(true);
-                this.props.setUserData(res.data.data)
-                this.props.history.push("/account/profile")
+            if(res.status===203){
+                this.setState({
+                    step:2
+                })
             }
 
         }).catch(err=>{
@@ -458,7 +453,7 @@ class Registration extends Component {
                                             className={classes.textField}
                                             margin="normal"
                                             error={this.state.errorSms_code}
-                                            helperText={this.state.errorSms_code && "Такая учетная запись не зарегистрирована в системе."}
+                                            helperText={this.state.errorSms_code && "Код подтверждения не верный"}
                                             name={"sms_code"}
                                             value={this.state.sms_code}
                                             onChange={this.handleChange}

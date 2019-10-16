@@ -512,7 +512,7 @@ class PollCard extends Component {
                 action={
                     <div>
                                 <span className={classes.cardDateTitle}>
-                                    {this.props.isAuthenticated &&
+                                    {this.props.isAuthenticated && this.state.iconStatis &&
                                         <IconButton
                                             aria-haspopup="true"
                                             color="inherit"
