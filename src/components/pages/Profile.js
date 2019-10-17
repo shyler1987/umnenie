@@ -385,6 +385,9 @@ class Profile extends Component {
                                         pollItems={item.items}
                                         iconEdit={item.edit}
                                         iconFovrite={true}
+                                        like={item.like}
+                                        pollLikeCount={item.pollLikeCount}
+                                        pollAnswerCount={item.pollAnswerCount}
                                         isVouted={item.isVouted}
                                         clickOtvet={false}
                                         showLoading={this.showLoadingBar}
