@@ -380,6 +380,9 @@ class ProfileUser extends Component {
                                             clickOtvet={false}
                                             isVouted={item.isVouted}
                                             userId={item.userId}
+                                            like={item.like}
+                                            pollLikeCount={item.pollLikeCount}
+                                            pollAnswerCount={item.pollAnswerCount}
                                         />
                                     );
                                 })}
