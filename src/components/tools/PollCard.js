@@ -443,6 +443,7 @@ class PollCard extends Component {
                 this.setState({
                     pollItems: res.data.pollItems,
                     isVouted: res.data.isVouted,
+                    pollAnswerCount: res.data.pollAnswerCount,
                 })
             }
             this.props.showLoading(false);
