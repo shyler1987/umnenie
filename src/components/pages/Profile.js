@@ -191,6 +191,7 @@ class Profile extends Component {
             polls: [],
             show: false,
             favorite: false,
+            edit: false,
             activeButton: 0,
             subscribersCount: 0,
             subscriptionCount: 0,
@@ -210,25 +211,33 @@ class Profile extends Component {
         switch (index) {
             case 0 :
                 this.setState({
-                    favorite:false
+                    favorite:false,
+                    edit:false,
+                    polls:[],
                 })
                 this.getByUrl(MY_POLLS);
                 break;
             case 1 :
                 this.setState({
-                    favorite:true
+                    favorite:true,
+                    edit:false,
+                    polls:[],
                 })
                 this.getByUrl(MY_FOVRITES);
                 break;
             case 2 :
                 this.setState({
-                    favorite:false
+                    favorite:false,
+                    edit:true,
+                    polls:[],
                 })
                 this.getByUrl(MY_DRAFTS);
                 break;
             case 3 :
                 this.setState({
-                    favorite:false
+                    favorite:false,
+                    edit:false,
+                    polls:[],
                 })
                 this.getByUrl(MY_REFERAL);
                 break;
@@ -404,7 +413,7 @@ class Profile extends Component {
                                         avatarUrl={item.userImage}
                                         pollType={item.pollType}
                                         pollItems={item.items}
-                                        iconEdit={item.edit}
+                                        iconEdit={this.state.edit}
                                         iconFovrite={true}
                                         like={item.like}
                                         pollLikeCount={item.pollLikeCount}

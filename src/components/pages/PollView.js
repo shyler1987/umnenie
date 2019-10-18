@@ -215,6 +215,9 @@ class PollView extends Component {
 
 
     commentAddClick = () => {
+        if(this.commentAdd.current===null){
+            return;
+        }
         this.commentAdd.current.scrollIntoView({behavior: 'smooth', block: 'start'})
     }
 
@@ -484,7 +487,7 @@ class PollView extends Component {
                                         imagePoll={this.state.polls.pollImage}
                                         fullName={this.state.polls.userFIO}
                                         username={this.state.polls.userName}
-                                        userId={this.state.userId}
+                                        userId={this.state.polls.userId}
                                         contentPoll={this.state.polls.pollQuestion}
                                         datePoll={this.state.polls.pollEndDate}
                                         avatarUrl={this.state.polls.userImage}
@@ -499,7 +502,7 @@ class PollView extends Component {
                                         iconAnonced={true}
                                         iconStatis={this.state.polls.viewStatistic}
                                         isVouted={this.state.polls.isVouted}
-                                        iconEdit={this.state.polls.edit}
+                                        iconEdit={false}
                                         disableCard={this.state.polls.disableCard}
                                         QrCode={true}
                                         answerText={true}

@@ -103,12 +103,16 @@ const styles = theme => ({
                 "& .imgTile": {
                     opacity: '.2',
                     cursor: 'pointer',
+                    [theme.breakpoints.down('md')]: {
+                        opacity: 'unset',
+                    }
+
                 },
                 "& grid": {
                     background: 'transparent'
                 },
                 "& .MuiGridListTileBar-root": {
-                    background: 'transparent'
+                    // background: 'transparent',
                 },
             },
             '&:hover $tint': {
@@ -123,8 +127,10 @@ const styles = theme => ({
 
         Gridtile: {
             cursor: 'pointer',
+            // backgroundColor: '#000 !important',
             '&:hover': {
                 backgroundColor: '#000 !important',
+
             },
         },
 
