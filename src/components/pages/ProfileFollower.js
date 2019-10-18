@@ -139,6 +139,7 @@ class ProfileFollower extends Component {
             this.setState({
                 follower:res.data
             })
+            this.getUserMe();
         }).catch(err=>{
             this.showLoading(false)
         });

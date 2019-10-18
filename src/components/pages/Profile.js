@@ -190,6 +190,7 @@ class Profile extends Component {
         this.state = {
             polls: [],
             show: false,
+            favorite: false,
             activeButton: 0,
             subscribersCount: 0,
             subscriptionCount: 0,
@@ -208,15 +209,27 @@ class Profile extends Component {
     setActive = (index) => {
         switch (index) {
             case 0 :
+                this.setState({
+                    favorite:false
+                })
                 this.getByUrl(MY_POLLS);
                 break;
             case 1 :
+                this.setState({
+                    favorite:true
+                })
                 this.getByUrl(MY_FOVRITES);
                 break;
             case 2 :
+                this.setState({
+                    favorite:false
+                })
                 this.getByUrl(MY_DRAFTS);
                 break;
             case 3 :
+                this.setState({
+                    favorite:false
+                })
                 this.getByUrl(MY_REFERAL);
                 break;
 
@@ -259,7 +272,6 @@ class Profile extends Component {
             this.showLoadingBar(false)
         }).catch(err => {
             this.showLoadingBar(false)
-            console.log(err);
         })
     }
 
@@ -285,6 +297,15 @@ class Profile extends Component {
         }).catch(err => {
             console.log(err)
         })
+    }
+
+    liked = (status, id) =>{
+        if(this.state.favorite){
+            let polls = this.state.polls.filter(x=>x.pollId!==id);
+            this.setState({
+                polls:polls
+            })
+        }
     }
 
     render() {
@@ -391,6 +412,8 @@ class Profile extends Component {
                                         isVouted={item.isVouted}
                                         clickOtvet={false}
                                         showLoading={this.showLoadingBar}
+                                        favorite={this.state.favorite}
+                                        liked={this.liked}
                                     />
                                 );
                             })}

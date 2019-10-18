@@ -309,6 +309,7 @@ class PollCard extends Component {
             disableClickCard,
             propsCard,
             isVouted,
+            favorite,
             userId,
         } = this.props;
 
@@ -317,6 +318,8 @@ class PollCard extends Component {
             fullName: fullName,
             datePoll: datePoll,
             contentPoll: contentPoll,
+            favorite: favorite,
+
             pollType: pollType,
             imagePoll: imagePoll,
             idPoll: idPoll,
@@ -363,6 +366,7 @@ class PollCard extends Component {
             disableCard,
             isVouted,
             userId,
+            favorite,
 
         } = nextProps;
 
@@ -378,6 +382,7 @@ class PollCard extends Component {
             pollLikeCount: pollLikeCount,
             idPoll: idPoll,
             userId: userId,
+            favorite: favorite,
             pollItems: pollItems,
             iconStatis: iconStatis === null ? false : iconStatis,
             clickOtvet: clickOtvet === null ? false : clickOtvet,
@@ -451,6 +456,15 @@ class PollCard extends Component {
             poll_id: poll_id
         }).then(res => {
             if (res.status === 202) {
+                this.setState({
+                    pollLikeCount: res.data.pollLikeCount
+                })
+                this.props.liked(res.status, poll_id);
+            }
+            if (res.status === 203) {
+                if(this.props.liked!==undefined){
+                    this.props.liked(res.status, poll_id);
+                }
                 this.setState({
                     pollLikeCount: res.data.pollLikeCount
                 })
