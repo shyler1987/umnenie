@@ -116,6 +116,12 @@ const styles = theme => ({
         commentUser:{
             fontWeight: 600,
             fontSize: 14
+        },
+        disabeNavi:{
+            color: 'currentColor',
+            cursor: 'not-allowed',
+            opacity: '0.5',
+            textDecoration: 'none'
         }
 }
 );
@@ -468,7 +474,7 @@ class PollView extends Component {
                         >
                             <Hidden smDown>
                                 <Grid item md={1}>
-                                    <Link onClick={() => {
+                                    <Link className={this.state.polls.nextPoll===null && classes.disabeNavi} onClick={() => {
                                         this.PollNavigate(this.state.polls.nextPoll)
                                     }}>
                                         <Paper classes={{root: classes.arrowButton}}>
@@ -518,7 +524,7 @@ class PollView extends Component {
                             </Grid>
                             <Hidden smDown>
                                 <Grid item md={1}>
-                                    <Link onClick={() => {
+                                    <Link  className={this.state.polls.prevPoll===null && classes.disabeNavi} onClick={() => {
                                         this.PollNavigate(this.state.polls.prevPoll)
                                     }}>
                                         <Paper classes={{root: classes.arrowButton}}>
