@@ -13,7 +13,7 @@ import Hidden from '@material-ui/core/Hidden';
 import Avatar from '@material-ui/core/Avatar';
 
 
-import { Provider } from 'react-redux'
+import {connect, Provider} from 'react-redux'
 import SvgIcon from '@material-ui/core/SvgIcon';
 import PropTypes from 'prop-types';
 import axios from "axios";
@@ -22,7 +22,10 @@ import Dialog from "@material-ui/core/Dialog";
 import {QRCode} from "react-qrcode-logo";
 import logoQr from "../../media/logo_q.png";
 import DialogContent from "@material-ui/core/DialogContent";
+import {bindActionCreators} from "redux";
+import setTitle from "../../redux/actions/setTitleAction";
 
+import setIsAuth from '../../redux/actions/setIsAuth'
 
 
 const styles = theme => ({
@@ -654,5 +657,14 @@ ProfileHeadCover.propTypes = {
     userImage:PropTypes.string,
     userRegistryDate:PropTypes.string,
 };
+function mapStateToProps(state) {
+    return {
+        isAuthenticated: state.mainData.isAuthenticated,
+    }
+}
 
-export default withStyles(styles)(withRouter(ProfileHeadCover));
+function mapDispatch(dispatch) {
+    return bindActionCreators({setTitle}, dispatch);
+}
+
+export default  connect(mapStateToProps, mapDispatch)(withStyles(styles)(withRouter(ProfileHeadCover)));

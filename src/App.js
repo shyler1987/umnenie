@@ -233,7 +233,7 @@ class App extends Component {
                 return Promise.reject(error);
             if (error.response.status === 401) {
                  localStorage.removeItem('token')
-                window.location.replace('/');
+                // window.location.replace('/');
                 // window.location.replace('/auth/login');
             }
             return Promise.reject(error);
