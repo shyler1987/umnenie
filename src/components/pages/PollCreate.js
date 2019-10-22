@@ -468,6 +468,8 @@ class PollCreate extends Component {
         //     data[item] = this.state[item]
         // })
         this.loadingBar(true)
+        this.openSnakbar('success', "Успешно");
+
         axios.post(url, formData, {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -475,9 +477,11 @@ class PollCreate extends Component {
         }).then(res => {
             this.loadingBar(false)
             if (res.status === 202) {
-                this.props.history.push("/poll/edit/" + res.data.poll_id)
+                this.openSnakbarAfterCreate('success', "Успешно")
+                return;
+                this.props.history.push("/");
             }
-            this.openSnakbar('success', "Успешно")
+
         }).catch(err => {
             this.loadingBar(false)
             if (err.response !== undefined) {
@@ -571,6 +575,16 @@ class PollCreate extends Component {
         })
     }
 
+    openSnakbarAfterCreate = (snakbarVariant, snakbarMessage) => {
+        this.setState({
+            openSnakbar: true,
+            snakbarVariant: snakbarVariant,
+            snakbarMessage: snakbarMessage,
+        })
+        this.props.history.push("/");
+
+    }
+
     render() {
 
         const {classes} = this.props;
@@ -592,7 +606,6 @@ class PollCreate extends Component {
                     onClose={this.closeSnakbar}
                 >
                     <MySnackbarContentWrapper
-                        onClose={this.closeSnakbar}
                         variant={this.state.snakbarVariant}
                         message={this.state.snakbarMessage}
                     />
