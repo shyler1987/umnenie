@@ -245,12 +245,13 @@ const API_USER_BACKGROUND = "profil/add-background";
 const USER_BLOKUSER = "profil/block-user";
 const USER_SUBSCRIBE = "profil/subscribe-in-info";
 const USER_CHAT = "/profil/chat-create";
+const USER_ME = "profil/user-info";
 
 class ProfileHeadCoverUser extends Component {
 
     constructor(props) {
         super(props);
-        const {profilePhoto, userBackground, userId, isBlocked, isFollow} = this.props;
+        const {profilePhoto, userBackground, userId, isBlocked, isFollow, subscribersCount, subscriptionCount} = this.props;
 
         this.state = {
             openSnakbar: false,
@@ -260,6 +261,8 @@ class ProfileHeadCoverUser extends Component {
             isBlocked: isBlocked === null ? false : isBlocked,
             profilePhoto: profilePhoto === null ? false : profilePhoto,
             userBackground: userBackground === null ? "" : userBackground,
+            subscribersCount: subscribersCount === null ? 0 : subscribersCount,
+            subscriptionCount: subscribersCount === null ? 0 : subscriptionCount,
 
         }
     }
@@ -296,6 +299,19 @@ class ProfileHeadCoverUser extends Component {
 
             })
         }
+
+        if (this.props.subscribersCount !== nextProps.subscribersCount) {
+            this.setState({
+                subscribersCount: nextProps.subscribersCount,
+            })
+        }
+
+        if (this.props.subscriptionCount !== nextProps.subscriptionCount) {
+            this.setState({
+                subscriptionCount: nextProps.subscriptionCount,
+            })
+        }
+
         if (this.props.isBlocked !== nextProps.isBlocked) {
             this.setState({
                 isBlocked: nextProps.isBlocked,
@@ -311,8 +327,25 @@ class ProfileHeadCoverUser extends Component {
 
 
     }
+    getUserMe = () => {
+        axios.post(USER_ME, {
+            username: this.props.match.params.username
+        }).then(res => {
+            if (res.status === 200) {
+                this.setState({
+                    subscribersCount: res.data.subscribersCount,
+                    subscriptionCount: res.data.subscriptionCount,
 
+                })
+                this.props.setTitle(res.data.userFIO)
+            }
+
+        }).catch(err => {
+            console.log(err)
+        })
+    }
     setFollow = () => {
+
         this.showLoadingBar(true);
         axios.post(USER_SUBSCRIBE, {
             user_id: this.state.userId
@@ -321,6 +354,7 @@ class ProfileHeadCoverUser extends Component {
                 this.setState({
                     isFollow: res.data.status
                 })
+                this.getUserMe();
             }
             this.showLoadingBar(false);
         }).catch(err => {
@@ -627,7 +661,7 @@ class ProfileHeadCoverUser extends Component {
                                         >
 
                                             Подписчиков <span
-                                            style={{marginLeft: 20, color: '#e35b1e'}}>{subscribersCount}</span>
+                                            style={{marginLeft: 20, color: '#e35b1e'}}>{this.state.subscribersCount}</span>
                                             <dot className={classes.dot}></dot>
                                         </Button>
                                         <Button variant="outlined" className={classes.button}
@@ -635,7 +669,7 @@ class ProfileHeadCoverUser extends Component {
                                                 onClick={this.checkAuth("/profile/" + this.props.match.params.username + "/following")}
                                                 classes={{root: classes.buttonFollow}} size="large">
                                             Подписки <span
-                                            style={{marginLeft: 20, color: '#e35b1e'}}>{subscriptionCount}</span>
+                                            style={{marginLeft: 20, color: '#e35b1e'}}>{this.state.subscriptionCount}</span>
                                             <dot className={classes.dot}></dot>
                                         </Button>
                                     </div>
@@ -683,7 +717,7 @@ class ProfileHeadCoverUser extends Component {
                                         marginLeft: 20,
                                         color: '#e35b1e',
                                         float: "right"
-                                    }}>{subscribersCount}</span>
+                                    }}>{this.state.subscribersCount}</span>
                                         <dot className={classes.dot}></dot>
                                     </Button>
                                     <Button
@@ -702,7 +736,7 @@ class ProfileHeadCoverUser extends Component {
                                         marginLeft: 20,
                                         color: '#e35b1e',
                                         float: "right"
-                                    }}>{subscriptionCount}</span>
+                                    }}>{this.state.subscriptionCount}</span>
                                         <dot className={classes.dot}></dot>
                                     </Button>
 
