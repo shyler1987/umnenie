@@ -107,6 +107,9 @@ const styles = theme => ({
     cell: {
         paddingBottom: 20
     },
+    dialogConRoot:{
+        padding:0
+    },
     dialogTitleRoot:{
         padding:"5px 24px"
     },
@@ -379,7 +382,7 @@ class PollView extends Component {
             </DialogContent>
         </React.Fragment>;
         const QR_CODE = <React.Fragment>
-            <DialogContent>
+            <DialogContent classes={{root:classes.dialogConRoot}}>
                 <QRCode
                     logoImage={logoQr}
                     size={250}
