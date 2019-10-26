@@ -317,6 +317,7 @@ class PollCard extends Component {
             isVouted,
             favorite,
             userId,
+            isCurrent
         } = this.props;
 
         this.state = {
@@ -351,6 +352,7 @@ class PollCard extends Component {
             pollAnswerCount: pollAnswerCount,
             pollLikeCount: pollLikeCount,
             isVouted: isVouted === null ? false : isVouted,
+            isCurrent: isCurrent === null ? false : isCurrent,
 
         }
 
@@ -373,6 +375,7 @@ class PollCard extends Component {
             isVouted,
             userId,
             favorite,
+            isCurrent,
 
         } = nextProps;
 
@@ -405,6 +408,7 @@ class PollCard extends Component {
             cellHeight: cellHeight === null ? 180 : cellHeight,
             disableCard: disableCard === null ? false : disableCard,
             disableClickCard: disableClickCard === null ? false : disableClickCard,
+            isCurrent: isCurrent === null ? false : isCurrent,
 
         });
     }
@@ -512,6 +516,16 @@ class PollCard extends Component {
 
     render() {
         const {classes} = this.props;
+        let urlCard = "/polls/" + this.state.idPoll;
+
+        if(this.state.propsCard!==undefined && this.state.propsCard.username !== undefined){
+            urlCard = "/polls/" + this.state.propsCard.username + "/" + this.state.idPoll;
+        }
+
+        if(this.state.isCurrent){
+            urlCard = "/polls/" + this.props.user.userName + "/" + this.state.idPoll;
+        }
+
         let urlProfile =  "/profile/" + this.props.username;
         if(this.props.user.userId!==null && this.props.user.userId===this.state.userId){
             urlProfile = '/account/profile';
@@ -1093,7 +1107,7 @@ class PollCard extends Component {
                 />
             </Dialog>
             <Link
-                to={this.state.propsCard.username !== undefined ? "/polls/" + this.state.propsCard.username + "/" + this.state.idPoll : "/polls/" + this.state.idPoll}
+                to={urlCard}
                 className={classes.clickCard}>
                 {cardContent}
             </Link> </React.Fragment> : <React.Fragment>
@@ -1122,6 +1136,7 @@ PollCard.propTypes = {
 
 
 function mapStateToProps(state) {
+
     return {
         isAuthenticated: state.mainData.isAuthenticated,
         user: state.mainData.user,

@@ -15,6 +15,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import {bindActionCreators} from "redux";
 import setTitle from "../../redux/actions/setTitleAction";
 import {connect} from "react-redux";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const styles = theme => ({
     root: {
@@ -190,6 +191,11 @@ class Profile extends Component {
         this.state = {
             polls: [],
             show: false,
+            //infinity scrool
+            hasMore: true,
+            previous:null,
+            next:null,
+            //**//
             favorite: false,
             edit: false,
             activeButton: 0,
@@ -214,32 +220,44 @@ class Profile extends Component {
                     favorite:false,
                     edit:false,
                     polls:[],
+                    hasMore: true,
+                    previous:null,
+                    next:null,
                 })
-                this.getByUrl(MY_POLLS);
+                this.fetchDataPollsScroll(MY_POLLS);
                 break;
             case 1 :
                 this.setState({
                     favorite:true,
                     edit:false,
                     polls:[],
+                    hasMore: true,
+                    previous:null,
+                    next:null,
                 })
-                this.getByUrl(MY_FOVRITES);
+                this.fetchDataPollsScroll(MY_FOVRITES);
                 break;
             case 2 :
                 this.setState({
                     favorite:false,
                     edit:true,
                     polls:[],
+                    hasMore: true,
+                    previous:null,
+                    next:null,
                 })
-                this.getByUrl(MY_DRAFTS);
+                this.fetchDataPollsScroll(MY_DRAFTS);
                 break;
             case 3 :
                 this.setState({
                     favorite:false,
                     edit:false,
                     polls:[],
+                    hasMore: true,
+                    previous:null,
+                    next:null,
                 })
-                this.getByUrl(MY_REFERAL);
+                this.fetchDataPollsScroll(MY_REFERAL);
                 break;
 
         }
@@ -265,7 +283,7 @@ class Profile extends Component {
     componentDidMount() {
 
         this.getUserMe();
-        this.getByUrl(MY_POLLS);
+        this.fetchDataPollsScroll(MY_POLLS);
     }
 
     getByUrl = (url) => {
@@ -308,6 +326,42 @@ class Profile extends Component {
         })
     }
 
+    fetchData = ()=>{
+        this.fetchDataPollsScroll(this.state.next);
+    }
+
+    fetchDataPollsScroll = (url) =>{
+        this.setState({
+            show:true
+        })
+        axios.get(url).then(res => {
+            if(res.status===200 && res.data.count>0){
+                let polls = this.state.polls;
+                polls.push(...res.data.result);
+                this.setState({
+                    polls:polls,
+                    next:res.data.next,
+                    hasMore:res.data.next!==null? true : false
+                })
+            }
+            if(res.status===204){
+                this.setState({
+                    polls:[],
+                    hasMore:false
+                })
+            }
+            this.setState({
+                show:false
+            })
+
+        }).catch(err => {
+            this.setState({
+                show:false,
+                hasMore:false
+            })
+        })
+    }
+
     liked = (status, id) =>{
         if(this.state.favorite){
             let polls = this.state.polls.filter(x=>x.pollId!==id);
@@ -335,6 +389,7 @@ class Profile extends Component {
                     userRegistryDate={this.state.userRegistryDate}
                     userType={this.state.userType}
                     showLoadingBar={this.showLoadingBar}
+
                 />
                 <Loading
                     show={this.state.show}
@@ -392,6 +447,26 @@ class Profile extends Component {
                     <Typography classes={{root: classes.titleHead}}>
                         {this.state.title}
                     </Typography>
+                    <InfiniteScroll
+                        dataLength={this.state.polls.length}
+                        next={this.fetchData}
+                        hasMore={this.state.hasMore}
+                        loader={<h4>Загрузка...</h4>}
+                        // endMessage={
+                        //     <p style={{textAlign: 'center'}}>
+                        //         <b>Ура! Вы видели все это</b>
+                        //     </p>
+                        // }
+                        // below props only if you need pull down functionality
+                        // refreshFunction={this.refresh}
+                        // pullDownToRefresh
+                        // pullDownToRefreshContent={
+                        //     <h3 style={{textAlign: 'center'}}>&#8595; Потяните вниз, чтобы обновить</h3>
+                        // }
+                        // releaseToRefreshContent={
+                        //     <h3 style={{textAlign: 'center'}}>&#8593; Обновить</h3>
+                        // }
+                    >
                     <ResponsiveMasonry
                         columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
                     >
@@ -407,6 +482,7 @@ class Profile extends Component {
                                         idPoll={item.pollId}
                                         imagePoll={item.pollImage}
                                         fullName={item.userFIO}
+                                        isCurrent={true}
                                         username={item.userName}
                                         contentPoll={item.pollQuestion}
                                         datePoll={item.pollEndDate}
@@ -415,19 +491,23 @@ class Profile extends Component {
                                         pollItems={item.items}
                                         iconEdit={this.state.edit}
                                         iconFovrite={true}
+                                        CrownSvg={item.pollCrown}
                                         like={item.like}
                                         pollLikeCount={item.pollLikeCount}
                                         pollAnswerCount={item.pollAnswerCount}
                                         isVouted={item.isVouted}
                                         clickOtvet={false}
+                                        disableCard={item.disableCard}
                                         showLoading={this.showLoadingBar}
                                         favorite={this.state.favorite}
                                         liked={this.liked}
+                                        disableClickCard={true}
                                     />
                                 );
                             })}
                         </Masonry>
                     </ResponsiveMasonry>
+                    </InfiniteScroll>
                 </Container>
 
             </div>
