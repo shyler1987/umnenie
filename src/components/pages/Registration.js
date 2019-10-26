@@ -212,6 +212,12 @@ class Registration extends Component {
     onSubmitFormViaSmsCode = () =>{
         this.setState({show:true})
         axios.post(API_REGFISTRATION_SMS, {
+            type:this.state.personToggle ? 1 : 2,
+            fio:this.state.fio,
+            phone:this.state.phone,
+            username:this.state.username,
+            password:this.state.password,
+            retry_password:this.state.retry_password,
             sms_code:this.state.sms_code
         }).then(res=>{
 
@@ -229,6 +235,7 @@ class Registration extends Component {
                     errorSms_code:true
                 })
             }
+            this.setState({show:false})
         })
     }
 
