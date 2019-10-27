@@ -170,6 +170,7 @@ class ExitDialog extends Component {
                     userFIO: null,
                     userName: null,
                     userImage: null,
+                    userPhone: false,
                     access_token: null,
                     user_id: null,
                     role: null
