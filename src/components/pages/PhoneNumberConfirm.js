@@ -144,7 +144,6 @@ class PhoneNumberConfirm extends Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props.user.userPhone)
         this.state = {
             show: false,
             dialogBool: this.props.isPhoneNumber,
