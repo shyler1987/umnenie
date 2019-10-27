@@ -17,6 +17,7 @@ import setIsAuth from '../../redux/actions/setIsAuth'
 import {connect} from "react-redux";
 import Button from '@material-ui/core/Button';
 import AuthDialog from "../pages/AuthDialog";
+import PhoneNumberConfirm from "../pages/PhoneNumberConfirm";
 import ExitDialog from "../pages/ExitDialog";
 import axios from "axios";
 import seTisAuthenticated from "../../redux/actions/seTisAuthenticated";
@@ -242,6 +243,7 @@ const LOGOUT = "profil/logout";
             />
             <ExitDialog dialogBool={false}/>
             <AuthDialog dialogBool={false}/>
+            <PhoneNumberConfirm dialogBool={false}/>
             <AppBar position="relative" classes={{root:classes.appBar}}>
                 <Container maxWidth="lg">
 

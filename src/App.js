@@ -17,6 +17,7 @@ import PasswordChange from "./components/pages/PasswordChange";
 import RecoveryPasswordConfirm from "./components/pages/RecoveryPasswordConfirm";
 import PollCreate from "./components/pages/PollCreate";
 import ChatPage from "./components/pages/ChatPage";
+import ConfirmUser from "./components/pages/ConfirmUser";
 import Registration from "./components/pages/Registration";
 import StatisPage from "./components/pages/StatisPage";
 import {connect} from "react-redux";
@@ -155,7 +156,7 @@ const routesGuest = [
     {url: '/polls/:id', component: PollView, layout: 'dashboard'},
     {url: '/polls/:username/:id', component: PollView, layout: 'dashboard'},
 
-    {url: '/account/recovery/:token', component: RecoveryPasswordConfirm, layout: 'dashboard'},
+    {url: '/account/confirm/:token', component: ConfirmUser, layout: 'dashboard'},
     {url: '/account/recovery', component: RecoveryPassword, layout: 'dashboard'},
 
     {url: '/license', component: License, layout: 'dashboard'},

@@ -722,6 +722,7 @@ function mapDispatch(dispatch) {
     return bindActionCreators({setTitle}, dispatch);
 }
 function mapStateToProps(state) {
+    console.log(state);
     return {
         isAuthenticated: state.mainData.isAuthenticated,
         user: state.mainData.user,

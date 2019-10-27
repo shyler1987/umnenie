@@ -99,7 +99,7 @@ const styles = theme => ({
         padding: 5
     },
     loginBtn: {
-        marginTop: 10
+        marginTop: 10,
     },
     outlinedIn: {
         fontSize: 15,
@@ -111,6 +111,8 @@ const styles = theme => ({
     },
     backdrop: {
         backgroundColor: 'rgba(0, 0, 0, 0.8)'
+    }, dialogRoot:{
+        marginBottom: 20,
     }
 
 
