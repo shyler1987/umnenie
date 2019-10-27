@@ -251,6 +251,7 @@ const MenuProps = {
 const API_POLLS = "polls/list";
 const API_CATEGORY = "profil/categories";
 const API_SPECIAL = "profil/specialization";
+const API_SPECIAL_FILTER = "profil/specialization-filter";
 
 
 class ProfileEdit extends Component {
@@ -280,7 +281,7 @@ class ProfileEdit extends Component {
     }
 
     handleChange = (event) => {
-        if(event.target.value.length===4) return;
+        this.getSpecialFilter(event.target.value);
         this.setState({category_id: event.target.value});
     }
 
@@ -313,6 +314,24 @@ class ProfileEdit extends Component {
             this.loadingBar(false)
             if (res.status === 200) {
                 this.setState({
+                    specialization_id:[],
+                    spetsializatsiya: res.data
+                })
+            }
+        }).catch(err => {
+            this.loadingBar(false)
+        })
+    }
+    getSpecialFilter = (selected) => {
+
+        this.loadingBar(true)
+        axios.get(API_SPECIAL_FILTER, {params:{
+                string:selected.join(',')
+            }}).then(res => {
+            this.loadingBar(false)
+            if (res.status === 200) {
+                this.setState({
+                    specialization_id:[],
                     spetsializatsiya: res.data
                 })
             }
@@ -481,6 +500,7 @@ class ProfileEdit extends Component {
                                                 input={<OutlinedInput name="category" id="outlined-kategory-simple"/>}
                                                 renderValue={selected => {
                                                     if(this.state.category.length>0){
+
                                                         let nn = [];
                                                         selected.map(item => {
                                                             nn.push(this.state.category.find(it => it.id == item).name);
@@ -711,7 +731,7 @@ class ProfileEdit extends Component {
                                                                               id="outlined-speacial-simple"/>}
                                                         renderValue={selected => {
                                                             let nn = [];
-                                                            if (this.state.spetsializatsiya.length !== 0) {
+                                                            if (this.state.spetsializatsiya.length !== 0 && selected.length!==0) {
                                                                 selected.map(item => {
                                                                     nn.push(this.state.spetsializatsiya.find(it => it.id == item).name);
                                                                 });

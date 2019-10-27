@@ -4,6 +4,7 @@ import DashboardLayoutRoute from './layouts/DashboardLayout';
 import {createMuiTheme} from '@material-ui/core/styles';
 import {ThemeProvider} from '@material-ui/styles';
 import Dash from './components/Dash'
+import DashWithAuthOpen from './components/DashWithAuthOpen'
 import RecoveryPassword from './components/pages/RecoveryPassword'
 import axios from "axios"
 import Profile from "./components/pages/Profile";
@@ -163,7 +164,18 @@ const routesGuest = [
     {url: '/profile/:username', component: ProfileUser, layout: 'Profile'},
     {url: '/account/registration', component: Registration, layout: 'dashboard'},
     {url: '/statis/:id', component: StatisPage, layout: 'dashboard'},
+    //** UNAUTH USER*//
+    {url: '/poll/create', component: DashWithAuthOpen, layout: 'dashboard'},
+    {url: '/poll/create/:referal_id', component: DashWithAuthOpen, layout: 'dashboard'},
+    {url: '/poll/edit/:id', component: DashWithAuthOpen, layout: 'dashboard'},
+    {url: '/account/profile', component: DashWithAuthOpen, layout: 'Profile'},
 
+    {url: '/account/followers', component: DashWithAuthOpen, layout: 'Profile'},
+    {url: '/account/following', component: DashWithAuthOpen, layout: 'Profile'},
+    {url: '/account/profile-edit', component: DashWithAuthOpen, layout: 'dashboard'},
+    {url: '/account/passchange', component: DashWithAuthOpen, layout: 'dashboard'},
+    {url: '/chat', component: DashWithAuthOpen, layout: 'dashboard'},
+    {url: '/chat/:chat_id', component: DashWithAuthOpen, layout: 'dashboard'},
 ];
 const routes = [
     {url: '/search/:search', component: Dash, layout: 'dashboard'},
@@ -199,6 +211,7 @@ class App extends Component {
     }
 
     componentDidMount() {
+
         if (localStorage.getItem('token') !== null) {
             this.fetchMe();
         }
