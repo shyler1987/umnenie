@@ -11,12 +11,13 @@ import Button from '@material-ui/core/Button';
 import {Link} from "react-router-dom";
 import Divider from '@material-ui/core/Divider';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import setIsAuth from '../../redux/actions/setIsAuth'
 import seTisAuthenticated from '../../redux/actions/seTisAuthenticated'
 import setUserData from '../../redux/actions/setUserData'
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
+
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -61,9 +62,15 @@ const styles = theme => ({
     },
     callCenter: {
         textAlign: 'right',
+        [theme.breakpoints.down('sm')]: {
+            textAlign: 'center',
+        }
     },
     copyright: {
         textAlign: 'left',
+        [theme.breakpoints.down('sm')]: {
+            textAlign: 'center',
+        }
     },
     ButtonGroup: {
         background: '#fff',
@@ -139,7 +146,7 @@ const styles = theme => ({
         opacity: 0.45,
         color: '#2b2a29',
         textDecoration: 'underline',
-        "&:hover":{
+        "&:hover": {
             color: '#2b2a29',
         }
     }
@@ -158,6 +165,7 @@ const NamesState = [
     'password',
     'retry_password',
 ];
+
 class Registration extends Component {
 
     constructor(props) {
@@ -165,9 +173,9 @@ class Registration extends Component {
         this.state = {
             show: false,
             personToggle: true,
-            errorPhone:false,
-            errorSms_code:false,
-            step:1,
+            errorPhone: false,
+            errorSms_code: false,
+            step: 1,
         }
     }
 
@@ -179,82 +187,80 @@ class Registration extends Component {
 
     handleChange = (e) => {
         this.setState({
-            [e.target.name]:e.target.value
+            [e.target.name]: e.target.value
         })
     }
 
-    onSubmitForm = () =>{
-        if(this.state.personToggle){
+    onSubmitForm = () => {
+        if (this.state.personToggle) {
             //fiz litsoi
-            const  data = {
-                type:1,
-                fio:this.state.fio,
-                phone:this.state.phone,
-                username:this.state.username,
-                password:this.state.password,
-                retry_password:this.state.retry_password,
+            const data = {
+                type: 1,
+                fio: this.state.fio,
+                phone: this.state.phone,
+                username: this.state.username,
+                password: this.state.password,
+                retry_password: this.state.retry_password,
             };
             this.regAction(data)
-        }else{
+        } else {
             //yur litsoi
-            const  data = {
-                type:2,
-                org_name:this.state.org_name,
-                email:this.state.email,
-                username:this.state.username,
-                password:this.state.password,
-                retry_password:this.state.retry_password,
+            const data = {
+                type: 2,
+                org_name: this.state.org_name,
+                email: this.state.email,
+                username: this.state.username,
+                password: this.state.password,
+                retry_password: this.state.retry_password,
             };
             this.regAction(data)
         }
     }
 
-    onSubmitFormViaSmsCode = () =>{
-        this.setState({show:true})
+    onSubmitFormViaSmsCode = () => {
+        this.setState({show: true})
         axios.post(API_REGFISTRATION_SMS, {
-            type:this.state.personToggle ? 1 : 2,
-            fio:this.state.fio,
-            phone:this.state.phone,
-            username:this.state.username,
-            password:this.state.password,
-            retry_password:this.state.retry_password,
-            sms_code:this.state.sms_code
-        }).then(res=>{
+            type: this.state.personToggle ? 1 : 2,
+            fio: this.state.fio,
+            phone: this.state.phone,
+            username: this.state.username,
+            password: this.state.password,
+            retry_password: this.state.retry_password,
+            sms_code: this.state.sms_code
+        }).then(res => {
 
-            this.setState({show:false})
-            if(res.status===201){
+            this.setState({show: false})
+            if (res.status === 201) {
                 localStorage.setItem('token', res.data.access_token);
                 this.props.seTisAuthenticated(true);
                 this.props.setUserData(res.data)
                 this.props.history.push("/account/profile")
             }
 
-        }).catch(err=>{
-            if(err.response.status===404){
+        }).catch(err => {
+            if (err.response.status === 404) {
                 this.setState({
-                    errorSms_code:true
+                    errorSms_code: true
                 })
             }
-            this.setState({show:false})
+            this.setState({show: false})
         })
     }
 
 
-
-
     regAction = (data) => {
-        this.setState({show:true})
-        axios.post(API_REGFISTRATION, data).then(res=>{
+        this.setState({show: true})
+        axios.post(API_REGFISTRATION, data).then(res => {
 
-            this.setState({show:false})
-            if(res.status===203){
+            this.setState({show: false})
+            if (res.status === 203) {
                 this.setState({
-                    step:2
+                    step: 2
                 })
             }
 
-        }).catch(err=>{
-            this.setState({show:false})
+        }).catch(err => {
+            this.setState({show: false})
             let errTextAll = "";
             NamesState.map(item => {
                 this.setState({
@@ -262,7 +268,7 @@ class Registration extends Component {
                     [item + 'ErrorText']: null
                 });
             })
-            if(err.response!==undefined){
+            if (err.response !== undefined) {
                 let erors = JSON.parse(err.response.data.message);
                 Object.keys(erors).map(item => {
                     let errText = "";
@@ -280,7 +286,6 @@ class Registration extends Component {
 
         })
     }
-
 
 
     render() {
@@ -308,7 +313,7 @@ class Registration extends Component {
                             >
 
                                 <Grid item md={4} xs={12} sm={12}>
-                                    {this.state.step===1 && <ValidatorForm
+                                    {this.state.step === 1 && <ValidatorForm
                                         fullWidth
                                         ref="form"
                                         onSubmit={this.onSubmitForm}
@@ -439,15 +444,16 @@ class Registration extends Component {
                                             <Grid item md={12}>
                                                 <Button
                                                     disabled={this.state.show}
-                                                    variant="contained" color="secondary" style={{marginTop: 10}} type={"submit"}
-                                                        classes={{root: classes.regBtns}} fullWidth>
+                                                    variant="contained" color="secondary" style={{marginTop: 10}}
+                                                    type={"submit"}
+                                                    classes={{root: classes.regBtns}} fullWidth>
                                                     Зарегистрироваться
                                                 </Button>
                                             </Grid>
 
                                         </Grid>
-                                    </ValidatorForm> }
-                                    {this.state.step===2 && <ValidatorForm
+                                    </ValidatorForm>}
+                                    {this.state.step === 2 && <ValidatorForm
                                         fullWidth
                                         ref="form"
                                         onSubmit={this.onSubmitFormViaSmsCode}
@@ -469,7 +475,7 @@ class Registration extends Component {
                                             errorMessages={['Это поле обязательно к заполнению']}
                                             inputProps={{
                                                 style: {
-                                                    height:40,
+                                                    height: 40,
                                                     padding: '0 14px',
                                                 },
                                             }}
@@ -485,19 +491,21 @@ class Registration extends Component {
                                             <Grid item md={12}>
                                                 <Button
                                                     disabled={this.state.show}
-                                                    variant="contained" color="secondary" style={{marginTop: 10}} type={"submit"}
+                                                    variant="contained" color="secondary" style={{marginTop: 10}}
+                                                    type={"submit"}
                                                     classes={{root: classes.regBtns}} fullWidth>
                                                     Зарегистрироваться
                                                 </Button>
                                             </Grid>
 
                                         </Grid>
-                                    </ValidatorForm> }
+                                    </ValidatorForm>}
 
                                     <div>
-                                        <Typography classes={{root: classes.textP}}>Все права защищены. Используя сайт,
-                                            вы обязуетесь выполнять условия <Link to={"/license"} className={classes.textA}>Пользовательского
-                                                соглашения.</Link></Typography>
+                                        <Typography classes={{root: classes.textP}}>
+                                            Все права защищены. Используя сайт, вы обязуетесь выполнять условия <Link
+                                            to={"/license"} className={classes.textA}>Пользовательского
+                                            соглашения.</Link></Typography>
 
                                     </div>
                                 </Grid>
@@ -509,25 +517,19 @@ class Registration extends Component {
                             <Grid
                                 container
                                 direction="row"
-                                justify="space-evenly"
-                                alignItems="flex-end"
+
                             >
                                 <Grid md={12}>
                                     <Divider variant="fullWidth" component="hr" style={{marginBottom: 10}}/>
                                 </Grid>
-                                <Grid md={6} className={classes.copyright}>
+                                <Grid md={6} sm={12} xs={12} className={classes.copyright}>
                                     <Typography classes={{root: classes.CopyRight}} gutterBottom>
                                         © 2015-2019 UMNENIE
                                     </Typography>
                                 </Grid>
-                                <Grid md={6} className={classes.callCenter}>
-
-                                        <Link to={"/"} className={classes.support}>Обратиться в службу поддержки</Link>
-
-
+                                <Grid md={6} sm={12} xs={12} className={classes.callCenter}>
+                                    <Link to={"/"} className={classes.support}>Обратиться в службу поддержки</Link>
                                 </Grid>
-
-
                             </Grid>
 
                         </Paper>
@@ -547,8 +549,8 @@ function mapDispatch(dispatch) {
 
 function mapStateToProps(state) {
     return {
-        isAuth:state.mainData.isAuth,
-        user:state.mainData.user
+        isAuth: state.mainData.isAuth,
+        user: state.mainData.user
     };
 }
 
