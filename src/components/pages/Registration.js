@@ -222,6 +222,8 @@ class Registration extends Component {
         axios.post(API_REGFISTRATION_SMS, {
             type: this.state.personToggle ? 1 : 2,
             fio: this.state.fio,
+            org_name: this.state.org_name,
+            email: this.state.email,
             phone: this.state.phone,
             username: this.state.username,
             password: this.state.password,
