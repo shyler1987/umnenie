@@ -18,6 +18,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import seTisAuthenticated from '../../redux/actions/seTisAuthenticated'
+import setIsAuth from '../../redux/actions/setIsAuth'
 import setPhoneNumber from '../../redux/actions/setPhoneNumber'
 import setUserData from '../../redux/actions/setUserData'
 import setExitApp from "../../redux/actions/setExitApp";
@@ -138,7 +140,7 @@ const DialogTitle = withStyles(styles)((props: DialogTitleProps) => {
     );
 });
 
-const API_URL = "account/login";
+const API_URL = "profil/phone-verify";
 
 class PhoneNumberConfirm extends Component {
 
@@ -147,11 +149,12 @@ class PhoneNumberConfirm extends Component {
         this.state = {
             show: false,
             dialogBool: this.props.isPhoneNumber,
-            password: '',
-            username: '',
+
             openSnakbar: false,
-            isLoaded: false,
-            isProcessing: false,
+
+            step:1,
+            phone:null,
+            sms_code:null
         }
     }
     componentDidMount() {
@@ -171,12 +174,46 @@ class PhoneNumberConfirm extends Component {
     }
 
 
-    checkAuth = (e) => {
+    sendSms = (e) => {
         e.preventDefault();
         this.setState({
             show: true
         })
         axios.post(API_URL, {
+            phone: this.state.phone,
+        })
+            .then(response => {
+                if (response.status === 203) {
+                    this.openSnakbar('success', "СМС отправлено ")
+                    this.setState({
+                        step: 2
+                    })
+                }
+                this.setState({
+                    show: false
+                })
+            })
+            .catch(error => {
+                if(error.response===undefined){
+                    this.openSnakbar('error', "не определено ошибка ")
+                    return;
+                }
+                if(error.response.status===404){
+                    this.openSnakbar('error', "Этот номер телефона уже зарегистрирован на umnenie.com")
+                }
+                this.setState({
+                    show: false
+                })
+            });
+    }
+
+
+    sendCode = (e) => {
+        e.preventDefault();
+        this.setState({
+            show: true
+        })
+        axios.post("profil/otp", {
             phone: this.state.phone,
             sms_code: this.state.sms_code,
         })
@@ -185,24 +222,26 @@ class PhoneNumberConfirm extends Component {
                     localStorage.setItem('token', response.data.access_token);
                     this.props.setIsAuth(false);
                     this.props.seTisAuthenticated(true);
-                    this.props.setUserData(response.data)
-
+                    this.props.setUserData(response.data);
+                    this.props.setPhoneNumber(false);
                 }
                 this.setState({
                     show: false
                 })
             })
             .catch(error => {
+                if(error.response===undefined){
+                    this.openSnakbar('error', "не определено ошибка ")
+                    return;
+                }
                 if(error.response.status===404){
-                    this.openSnakbar('error', "Логин или пароль введены неверно")
+                    this.openSnakbar('error', "код подтверждения недействителен или истек")
                 }
                 this.setState({
                     show: false
                 })
             });
-
     }
-
 
 
     closeSnakbar = () => {
@@ -273,12 +312,12 @@ class PhoneNumberConfirm extends Component {
                         >
                             <Grid item md={12} xs={12} sm={12}>
                                 <Typography classes={{root:classes.rotp}}>Введите номер телефона, чтобы подтвердить свой аккаунт</Typography>
-                                <ValidatorForm fullWidth onSubmit={this.checkAuth}>
+                                {this.state.step === 1 && <ValidatorForm fullWidth onSubmit={this.sendSms}>
                                     <TextValidator
                                         validators={['required']}
                                         errorMessages={['Это поле обязательно к заполнению']}
                                         autoComplete='off'
-                                        value={this.state.username}
+                                        value={this.state.phone}
                                         fullWidth
                                         id="outlined-bare"
                                         name={"phone"}
@@ -306,7 +345,41 @@ class PhoneNumberConfirm extends Component {
                                     </Button>
 
 
-                                </ValidatorForm>
+                                </ValidatorForm>}
+                                {this.state.step === 2 && <ValidatorForm fullWidth onSubmit={this.sendCode}>
+                                    <TextValidator
+                                        validators={['required']}
+                                        errorMessages={['Это поле обязательно к заполнению']}
+                                        autoComplete='off'
+                                        value={this.state.sms_code}
+                                        fullWidth
+                                        id="outlined-bare"
+                                        name={"sms_code"}
+                                        onChange={this.handleChange}
+                                        placeholder={"Код подтверждения смс"}
+                                        InputProps={{
+                                            classes: {
+                                                input: classes.outlinedIn,
+                                            },
+                                        }}
+                                        margin="dense"
+                                        variant="outlined"
+                                        inputProps={{
+                                            style: {
+                                                height: 40,
+                                                padding: '0 14px',
+                                            },
+                                        }}
+                                    />
+
+                                    <Button variant="contained" color="secondary" fullWidth disabled={this.state.show}
+                                            classes={{root: classes.loginBtn}} type={"submit"}
+                                            disabled={this.state.show}>
+                                        Проверка кода
+                                    </Button>
+
+
+                                </ValidatorForm>}
 
                             </Grid>
 
@@ -322,7 +395,7 @@ class PhoneNumberConfirm extends Component {
 }
 
 function mapDispatch(dispatch) {
-    return bindActionCreators({setPhoneNumber, setExitApp, setUserData}, dispatch);
+    return bindActionCreators({setPhoneNumber, setExitApp, setUserData, seTisAuthenticated, setIsAuth}, dispatch);
 }
 
 function mapStateToProps(state) {
