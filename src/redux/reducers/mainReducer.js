@@ -37,6 +37,7 @@ export default function mainReducer(state = initData, action) {
                     userName: action.payload.userName,
                     userImage: action.payload.userImage,
                     userPhone: action.payload.userPhone,
+                    userType: action.payload.userType,
                     access_token: action.payload.access_token,
                     userId: action.payload.userId,
                     role: action.payload.role,

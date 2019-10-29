@@ -249,7 +249,12 @@ class PhoneNumberConfirm extends Component {
             openSnakbar: false,
         })
     }
-
+    backTo =(e) =>{
+        e.preventDefault();
+        this.setState({
+            step:1
+        })
+    }
     openSnakbar = (snakbarVariant, snakbarMessage) => {
         this.setState({
             openSnakbar: true,
@@ -282,7 +287,7 @@ class PhoneNumberConfirm extends Component {
                     />
                 </Snackbar>
                 <Dialog
-                    open={this.props.isAuthenticated && this.props.user.userPhone===null}
+                    open={this.props.isAuthenticated && this.props.user.userPhone===null && this.props.user.userType===1}
                     onClose={this.handleClose}
                     fullWidth={true}
                     maxWidth={"xs"}
@@ -345,6 +350,8 @@ class PhoneNumberConfirm extends Component {
                                     </Button>
 
 
+
+
                                 </ValidatorForm>}
                                 {this.state.step === 2 && <ValidatorForm fullWidth onSubmit={this.sendCode}>
                                     <TextValidator
@@ -372,11 +379,32 @@ class PhoneNumberConfirm extends Component {
                                         }}
                                     />
 
-                                    <Button variant="contained" color="secondary" fullWidth disabled={this.state.show}
-                                            classes={{root: classes.loginBtn}} type={"submit"}
-                                            disabled={this.state.show}>
-                                        Проверка кода
-                                    </Button>
+
+
+                                    <Grid
+                                        container
+                                        direction="row"
+                                        justify="center"
+                                        alignItems="flex-start"
+                                        spacing={2}
+
+                                    >
+                                        <Grid item md={4}>
+                                            <Button  color="primary" variant={"outlined"} fullWidth classes={{outlinedPrimary:classes.outlinedPrimary, root: classes.loginBtn}}
+                                                onClick={this.backTo}
+                                            >
+                                                Назад
+                                            </Button>
+                                        </Grid>
+                                        <Grid item md={8}>
+                                            <Button variant="contained" color="secondary" fullWidth disabled={this.state.show}
+                                                    classes={{root: classes.loginBtn}} type={"submit"}
+                                                    disabled={this.state.show}>
+                                                Проверка кода
+                                            </Button>
+                                        </Grid>
+
+                                    </Grid>
 
 
                                 </ValidatorForm>}
