@@ -249,7 +249,12 @@ class Registration extends Component {
         })
     }
 
-
+    backTo =(e) =>{
+        e.preventDefault();
+        this.setState({
+            step:1
+        })
+    }
     regAction = (data) => {
         this.setState({show: true})
         axios.post(API_REGFISTRATION, data).then(res => {
@@ -482,20 +487,27 @@ class Registration extends Component {
                                                 },
                                             }}
                                         />
+
                                         <Grid
                                             container
                                             direction="row"
                                             justify="center"
                                             alignItems="flex-start"
+                                            spacing={2}
 
                                         >
-
-                                            <Grid item md={12}>
-                                                <Button
-                                                    disabled={this.state.show}
-                                                    variant="contained" color="secondary" style={{marginTop: 10}}
-                                                    type={"submit"}
-                                                    classes={{root: classes.regBtns}} fullWidth>
+                                            <Grid item md={4}>
+                                                <Button  color="primary" variant={"outlined"} fullWidth classes={{
+                                                    outlinedPrimary:classes.outlinedPrimary, root: classes.regBtns}}
+                                                         onClick={this.backTo}
+                                                >
+                                                    Назад
+                                                </Button>
+                                            </Grid>
+                                            <Grid item md={8}>
+                                                <Button variant="contained" color="secondary" fullWidth disabled={this.state.show}
+                                                        classes={{root: classes.regBtns}} type={"submit"}
+                                                        disabled={this.state.show}>
                                                     Зарегистрироваться
                                                 </Button>
                                             </Grid>

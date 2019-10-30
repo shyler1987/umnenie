@@ -131,7 +131,7 @@ class Dash extends Component {
                 <Typography classes={{root:classes.titleHead} }>
                     Опрос
                 </Typography>
-                {this.state.polls.length===0 && !this.state.show && <h2>Ничего не найдено</h2>}
+                {this.state.polls.length===0 && !this.state.show && <h2>У вас нет опросов</h2>}
                 <InfiniteScroll
                     dataLength={this.state.polls.length}
                     next={this.fetchData}

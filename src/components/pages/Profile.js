@@ -447,6 +447,7 @@ class Profile extends Component {
                     <Typography classes={{root: classes.titleHead}}>
                         {this.state.title}
                     </Typography>
+                    {this.state.polls.length===0 && !this.state.show && <h2>У вас нет опросов</h2>}
                     <InfiniteScroll
                         dataLength={this.state.polls.length}
                         next={this.fetchData}
