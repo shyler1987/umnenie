@@ -377,7 +377,7 @@ class RecoveryPassword extends Component {
                                 </Grid>
                                 <Grid md={6} className={classes.copyright} >
                                     <Typography variant="caption" align={'left'} gutterBottom >
-                                        (c) 2015-2019
+                                        OOO "Umnenie" (с) {new Date().getFullYear()}
                                     </Typography>
                                 </Grid>
                                 <Grid md={6} className={classes.callCenter}>

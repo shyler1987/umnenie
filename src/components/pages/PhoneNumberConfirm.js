@@ -400,7 +400,7 @@ class PhoneNumberConfirm extends Component {
                                             <Button variant="contained" color="secondary" fullWidth disabled={this.state.show}
                                                     classes={{root: classes.loginBtn}} type={"submit"}
                                                     disabled={this.state.show}>
-                                                Проверка кода
+                                                Подтвердить код
                                             </Button>
                                         </Grid>
 

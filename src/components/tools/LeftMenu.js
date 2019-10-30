@@ -273,7 +273,7 @@ class LeftMenu extends Component {
                     </Paper>
                 </List>
                 <Typography classes={{root: classes.CopyRight}} gutterBottom>
-                    © 2015-{(new Date().getFullYear())} UMNENIE
+                    © 2019-{(new Date().getFullYear())} UMNENIE
                 </Typography>
             </div>
         );

@@ -3,9 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="3013fece-6add-4506-8dd7-e5be49d79bf2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Dash.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dash.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/ConfirmUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ConfirmUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/PhoneNumberConfirm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PhoneNumberConfirm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/RecoveryPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/RecoveryPassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/RecoveryPasswordConfirm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/RecoveryPasswordConfirm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/pages/Registration.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Registration.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tools/LeftMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/LeftMenu.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -216,7 +219,7 @@
       <workItem from="1572078605902" duration="9935000" />
       <workItem from="1572181018617" duration="11670000" />
       <workItem from="1572280674424" duration="5333000" />
-      <workItem from="1572365799128" duration="9707000" />
+      <workItem from="1572365799128" duration="11327000" />
     </task>
     <servers />
   </component>

@@ -538,7 +538,7 @@ class Registration extends Component {
                                 </Grid>
                                 <Grid md={6} sm={12} xs={12} className={classes.copyright}>
                                     <Typography classes={{root: classes.CopyRight}} gutterBottom>
-                                        © 2015-2019 UMNENIE
+                                        OOO "Umnenie" (с) {new Date().getFullYear()}
                                     </Typography>
                                 </Grid>
                                 <Grid md={6} sm={12} xs={12} className={classes.callCenter}>
