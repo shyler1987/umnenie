@@ -210,7 +210,7 @@ class RecoveryPassword extends Component {
                                         <TextValidator
                                             fullWidth
                                             id="outlined-bare"
-                                            placeholder={"Номер телефона"}
+                                            placeholder={"Номер телефона/Электронная почта"}
                                             className={classes.textField}
                                             margin="normal"
                                             name={"phone"}
