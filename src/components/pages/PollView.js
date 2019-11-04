@@ -36,6 +36,8 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import setTitle from "../../redux/actions/setTitleAction";
 import logoQr from '../../media/logo_q.png'
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogActions from "@material-ui/core/DialogActions";
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -140,6 +142,7 @@ class PollView extends Component {
         this.state = {
             polls: {},
             show: false,
+            errorUser: false,
             openSnakbar: false,
             dialogopen: false,
             idPoll: this.props.match.params.id,
@@ -169,6 +172,12 @@ class PollView extends Component {
         this.setState({
             dialogopen: false,
         })
+    }
+    handleCloseError = () => {
+        this.setState({
+            dialogopenError: false,
+        })
+        this.props.history.push("/");
     }
 
     dialogOpen = (type) => {
@@ -204,6 +213,14 @@ class PollView extends Component {
             this.setState({
                 show: false
             })
+
+            if(err.response.status===404){
+                this.setState({
+                    dialogopenError:true,
+                    dialogopenErrorText:err.response.data.error,
+                })
+            }
+
         })
     }
 
@@ -466,7 +483,28 @@ class PollView extends Component {
                 <div style={{marginTop: 20}}>
 
                 </div>
-                {Object.keys(this.state.polls).length !== 0 ?
+
+                    <Dialog
+                        open={this.state.dialogopenError}
+                        onClose={this.handleCloseError}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">{"Ошибка"}</DialogTitle>
+
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                                {this.state.dialogopenErrorText}
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+
+                            <Button onClick={this.handleCloseError} color="primary" autoFocus>
+                                На Главный
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                {Object.keys(this.state.polls).length !== 0 &&
                     <div>
                         <Grid
                             direction={"row"}
@@ -709,7 +747,7 @@ class PollView extends Component {
                         </Grid> : ""}
 
 
-                    </div> : ""}
+                    </div>}
 
 
             </div>
