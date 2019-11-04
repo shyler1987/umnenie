@@ -36,7 +36,7 @@ import checkInLine from '../../media/icons/checkinline.svg'
 
 import {Progress} from 'react-sweet-progress';
 import "react-sweet-progress/lib/style.css";
-
+import DeleteIcon from '@material-ui/icons/Delete';
 import {Link, NavLink, withRouter} from "react-router-dom";
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
@@ -231,6 +231,10 @@ const styles = theme => ({
             margin: 10,
 
         },
+        rooIcon: {
+            color:"#000",
+            fontSize: '1rem',
+        },
         imgIconsP: {
             padding: 10,
 
@@ -316,6 +320,7 @@ class PollCard extends Component {
             propsCard,
             isVouted,
             favorite,
+            isDelete,
             userId,
             isCurrent
         } = this.props;
@@ -353,6 +358,7 @@ class PollCard extends Component {
             pollLikeCount: pollLikeCount,
             isVouted: isVouted === null ? false : isVouted,
             isCurrent: isCurrent === null ? false : isCurrent,
+            isDelete: isDelete === null ? false : isDelete,
 
         }
 
@@ -376,6 +382,7 @@ class PollCard extends Component {
             userId,
             favorite,
             isCurrent,
+            isDelete,
 
         } = nextProps;
 
@@ -409,6 +416,7 @@ class PollCard extends Component {
             disableCard: disableCard === null ? false : disableCard,
             disableClickCard: disableClickCard === null ? false : disableClickCard,
             isCurrent: isCurrent === null ? false : isCurrent,
+            isDelete: isDelete === null ? false : isDelete,
 
         });
     }
@@ -514,6 +522,7 @@ class PollCard extends Component {
         })
     }
 
+
     render() {
         const {classes} = this.props;
         let urlCard = "/polls/" + this.state.idPoll;
@@ -612,6 +621,14 @@ class PollCard extends Component {
                                                       transform="translate(-0.001 -1.289)" fill="#2b2a29"/>
                                             </SvgIcon>
                                         </IconButton> : ""}
+                                    {this.state.isDelete && <IconButton
+                                        aria-haspopup="true"
+                                        color="inherit"
+                                        classes={{root: classes.imgIconsPTOP}}
+                                        onClick={this.props.deleteItem(this.state.idPoll)}
+                                    >
+                                        <DeleteIcon classes={{root: classes.rooIcon}}/>
+                                    </IconButton>}
                                 </span>
                     </div>}
                 classes={{title: classes.cardTitle}}

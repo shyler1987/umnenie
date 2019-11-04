@@ -182,6 +182,7 @@ const MY_POLLS = "profil/my-polls";
 const MY_FOVRITES = "profil/my-favorites";
 const MY_DRAFTS = "profil/my-drafts";
 const MY_REFERAL = "profil/my-referalls";
+const API_DELETE = "profil/delete-poll";
 
 
 class Profile extends Component {
@@ -280,6 +281,27 @@ class Profile extends Component {
         })
     }
 
+    deleteClick = (idPoll) =>(e)=> {
+        e.preventDefault();
+
+        this.showLoadingBar(true);
+        axios.post(API_DELETE, {poll_id: idPoll}).then(res => {
+            if (res.status === 210) {
+                // this.setState({
+                //     polls:res.data.polls,
+                //     next:res.data.next,
+                //     hasMore:res.data.next!==null? true : false
+                // })
+                let polls = this.state.polls.filter(item=>item.pollId!==idPoll);
+                this.setState({
+                        polls:polls
+                });
+            }
+            this.showLoadingBar(false);
+        }).catch(err => {
+            this.showLoadingBar(false);
+        })
+    }
     componentDidMount() {
 
         this.getUserMe();
@@ -343,6 +365,7 @@ class Profile extends Component {
                     next:res.data.next,
                     hasMore:res.data.next!==null? true : false
                 })
+                console.log(this.state.polls)
             }
             if(res.status===204){
                 this.setState({
@@ -503,6 +526,8 @@ class Profile extends Component {
                                         favorite={this.state.favorite}
                                         liked={this.liked}
                                         disableClickCard={true}
+                                        isDelete={item.isDelete}
+                                        deleteItem={this.deleteClick}
                                     />
                                 );
                             })}
