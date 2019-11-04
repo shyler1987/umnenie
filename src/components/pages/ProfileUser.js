@@ -18,6 +18,11 @@ import Snackbar from "@material-ui/core/Snackbar";
 import {bindActionCreators} from "redux";
 import setTitle from "../../redux/actions/setTitleAction";
 import {connect} from "react-redux";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const styles = theme => ({
     root: {
@@ -188,8 +193,10 @@ class ProfileUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            loading:false,
             polls: [],
             show: false,
+            closedDialog: false,
             previous: null,
             next: null,
             count: 0,
@@ -213,7 +220,7 @@ class ProfileUser extends Component {
     componentDidMount() {
 
         this.getUserMe();
-        this.fetchDataPollsScroll(USER_POLLS);
+
     }
 
     showLoadingBar = (bool) => {
@@ -269,12 +276,20 @@ class ProfileUser extends Component {
                     userImage: res.data.userImage,
                     userRegistryDate: res.data.userRegistryDate,
                     userType: res.data.userType,
+                    loading: true,
                 })
                 this.props.setTitle(res.data.userFIO)
+                this.fetchDataPollsScroll(USER_POLLS);
             }
 
         }).catch(err => {
             console.log(err)
+            if(err.response.status===404){
+                this.setState({
+                    closedDialog:true,
+                    errorText:err.response.data.error
+                })
+            }
         })
     }
 
@@ -287,7 +302,12 @@ class ProfileUser extends Component {
         this.fetchDataPollsScroll(USER_POLLS);
     }
 
-
+    handleClose = () =>{
+        this.setState({
+            closedDialog:false
+        })
+        this.props.history.push("/");
+    }
 
     render() {
         const {
@@ -295,8 +315,31 @@ class ProfileUser extends Component {
         } = this.props;
         return (
             <div>
+                <Loading
+                    show={this.state.show}
+                    color="red"
+                />
+                <Dialog
+                    open={this.state.closedDialog}
+                    onClose={this.handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{"Ошибка"}</DialogTitle>
 
-                <ProfileHeadCover
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            {this.state.errorText}
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+
+                        <Button onClick={this.handleClose} color="primary" autoFocus>
+                            На Главный
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+                {this.state.loading && <div><ProfileHeadCover
                     profilePhoto={true}
                     subscribersCount={this.state.subscribersCount}
                     subscriptionCount={this.state.subscriptionCount}
@@ -312,84 +355,82 @@ class ProfileUser extends Component {
                     showLoadingBar={this.showLoadingBar}
 
                 />
-                <Loading
-                    show={this.state.show}
-                    color="red"
-                />
+
                 <Container>
 
-                    <Typography classes={{root: classes.titleHead}}>
-                        О себе
+                <Typography classes={{root: classes.titleHead}}>
+                    О себе
                     </Typography>
                     <Grid container spacing={0}>
-                        <Grid md={12} item>
-                            <Typography classes={{root: classes.textAbout}}>{this.state.userComments}</Typography>
-                        </Grid>
+                    <Grid md={12} item>
+                    <Typography classes={{root: classes.textAbout}}>{this.state.userComments}</Typography>
                     </Grid>
-                </Container>
+                    </Grid>
+                    </Container>
 
-                <Container>
+                    <Container>
                     <Typography classes={{root: classes.titleHead}}>
-                        {this.state.title}
+                    {this.state.title}
                     </Typography>
                     <InfiniteScroll
-                        dataLength={this.state.polls.length}
-                        next={this.fetchData}
-                        hasMore={this.state.hasMore}
-                        loader={<h4>Загрузка...</h4>}
-                        endMessage={
-                            <p style={{textAlign: 'center'}}>
-                                <b>Ура! Вы видели все это</b>
-                            </p>
-                        }
-                        // below props only if you need pull down functionality
-                        refreshFunction={this.refresh}
-                        pullDownToRefresh
-                        pullDownToRefreshContent={
-                            <h3 style={{textAlign: 'center'}}>&#8595; Потяните вниз, чтобы обновить</h3>
-                        }
-                        releaseToRefreshContent={
-                            <h3 style={{textAlign: 'center'}}>&#8593; Обновить</h3>
-                        }>
-                        <ResponsiveMasonry
-                            columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
-                        >
-                            <Masonry
-                                columnsCount={3}
-                                gutter={"10px"}
-                            >
-                                {this.state.polls.map((item, key) => {
-                                    return (
-                                        <PollCard
-                                            key={key}
-                                            idPoll={item.pollId}
-                                            imagePoll={item.pollImage}
-                                            propsCard={this.props.match.params}
-                                            fullName={item.userFIO}
-                                            username={item.userName}
-                                            contentPoll={item.pollQuestion}
-                                            datePoll={item.pollEndDate}
-                                            avatarUrl={item.userImage}
-                                            pollType={item.pollType}
-                                            pollItems={item.items}
-                                            disableCard={item.disableCard}
-                                            iconFovrite={true}
-                                            iconEdit={false}
-                                            showLoading={this.showLoadingBar}
-                                            disableClickCard={true}
-                                            clickOtvet={false}
-                                            isVouted={item.isVouted}
-                                            userId={item.userId}
-                                            like={item.like}
-                                            pollLikeCount={item.pollLikeCount}
-                                            pollAnswerCount={item.pollAnswerCount}
-                                        />
-                                    );
-                                })}
-                            </Masonry>
-                        </ResponsiveMasonry>
+                    dataLength={this.state.polls.length}
+                    next={this.fetchData}
+                    hasMore={this.state.hasMore}
+                    loader={<h4>Загрузка...</h4>}
+                    endMessage={
+                    <p style={{textAlign: 'center'}}>
+                        <b>Ура! Вы видели все это</b>
+                    </p>
+                }
+                    // below props only if you need pull down functionality
+                    refreshFunction={this.refresh}
+                    pullDownToRefresh
+                    pullDownToRefreshContent={
+                    <h3 style={{textAlign: 'center'}}>&#8595; Потяните вниз, чтобы обновить</h3>
+                }
+                    releaseToRefreshContent={
+                    <h3 style={{textAlign: 'center'}}>&#8593; Обновить</h3>
+                }>
+                    <ResponsiveMasonry
+                    columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
+                    >
+                    <Masonry
+                    columnsCount={3}
+                    gutter={"10px"}
+                    >
+                    {this.state.polls.map((item, key) => {
+                        return (
+                            <PollCard
+                                key={key}
+                                idPoll={item.pollId}
+                                imagePoll={item.pollImage}
+                                propsCard={this.props.match.params}
+                                fullName={item.userFIO}
+                                username={item.userName}
+                                contentPoll={item.pollQuestion}
+                                datePoll={item.pollEndDate}
+                                avatarUrl={item.userImage}
+                                pollType={item.pollType}
+                                pollItems={item.items}
+                                disableCard={item.disableCard}
+                                iconFovrite={true}
+                                iconEdit={false}
+                                showLoading={this.showLoadingBar}
+                                disableClickCard={true}
+                                clickOtvet={false}
+                                isVouted={item.isVouted}
+                                userId={item.userId}
+                                like={item.like}
+                                pollLikeCount={item.pollLikeCount}
+                                pollAnswerCount={item.pollAnswerCount}
+                            />
+                        );
+                    })}
+                    </Masonry>
+                    </ResponsiveMasonry>
                     </InfiniteScroll>
-                </Container>
+                    </Container></div>}
+
 
             </div>
         );
