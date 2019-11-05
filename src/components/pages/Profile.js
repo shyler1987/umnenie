@@ -375,19 +375,16 @@ class Profile extends Component {
                 this.setState({
                     polls: polls,
                     next: res.data.next,
-                    hasMore: res.data.next !== null ? true : false
+                    hasMore: res.data.next !== null ? true : false,
+                    show: false
                 })
-                console.log(this.state.polls)
+                return;
             }
-            if (res.status === 204) {
+
                 this.setState({
-                    polls: [],
+                    show: false,
                     hasMore: false
                 })
-            }
-            this.setState({
-                show: false
-            })
 
         }).catch(err => {
             this.setState({
