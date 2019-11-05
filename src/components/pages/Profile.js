@@ -176,12 +176,12 @@ const styles = theme => ({
 });
 
 
-
 const USER_ME = "profil/me";
 const MY_POLLS = "profil/my-polls";
 const MY_FOVRITES = "profil/my-favorites";
 const MY_DRAFTS = "profil/my-drafts";
 const MY_REFERAL = "profil/my-referalls";
+const MY_BLOCKED = "profil/my-blocked";
 const API_DELETE = "profil/delete-poll";
 
 
@@ -194,8 +194,8 @@ class Profile extends Component {
             show: false,
             //infinity scrool
             hasMore: true,
-            previous:null,
-            next:null,
+            previous: null,
+            next: null,
             //**//
             favorite: false,
             edit: false,
@@ -218,47 +218,58 @@ class Profile extends Component {
         switch (index) {
             case 0 :
                 this.setState({
-                    favorite:false,
-                    edit:false,
-                    polls:[],
+                    favorite: false,
+                    edit: false,
+                    polls: [],
                     hasMore: true,
-                    previous:null,
-                    next:null,
+                    previous: null,
+                    next: null,
                 })
                 this.fetchDataPollsScroll(MY_POLLS);
                 break;
             case 1 :
                 this.setState({
-                    favorite:true,
-                    edit:false,
-                    polls:[],
+                    favorite: true,
+                    edit: false,
+                    polls: [],
                     hasMore: true,
-                    previous:null,
-                    next:null,
+                    previous: null,
+                    next: null,
                 })
                 this.fetchDataPollsScroll(MY_FOVRITES);
                 break;
             case 2 :
                 this.setState({
-                    favorite:false,
-                    edit:true,
-                    polls:[],
+                    favorite: false,
+                    edit: true,
+                    polls: [],
                     hasMore: true,
-                    previous:null,
-                    next:null,
+                    previous: null,
+                    next: null,
                 })
                 this.fetchDataPollsScroll(MY_DRAFTS);
                 break;
             case 3 :
                 this.setState({
-                    favorite:false,
-                    edit:false,
-                    polls:[],
+                    favorite: false,
+                    edit: false,
+                    polls: [],
                     hasMore: true,
-                    previous:null,
-                    next:null,
+                    previous: null,
+                    next: null,
                 })
                 this.fetchDataPollsScroll(MY_REFERAL);
+                break;
+            case 4 :
+                this.setState({
+                    favorite: false,
+                    edit: false,
+                    polls: [],
+                    hasMore: true,
+                    previous: null,
+                    next: null,
+                })
+                this.fetchDataPollsScroll(MY_BLOCKED);
                 break;
 
         }
@@ -281,7 +292,7 @@ class Profile extends Component {
         })
     }
 
-    deleteClick = (idPoll) =>(e)=> {
+    deleteClick = (idPoll) => (e) => {
         e.preventDefault();
 
         this.showLoadingBar(true);
@@ -292,9 +303,9 @@ class Profile extends Component {
                 //     next:res.data.next,
                 //     hasMore:res.data.next!==null? true : false
                 // })
-                let polls = this.state.polls.filter(item=>item.pollId!==idPoll);
+                let polls = this.state.polls.filter(item => item.pollId !== idPoll);
                 this.setState({
-                        polls:polls
+                    polls: polls
                 });
             }
             this.showLoadingBar(false);
@@ -302,6 +313,7 @@ class Profile extends Component {
             this.showLoadingBar(false);
         })
     }
+
     componentDidMount() {
 
         this.getUserMe();
@@ -315,8 +327,8 @@ class Profile extends Component {
                 this.setState({
                     polls: res.data.result
                 })
-            }else{
-                this.setState({polls:[]})
+            } else {
+                this.setState({polls: []})
             }
             this.showLoadingBar(false)
         }).catch(err => {
@@ -348,48 +360,48 @@ class Profile extends Component {
         })
     }
 
-    fetchData = ()=>{
+    fetchData = () => {
         this.fetchDataPollsScroll(this.state.next);
     }
 
-    fetchDataPollsScroll = (url) =>{
+    fetchDataPollsScroll = (url) => {
         this.setState({
-            show:true
+            show: true
         })
         axios.get(url).then(res => {
-            if(res.status===200 && res.data.count>0){
+            if (res.status === 200 && res.data.count > 0) {
                 let polls = this.state.polls;
                 polls.push(...res.data.result);
                 this.setState({
-                    polls:polls,
-                    next:res.data.next,
-                    hasMore:res.data.next!==null? true : false
+                    polls: polls,
+                    next: res.data.next,
+                    hasMore: res.data.next !== null ? true : false
                 })
                 console.log(this.state.polls)
             }
-            if(res.status===204){
+            if (res.status === 204) {
                 this.setState({
-                    polls:[],
-                    hasMore:false
+                    polls: [],
+                    hasMore: false
                 })
             }
             this.setState({
-                show:false
+                show: false
             })
 
         }).catch(err => {
             this.setState({
-                show:false,
-                hasMore:false
+                show: false,
+                hasMore: false
             })
         })
     }
 
-    liked = (status, id) =>{
-        if(this.state.favorite){
-            let polls = this.state.polls.filter(x=>x.pollId!==id);
+    liked = (status, id) => {
+        if (this.state.favorite) {
+            let polls = this.state.polls.filter(x => x.pollId !== id);
             this.setState({
-                polls:polls
+                polls: polls
             })
         }
     }
@@ -443,6 +455,9 @@ class Profile extends Component {
                                     <Button onClick={() => {
                                         this.setActive(2)
                                     }} classes={{root: classes[this.getClass(2)]}}>Черновики</Button>
+                                    <Button onClick={() => {
+                                        this.setActive(4)
+                                    }} classes={{root: classes[this.getClass(4)]}}>Заблокированные</Button>
                                 </ButtonGroup>
                             </React.Fragment> : <React.Fragment>
                                 <ButtonGroup fullWidth aria-label="full width outlined button group"
@@ -459,6 +474,10 @@ class Profile extends Component {
                                     <Button onClick={() => {
                                         this.setActive(2)
                                     }} classes={{root: classes[this.getClass(2)]}}>Черновики</Button>
+                                    <Button onClick={() => {
+                                        this.setActive(4)
+                                    }} classes={{root: classes[this.getClass(4)]}}>Заблокированные</Button>
+
                                 </ButtonGroup>
                             </React.Fragment>}
 
@@ -470,7 +489,7 @@ class Profile extends Component {
                     <Typography classes={{root: classes.titleHead}}>
                         {this.state.title}
                     </Typography>
-                    {this.state.polls.length===0 && !this.state.show && <h2>У вас нет опросов</h2>}
+                    {this.state.polls.length === 0 && !this.state.show && <h2>У вас нет опросов</h2>}
                     <InfiniteScroll
                         dataLength={this.state.polls.length}
                         next={this.fetchData}
@@ -491,48 +510,48 @@ class Profile extends Component {
                         //     <h3 style={{textAlign: 'center'}}>&#8593; Обновить</h3>
                         // }
                     >
-                    <ResponsiveMasonry
-                        columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
-                    >
-                        <Masonry
-                            columnsCount={3}
-                            gutter={"10px"}
+                        <ResponsiveMasonry
+                            columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
                         >
-                            {this.state.polls.map((item, key) => {
-                                return (
-                                    <PollCard
-                                        key={key}
-                                        userId={item.userId}
-                                        idPoll={item.pollId}
-                                        imagePoll={item.pollImage}
-                                        fullName={item.userFIO}
-                                        isCurrent={true}
-                                        username={item.userName}
-                                        contentPoll={item.pollQuestion}
-                                        datePoll={item.pollEndDate}
-                                        avatarUrl={item.userImage}
-                                        pollType={item.pollType}
-                                        pollItems={item.items}
-                                        iconEdit={this.state.edit}
-                                        iconFovrite={true}
-                                        CrownSvg={item.pollCrown}
-                                        like={item.like}
-                                        pollLikeCount={item.pollLikeCount}
-                                        pollAnswerCount={item.pollAnswerCount}
-                                        isVouted={item.isVouted}
-                                        clickOtvet={false}
-                                        disableCard={item.disableCard}
-                                        showLoading={this.showLoadingBar}
-                                        favorite={this.state.favorite}
-                                        liked={this.liked}
-                                        disableClickCard={true}
-                                        isDelete={item.isDelete}
-                                        deleteItem={this.deleteClick}
-                                    />
-                                );
-                            })}
-                        </Masonry>
-                    </ResponsiveMasonry>
+                            <Masonry
+                                columnsCount={3}
+                                gutter={"10px"}
+                            >
+                                {this.state.polls.map((item, key) => {
+                                    return (
+                                        <PollCard
+                                            key={key}
+                                            userId={item.userId}
+                                            idPoll={item.pollId}
+                                            imagePoll={item.pollImage}
+                                            fullName={item.userFIO}
+                                            isCurrent={true}
+                                            username={item.userName}
+                                            contentPoll={item.pollQuestion}
+                                            datePoll={item.pollEndDate}
+                                            avatarUrl={item.userImage}
+                                            pollType={item.pollType}
+                                            pollItems={item.items}
+                                            iconEdit={this.state.edit}
+                                            iconFovrite={true}
+                                            CrownSvg={item.pollCrown}
+                                            like={item.like}
+                                            pollLikeCount={item.pollLikeCount}
+                                            pollAnswerCount={item.pollAnswerCount}
+                                            isVouted={item.isVouted}
+                                            clickOtvet={false}
+                                            disableCard={item.disableCard}
+                                            showLoading={this.showLoadingBar}
+                                            favorite={this.state.favorite}
+                                            liked={this.liked}
+                                            disableClickCard={true}
+                                            isDelete={item.isDelete}
+                                            deleteItem={this.deleteClick}
+                                        />
+                                    );
+                                })}
+                            </Masonry>
+                        </ResponsiveMasonry>
                     </InfiniteScroll>
                 </Container>
 
@@ -547,11 +566,9 @@ function mapDispatch(dispatch) {
 }
 
 function mapStateToProps(state) {
-    return {
-    };
+    return {};
 
 }
 
 
-
-export default  connect(mapStateToProps, mapDispatch)(withStyles(styles)(Profile));
+export default connect(mapStateToProps, mapDispatch)(withStyles(styles)(Profile));
