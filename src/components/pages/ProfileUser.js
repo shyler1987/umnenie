@@ -233,20 +233,21 @@ class ProfileUser extends Component {
         this.setState({
             show: true
         })
-        axios.post(url, {
-            username: this.props.match.params.username
-        }).then(res => {
-            if (res.status === 200 && res.data.count > 0) {
+        axios.get(url).then(res => {
+            if(res.status===200 && res.data.count>0){
                 let polls = this.state.polls;
                 polls.push(...res.data.result);
                 this.setState({
-                    polls: polls,
-                    next: res.data.next,
-                    hasMore: res.data.next !== null ? true : false
+                    polls:polls,
+                    next:res.data.next,
+                    hasMore:res.data.next!==null? true : false,
+                    show: false,
                 })
+                return;
             }
             this.setState({
-                show: false
+                show: false,
+                hasMore: false
             })
 
         }).catch(err => {

@@ -65,17 +65,14 @@ class Dash extends Component {
                 this.setState({
                     polls:polls,
                     next:res.data.next,
-                    hasMore:res.data.next!==null? true : false
+                    hasMore:res.data.next!==null? true : false,
+                    show: false,
                 })
-            }
-            if(res.status===204){
-                this.setState({
-                    polls:[],
-                    hasMore:false
-                })
+                return;
             }
             this.setState({
-                show:false
+                show: false,
+                hasMore: false
             })
 
         }).catch(err => {
