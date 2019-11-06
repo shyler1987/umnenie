@@ -1014,7 +1014,7 @@ class PollCreate extends Component {
 
                                             <Button fullWidth variant="contained" onClick={() => {
                                                 this.addVariant()
-                                            }} color={"secondary"}>Дабовить варианть
+                                            }} color={"secondary"}>Добавить вариант
                                                 +</Button>
 
 
