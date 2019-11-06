@@ -5,8 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 //import Container from 'react-bootstrap/Container'
 import Container from '@material-ui/core/Container';
 
-import  AuthDialog from '../components/pages/AuthDialog'
-import MenuBar from './Menu';
+
 import TopMenu from '../components/tools/TopMenu'
 
 

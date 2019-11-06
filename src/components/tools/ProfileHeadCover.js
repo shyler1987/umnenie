@@ -5,19 +5,15 @@ import Typography from '@material-ui/core/Typography';
 import 'react-loading-bar/dist/index.css'
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import {Link, NavLink, withRouter} from "react-router-dom";
-
-import CoverImage from '../../media/back.png';
-import selenaAvatar from '../../media/selenaAvatar.jpg';
+import { withRouter} from "react-router-dom";
 import Hidden from '@material-ui/core/Hidden';
 import Avatar from '@material-ui/core/Avatar';
 
 
-import {connect, Provider} from 'react-redux'
+import {connect} from 'react-redux'
 import SvgIcon from '@material-ui/core/SvgIcon';
 import PropTypes from 'prop-types';
 import axios from "axios";
-import IconButton from "@material-ui/core/IconButton";
 import Dialog from "@material-ui/core/Dialog";
 import {QRCode} from "react-qrcode-logo";
 import logoQr from "../../media/logo_q.png";
@@ -25,7 +21,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import {bindActionCreators} from "redux";
 import setTitle from "../../redux/actions/setTitleAction";
 
-import setIsAuth from '../../redux/actions/setIsAuth'
 
 
 const styles = theme => ({
@@ -246,7 +241,6 @@ const styles = theme => ({
 
 });
 
-const API_POLLS = "polls/list";
 const API_USER_BACKGROUND = "profil/add-background";
 
 class ProfileHeadCover extends Component {
@@ -322,13 +316,9 @@ class ProfileHeadCover extends Component {
             classes,
             subscribersCount,
             subscriptionCount,
-            userType,
-            userId,
             social_networks,
-            userBackground,
             userFIO,
             userImage,
-            userRegistryDate,
         } = this.props;
         const socialIcons =<React.Fragment>
             <div className={classes.socialIcons}>

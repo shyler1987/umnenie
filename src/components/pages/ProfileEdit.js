@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
-import {Link} from "react-router-dom";
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -22,7 +21,6 @@ import ruLocale from "date-fns/locale/ru";
 import { withRouter } from "react-router";
 import {
     MuiPickersUtilsProvider,
-    KeyboardTimePicker,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 import moment from 'moment'
@@ -31,12 +29,7 @@ import {bindActionCreators} from "redux";
 import setTitle from "../../redux/actions/setTitleAction";
 import {connect} from "react-redux";
 import { BeatLoader } from 'react-spinners';
-import { css } from '@emotion/core';
-const override = css`
-    display: block;
-    margin: 0 auto;
-    border-color: red;
-`;
+
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -248,7 +241,6 @@ const MenuProps = {
 };
 
 
-const API_POLLS = "polls/list";
 const API_CATEGORY = "profil/categories";
 const API_SPECIAL = "profil/specialization";
 const API_SPECIAL_FILTER = "profil/specialization-filter";

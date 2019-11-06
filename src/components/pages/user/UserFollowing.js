@@ -95,8 +95,6 @@ const styles = theme => ({
 });
 
 const USER_ME = "profil/user-info";
-const USER_SUBSCRIBERS = "profil/subscribers";
-const USER_SUBSCRIPTIONS = "profil/subscriptions";
 const URL_CLICK = "profil/subscribe-to-user";
 
 
