@@ -187,13 +187,12 @@ const USER_ME = "profil/user-info";
 const USER_POLLS = "polls/user-polls";
 
 
-
 class ProfileUser extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            loading:false,
+            loading: false,
             polls: [],
             show: false,
             closedDialog: false,
@@ -233,14 +232,14 @@ class ProfileUser extends Component {
         this.setState({
             show: true
         })
-        axios.get(url).then(res => {
-            if(res.status===200 && res.data.count>0){
+        axios.get(url, {params: {username: this.props.match.params.username}}).then(res => {
+            if (res.status === 200 && res.data.count > 0) {
                 let polls = this.state.polls;
                 polls.push(...res.data.result);
                 this.setState({
-                    polls:polls,
-                    next:res.data.next,
-                    hasMore:res.data.next!==null? true : false,
+                    polls: polls,
+                    next: res.data.next,
+                    hasMore: res.data.next !== null ? true : false,
                     show: false,
                 })
                 return;
@@ -258,8 +257,8 @@ class ProfileUser extends Component {
     }
 
 
-
     getUserMe = () => {
+        console.log(this.props.match)
         axios.post(USER_ME, {
             username: this.props.match.params.username
         }).then(res => {
@@ -285,27 +284,27 @@ class ProfileUser extends Component {
 
         }).catch(err => {
             console.log(err)
-            if(err.response.status===404){
+            if (err.response.status === 404) {
                 this.setState({
-                    closedDialog:true,
-                    errorText:err.response.data.error
+                    closedDialog: true,
+                    errorText: err.response.data.error
                 })
             }
         })
     }
 
 
-    fetchData = ()=>{
+    fetchData = () => {
         this.fetchDataPollsScroll(this.state.next);
     }
 
-    refresh = ()=>{
+    refresh = () => {
         this.fetchDataPollsScroll(USER_POLLS);
     }
 
-    handleClose = () =>{
+    handleClose = () => {
         this.setState({
-            closedDialog:false
+            closedDialog: false
         })
         this.props.history.push("/");
     }
@@ -357,79 +356,79 @@ class ProfileUser extends Component {
 
                 />
 
-                <Container>
+                    <Container>
 
-                <Typography classes={{root: classes.titleHead}}>
-                    О себе
-                    </Typography>
-                    <Grid container spacing={0}>
-                    <Grid md={12} item>
-                    <Typography classes={{root: classes.textAbout}}>{this.state.userComments}</Typography>
-                    </Grid>
-                    </Grid>
+                        <Typography classes={{root: classes.titleHead}}>
+                            О себе
+                        </Typography>
+                        <Grid container spacing={0}>
+                            <Grid md={12} item>
+                                <Typography classes={{root: classes.textAbout}}>{this.state.userComments}</Typography>
+                            </Grid>
+                        </Grid>
                     </Container>
 
                     <Container>
-                    <Typography classes={{root: classes.titleHead}}>
-                    {this.state.title}
-                    </Typography>
-                    <InfiniteScroll
-                    dataLength={this.state.polls.length}
-                    next={this.fetchData}
-                    hasMore={this.state.hasMore}
-                    loader={<h4>Загрузка...</h4>}
-                    endMessage={
-                    <p style={{textAlign: 'center'}}>
-                        <b>Ура! Вы видели все это</b>
-                    </p>
-                }
-                    // below props only if you need pull down functionality
-                    refreshFunction={this.refresh}
-                    pullDownToRefresh
-                    pullDownToRefreshContent={
-                    <h3 style={{textAlign: 'center'}}>&#8595; Потяните вниз, чтобы обновить</h3>
-                }
-                    releaseToRefreshContent={
-                    <h3 style={{textAlign: 'center'}}>&#8593; Обновить</h3>
-                }>
-                    <ResponsiveMasonry
-                    columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
-                    >
-                    <Masonry
-                    columnsCount={3}
-                    gutter={"10px"}
-                    >
-                    {this.state.polls.map((item, key) => {
-                        return (
-                            <PollCard
-                                key={key}
-                                idPoll={item.pollId}
-                                imagePoll={item.pollImage}
-                                propsCard={this.props.match.params}
-                                fullName={item.userFIO}
-                                username={item.userName}
-                                contentPoll={item.pollQuestion}
-                                datePoll={item.pollEndDate}
-                                avatarUrl={item.userImage}
-                                pollType={item.pollType}
-                                pollItems={item.items}
-                                disableCard={item.disableCard}
-                                iconFovrite={true}
-                                iconEdit={false}
-                                showLoading={this.showLoadingBar}
-                                disableClickCard={true}
-                                clickOtvet={false}
-                                isVouted={item.isVouted}
-                                userId={item.userId}
-                                like={item.like}
-                                pollLikeCount={item.pollLikeCount}
-                                pollAnswerCount={item.pollAnswerCount}
-                            />
-                        );
-                    })}
-                    </Masonry>
-                    </ResponsiveMasonry>
-                    </InfiniteScroll>
+                        <Typography classes={{root: classes.titleHead}}>
+                            {this.state.title}
+                        </Typography>
+                        <InfiniteScroll
+                            dataLength={this.state.polls.length}
+                            next={this.fetchData}
+                            hasMore={this.state.hasMore}
+                            loader={<h4>Загрузка...</h4>}
+                            endMessage={
+                                <p style={{textAlign: 'center'}}>
+                                    <b>Ура! Вы видели все это</b>
+                                </p>
+                            }
+                            // below props only if you need pull down functionality
+                            refreshFunction={this.refresh}
+                            pullDownToRefresh
+                            pullDownToRefreshContent={
+                                <h3 style={{textAlign: 'center'}}>&#8595; Потяните вниз, чтобы обновить</h3>
+                            }
+                            releaseToRefreshContent={
+                                <h3 style={{textAlign: 'center'}}>&#8593; Обновить</h3>
+                            }>
+                            <ResponsiveMasonry
+                                columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}
+                            >
+                                <Masonry
+                                    columnsCount={3}
+                                    gutter={"10px"}
+                                >
+                                    {this.state.polls.map((item, key) => {
+                                        return (
+                                            <PollCard
+                                                key={key}
+                                                idPoll={item.pollId}
+                                                imagePoll={item.pollImage}
+                                                propsCard={this.props.match.params}
+                                                fullName={item.userFIO}
+                                                username={item.userName}
+                                                contentPoll={item.pollQuestion}
+                                                datePoll={item.pollEndDate}
+                                                avatarUrl={item.userImage}
+                                                pollType={item.pollType}
+                                                pollItems={item.items}
+                                                disableCard={item.disableCard}
+                                                iconFovrite={true}
+                                                iconEdit={false}
+                                                showLoading={this.showLoadingBar}
+                                                disableClickCard={true}
+                                                clickOtvet={false}
+                                                isVouted={item.isVouted}
+                                                userId={item.userId}
+                                                like={item.like}
+                                                pollLikeCount={item.pollLikeCount}
+                                                pollAnswerCount={item.pollAnswerCount}
+                                            />
+                                        );
+                                    })}
+                                </Masonry>
+                            </ResponsiveMasonry>
+                        </InfiniteScroll>
                     </Container></div>}
 
 
@@ -445,11 +444,9 @@ function mapDispatch(dispatch) {
 }
 
 function mapStateToProps(state) {
-    return {
-    };
+    return {};
 
 }
 
 
-
-export default  connect(mapStateToProps, mapDispatch)(withStyles(styles)(ProfileUser));
+export default connect(mapStateToProps, mapDispatch)(withStyles(styles)(ProfileUser));
