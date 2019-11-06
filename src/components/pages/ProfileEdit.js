@@ -427,7 +427,6 @@ class ProfileEdit extends Component {
     }
 
     componentDidMount() {
-        this.getSpecial();
         this.getCoategorys();
         this.fetchMe();
         this.props.setTitle("Редактировать профиль");
@@ -731,9 +730,9 @@ class ProfileEdit extends Component {
                                                                               id="outlined-speacial-simple"/>}
                                                         renderValue={selected => {
                                                             let nn = [];
-                                                            if (this.state.spetsializatsiya.length !== 0 && selected.length!==0) {
+                                                            if (this.state.category.length !== 0 && selected.length!==0) {
                                                                 selected.map(item => {
-                                                                    nn.push(this.state.spetsializatsiya.find(it => it.id == item).name);
+                                                                    nn.push(this.state.category.find(it => it.id == item).name);
                                                                 });
                                                                 return nn.join(", ");
                                                             }
