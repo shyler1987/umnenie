@@ -665,17 +665,17 @@ class ProfileEdit extends Component {
                                                         classes={{root: this.state.userGender === null ? classes.muiSeelctRoot : classes.muiSelectRootL}}
                                                         MenuProps={MenuProps}
                                                         renderValue={select => {
-                                                            let dd = ["Мужчина", "Женщина"];
+                                                            let dd = ["Женщина","Мужчина"];
                                                             return dd[select];
                                                         }}
                                                         input={<OutlinedInput name="speacial"
                                                                               id="outlined-speacial-simple"/>}
                                                         value={this.state.userGender}
                                                     >
-                                                        <MenuItem key={"key0pol"} value={0}>
+                                                        <MenuItem key={"key0pol"} value={1}>
                                                             <ListItemText primary={"Мужчина"}/>
                                                         </MenuItem>
-                                                        <MenuItem key={"key1pol"} value={1}>
+                                                        <MenuItem key={"key1pol"} value={0}>
                                                             <ListItemText primary={"Женщина"}/>
                                                         </MenuItem>
                                                         ))}
