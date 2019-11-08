@@ -323,7 +323,6 @@ class ProfileEdit extends Component {
             this.loadingBar(false)
             if (res.status === 200) {
                 this.setState({
-                    specialization_id:[],
                     spetsializatsiya: res.data
                 })
             }
@@ -361,7 +360,7 @@ class ProfileEdit extends Component {
             this.loadingBar(false)
             if(err.response.status===422){
                 let errTextAll = "";
-                NamesState.map(item => {
+                NamesState.forEach(item => {
                     this.setState({
                         [item + 'Error']: false,
                         [item + 'ErrorText']: null
@@ -369,9 +368,9 @@ class ProfileEdit extends Component {
                 })
                 if(err.response!==undefined){
                     let erors = JSON.parse(err.response.data.message);
-                    Object.keys(erors).map(item => {
+                    Object.keys(erors).forEach(item => {
                         let errText = "";
-                        erors[item].map(itemError => {
+                        erors[item].forEach(itemError => {
                             errTextAll += itemError + ', ';
                             errText += itemError + ', ';
                         })
@@ -392,11 +391,12 @@ class ProfileEdit extends Component {
         this.loadingBar(true)
         axios.get("profil/me").then(res => {
             if (res.status === 200) {
-                Object.keys(res.data).map(item => {
+                Object.keys(res.data).forEach(item => {
                     this.setState({
                         [item]: res.data[item]
                     })
                 })
+                this.getSpecialFilter(this.state.specialization_id);
             }
             this.loadingBar(false)
         }).catch(err => {
@@ -493,7 +493,7 @@ class ProfileEdit extends Component {
                                                     if(this.state.category.length>0){
 
                                                         let nn = [];
-                                                        selected.map(item => {
+                                                        selected.forEach(item => {
                                                             nn.push(this.state.category.find(it => it.id == item).name);
                                                         });
                                                         return nn.join(", ");
@@ -723,7 +723,7 @@ class ProfileEdit extends Component {
                                                         renderValue={selected => {
                                                             let nn = [];
                                                             if (this.state.category.length !== 0 && selected.length!==0) {
-                                                                selected.map(item => {
+                                                                selected.forEach(item => {
                                                                     nn.push(this.state.category.find(it => it.id == item).name);
                                                                 });
                                                                 return nn.join(", ");
@@ -824,7 +824,7 @@ class ProfileEdit extends Component {
                                                     renderValue={selected => {
                                                         let nn = [];
                                                         if (this.state.spetsializatsiya.length !== 0) {
-                                                            selected.map(item => {
+                                                            selected.forEach(item => {
                                                                 nn.push(this.state.spetsializatsiya.find(it => it.id == item).name);
                                                             });
                                                             return nn.join(", ");

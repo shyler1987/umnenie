@@ -60,9 +60,6 @@ const styles = theme => ({
 
 });
 
-const API_POLLS = "polls/list";
-
-
 class License extends Component {
 
     constructor(props) {

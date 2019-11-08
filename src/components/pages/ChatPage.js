@@ -101,11 +101,7 @@ const styles = theme => ({
 
     })
 ;
-
-
-const API_POLLS = "polls/list";
 const CHAT_LIST = "profil/chat-list";
-
 
 class ChatPage extends Component {
 

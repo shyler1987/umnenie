@@ -180,6 +180,7 @@ class AuthDialog extends Component {
         axios.post("/account/vk-login", data).then(res => {
             if (res.status === 200) {
                 localStorage.setItem('token', res.data.access_token);
+                window.location.replace('/');
                 this.props.setIsAuth(false);
                 this.props.seTisAuthenticated(true);
                 this.props.setUserData(res.data)
@@ -227,6 +228,7 @@ class AuthDialog extends Component {
             .then(response => {
                 if (response.status === 200) {
                     localStorage.setItem('token', response.data.access_token);
+                    window.location.replace('/');
                     this.props.setIsAuth(false);
                     this.props.seTisAuthenticated(true);
                     this.props.setUserData(response.data)
@@ -261,6 +263,7 @@ class AuthDialog extends Component {
             if (res.status === 200) {
 
                 localStorage.setItem('token', res.data.access_token);
+                window.location.replace('/');
                 this.props.setIsAuth(false);
                 this.props.seTisAuthenticated(true);
                 this.props.setUserData(res.data)
@@ -307,6 +310,7 @@ class AuthDialog extends Component {
         }).then(res => {
             if (res.status === 200) {
                 localStorage.setItem('token', res.data.access_token);
+                window.location.replace('/');
                 this.props.setIsAuth(false);
                 this.props.seTisAuthenticated(true);
                 this.props.setUserData(res.data)

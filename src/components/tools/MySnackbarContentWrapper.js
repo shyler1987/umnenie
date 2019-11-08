@@ -76,8 +76,3 @@ MySnackbarContentWrapper.propTypes = {
     variant: PropTypes.oneOf(['error', 'info', 'success', 'warning']).isRequired,
 };
 
-const useStyles2 = makeStyles(theme => ({
-    margin: {
-        margin: theme.spacing(1),
-    },
-}));

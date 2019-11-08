@@ -19,7 +19,6 @@ import Button from '@material-ui/core/Button';
 import AuthDialog from "../pages/AuthDialog";
 import PhoneNumberConfirm from "../pages/PhoneNumberConfirm";
 import ExitDialog from "../pages/ExitDialog";
-import axios from "axios";
 import seTisAuthenticated from "../../redux/actions/seTisAuthenticated";
 import setUserData from "../../redux/actions/setUserData";
 import setExitApp from "../../redux/actions/setExitApp";
@@ -168,9 +167,6 @@ const styles = theme => ({
     }
 
 });
-
-const LOGOUT = "profil/logout";
-
 
  class TopMenu extends React.Component  {
      constructor(props) {

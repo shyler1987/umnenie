@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import {withStyles, lighten} from '@material-ui/styles';
+import {withStyles} from '@material-ui/styles';
 
 import Typography from '@material-ui/core/Typography';
 import Loading from 'react-loading-bar'
@@ -79,18 +79,6 @@ const BootstrapInput = withStyles(theme => ({
     },
 }))(InputBase);
 
-const names = [
-    'Oliver Hansen',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
-];
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -298,6 +286,7 @@ class StatisPage extends Component {
             if (res.status === 200) {
                 Object.keys(res.data).map(item => {
                     this.setState({[item]: res.data[item]})
+                    return;
                 })
             }
         }).catch(err => {

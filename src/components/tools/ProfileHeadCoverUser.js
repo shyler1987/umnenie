@@ -4,10 +4,10 @@ import {withStyles} from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import {Link, NavLink, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import Hidden from '@material-ui/core/Hidden';
 import Avatar from '@material-ui/core/Avatar';
-import {connect, Provider} from 'react-redux'
+import {connect} from 'react-redux'
 import SvgIcon from '@material-ui/core/SvgIcon';
 import PropTypes from 'prop-types';
 import axios from "axios";
@@ -239,9 +239,6 @@ const styles = theme => ({
 
 
 });
-
-const API_POLLS = "polls/list";
-const API_USER_BACKGROUND = "profil/add-background";
 const USER_BLOKUSER = "profil/block-user";
 const USER_SUBSCRIBE = "profil/subscribe-in-info";
 const USER_CHAT = "/profil/chat-create";
@@ -417,15 +414,9 @@ class ProfileHeadCoverUser extends Component {
     render() {
         const {
             classes,
-            subscribersCount,
-            subscriptionCount,
-            userType,
-            userId,
             social_networks,
-            userBackground,
             userFIO,
             userImage,
-            userRegistryDate,
         } = this.props;
 
         const socialIcons = <React.Fragment>

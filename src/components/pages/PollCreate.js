@@ -50,8 +50,7 @@ const Type = [
 ];
 
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
+
 const MenuProps = {
     PaperProps: {
         style: {
@@ -412,6 +411,7 @@ class PollCreate extends Component {
                 if (res.status === 200) {
                     Object.keys(res.data).map(item => {
                         this.setState({[item]: res.data[item]})
+                        return;
                     })
                     // this.setState({category_id:this.state.category_id.map(Number)})
                 }
@@ -457,10 +457,10 @@ class PollCreate extends Component {
         formData.append('status', status);
         formData.append('referal_id', this.props.match.params.referal_id!==undefined ? this.props.match.params.referal_id : null);
         this.state.variants_image.map((item, index) => {
-            console.log(item.image)
             formData.append('variants_image[' + index + '][id]', item.id)
             formData.append('variants_image[' + index + '][text]', item.text)
             formData.append('variants_image[' + index + '][image]', item.image)
+            return;
         })
         // formData.append('variants_image', JSON.stringify(this.state.variants_image));
 

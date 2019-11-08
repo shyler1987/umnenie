@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Profile from '../LayoutPages/Profile'
 import {Route} from 'react-router-dom';
 

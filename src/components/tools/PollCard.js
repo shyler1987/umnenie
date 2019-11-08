@@ -27,9 +27,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import '../../media/style.css';
-import {CircularProgressbar} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-// import {QRCode} from "react-qr-svg";
 import {QRCode} from 'react-qrcode-logo';
 import check from '../../media/icons/check.svg'
 import checkInLine from '../../media/icons/checkinline.svg'
@@ -37,7 +35,7 @@ import checkInLine from '../../media/icons/checkinline.svg'
 import {Progress} from 'react-sweet-progress';
 import "react-sweet-progress/lib/style.css";
 import DeleteIcon from '@material-ui/icons/Delete';
-import {Link, NavLink, withRouter} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import setIsAuth from '../../redux/actions/setIsAuth'

@@ -1,23 +1,16 @@
 import React, {Component} from 'react';
 import {withRouter} from "react-router";
-import Button from '@material-ui/core/Button';
-
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
 import {withStyles} from '@material-ui/styles';
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
-import selenaAvatar from "../../media/selenaAvatar.jpg";
 import {Link, NavLink} from "react-router-dom";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-import setIsAuth from "../../redux/actions/setIsAuth";
-import seTisAuthenticated from "../../redux/actions/seTisAuthenticated";
-import setUserData from "../../redux/actions/setUserData";
 import axios from "axios";
 
 const styles = theme => ({

@@ -1,10 +1,7 @@
 import React from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import {withRouter} from "react-router-dom";
-import {Link, NavLink} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-import  AuthDialog from '../components/pages/AuthDialog'
 import TopMenu from '../components/tools/TopMenu'
 
 
