@@ -2,21 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3013fece-6add-4506-8dd7-e5be49d79bf2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LayoutPages/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/LayoutPages/Profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/AuthDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/AuthDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/ChatPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ChatPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/License.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/License.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/PollCreate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PollCreate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/PollView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PollView.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/pages/ProfileEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ProfileEdit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/StatisPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/StatisPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/LeftMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/LeftMenu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/MySnackbarContentWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/MySnackbarContentWrapper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/PollCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/PollCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/ProfileHeadCoverUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/ProfileHeadCoverUser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/TopMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/TopMenu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layouts/ProfileLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/ProfileLayout.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -235,7 +221,7 @@
       <workItem from="1573030629416" duration="1441000" />
       <workItem from="1573037620834" duration="4160000" />
       <workItem from="1573143717949" duration="1817000" />
-      <workItem from="1573208968624" duration="2652000" />
+      <workItem from="1573208968624" duration="2883000" />
     </task>
     <servers />
   </component>

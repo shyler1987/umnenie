@@ -396,7 +396,7 @@ class ProfileEdit extends Component {
                         [item]: res.data[item]
                     })
                 })
-                this.getSpecialFilter(this.state.specialization_id);
+                this.getSpecialFilter(this.state.category_id);
             }
             this.loadingBar(false)
         }).catch(err => {
