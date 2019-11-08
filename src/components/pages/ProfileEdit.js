@@ -323,8 +323,16 @@ class ProfileEdit extends Component {
             this.loadingBar(false)
             if (res.status === 200) {
                 this.setState({
-                    spetsializatsiya: res.data
+                    spetsializatsiya: res.data,
                 })
+                let a = this.state.specialization_id.filter(it_spes=>{
+                    return this.state.spetsializatsiya.find(spesial=>spesial.id==it_spes)!==undefined;
+                });
+                this.setState({
+                    specialization_id:a
+                })
+
+
             }
         }).catch(err => {
             this.loadingBar(false)
@@ -732,8 +740,8 @@ class ProfileEdit extends Component {
                                                                 });
                                                                 return nn.join(", ");
                                                             }
-                                                            return selected.join(", ");
-
+                                                            //return selected.join(", ");
+                                                            return "Специализация";
 
                                                         }}
                                                     >

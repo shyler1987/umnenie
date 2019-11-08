@@ -320,12 +320,14 @@ class PollCard extends Component {
             favorite,
             isDelete,
             userId,
+            username,
             isCurrent
         } = this.props;
 
         this.state = {
             avatarUrl: avatarUrl,
             fullName: fullName,
+            username: username,
             datePoll: datePoll,
             contentPoll: contentPoll,
             favorite: favorite,
@@ -381,6 +383,7 @@ class PollCard extends Component {
             favorite,
             isCurrent,
             isDelete,
+            username,
 
         } = nextProps;
 
@@ -391,6 +394,7 @@ class PollCard extends Component {
             datePoll: datePoll,
             contentPoll: contentPoll,
             pollType: pollType,
+            username: username,
             propsCard: propsCard,
             imagePoll: imagePoll,
             pollLikeCount: pollLikeCount,
@@ -630,7 +634,7 @@ class PollCard extends Component {
                                 </span>
                     </div>}
                 classes={{title: classes.cardTitle}}
-                title={this.state.fullName}
+                title={this.state.username}
 
                 subheaderTypographyProps={{color: 'secondary'}}
                 subheader={this.state.datePoll}
@@ -647,7 +651,7 @@ class PollCard extends Component {
             </CardContent>
             <CardMedia
                 className={classes.media}
-                title={this.state.fullName}
+                title={this.state.username}
                 key={"pollcard" + this.state.pollId}
             >
 
