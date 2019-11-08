@@ -722,9 +722,13 @@ class ProfileEdit extends Component {
                                                                               id="outlined-speacial-simple"/>}
                                                         renderValue={selected => {
                                                             let nn = [];
-                                                            if (this.state.category.length !== 0 && selected.length!==0) {
+                                                            if (this.state.spetsializatsiya.length !== 0 && selected.length!==0) {
                                                                 selected.forEach(item => {
-                                                                    nn.push(this.state.category.find(it => it.id == item).name);
+                                                                    let spes=this.state.spetsializatsiya.find(it => it.id == item);
+                                                                    if(spes!==undefined){
+                                                                        nn.push(spes.name);
+                                                                    }
+
                                                                 });
                                                                 return nn.join(", ");
                                                             }
