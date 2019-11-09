@@ -206,6 +206,7 @@ class Profile extends Component {
             userBackground: "",
             userComments: "",
             userFIO: "",
+            userName: "",
             userId: null,
             userImage: "",
             userRegistryDate: null,
@@ -347,6 +348,7 @@ class Profile extends Component {
                     userComments: res.data.userComments,
                     userFIO: res.data.userFIO,
                     userId: res.data.userId,
+                    userName: res.data.userName,
                     userImage: res.data.userImage,
                     userRegistryDate: res.data.userRegistryDate,
                     userType: res.data.userType,
@@ -415,7 +417,7 @@ class Profile extends Component {
                     subscriptionCount={this.state.subscriptionCount}
                     social_networks={this.state.social_networks}
                     userBackground={this.state.userBackground}
-                    userFIO={this.state.userFIO}
+                    userFIO={this.state.userName}
                     userId={this.state.userId}
                     userImage={this.state.userImage}
                     userRegistryDate={this.state.userRegistryDate}

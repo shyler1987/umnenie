@@ -207,6 +207,7 @@ class ProfileUser extends Component {
             userBackground: "",
             userComments: "",
             userFIO: "",
+            userName: "",
             isBlocked: null,
             userId: null,
             userImage: "",
@@ -270,6 +271,7 @@ class ProfileUser extends Component {
                     userBackground: res.data.userBackground,
                     userComments: res.data.userComments,
                     userFIO: res.data.userFIO,
+                    userName: res.data.userName,
                     userId: res.data.userId,
                     isBlocked: res.data.isBlocked,
                     isFollow: res.data.isFollow,
@@ -345,7 +347,7 @@ class ProfileUser extends Component {
                     subscriptionCount={this.state.subscriptionCount}
                     social_networks={this.state.social_networks}
                     userBackground={this.state.userBackground}
-                    userFIO={this.state.userFIO}
+                    userFIO={this.state.userName}
                     userId={this.state.userId}
                     isBlocked={this.state.isBlocked}
                     isFollow={this.state.isFollow}
