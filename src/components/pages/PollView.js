@@ -603,9 +603,9 @@ class PollView extends Component {
                                                     className="rounded-circle user_img_msg"/></Link>
                                             </div>
                                             <div className="msg_cotainer">
-                                                {itemComment.user_name !== null && <h5 className={classes.commentUser}>{itemComment.user_name}</h5>}
+                                                {itemComment.user_fio !== null && <h5 className={classes.commentUser}>{itemComment.user_fio}</h5>}
                                                 {itemComment.text !== null ? itemComment.text :
-                                                    <img alt={itemComment.user_name} style={{width: '100%'}} src={itemComment.file}/>}
+                                                    <img alt={itemComment.user_fio} style={{width: '100%'}} src={itemComment.file}/>}
                                                 <div className="msg_time">{itemComment.date_cr}</div>
                                             </div>
                                         </div>);
