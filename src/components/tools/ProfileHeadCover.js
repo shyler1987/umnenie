@@ -475,7 +475,7 @@ class ProfileHeadCover extends Component {
                             logoImage={logoQr}
                             size={250}
                             logoWidth={80}
-                            value={"https://creators.uz/poll/create/"+this.state.userId} />
+                            value={"https://umnenie.com/poll/create/"+this.state.userId} />
                     </DialogContent>
                 </Dialog>
                 <div className={classes.timelineCover} style={{background: 'url('+this.state.userBackground+')'}}>

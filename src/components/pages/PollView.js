@@ -404,7 +404,7 @@ class PollView extends Component {
                     logoImage={logoQr}
                     size={250}
                     logoWidth={80}
-                    value={"https://creators.uz"+this.props.match.url} />
+                    value={"https://umnenie.com"+this.props.match.url} />
             </DialogContent>
         </React.Fragment>;
 
@@ -415,7 +415,7 @@ class PollView extends Component {
                     fullWidth
                     name={"text"}
                     ref="input"
-                    value={"http://creators.uz"+this.props.match.url}
+                    value={"http://umnenie.com"+this.props.match.url}
                     variant="outlined"
                     className={classes.textField}
                     margin={"denses"}
@@ -423,7 +423,7 @@ class PollView extends Component {
                         {
                             endAdornment: (
                                 <InputAdornment position="end">
-                                    <CopyToClipboard onCopy={this.onCopied} text={"http://creators.uz"+this.props.match.url}>
+                                    <CopyToClipboard onCopy={this.onCopied} text={"http://umnenie.com"+this.props.match.url}>
                                     <IconButton  classes={{root: classes.fileSendIcon}}>
                                             <LinkIcon/>
                                         </IconButton>
