@@ -55,6 +55,12 @@ class Dash extends Component {
     }
 
     fetchDataPollsScroll = (url) =>{
+        console.log(url)
+        if(url===null){
+            console.log("BUSH");
+            console.log(url);
+            console.log("ENDBUSH");
+        }
         this.setState({
             show:true
         })
