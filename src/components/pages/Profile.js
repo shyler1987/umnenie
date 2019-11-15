@@ -367,6 +367,9 @@ class Profile extends Component {
     }
 
     fetchDataPollsScroll = (url) => {
+        if(url===null){
+            return;
+        }
         this.setState({
             show: true
         })

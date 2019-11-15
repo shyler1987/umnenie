@@ -57,11 +57,8 @@ class DashWithAuthOpen extends Component {
     }
 
     fetchDataPollsScroll = (url) =>{
-        console.log(url)
         if(url===null){
-            console.log("BUSH");
-            console.log(url);
-            console.log("ENDBUSH");
+           return;
         }
         this.setState({
             show:true
