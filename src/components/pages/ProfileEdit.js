@@ -921,7 +921,7 @@ class ProfileEdit extends Component {
                                             />
                                         </div>
                                         <div className={classes.inlineText}>
-                                            <Typography classes={{root: classes.socSet}}>Twitter</Typography>
+                                            <Typography classes={{root: classes.socSet}}>Instagram</Typography>
                                             <TextField
                                                 name={"twitter"}
                                                 value={this.state.twitter}
