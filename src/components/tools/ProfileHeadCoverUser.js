@@ -498,7 +498,7 @@ class ProfileHeadCoverUser extends Component {
                     </g>
                 </SvgIcon>
                 }
-                <a href={social_networks.site} target={"_blank"}>
+                <a href={social_networks.site}  rel="nofollow" target={"_blank"}>
                     <SvgIcon viewBox="0 0 15 15" classes={{root: classes.svgRootIcon}}>
                         <defs>
                             <clipPath id="clip-path-web">
@@ -518,7 +518,7 @@ class ProfileHeadCoverUser extends Component {
                         </g>
                     </SvgIcon>
                 </a>
-                <a href={social_networks.telegram} target={"_blank"}>
+                <a href={social_networks.telegram}  rel="nofollow" target={"_blank"}>
                     <SvgIcon viewBox="0 0 15 15" classes={{root: classes.svgRootIcon}}>
                         <defs>
                             <clipPath id="clip-path-telegram">
