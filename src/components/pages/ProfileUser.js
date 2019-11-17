@@ -23,7 +23,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
+import FloatActionButtun from "../tools/FloatActionButtun";
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -320,6 +320,7 @@ class ProfileUser extends Component {
         } = this.props;
         return (
             <div>
+                <FloatActionButtun/>
                 <Loading
                     show={this.state.show}
                     color="red"

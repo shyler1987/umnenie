@@ -16,6 +16,7 @@ import {bindActionCreators} from "redux";
 import setTitle from "../../redux/actions/setTitleAction";
 import {connect} from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
+import FloatActionButtun from "../tools/FloatActionButtun";
 
 const styles = theme => ({
     root: {
@@ -414,6 +415,7 @@ class Profile extends Component {
         } = this.props;
         return (
             <div>
+                <FloatActionButtun/>
                 <ProfileHeadCover
                     profilePhoto={true}
                     subscribersCount={this.state.subscribersCount}
