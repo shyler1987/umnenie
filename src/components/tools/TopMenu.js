@@ -24,6 +24,8 @@ import setUserData from "../../redux/actions/setUserData";
 import setExitApp from "../../redux/actions/setExitApp";
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
+import Badge from '@material-ui/core/Badge';
+
 const styles = theme => ({
     toolbar: {
         // maxWidth: 1170
@@ -33,6 +35,9 @@ const styles = theme => ({
     },
     menuButton: {
         marginRight: theme.spacing(2),
+    },
+    margin: {
+        margin: 4,
     },
     title: {
         display: 'none',
@@ -294,7 +299,9 @@ const styles = theme => ({
                     {this.props.isAuthenticated ? <React.Fragment>
                         <Link to={"/account/profile"} className={classes.sectionDesktop}>
                             <Button className={classes.button} onClick={this.logOut}>Выход</Button>
-                            <Avatar aria-label="Recipe" src={this.props.userInfo.userImage}/>
+                            <Badge invisible={this.props.notification===0}  badgeContent={this.props.notification} color="secondary" classes={{badge:classes.margin}}>
+                                <Avatar aria-label="Recipe" src={this.props.userInfo.userImage}/>
+                            </Badge>
                             <Typography>{this.props.userInfo.userFIO}</Typography>
                         </Link>
                     </React.Fragment>:
@@ -323,7 +330,9 @@ const styles = theme => ({
                             }
                             {!this.state.isSerachOpen ? this.props.isAuthenticated ?
                                     <Link to={"/account/profile"} className={classes.sectionMobileAvatar}>
-                                <Avatar aria-label="Recipe" src={this.props.userInfo.userImage}/>
+                                        <Badge invisible={this.props.notification===0}  badgeContent={this.props.notification} color="secondary" classes={{badge:classes.margin}}>
+                                            <Avatar aria-label="Recipe" src={this.props.userInfo.userImage}/>
+                                        </Badge>
                             </Link> : "" : ""}
 
                         </div>
@@ -338,7 +347,8 @@ const styles = theme => ({
 function mapStateToProps(state){
      return {
          isAuthenticated:state.mainData.isAuthenticated,
-         userInfo:state.mainData.user
+         userInfo:state.mainData.user,
+         notification:state.mainData.notify
      }
 }
 

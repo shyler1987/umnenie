@@ -18,6 +18,7 @@ import Avatar from '@material-ui/core/Avatar';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import setTitle from "../../redux/actions/setTitleAction";
+import Badge from "@material-ui/core/Badge";
 
 const styles = theme => ({
         root: {
@@ -26,6 +27,9 @@ const styles = theme => ({
             overflow: 'auto',
             maxHeight: '150vh'
         },
+    margin: {
+        margin: 4,
+    },
 
         listItem: {
             alignItems: 'center',
@@ -191,8 +195,10 @@ class ChatPage extends Component {
                                                 <div key={In+"1"}>
                                                     <ListItem key={item.chat_id} onClick={this.chatRouteChange(item.chat_id)} alignItems="flex-start" classes={{root: now_chat_id===item.chat_id ? classes.listItemActive : classes.listItem }} button>
                                                         <ListItemAvatar>
-                                                            <Link to={"/profile/"+item.userName}> <Avatar alt={item.userFIO}
-                                                                                    src={item.userImage}/>
+                                                            <Link to={"/profile/"+item.userName}>
+                                                                <Badge color="secondary" invisible={true} badgeContent={4}  classes={{badge:classes.margin}}>
+                                                                    <Avatar alt={item.userFIO} src={item.userImage}/>
+                                                                </Badge>
                                                             </Link>
                                                         </ListItemAvatar>
                                                         <ListItemText
@@ -232,6 +238,7 @@ function mapDispatch(dispatch) {
 
 function mapStateToProps(state) {
     return {
+        notification:state.mainData.notify
     };
 
 }

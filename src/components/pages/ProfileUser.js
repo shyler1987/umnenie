@@ -320,7 +320,7 @@ class ProfileUser extends Component {
         } = this.props;
         return (
             <div>
-                <FloatActionButtun/>
+
                 <Loading
                     show={this.state.show}
                     color="red"
@@ -363,7 +363,7 @@ class ProfileUser extends Component {
                 />
 
                     <Container>
-
+                        <FloatActionButtun/>
                         <Typography classes={{root: classes.titleHead}}>
                             О себе
                         </Typography>

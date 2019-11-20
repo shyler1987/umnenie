@@ -12,6 +12,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import {connect} from "react-redux";
 import axios from "axios";
+import Badge from "@material-ui/core/Badge";
 
 const styles = theme => ({
     rootHead: {
@@ -25,6 +26,12 @@ const styles = theme => ({
         color: '#000'
 
         // backgroundColor: theme.palette.background.paper,
+    },
+    margin: {
+        margin: 4,
+    },
+    rootBadge: {
+        width: '100%'
     },
     rootLink: {
         fontFamily: "'Source Sans Pro', sans-serif",
@@ -255,15 +262,19 @@ class LeftMenu extends Component {
                             />
                         </ListItem>
                     </Paper>
+
                     <Paper className={classes.papeRoot}>
-                        <ListItem button component={NavLink} to={"/chat"} classes={{root: classes.ListItemRoot}}
-                                  activeClassName={classes.ListItemRootActive}>
-                            <ListItemText
-                                classes={{primary: classes.itemTitle}}
-                                primary="Чат"
-                            />
-                        </ListItem>
+                        <Badge badgeContent={this.props.notification} invisible={this.props.notification===0} color="secondary" classes={{root:classes.rootBadge, badge:classes.margin}}>
+                            <ListItem button component={NavLink} to={"/chat"} fullWidth classes={{root: classes.ListItemRoot}}
+                                      activeClassName={classes.ListItemRootActive}>
+                                <ListItemText
+                                    classes={{primary: classes.itemTitle}}
+                                    primary="Чат"
+                                />
+                            </ListItem>
+                        </Badge>
                     </Paper>
+
                 </List>
                 <Typography classes={{root: classes.CopyRight}} gutterBottom>
                     © 2019-{(new Date().getFullYear())} UMNENIE
@@ -278,7 +289,8 @@ class LeftMenu extends Component {
 function mapStateToProps(state) {
     return {
         isAuthenticated: state.mainData.isAuthenticated,
-        userInfo: state.mainData.user
+        userInfo: state.mainData.user,
+        notification:state.mainData.notify
     }
 }
 

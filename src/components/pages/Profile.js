@@ -415,7 +415,7 @@ class Profile extends Component {
         } = this.props;
         return (
             <div>
-                <FloatActionButtun/>
+
                 <ProfileHeadCover
                     profilePhoto={true}
                     subscribersCount={this.state.subscribersCount}
@@ -435,7 +435,7 @@ class Profile extends Component {
                     color="red"
                 />
                 <Container>
-
+                    <FloatActionButtun/>
                     <Typography classes={{root: classes.titleHead}}>
                         О себе
                     </Typography>

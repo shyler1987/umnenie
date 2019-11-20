@@ -1,5 +1,6 @@
 const initData = {
     title: "UMNENIE",
+    notify: 0,
     isAuth: false,
     isPhoneNumber: false,
     isExitApp: false,
@@ -19,6 +20,8 @@ export default function mainReducer(state = initData, action) {
     switch (action.type) {
         case "IN_AUTH" :
             return {...state, isAuth: action.payload};
+            case "NOTIFY" :
+            return {...state, notify: action.payload};
         case "IS_PHONE" :
             return {...state, isPhoneNumber: action.payload};
 

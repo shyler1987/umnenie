@@ -8,7 +8,7 @@ import Container from '@material-ui/core/Container';
 import { withRouter} from "react-router-dom";
 import Hidden from '@material-ui/core/Hidden';
 import Avatar from '@material-ui/core/Avatar';
-
+import Badge from '@material-ui/core/Badge';
 
 import {connect} from 'react-redux'
 import SvgIcon from '@material-ui/core/SvgIcon';
@@ -139,7 +139,9 @@ const styles = theme => ({
 
 
     },
-
+    margin: {
+        margin: 4,
+    },
     profileTitleBar:{
         bottom: 55,
         left: 210,
@@ -610,9 +612,12 @@ class ProfileHeadCover extends Component {
 
                                 </Hidden>
 
-                                <Button variant="contained" size="medium"  color="secondary" classes={{root:classes.buttonLine}} onClick={()=>{this.profileEdit()}}>
-                                    Редактировать профиль
-                                </Button>
+                                    <Badge badgeContent={this.props.notification}  invisible={this.props.notification===0} classes={{badge:classes.margin}}>
+                                        <Button variant="contained" size="medium"  color="secondary" classes={{root:classes.buttonLine}} onClick={()=>{this.profileEdit()}}>
+                                            Редактировать профиль
+                                        </Button>
+                                    </Badge>
+
                                 {/*<Button variant="contained" size="medium"  color="secondary" classes={{root:classes.buttonLine}}>*/}
                                 {/*    Заблокировать*/}
                                 {/*</Button>*/}
@@ -650,6 +655,7 @@ ProfileHeadCover.propTypes = {
 function mapStateToProps(state) {
     return {
         isAuthenticated: state.mainData.isAuthenticated,
+        notification:state.mainData.notify
     }
 }
 

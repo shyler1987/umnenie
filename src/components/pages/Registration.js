@@ -7,6 +7,7 @@ import axios from 'axios';
 import Loading from 'react-loading-bar'
 import 'react-loading-bar/dist/index.css'
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import {Link} from "react-router-dom";
 import Divider from '@material-ui/core/Divider';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
@@ -16,6 +17,8 @@ import seTisAuthenticated from '../../redux/actions/seTisAuthenticated'
 import setUserData from '../../redux/actions/setUserData'
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
+import MuiPhoneNumber from "material-ui-phone-number";
+import ReactPhoneInput from 'react-phone-input-mui';
 
 const styles = theme => ({
     root: {
@@ -190,6 +193,10 @@ class Registration extends Component {
         })
     }
 
+    tellChange = (e) => {
+        console.log(e);
+    }
+
     onSubmitForm = () => {
         if (this.state.personToggle) {
             //fiz litsoi
@@ -351,6 +358,32 @@ class Registration extends Component {
                                                     margin="dense"
                                                     variant="outlined"
                                                 />
+                                                <React.Fragment>
+                                                {/*<MuiPhoneNumber*/}
+                                                {/*    defaultCountry={'ru'}*/}
+                                                {/*    onChange={this.tellChange}*/}
+                                                {/*    fullWidth*/}
+                                                {/*    id="outlined-bare"*/}
+                                                {/*    placeholder={"Номер телефона"}*/}
+                                                {/*    margin="dense"*/}
+                                                {/*    variant="outlined"*/}
+                                                {/*    inputClass={""}*/}
+                                                {/*    name={"phone"}*/}
+                                                {/*    value={this.state.phone}*/}
+                                                {/*    error={this.state.phoneError}*/}
+                                                {/*    helperText={this.state.phoneErrorText}*/}
+                                                {/*    required*/}
+                                                {/*/>*/}
+                                                {/*    <ReactPhoneInput*/}
+                                                {/*        value={this.state.phone}*/}
+                                                {/*        onChange={this.tellChange} // passed function receives the phone value*/}
+                                                {/*        component={TextField}*/}
+                                                {/*            margin="dense"*/}
+                                                {/*            variant="outlined"*/}
+                                                {/*            name={"phone"}*/}
+                                                {/*        fullWidth*/}
+                                                {/*    />*/}
+                                                </React.Fragment>
                                                 <TextValidator
                                                     fullWidth
                                                     id="outlined-bare"
@@ -406,6 +439,7 @@ class Registration extends Component {
                                             variant="outlined"
                                             name={"username"}
                                             value={this.state.username}
+                                            autoComplete='off'
                                             error={this.state.usernameError}
                                             helperText={this.state.usernameErrorText}
                                             onChange={this.handleChange}
@@ -415,6 +449,7 @@ class Registration extends Component {
                                             fullWidth
                                             id="outlined-bare"
                                             placeholder={"Пароль"}
+                                            autoComplete='off'
                                             variant="outlined"
                                             margin="dense"
                                             name={"password"}
@@ -429,6 +464,7 @@ class Registration extends Component {
                                             fullWidth
                                             id="outlined-bare"
                                             placeholder={"Повторите пароль"}
+                                            autoComplete='off'
                                             name={"retry_password"}
                                             value={this.state.retry_password}
                                             onChange={this.handleChange}

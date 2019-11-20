@@ -21,6 +21,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import setIsAuth from '../../redux/actions/setIsAuth'
 import seTisAuthenticated from '../../redux/actions/seTisAuthenticated'
 import setUserData from '../../redux/actions/setUserData'
+import setNotificationAction from '../../redux/actions/setNotificationData'
 import SvgIcon from '@material-ui/core/SvgIcon';
 
 
@@ -180,6 +181,7 @@ class AuthDialog extends Component {
         axios.post("/account/vk-login", data).then(res => {
             if (res.status === 200) {
                 localStorage.setItem('token', res.data.access_token);
+
                 window.location.replace('/');
                 this.props.setIsAuth(false);
                 this.props.seTisAuthenticated(true);
@@ -229,6 +231,7 @@ class AuthDialog extends Component {
                 if (response.status === 200) {
                     localStorage.setItem('token', response.data.access_token);
                     window.location.replace('/');
+                    this.props.setNotificationAction(5);
                     this.props.setIsAuth(false);
                     this.props.seTisAuthenticated(true);
                     this.props.setUserData(response.data)
@@ -578,7 +581,7 @@ class AuthDialog extends Component {
 }
 
 function mapDispatch(dispatch) {
-    return bindActionCreators({setIsAuth, seTisAuthenticated, setUserData}, dispatch);
+    return bindActionCreators({setNotificationAction, setIsAuth, seTisAuthenticated, setUserData}, dispatch);
 }
 
 function mapStateToProps(state) {
