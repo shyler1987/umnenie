@@ -746,7 +746,7 @@ class PollCreate extends Component {
                                         </Grid>
 
                                     </Grid>
-                                    <Grid container spacing={3} direction={"row"}>
+                                    {this.state.type===2 && <Grid container spacing={3} direction={"row"}>
                                         <Grid item md={8} sm={8} xs={8} classes={{root: classes.inlineTextVariant}}>
                                             <Typography classes={{root: classes.titleFile}}>Основное
                                                 фото</Typography>
@@ -773,7 +773,8 @@ class PollCreate extends Component {
                                             </div>
                                         </Grid>
 
-                                    </Grid>
+                                    </Grid>}
+
 
                                     <Typography classes={{root: classes.pHeader}} onClick={this.showMore}>Дополнительные
                                         параметры {!this.state.showMoreActions ? "▾" : "▴"}  </Typography>

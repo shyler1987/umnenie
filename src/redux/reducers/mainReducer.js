@@ -12,6 +12,7 @@ const initData = {
         userPhone: false,
         access_token: null,
         userId: null,
+        notify: null,
         role: null
     },
 };
@@ -42,9 +43,10 @@ export default function mainReducer(state = initData, action) {
                     userPhone: action.payload.userPhone,
                     userType: action.payload.userType,
                     access_token: action.payload.access_token,
+                    notify: action.payload.notify,
                     userId: action.payload.userId,
                     role: action.payload.role,
-                }
+                }, notify:action.payload.notify
             };
 
 

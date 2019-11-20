@@ -196,7 +196,7 @@ class ChatPage extends Component {
                                                     <ListItem key={item.chat_id} onClick={this.chatRouteChange(item.chat_id)} alignItems="flex-start" classes={{root: now_chat_id===item.chat_id ? classes.listItemActive : classes.listItem }} button>
                                                         <ListItemAvatar>
                                                             <Link to={"/profile/"+item.userName}>
-                                                                <Badge color="secondary" invisible={true} badgeContent={4}  classes={{badge:classes.margin}}>
+                                                                <Badge color="secondary" invisible={item.notify===0} badgeContent={item.notify}  classes={{badge:classes.margin}}>
                                                                     <Avatar alt={item.userFIO} src={item.userImage}/>
                                                                 </Badge>
                                                             </Link>
