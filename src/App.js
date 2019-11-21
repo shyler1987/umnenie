@@ -256,7 +256,7 @@ class App extends Component {
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(prevProps.title!== this.props.title){
-            document.title ="Umnenie - " + this.props.title
+            document.title = this.props.title + " - Umnenie.com";
         }
     }
 

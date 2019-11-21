@@ -30,7 +30,7 @@ import {connect} from "react-redux";
 
 const visiblity = [
     {id: 1, name: 'Виден всем'},
-    {id: 2, name: 'Виден только Специалистам данной категории'},
+    {id: 2, name: 'Виден только'},
     {id: 3, name: 'Виден только по ссылке'}
 ];
 const deadline = [

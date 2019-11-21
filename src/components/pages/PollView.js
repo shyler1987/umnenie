@@ -227,7 +227,7 @@ class PollView extends Component {
 
     componentDidMount() {
         this.fetchPoll(this.state.idPoll);
-        this.props.setTitle("Просмотр опроса");
+        this.props.setTitle("Просмотр Опроса");
 
     }
 
