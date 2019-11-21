@@ -87,6 +87,12 @@ const outerTheme = createMuiTheme({
 
             //outline: none
         },
+        MuiContainer:{
+            root:{
+                paddingLeft:5,
+                paddingRight:5,
+            }
+        },
         MuiPaper: {
             elevation1: {
                 border: '1px solid #e6e6e6',

@@ -164,7 +164,7 @@ const styles = theme => ({
     },
     titleFieldesetHeadKategory: {
         fontWeight: 600,
-        fontSize: 15,
+        fontSize: 13,
     },
     titleFile: {
         fontWeight: 600,
