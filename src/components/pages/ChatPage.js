@@ -128,9 +128,9 @@ class ChatPage extends Component {
             show: bool
         })
     }
-    componentDidMount() {
 
-       this.showLoadingBar(true);
+    getChatList = () =>{
+        this.showLoadingBar(true);
         axios.get(CHAT_LIST).then(res => {
             if (res.status === 200 ) {
                 this.setState({
@@ -144,6 +144,9 @@ class ChatPage extends Component {
             this.showLoadingBar(false);
             console.log(err);
         })
+    }
+    componentDidMount() {
+        this.getChatList();
         this.props.setTitle("Чат");
         this.toChatForm.current.scrollIntoView({behavior: 'smooth', block: 'start'})
 
@@ -165,6 +168,12 @@ class ChatPage extends Component {
         e.preventDefault();
         this.props.history.push('/chat/'+chat_id);
         this.setState({chatUserShow:true})
+    }
+
+    onReadMessage = (bool) =>{
+        if(bool){
+            this.getChatList();
+        }
     }
 
     render() {
@@ -215,7 +224,7 @@ class ChatPage extends Component {
 
                                 </Grid>
                                 <Grid item md={8} sm={12} xs={12}>
-                                    {this.state.chat_list.length>0 && <ChatProfileItem chatUserShow={this.state.chatUserShow} backTo={this.backToChatsList} chat_id={this.props.match.params.chat_id !== undefined ? this.props.match.params.chat_id : this.state.chat_list[0].chat_id}/>}
+                                    {this.state.chat_list.length>0 && <ChatProfileItem chatUserShow={this.state.chatUserShow} backTo={this.backToChatsList} chat_id={this.props.match.params.chat_id !== undefined ? this.props.match.params.chat_id : this.state.chat_list[0].chat_id} onReadMessage={this.onReadMessage}/>}
                                 </Grid>
 
                             </Grid>

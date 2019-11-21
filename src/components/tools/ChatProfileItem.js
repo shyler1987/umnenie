@@ -156,6 +156,7 @@ class ChatProfileItem extends Component {
                     messages:res.data.activeMessages,
                 })
                 this.scrollToBottom();
+
                 this.messageBox.current.scrollIntoView({behavior: 'smooth', block: 'start'})
             }
             this.showLoadingBar(false);
@@ -197,7 +198,6 @@ class ChatProfileItem extends Component {
 
     getActiveMessages = (chat_id) =>{
         if(this.props.chat_id===undefined){
-            console.log("Shetta")
             return;
         }
         this.showLoadingBar(true)
@@ -210,6 +210,7 @@ class ChatProfileItem extends Component {
                     userAvatar:res.data.userAvatar,
                     messages:res.data.activeMessages,
                 })
+                this.props.onReadMessage(true);
                 this.scrollToBottom();
                 this.props.setNotificationAction(res.data.allNotify);
 
