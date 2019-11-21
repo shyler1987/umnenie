@@ -136,6 +136,7 @@ class ChatPage extends Component {
                 this.setState({
                     chat_list: res.data.chatList
                 })
+                console.log(this.state.chat_list[0].chat_id)
             }
             this.showLoadingBar(false);
 
@@ -214,7 +215,7 @@ class ChatPage extends Component {
 
                                 </Grid>
                                 <Grid item md={8} sm={12} xs={12}>
-                                    <ChatProfileItem chatUserShow={this.state.chatUserShow} backTo={this.backToChatsList} chat_id={this.props.match.params.chat_id}/>
+                                    {this.state.chat_list.length>0 && <ChatProfileItem chatUserShow={this.state.chatUserShow} backTo={this.backToChatsList} chat_id={this.props.match.params.chat_id !== undefined ? this.props.match.params.chat_id : this.state.chat_list[0].chat_id}/>}
                                 </Grid>
 
                             </Grid>

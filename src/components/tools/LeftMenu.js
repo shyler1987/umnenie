@@ -13,6 +13,11 @@ import Paper from '@material-ui/core/Paper';
 import {connect} from "react-redux";
 import axios from "axios";
 import Badge from "@material-ui/core/Badge";
+import setExitApp from "../../redux/actions/setExitApp";
+import {bindActionCreators} from "redux";
+import setIsAuth from "../../redux/actions/setIsAuth";
+import seTisAuthenticated from "../../redux/actions/seTisAuthenticated";
+import setUserData from "../../redux/actions/setUserData";
 
 const styles = theme => ({
     rootHead: {
@@ -201,8 +206,15 @@ class LeftMenu extends Component {
         })
     }
 
+
+    logOut = (e) =>{
+        e.preventDefault();
+        this.props.setExitApp(true);
+    }
+
     render() {
         const {classes} = this.props;
+        console.log(this.props.notification)
         return (
             <div>
                 <Loading
@@ -264,7 +276,7 @@ class LeftMenu extends Component {
                     </Paper>
 
                     <Paper className={classes.papeRoot}>
-                        <Badge badgeContent={this.props.notification} invisible={this.props.notification===0} color="secondary" classes={{root:classes.rootBadge, badge:classes.margin}}>
+                        <Badge badgeContent={this.props.notification} invisible={this.props.notification==="0" || this.props.notification===0 || this.props.notification===undefined} color="secondary" classes={{root:classes.rootBadge, badge:classes.margin}}>
                             <ListItem button component={NavLink} to={"/chat"} fullWidth classes={{root: classes.ListItemRoot}}
                                       activeClassName={classes.ListItemRootActive}>
                                 <ListItemText
@@ -273,7 +285,17 @@ class LeftMenu extends Component {
                                 />
                             </ListItem>
                         </Badge>
+                        </Paper>
+                    <Paper className={classes.papeRoot}>
+                        <ListItem button onClick={this.logOut} classes={{root: classes.ListItemRoot}}
+                                  activeClassName={classes.ListItemRootActive}>
+                            <ListItemText
+                                classes={{primary: classes.itemTitle}}
+                                primary="Выход"
+                            />
+                        </ListItem>
                     </Paper>
+
 
                 </List>
                 <Typography classes={{root: classes.CopyRight}} gutterBottom>
@@ -294,4 +316,7 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(withRouter(LeftMenu)));
+    function mapDispatchToProps(dispatch){
+        return bindActionCreators({setExitApp}, dispatch);
+    }
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withRouter(LeftMenu)));

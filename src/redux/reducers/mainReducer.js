@@ -12,7 +12,7 @@ const initData = {
         userPhone: false,
         access_token: null,
         userId: null,
-        notify: null,
+        notify: 0,
         role: null
     },
 };

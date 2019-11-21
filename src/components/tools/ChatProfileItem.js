@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {withRouter} from "react-router-dom";
 import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/styles';
 import 'react-loading-bar/dist/index.css'
@@ -18,7 +19,14 @@ import ArrowBack from '@material-ui/icons/ArrowBack'
 import IconButton from '@material-ui/core/IconButton';
 import axios from 'axios'
 import Loading from 'react-loading-bar'
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import setNotificationAction from '../../redux/actions/setNotificationData'
 import 'react-loading-bar/dist/index.css'
+import setIsAuth from "../../redux/actions/setIsAuth";
+import seTisAuthenticated from "../../redux/actions/seTisAuthenticated";
+import setUserData from "../../redux/actions/setUserData";
+import { animateScroll } from "react-scroll";
 
 const styles = theme => ({
         multlineInput: {
@@ -183,9 +191,15 @@ class ChatProfileItem extends Component {
     }
     componentDidMount() {
         this.getActiveMessages(this.props.chat_id);
+        this.scrollToBottom();
+
     }
 
     getActiveMessages = (chat_id) =>{
+        if(this.props.chat_id===undefined){
+            console.log("Shetta")
+            return;
+        }
         this.showLoadingBar(true)
         axios.get(API_URL_ACTIVE+chat_id).then(res=>{
             if(res.status===200){
@@ -196,6 +210,8 @@ class ChatProfileItem extends Component {
                     userAvatar:res.data.userAvatar,
                     messages:res.data.activeMessages,
                 })
+                this.scrollToBottom();
+                this.props.setNotificationAction(res.data.allNotify);
 
             }
             // this.scrollToBottom();
@@ -216,7 +232,7 @@ class ChatProfileItem extends Component {
         this.setState({
             chatUserShow:nextProps.chatUserShow
         })
-        if(this.props.chat_id!==nextProps.chat_id){
+        if(this.props.chat_id!==nextProps.chat_id ){
             this.getActiveMessages(nextProps.chat_id);
         }
     }
@@ -299,6 +315,8 @@ class ChatProfileItem extends Component {
                                 </div>
                             );
                         }
+
+
 
                     })}
 
@@ -414,5 +432,11 @@ class ChatProfileItem extends Component {
     }
 
 }
-
-export default withStyles(styles)(ChatProfileItem);
+function mapDispatch(dispatch) {
+    return bindActionCreators({setNotificationAction}, dispatch);
+}
+function mapStateToProps(state) {
+    return {
+    };
+}
+export default connect(mapStateToProps, mapDispatch)(withStyles(styles)(withRouter(ChatProfileItem)));

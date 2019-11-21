@@ -43,6 +43,7 @@
     "react-responsive-masonry": "^2.0.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
+    "react-scroll": "^1.7.14",
     "react-share": "^3.0.1",
     "react-spinners": "^0.6.1",
     "react-sweet-progress": "^1.1.2",
