@@ -157,7 +157,7 @@ class Dash extends Component {
                     >
                         <Masonry
                             columnsCount={3}
-                            gutter={"10px"}
+                            gutter={"5px"}
                             gutterTop={"0px"}
                         >
 

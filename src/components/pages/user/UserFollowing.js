@@ -215,7 +215,7 @@ class UserFollowing extends Component {
                         {this.state.title}
                     </Typography>
                     <Grid container spacing={0}>
-                        <Grid md={12}>
+                        <Grid md={12} sm={12} xs={12}>
 
                             <List>
                                 {this.state.follower.map((itemFollow, IndexKey) =>{
