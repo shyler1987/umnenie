@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/styles';
@@ -29,6 +29,104 @@ import {bindActionCreators} from "redux";
 import setTitle from "../../redux/actions/setTitleAction";
 import {connect} from "react-redux";
 import { BeatLoader } from 'react-spinners';
+import MuiPhoneNumber from "material-ui-phone-number";
+import {createMuiTheme} from '@material-ui/core/styles';
+import {ThemeProvider} from '@material-ui/styles';
+
+
+const outerTheme = createMuiTheme({
+    typography: {
+        useNextVariants: true,
+        fontFamily: "'Source Sans Pro', sans-serif",
+        fontWeight: 400,
+        color: "#2B2A29"
+    },
+    overrides: {
+        MuiInputBase: {
+            root: {
+                fontFamily: "'Source Sans Pro', sans-serif",
+                fontSize: 15,
+                fontWeight: 400
+            }
+        },
+        MuiButton: {
+            label: {
+                fontFamily: "'Source Sans Pro', sans-serif",
+                fontSize: 15,
+                textTransform: 'initial',
+                fontWeight: 600,
+            }
+
+            //outline: none
+        },
+        MuiContainer:{
+            root:{
+                paddingLeft:5,
+                paddingRight:5,
+            }
+        },
+        MuiPaper: {
+            elevation1: {
+                border: '1px solid #e6e6e6',
+                boxShadow: 'unset'
+            }
+        },
+        MuiButtonBase: {
+            root: {
+                "&:focus": {
+                    outline: 'none'
+                }
+            }
+        },
+        MuiIconButton: {
+            root: {
+                "&:focus": {
+                    outline: 'none'
+                }
+            }
+        },
+        MuiOutlinedInput: {
+            root: {
+                "&:hover:not($disabled):not($focused):not($error) $notchedOutline": {
+                    borderColor: 'rgba(0, 0, 0, 0.23)'
+                },
+                '&$focused $notchedOutline': {
+                    borderWidth: 1,
+                    borderStyle: 'solid',
+                    borderColor: 'rgba(0, 0, 0, 0.23)'
+                },
+            },
+
+            notchedOutline: {
+                borderWidth: 1,
+                borderStyle: 'solid',
+                borderColor: 'rgba(0, 0, 0, 0.23)',
+                '&$focused $notchedOutline': {
+                    borderColor: "#fff",
+                    borderWidth: 2,
+                },
+                '&::placeholder': {
+                    textOverflow: 'ellipsis !important',
+                    color: 'blue'
+                }
+            }
+        },
+    },
+    palette: {
+        primary: {
+            main: '#000',
+        },
+        secondary: {
+            main: "#E05022"
+        },
+        secondary1: {
+            main: "#4fe329"
+        },
+        mainBlackColor: "#2B2A29",
+        BorderColor: "#E6E6E6",
+        YellowColor: "#E05022",
+    },
+});
 
 const styles = theme => ({
     root: {
@@ -629,6 +727,24 @@ class ProfileEdit extends Component {
 
                                         <React.Fragment>
                                             <Grid item md={6} sm={12} xs={12} className={classes.noPadding}>
+                                                {/*<Fragment>*/}
+
+                                                {/*<MuiPhoneNumber*/}
+                                                {/*    defaultCountry={'ru'}*/}
+                                                {/*    onChange={this.tellChange}*/}
+                                                {/*    fullWidth*/}
+                                                {/*    id="outlined-bare"*/}
+                                                {/*    placeholder={"Номер телефона"}*/}
+                                                {/*    margin="dense"*/}
+                                                {/*    variant="outlined"*/}
+                                                {/*    inputClass={""}*/}
+                                                {/*    name={"phone"}*/}
+                                                {/*    value={this.state.phone}*/}
+                                                {/*    error={this.state.phoneError}*/}
+                                                {/*    helperText={this.state.phoneErrorText}*/}
+                                                {/*    required*/}
+                                                {/*/>*/}
+                                                {/*</Fragment>*/}
                                                 <TextValidator
                                                     validators={['required']}
                                                     errorMessages={['Это поле обязательно к заполнению']}

@@ -753,7 +753,7 @@ class ProfileHeadCoverUser extends Component {
                                         onClick={this.setFollow}
                                         variant="contained" size="medium" color="secondary"
                                         classes={{root: classes.buttonLine}}>
-                                        {this.state.isFollow ? "Подписанный" : "Подписаться"}
+                                        {this.state.isFollow ? "Отменить подписку" : "Подписаться"}
                                     </Button>
                                 </React.Fragment> : ""}
 

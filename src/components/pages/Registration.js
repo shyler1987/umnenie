@@ -18,8 +18,9 @@ import setUserData from '../../redux/actions/setUserData'
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import MuiPhoneNumber from "material-ui-phone-number";
-import ReactPhoneInput from 'react-phone-input-mui';
-
+// import ReactPhoneInput from 'react-phone-input-mui';
+import ReactPhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/dist/style.css'
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -40,6 +41,13 @@ const styles = theme => ({
             // paddingBottom: 25,
         },
 
+    },
+    PhoneInputContainer:{
+        "&:focus": {
+            boxShadow:'none'
+        },
+        marginTop:"5px !important",
+        width: "100% !important"
     },
 
     textFieldRoot: {
@@ -363,16 +371,16 @@ class Registration extends Component {
                                                 {/*    defaultCountry={'ru'}*/}
                                                 {/*    onChange={this.tellChange}*/}
                                                 {/*    fullWidth*/}
-                                                {/*    id="outlined-bare"*/}
-                                                {/*    placeholder={"Номер телефона"}*/}
-                                                {/*    margin="dense"*/}
-                                                {/*    variant="outlined"*/}
-                                                {/*    inputClass={""}*/}
-                                                {/*    name={"phone"}*/}
-                                                {/*    value={this.state.phone}*/}
-                                                {/*    error={this.state.phoneError}*/}
-                                                {/*    helperText={this.state.phoneErrorText}*/}
-                                                {/*    required*/}
+                                                {/*    // id="outlined-bare"*/}
+                                                {/*    // placeholder={"Номер телефона"}*/}
+                                                {/*    // margin="dense"*/}
+                                                {/*    // variant="outlined"*/}
+                                                {/*    // inputClass={""}*/}
+                                                {/*    // name={"phone"}*/}
+                                                {/*    // value={this.state.phone}*/}
+                                                {/*    // error={this.state.phoneError}*/}
+                                                {/*    // helperText={this.state.phoneErrorText}*/}
+                                                {/*    // required*/}
                                                 {/*/>*/}
                                                 {/*    <ReactPhoneInput*/}
                                                 {/*        value={this.state.phone}*/}
@@ -383,6 +391,19 @@ class Registration extends Component {
                                                 {/*            name={"phone"}*/}
                                                 {/*        fullWidth*/}
                                                 {/*    />*/}
+                                                    <ReactPhoneInput
+                                                        component={TextField}
+                                                        inputClass={classes.PhoneInputContainer}
+                                                        containerStyle={{marginTop:5}}
+                                                        defaultCountry={'ru'}
+                                                        value={this.state.phone}
+                                                        inputExtraProps={{
+                                                            name: 'phone',
+                                                            required: true,
+                                                            autoFocus: true
+                                                        }}
+                                                        onChange={this.tellChange}/>
+
                                                 </React.Fragment>
                                                 <TextValidator
                                                     fullWidth

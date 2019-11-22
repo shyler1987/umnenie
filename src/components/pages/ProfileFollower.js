@@ -67,8 +67,12 @@ const styles = theme => ({
     ListButton: {
         textTransform: 'none'
     },
+    btnList:{
+        fontSize:13,
+    },
     ListButtonInActive: {
         textTransform: 'none',
+        fontSize:13,
         color:"#000",
         borderColor:"#eee"
     },
@@ -249,7 +253,7 @@ class ProfileFollower extends Component {
                                             />
                                             <ListItemSecondaryAction>
                                                 <Button variant="contained" color="secondary" onClick={this.clickButton(itemFollow.user_id)}
-                                                        className={classes.ListButton}>Отписать</Button>
+                                                        className={classes.ListButton} classes={{root:classes.btnList}}>Отменить подписку</Button>
                                             </ListItemSecondaryAction>
                                         </ListItem>
                                     </Paper>)

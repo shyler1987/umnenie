@@ -270,6 +270,7 @@ class ChatProfileItem extends Component {
                         </ListItemAvatar>
                         <ListItemText
                             primary={this.state.userFio}
+                            secondary={this.state.userName}
                         />
                     </ListItem>
                 </List>
