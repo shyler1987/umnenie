@@ -181,7 +181,7 @@ class UserFollowers extends Component {
                     userRegistryDate: res.data.userRegistryDate,
                     userType: res.data.userType,
                 })
-                this.props.setTitle("Подписчиков -" + res.data.userFIO);
+                this.props.setTitle("Подписчики -" + res.data.userFIO);
 
             }
 

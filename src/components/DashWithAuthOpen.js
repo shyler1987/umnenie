@@ -133,9 +133,9 @@ class DashWithAuthOpen extends Component {
                     show={this.state.show}
                     color="red"
                 />
-                <Typography classes={{root:classes.titleHead} }>
-                    Опрос
-                </Typography>
+                {/*<Typography classes={{root:classes.titleHead} }>*/}
+                {/*    Опрос*/}
+                {/*</Typography>*/}
                 {this.state.polls.length===0 && !this.state.show && <h2>Ничего не найдено</h2>}
                 <InfiniteScroll
                     dataLength={this.state.polls.length}
@@ -162,7 +162,7 @@ class DashWithAuthOpen extends Component {
                     >
                         <Masonry
                             columnsCount={3}
-                            gutter={"10px"}
+                            gutter={"5px"}
                             gutterTop={"0px"}
                         >
 

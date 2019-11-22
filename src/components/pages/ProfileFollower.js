@@ -151,7 +151,7 @@ class ProfileFollower extends Component {
             this.getFollow(USER_SUBSCRIBERS)
             this.setState({
                 typeComponent:"followers",
-                title:"Подписчиков "
+                title:"Подписчики "
             })
         }
         if(path==="/account/following"){

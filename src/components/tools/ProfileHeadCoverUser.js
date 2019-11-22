@@ -704,7 +704,7 @@ class ProfileHeadCoverUser extends Component {
 
 
                                     >
-                                        Подписчиков <span style={{
+                                        Подписчики <span style={{
                                         marginLeft: 20,
                                         color: '#e35b1e',
                                         float: "right"

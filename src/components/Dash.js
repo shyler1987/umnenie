@@ -128,9 +128,9 @@ class Dash extends Component {
                     show={this.state.show}
                     color="red"
                 />
-                <Typography classes={{root:classes.titleHead} }>
-                    Опрос
-                </Typography>
+                {/*<Typography classes={{root:classes.titleHead} }>*/}
+                {/*    Опрос*/}
+                {/*</Typography>*/}
                 {this.state.polls.length===0 && !this.state.show && <h2>У вас нет опросов</h2>}
                 <InfiniteScroll
                     dataLength={this.state.polls.length}

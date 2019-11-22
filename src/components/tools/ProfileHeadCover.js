@@ -595,7 +595,7 @@ class ProfileHeadCover extends Component {
                                             this.props.history.push("/account/followers");
                                         }}
                                     >
-                                        Подписчиков <span style={{marginLeft: 20, color: '#e35b1e', float:"right"}}>{subscribersCount}</span> <dot className={classes.dot}></dot>
+                                        Подписчики <span style={{marginLeft: 20, color: '#e35b1e', float:"right"}}>{subscribersCount}</span> <dot className={classes.dot}></dot>
                                     </Button>
                                     <Button
                                         variant="outlined"
