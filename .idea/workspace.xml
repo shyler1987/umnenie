@@ -3,85 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3013fece-6add-4506-8dd7-e5be49d79bf2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LayoutPages/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/LayoutPages/Dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LayoutPages/Menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/LayoutPages/Menu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LayoutPages/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/LayoutPages/Profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Dash.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dash.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DashWithAuthOpen.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DashWithAuthOpen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/AuthDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/AuthDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/ChatPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ChatPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/ConfirmUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ConfirmUser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/ExitDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ExitDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/License.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/License.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/PageNotFound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PageNotFound.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/PasswordChange.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PasswordChange.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/PhoneNumberConfirm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PhoneNumberConfirm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/PollCreate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PollCreate.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/pages/PollView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PollView.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/ProfileEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ProfileEdit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/ProfileFollower.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ProfileFollower.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/ProfileJuridic.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ProfileJuridic.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/ProfileUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ProfileUser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/RecoveryPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/RecoveryPassword.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/RecoveryPasswordConfirm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/RecoveryPasswordConfirm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/Registration.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Registration.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/StatisPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/StatisPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/user/UserFollowers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/user/UserFollowers.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/user/UserFollowing.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/user/UserFollowing.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/ChatProfileItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/ChatProfileItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/FloatActionButtun.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/FloatActionButtun.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/LeftMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/LeftMenu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/MySnackbarContentWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/MySnackbarContentWrapper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/PollCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/PollCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/ProfileHeadCoverUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/ProfileHeadCoverUser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/TopMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/TopMenu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layouts/DashboardLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/DashboardLayout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layouts/ProfileLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/ProfileLayout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/back.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/back.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/back.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/back.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/css/fonts.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/css/fonts.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/file_842.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/file_842.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/file_857.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/file_857.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/font.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/font.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/fonts/SourceSansPro-Regular.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/fonts/SourceSansPro-Regular.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/fonts/SourceSansPro.zip" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/fonts/SourceSansPro.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/fonts/SourceSansPro/SourceSansPro.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/fonts/SourceSansPro/SourceSansPro.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/fonts/SourceSansPro/SourceSansProBold/SourceSansProBold.eot" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/fonts/SourceSansPro/SourceSansProBold/SourceSansProBold.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/fonts/SourceSansPro/SourceSansProBold/SourceSansProBold.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/fonts/SourceSansPro/SourceSansProBold/SourceSansProBold.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/fonts/SourceSansPro/SourceSansProBold/SourceSansProBold.woff" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/fonts/SourceSansPro/SourceSansProBold/SourceSansProBold.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/fonts/SourceSansPro/SourceSansProLight/SourceSansProLight.eot" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/fonts/SourceSansPro/SourceSansProLight/SourceSansProLight.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/fonts/SourceSansPro/SourceSansProLight/SourceSansProLight.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/fonts/SourceSansPro/SourceSansProLight/SourceSansProLight.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/fonts/SourceSansPro/SourceSansProLight/SourceSansProLight.woff" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/fonts/SourceSansPro/SourceSansProLight/SourceSansProLight.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/fonts/SourceSansPro/SourceSansProRegular/SourceSansProRegular.eot" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/fonts/SourceSansPro/SourceSansProRegular/SourceSansProRegular.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/fonts/SourceSansPro/SourceSansProRegular/SourceSansProRegular.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/fonts/SourceSansPro/SourceSansProRegular/SourceSansProRegular.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/fonts/SourceSansPro/SourceSansProRegular/SourceSansProRegular.woff" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/fonts/SourceSansPro/SourceSansProRegular/SourceSansProRegular.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/fonts/source-sans-pro/source-sans-pro-v13-latin_cyrillic_cyrillic-ext-regular.eot" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/fonts/source-sans-pro/source-sans-pro-v13-latin_cyrillic_cyrillic-ext-regular.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/fonts/source-sans-pro/source-sans-pro-v13-latin_cyrillic_cyrillic-ext-regular.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/fonts/source-sans-pro/source-sans-pro-v13-latin_cyrillic_cyrillic-ext-regular.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/fonts/source-sans-pro/source-sans-pro-v13-latin_cyrillic_cyrillic-ext-regular.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/fonts/source-sans-pro/source-sans-pro-v13-latin_cyrillic_cyrillic-ext-regular.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/fonts/source-sans-pro/source-sans-pro-v13-latin_cyrillic_cyrillic-ext-regular.woff" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/fonts/source-sans-pro/source-sans-pro-v13-latin_cyrillic_cyrillic-ext-regular.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/fonts/source-sans-pro/source-sans-pro-v13-latin_cyrillic_cyrillic-ext-regular.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/fonts/source-sans-pro/source-sans-pro-v13-latin_cyrillic_cyrillic-ext-regular.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/check.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/icons/check.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/checkinline.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/icons/checkinline.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/icons/photo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/icons/photo.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/logo_q.ico" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/logo_q.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/logo_q.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/logo_q.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/selenaAvatar.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/selenaAvatar.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/media/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/media/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/actions/seTisAuthenticated.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions/seTisAuthenticated.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/actions/setExitApp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions/setExitApp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/actions/setIsAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions/setIsAuth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/actions/setNotificationData.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions/setNotificationData.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/actions/setPhoneNumber.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions/setPhoneNumber.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/actions/setTitleAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions/setTitleAction.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/actions/setUserData.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions/setUserData.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/reducers/mainReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/mainReducer.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -314,7 +236,8 @@
       <workItem from="1574333285989" duration="648000" />
       <workItem from="1574347535453" duration="5295000" />
       <workItem from="1574395729662" duration="6398000" />
-      <workItem from="1574446327511" duration="1247000" />
+      <workItem from="1574446327511" duration="1911000" />
+      <workItem from="1574504165534" duration="1711000" />
     </task>
     <servers />
   </component>
