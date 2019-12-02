@@ -303,6 +303,16 @@ const styles = theme => ({
             display:'none'
         }
     },
+    rootSpase: {
+        [theme.breakpoints.down('sm')]: {
+            margin: "0px !important",
+            padding: 0,
+            width: "100% !important",
+            // '& > .MuiGrid-item': {
+            //     padding: 0,
+            // },
+        },
+    },
 
 
 });
@@ -527,7 +537,7 @@ class ProfileEdit extends Component {
     componentDidMount() {
         this.getCoategorys();
         this.fetchMe();
-        this.props.setTitle("Редактировать профиль");
+        this.props.setTitle("Личный кабинет");
         this.ProfileEdit.current.scrollIntoView({behavior: 'smooth', block: 'start'})
 
     }
@@ -548,10 +558,13 @@ class ProfileEdit extends Component {
                     color="red"
                 />
 
-                <Typography classes={{root: classes.titleHead}}>
-                    Редактировать профиль
-                </Typography>
-                <Grid container spacing={2} direction={"row"}>
+                <Typography classes={{root: classes.titleHead}}>Личный кабинет</Typography>
+                <Grid
+                    container
+                    spacing={2}
+                    direction={"row"}
+                    classes={{root: classes.rootSpase}}
+                >
                     <Grid item md={3} sm={12} xs={12}>
                         <LeftMenu/>
                     </Grid>
@@ -655,7 +668,7 @@ class ProfileEdit extends Component {
                                             <TextValidator
                                                 name={"userName"}
                                                 value={this.state.userName}
-                                                onChange={this.handleChangeField}
+                                                disabled
                                                 margin="dense"
                                                 id="outlined-name"
                                                 fullWidth
@@ -693,6 +706,7 @@ class ProfileEdit extends Component {
                                                 margin="dense"
                                                 id="outlined-name"
                                                 fullWidth
+                                                disabled
                                                 placeholder={"Имя пользователя"}
                                                 className={classes.textField}
                                                 variant="outlined"

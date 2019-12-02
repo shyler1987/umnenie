@@ -154,6 +154,7 @@ class LeftMenu extends Component {
         this.state = {
             userImage: userInfo.userImage,
             userFIO: userInfo.userFIO,
+            userName: userInfo.userName,
             show: false
         }
 
@@ -175,6 +176,11 @@ class LeftMenu extends Component {
         if (nextProps.userInfo.userFIO !== this.state.userFIO) {
             this.setState({
                 userFIO: nextProps.userInfo.userFIO
+            })
+        }
+        if (nextProps.userInfo.userName !== this.state.userName) {
+            this.setState({
+                userName: nextProps.userInfo.userName
             })
         }
     }
@@ -227,7 +233,7 @@ class LeftMenu extends Component {
                                               className={classes.bigAvatar}/></Link>
                         <div style={{paddingLeft: 10}}>
                             <Link to={"/account/profile"}><Typography classes={{root: classes.rootHead}}
-                                                      variant={"h5"}>{this.state.userFIO}</Typography></Link>
+                                                      variant={"h5"}>{this.state.userName}</Typography></Link>
 
 
                             <label htmlFor="contained-button-avatar">

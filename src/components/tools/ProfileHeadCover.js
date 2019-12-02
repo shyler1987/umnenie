@@ -613,9 +613,7 @@ class ProfileHeadCover extends Component {
                                 </Hidden>
 
                                     <Badge badgeContent={this.props.notification} color="secondary" invisible={this.props.notification===0} classes={{badge:classes.margin}}>
-                                        <Button variant="contained" size="medium"  color="secondary" classes={{root:classes.buttonLine}} onClick={()=>{this.profileEdit()}}>
-                                            Редактировать профиль
-                                        </Button>
+                                        <Button variant="contained" size="medium"  color="secondary" classes={{root:classes.buttonLine}} onClick={()=>{this.profileEdit()}}>Личный кабинет</Button>
                                     </Badge>
 
                                 {/*<Button variant="contained" size="medium"  color="secondary" classes={{root:classes.buttonLine}}>*/}

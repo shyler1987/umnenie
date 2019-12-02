@@ -302,7 +302,7 @@ const styles = theme => ({
                             <Badge invisible={this.props.notification===0}  badgeContent={this.props.notification} color="secondary" classes={{badge:classes.margin}}>
                                 <Avatar aria-label="Recipe" src={this.props.userInfo.userImage}/>
                             </Badge>
-                            <Typography>{this.props.userInfo.userFIO}</Typography>
+                            <Typography>{this.props.userInfo.userName}</Typography>
                         </Link>
                     </React.Fragment>:
                             <Button className={classes.button} onClick={this.setAuthClick}>Войти</Button>

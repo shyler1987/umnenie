@@ -3,9 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="3013fece-6add-4506-8dd7-e5be49d79bf2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/ChatPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ChatPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/PasswordChange.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PasswordChange.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/PollCreate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PollCreate.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/pages/PollView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PollView.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/ProfileEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ProfileEdit.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/Registration.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Registration.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tools/LeftMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/LeftMenu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tools/TopMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/TopMenu.js" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,6 +32,11 @@
   <component name="ProjectId" id="1R0fU71Jr7meGaGHefyrZCAf8hN" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="true" />
@@ -95,18 +107,6 @@
       </list>
     </option>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager">
     <configuration name="PollCreate.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/components/pages/PollCreate.js" working-dir="$PROJECT_DIR$/src/components/pages">
       <method v="2" />
@@ -116,6 +116,18 @@
         <item itemvalue="Node.js.PollCreate.js" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -237,7 +249,8 @@
       <workItem from="1574347535453" duration="5295000" />
       <workItem from="1574395729662" duration="6398000" />
       <workItem from="1574446327511" duration="1911000" />
-      <workItem from="1574504165534" duration="1711000" />
+      <workItem from="1574504165534" duration="2157000" />
+      <workItem from="1575305822581" duration="5965000" />
     </task>
     <servers />
   </component>

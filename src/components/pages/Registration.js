@@ -21,6 +21,7 @@ import MuiPhoneNumber from "material-ui-phone-number";
 // import ReactPhoneInput from 'react-phone-input-mui';
 import ReactPhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/dist/style.css'
+
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -42,11 +43,11 @@ const styles = theme => ({
         },
 
     },
-    PhoneInputContainer:{
+    PhoneInputContainer: {
         "&:focus": {
-            boxShadow:'none'
+            boxShadow: 'none'
         },
-        marginTop:"5px !important",
+        marginTop: "5px !important",
         width: "100% !important"
     },
 
@@ -201,8 +202,12 @@ class Registration extends Component {
         })
     }
 
-    tellChange = (e) => {
-        console.log(e);
+    tellChange = (e, data, event) => {
+        // console.log(data, event);
+        // console.log(e.replace(/[^0-9]+/g,'').slice(data.dialCode.length));
+        this.setState({
+            phone: e
+        });
     }
 
     onSubmitForm = () => {
@@ -263,10 +268,10 @@ class Registration extends Component {
         })
     }
 
-    backTo =(e) =>{
+    backTo = (e) => {
         e.preventDefault();
         this.setState({
-            step:1
+            step: 1
         })
     }
     regAction = (data) => {
@@ -352,49 +357,49 @@ class Registration extends Component {
                                         </ButtonGroup>
                                         {this.state.personToggle ?
                                             <React.Fragment>
-                                                <TextValidator
-                                                    fullWidth
-                                                    id="outlined-bare"
-                                                    placeholder={"Ф.И.О"}
-                                                    name={"fio"}
-                                                    value={this.state.fio}
-                                                    onChange={this.handleChange}
-                                                    validators={['required']}
-                                                    errorMessages={['Это поле обязательно к заполнению']}
-                                                    error={this.state.fioError}
-                                                    helperText={this.state.fioErrorText}
-                                                    margin="dense"
-                                                    variant="outlined"
-                                                />
-                                                <React.Fragment>
-                                                {/*<MuiPhoneNumber*/}
-                                                {/*    defaultCountry={'ru'}*/}
-                                                {/*    onChange={this.tellChange}*/}
+                                                {/*<TextValidator*/}
                                                 {/*    fullWidth*/}
-                                                {/*    // id="outlined-bare"*/}
-                                                {/*    // placeholder={"Номер телефона"}*/}
-                                                {/*    // margin="dense"*/}
-                                                {/*    // variant="outlined"*/}
-                                                {/*    // inputClass={""}*/}
-                                                {/*    // name={"phone"}*/}
-                                                {/*    // value={this.state.phone}*/}
-                                                {/*    // error={this.state.phoneError}*/}
-                                                {/*    // helperText={this.state.phoneErrorText}*/}
-                                                {/*    // required*/}
+                                                {/*    id="outlined-bare"*/}
+                                                {/*    placeholder={"Ф.И.О"}*/}
+                                                {/*    name={"fio"}*/}
+                                                {/*    value={this.state.fio}*/}
+                                                {/*    onChange={this.handleChange}*/}
+                                                {/*    validators={['required']}*/}
+                                                {/*    errorMessages={['Это поле обязательно к заполнению']}*/}
+                                                {/*    error={this.state.fioError}*/}
+                                                {/*    helperText={this.state.fioErrorText}*/}
+                                                {/*    margin="dense"*/}
+                                                {/*    variant="outlined"*/}
                                                 {/*/>*/}
-                                                {/*    <ReactPhoneInput*/}
-                                                {/*        value={this.state.phone}*/}
-                                                {/*        onChange={this.tellChange} // passed function receives the phone value*/}
-                                                {/*        component={TextField}*/}
-                                                {/*            margin="dense"*/}
-                                                {/*            variant="outlined"*/}
-                                                {/*            name={"phone"}*/}
-                                                {/*        fullWidth*/}
-                                                {/*    />*/}
+                                                <React.Fragment>
+                                                    {/*<MuiPhoneNumber*/}
+                                                    {/*    defaultCountry={'ru'}*/}
+                                                    {/*    onChange={this.tellChange}*/}
+                                                    {/*    fullWidth*/}
+                                                    {/*    // id="outlined-bare"*/}
+                                                    {/*    // placeholder={"Номер телефона"}*/}
+                                                    {/*    // margin="dense"*/}
+                                                    {/*    // variant="outlined"*/}
+                                                    {/*    // inputClass={""}*/}
+                                                    {/*    // name={"phone"}*/}
+                                                    {/*    // value={this.state.phone}*/}
+                                                    {/*    // error={this.state.phoneError}*/}
+                                                    {/*    // helperText={this.state.phoneErrorText}*/}
+                                                    {/*    // required*/}
+                                                    {/*/>*/}
+                                                    {/*    <ReactPhoneInput*/}
+                                                    {/*        value={this.state.phone}*/}
+                                                    {/*        onChange={this.tellChange} // passed function receives the phone value*/}
+                                                    {/*        component={TextField}*/}
+                                                    {/*            margin="dense"*/}
+                                                    {/*            variant="outlined"*/}
+                                                    {/*            name={"phone"}*/}
+                                                    {/*        fullWidth*/}
+                                                    {/*    />*/}
                                                     <ReactPhoneInput
                                                         component={TextField}
                                                         inputClass={classes.PhoneInputContainer}
-                                                        containerStyle={{marginTop:5}}
+                                                        containerStyle={{marginTop: 5}}
                                                         defaultCountry={'ru'}
                                                         value={this.state.phone}
                                                         inputExtraProps={{
@@ -402,23 +407,26 @@ class Registration extends Component {
                                                             required: true,
                                                             autoFocus: true
                                                         }}
+
+                                                        error={this.state.phoneError}
+                                                        helperText={this.state.phoneErrorText}
                                                         onChange={this.tellChange}/>
 
                                                 </React.Fragment>
-                                                <TextValidator
-                                                    fullWidth
-                                                    id="outlined-bare"
-                                                    placeholder={"Номер телефона"}
-                                                    margin="dense"
-                                                    variant="outlined"
-                                                    name={"phone"}
-                                                    onChange={this.handleChange}
-                                                    value={this.state.phone}
-                                                    error={this.state.phoneError}
-                                                    helperText={this.state.phoneErrorText}
-                                                    validators={['required']}
-                                                    errorMessages={['Это поле обязательно к заполнению']}
-                                                />
+                                                {/*<TextValidator*/}
+                                                {/*    fullWidth*/}
+                                                {/*    id="outlined-bare"*/}
+                                                {/*    placeholder={"Номер телефона"}*/}
+                                                {/*    margin="dense"*/}
+                                                {/*    variant="outlined"*/}
+                                                {/*    name={"phone"}*/}
+                                                {/*    onChange={this.handleChange}*/}
+                                                {/*    value={this.state.phone}*/}
+                                                {/*    error={this.state.phoneError}*/}
+                                                {/*    helperText={this.state.phoneErrorText}*/}
+                                                {/*    validators={['required']}*/}
+                                                {/*    errorMessages={['Это поле обязательно к заполнению']}*/}
+                                                {/*/>*/}
                                             </React.Fragment>
                                             :
                                             <React.Fragment>
@@ -553,15 +561,17 @@ class Registration extends Component {
 
                                         >
                                             <Grid item md={4}>
-                                                <Button  color="primary" variant={"outlined"} fullWidth classes={{
-                                                    outlinedPrimary:classes.outlinedPrimary, root: classes.regBtns}}
-                                                         onClick={this.backTo}
+                                                <Button color="primary" variant={"outlined"} fullWidth classes={{
+                                                    outlinedPrimary: classes.outlinedPrimary, root: classes.regBtns
+                                                }}
+                                                        onClick={this.backTo}
                                                 >
                                                     Назад
                                                 </Button>
                                             </Grid>
                                             <Grid item md={8}>
-                                                <Button variant="contained" color="secondary" fullWidth disabled={this.state.show}
+                                                <Button variant="contained" color="secondary" fullWidth
+                                                        disabled={this.state.show}
                                                         classes={{root: classes.regBtns}} type={"submit"}
                                                         disabled={this.state.show}>
                                                     Зарегистрироваться

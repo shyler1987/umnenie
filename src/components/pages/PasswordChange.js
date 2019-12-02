@@ -127,7 +127,16 @@ const styles = theme => ({
             display:'none'
         }
     },
-
+    rootSpase: {
+        [theme.breakpoints.down('sm')]: {
+            margin: "0px !important",
+            padding: 0,
+            width: "100% !important",
+            // '& > .MuiGrid-item': {
+            //     padding: 0,
+            // },
+        },
+    },
 
 });
 
@@ -258,7 +267,7 @@ class PasswordChange extends Component {
                 <Typography classes={{root:classes.titleHead}} >
                         Сменить пароль
                     </Typography>
-                    <Grid container spacing={2} direction={"row"}>
+                    <Grid container spacing={2} direction={"row"}  classes={{root: classes.rootSpase}}>
                         <Grid item md={3} sm={12} xs={12}>
                             <LeftMenu/>
                         </Grid>
