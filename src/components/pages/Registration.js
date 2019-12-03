@@ -187,6 +187,7 @@ class Registration extends Component {
             errorPhone: false,
             errorSms_code: false,
             step: 1,
+            dialCode: 0,
         }
     }
 
@@ -204,9 +205,15 @@ class Registration extends Component {
 
     tellChange = (e, data, event) => {
         // console.log(data, event);
-        // console.log(e.replace(/[^0-9]+/g,'').slice(data.dialCode.length));
+        let without_dialcode = e.replace(/[^0-9]+/g,'').slice(data.dialCode.length);
+        if(without_dialcode.length>=9){
+            this.setState({
+                phone: e,
+            });
+        }
         this.setState({
-            phone: e
+            phone_input:e,
+            dialCode:data.dialCode
         });
     }
 
@@ -401,13 +408,16 @@ class Registration extends Component {
                                                         inputClass={classes.PhoneInputContainer}
                                                         containerStyle={{marginTop: 5}}
                                                         defaultCountry={'ru'}
-                                                        value={this.state.phone}
+                                                        value={this.state.phone_input}
                                                         inputExtraProps={{
                                                             name: 'phone',
                                                             required: true,
                                                             autoFocus: true
                                                         }}
-
+                                                        isValid={(inputNumber, onlyCountries) => {
+                                                            let without_dialcode = inputNumber.replace(/[^0-9]+/g,'').slice(this.state.dialCode.length);
+                                                            return without_dialcode.length<9 ? false : true;
+                                                        }}
                                                         error={this.state.phoneError}
                                                         helperText={this.state.phoneErrorText}
                                                         onChange={this.tellChange}/>
