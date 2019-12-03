@@ -3,15 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="3013fece-6add-4506-8dd7-e5be49d79bf2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/ChatPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ChatPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/PasswordChange.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PasswordChange.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/PollCreate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PollCreate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/PollView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/PollView.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/ProfileEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/ProfileEdit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/Registration.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Registration.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/LeftMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/LeftMenu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/ProfileHeadCover.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/tools/TopMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tools/TopMenu.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,7 +241,7 @@
       <workItem from="1574395729662" duration="6398000" />
       <workItem from="1574446327511" duration="1911000" />
       <workItem from="1574504165534" duration="2157000" />
-      <workItem from="1575305822581" duration="5965000" />
+      <workItem from="1575305822581" duration="6440000" />
     </task>
     <servers />
   </component>
