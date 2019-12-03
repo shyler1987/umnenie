@@ -93,6 +93,9 @@ const styles = theme => ({
         fontSize:12,
         fontWeight: 400,
         color:theme.palette.YellowColor
+    },
+    buttonLabel:{
+        fontSize: 10
     }
 
 
@@ -252,8 +255,12 @@ class ProfileFollower extends Component {
                                                 secondary={itemFollow.userName}
                                             />
                                             <ListItemSecondaryAction>
-                                                <Button variant="contained" color="secondary" onClick={this.clickButton(itemFollow.user_id)}
-                                                        className={classes.ListButton} classes={{root:classes.btnList}}>Отменить подписку</Button>
+                                                <Button
+                                                    size={"small"}
+                                                    variant="contained"
+                                                    color="secondary" onClick={this.clickButton(itemFollow.user_id)}
+                                                    className={classes.ListButton}
+                                                    classes={{root:classes.btnList, label:classes.buttonLabel}}>Отменить подписку</Button>
                                             </ListItemSecondaryAction>
                                         </ListItem>
                                     </Paper>)
