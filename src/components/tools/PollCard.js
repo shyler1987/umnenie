@@ -218,7 +218,7 @@ const styles = theme => ({
             height: 5,
             background: "#e67043",
             right: 10,
-            top: 20,
+            //top: 20,
             position: 'absolute',
             opacity: 0.7
 
