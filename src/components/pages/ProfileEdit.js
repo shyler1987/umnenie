@@ -684,21 +684,21 @@ class ProfileEdit extends Component {
 
 
                                         {this.state.userType === 1 ? <React.Fragment>
-                                            <TextValidator
-                                                name={"userFIO"}
-                                                value={this.state.userFIO}
-                                                onChange={this.handleChangeField}
-                                                margin="dense"
-                                                id="outlined-name"
-                                                fullWidth
-                                                placeholder={"И.Ф.О"}
-                                                className={classes.textField}
-                                                variant="outlined"
-                                                validators={['required']}
-                                                errorMessages={['Это поле обязательно к заполнению']}
-                                                error={this.state.userFIOError}
-                                                helperText={this.state.userFIOErrorText}
-                                            />
+                                            {/*<TextValidator*/}
+                                            {/*    name={"userFIO"}*/}
+                                            {/*    value={this.state.userFIO}*/}
+                                            {/*    onChange={this.handleChangeField}*/}
+                                            {/*    margin="dense"*/}
+                                            {/*    id="outlined-name"*/}
+                                            {/*    fullWidth*/}
+                                            {/*    placeholder={"И.Ф.О"}*/}
+                                            {/*    className={classes.textField}*/}
+                                            {/*    variant="outlined"*/}
+                                            {/*    validators={['required']}*/}
+                                            {/*    errorMessages={['Это поле обязательно к заполнению']}*/}
+                                            {/*    error={this.state.userFIOError}*/}
+                                            {/*    helperText={this.state.userFIOErrorText}*/}
+                                            {/*/>*/}
                                             <TextValidator
                                                 name={"userName"}
                                                 value={this.state.userName}
