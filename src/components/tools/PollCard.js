@@ -681,7 +681,7 @@ class PollCard extends Component {
                                     >
 
                                         <figure className={classes.tint}>
-                                            <img src={item.image} className={classes.cardTileImg + ' imgTile'}/>
+                                            <img src={item.image} srcset="https://a.wattpad.com/cover/172717274-256-k450660.jpg 640w, https://look.com.ua/pic/201704/1024x600/look.com.ua-207480.jpg 750w,https://i.mycdn.me/i?r=AzEPZsRbOZEKgBhR0XGMT1RkWm0IkRGOukRBS2T4Yk-HNKaKTM5SRkZCeTgDn6uOyic 1080w" className={classes.cardTileImg + ' imgTile'}/>
                                         </figure>
                                         <GridListTileBar
                                             title={item.option}
@@ -800,7 +800,7 @@ class PollCard extends Component {
                             }) : ""
                         }
 
-                    </GridList> : <img style={{width: '100%'}} src={this.state.imagePoll}/>}
+                    </GridList> : <img style={{width: '100%'}} src={this.state.imagePoll} srcset="https://a.wattpad.com/cover/172717274-256-k450660.jpg 640w, https://look.com.ua/pic/201704/1024x600/look.com.ua-207480.jpg 750w,https://i.mycdn.me/i?r=AzEPZsRbOZEKgBhR0XGMT1RkWm0IkRGOukRBS2T4Yk-HNKaKTM5SRkZCeTgDn6uOyic 1080w"/>}
 
             </CardMedia>
             {this.state.pollType === 2 ?
