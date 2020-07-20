@@ -1,6 +1,5 @@
 User-agent: *
-<<<<<<< HEAD
-Disallow:/
-=======
-Disallow:
->>>>>>> fef3d8e0c035f9added84fade7402f9f927b22a0
+
+Disallow: /account/*
+
+Host: https://umnenie.com

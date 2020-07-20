@@ -239,7 +239,8 @@ class PollView extends Component {
 
     componentDidMount() {
         this.fetchPoll(this.state.idPoll);
-        this.props.setTitle("Просмотр Опроса");
+        //this.props.setTitle("Просмотр Опроса");
+       
 
     }
 
@@ -453,6 +454,7 @@ class PollView extends Component {
 
         const meta = {
             description: this.state.metaDesc,
+            title: this.state.metaDesc+' Узнай на Umnenie.com',
             meta: {
                 charset: 'utf-8',
                 name: {
@@ -460,6 +462,8 @@ class PollView extends Component {
                 }
             }
         };
+        
+        
         return (
             <div>
                 <DocumentMeta {...meta}/>
