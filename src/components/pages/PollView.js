@@ -455,6 +455,7 @@ class PollView extends Component {
         const meta = {
             description: this.state.metaDesc,
             title: this.state.metaDesc+' Узнай на Umnenie.com',
+            canonical: `/polls/${this.state.idPoll}`,
             meta: {
                 charset: 'utf-8',
                 name: {

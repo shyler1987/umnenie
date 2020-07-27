@@ -2,4 +2,4 @@ User-agent: *
 
 Disallow: /account/*
 
-Host: umnenie.com
+Host: https://umnenie.com
